@@ -17,9 +17,12 @@ consumidores de café, cafeterías, restaurantes y distribuidores.
   testimonio, placeholder de imagen y campo de formulario.
 - `data/` - contenido tipado de la landing (navegación, proceso, productos,
   valores, estadísticas, testimonios).
-- `styles/tailwind.css` - sistema visual local de Tailwind CSS v4: tokens,
-  breakpoints, contenedor, botones oficiales, encabezados de sección,
-  campos, variante `dark` por `data-theme` y utilities especiales.
+- `styles/tailwind.css` - sistema visual local y autocontenido de Tailwind
+  CSS v4: declara sus propios tokens (`:root`/`[data-theme="dark"]`/`@theme
+inline`/`@theme`), breakpoints, contenedor, escala tipográfica fluida,
+  easing y la utility `reveal`, sin importar ningún fichero fuera de esta
+  carpeta. Los nombres de los tokens son el vocabulario compartido de la
+  galería; los valores pertenecen solo a esta landing.
 - `scripts/` - `theme.ts` (escucha el `postMessage` de tema del shell de
   previsualización y lo aplica solo al propio documento), `reveal.ts`
   (reveals al hacer scroll vía `IntersectionObserver`, respeta
@@ -29,25 +32,50 @@ consumidores de café, cafeterías, restaurantes y distribuidores.
 
 ## Sistema de estilos
 
-Tailwind CSS v4 es el sistema de diseño y composición visual de la landing. El
-archivo `styles/tailwind.css` centraliza los tokens con `@theme`, los patrones
-visuales reutilizados con `@layer components` y las capacidades especiales con
-`@utility`. Los estilos específicos que aparecen una sola vez permanecen como
+Tailwind CSS v4 es el sistema de diseño y composición visual de la landing.
+`styles/tailwind.css` es el único fichero de estilos de la landing y es
+totalmente autónomo: no importa `src/styles/landing-design-system.css` ni
+ningún otro fichero de la plataforma o de otra landing. Declara localmente
+los tokens con `:root`/`[data-theme="dark"]`/`@theme inline`/`@theme`
+(colores semánticos, tipografía, breakpoints, contenedor, spacing, easing,
+escala tipográfica fluida) y la utility `reveal` con `@utility`. Las
+capacidades especiales de Swiper (paginación de `Productos`) se resuelven con
+CSS local mínimo, ya que Tailwind no expone utilities para esas custom
+properties. Los estilos específicos que aparecen una sola vez permanecen como
 utilities directamente en el markup Astro.
 
 Criterio aplicado:
 
-- Design token -> `@theme`.
-- Patrón visual reutilizable -> `@layer components`.
+- Design token -> `@theme` / `@theme inline` (local a esta landing).
 - Utility especializada -> `@utility`.
 - Estilo específico -> utilities directamente en `class`.
 - Estructura, contenido, lógica o semántica reutilizable -> componente Astro.
 
 No hay `ui.ts`, `styles.ts`, `classes.ts`, objetos TypeScript de variantes
-visuales ni componentes Astro creados solo para encapsular clases. Los estilos
-compartidos de botones viven en Tailwind como `.btn`, `.btn-primary`,
-`.btn-secondary`, `.btn-ghost` y `.btn-tertiary`; cada uso conserva su HTML
-semántico real (`<a>` para navegación, `<button>` para acciones).
+visuales, `@layer components` ni componentes Astro creados solo para
+encapsular clases. Las variantes de botón oficiales (`primary`, `secondary`,
+`ghost`, `tertiary`) se aplican como utilities de Tailwind directamente en el
+markup; cada uso conserva su HTML semántico real (`<a>` para navegación,
+`<button>` para acciones).
+
+## Variables CSS disponibles
+
+Declaradas localmente en `styles/tailwind.css` (mismos nombres que el resto
+de la galería, valores propios de esta landing): `--background`,
+`--background-alt`, `--foreground`, `--muted`, `--border`, `--surface`,
+`--surface-strong`, `--control`, `--control-hover`, `--ring`, `--primary`,
+`--primary-foreground`, `--emphasis`, `--disabled`, `--disabled-foreground`,
+`--inverted`, `--inverted-foreground`, `--inverted-surface`, `--placeholder`,
+`--placeholder-foreground`, `--placeholder-inverse` (con overrides bajo
+`[data-theme="dark"]`), más `--font-sans`/`--font-display`/`--font-mono`,
+`--breakpoint-footer/cards/nav/stats/display`, `--spacing-section`,
+`--spacing-container-x`, `--container-landing/copy/heading/hero-heading`,
+`--ease-landing` y la escala `--text-headline-1/2/3`/`--text-figure`.
+
+## Paletas de color
+
+Esta landing no define paletas de color opcionales: usa exclusivamente la
+paleta monocromática por defecto (`palettes: []` en su metadata).
 
 ## Datos ficticios y privacidad
 
@@ -59,9 +87,11 @@ ficticios: `correo@ejemplo.com`, `+00 000 000 000`, `Dirección de ejemplo`,
 
 ## Notas
 
-- La imagen de `thumbnail`/`previewImage` usada por la tarjeta del catálogo y el
-  detalle vive en `public/landings/coffee-producer/cover.png` (portada
-  curada de la landing, distinta de los placeholders de contenido).
+- La imagen de `thumbnail` usada por la tarjeta del catálogo y la página de
+  detalle es una fotografía de Unsplash hotlinkeada (`images.unsplash.com`),
+  con su crédito (`thumbnailCredit`) persistido en
+  `src/content/landings/coffee-producer.json`. No se aloja ninguna copia en
+  `public/`.
 - Todas las imágenes de contenido son placeholders con proporción real,
   listos para sustituirse por `<img>`/`Image`/`Picture` sin rediseñar nada.
 - Soporta tema claro y oscuro, ambos diseñados de forma independiente.

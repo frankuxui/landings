@@ -17,10 +17,13 @@ consumidores, tiendas especializadas, restauración, hoteles y distribuidores.
   producción, fila de segmento B2B y artículo editorial.
 - `data/` - contenido tipado de la landing (navegación, proceso, productos,
   cifras de producción, segmentos de distribución, piezas editoriales).
-- `styles/tailwind.css` - sistema visual local de Tailwind CSS v4: tokens
-  semánticos (`:root` / `[data-theme="dark"]` / `@theme inline`), tipografía
-  fluida, radios "de molde" (casi rectos) y la variante `dark` por
-  `data-theme`.
+- `styles/tailwind.css` - sistema visual local de Tailwind CSS v4, **completo
+  y autocontenido**: tokens semánticos (`:root` / `[data-theme="dark"]` /
+  `@theme inline`), tipografía fluida, breakpoints y contenedores propios,
+  easing y la utility `reveal` (`@utility`). No importa ningún fichero fuera
+  de esta carpeta — en particular, no depende de
+  `src/styles/landing-design-system.css` ni de ningún otro fichero
+  compartido de la plataforma o de otra landing.
 - `scripts/` - `theme.ts` (escucha el `postMessage` de tema del shell de
   previsualización y lo aplica solo al propio documento), `reveal.ts`
   (reveals al hacer scroll vía `IntersectionObserver`), `menu.ts` (panel de
@@ -87,9 +90,11 @@ ficticios: `correo@ejemplo.com`, `+00 000 000 000`, `Dirección de ejemplo`,
 
 ## Notas
 
-- La imagen de `thumbnail`/`previewImage` usada por la tarjeta del catálogo y el
-  detalle vive en `public/landings/chocolate-factory/cover.png` (portada
-  curada de la landing, distinta de los placeholders de contenido).
+- La imagen de `thumbnail` usada por la tarjeta del catálogo y la página de
+  detalle es una fotografía de Unsplash hotlinkeada (`images.unsplash.com`),
+  con su crédito (`thumbnailCredit`) persistido en
+  `src/content/landings/chocolate-factory.json`. No se aloja ninguna copia en
+  `public/`.
 - Todas las imágenes de contenido son placeholders (`bg-placeholder` /
   `bg-placeholder-inverse`) con proporción real, listos para sustituirse por
   `<img>`/`Image`/`Picture` sin rediseñar nada.

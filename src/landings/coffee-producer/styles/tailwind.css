@@ -1,10 +1,164 @@
 @import "tailwindcss";
 
-/* Shared design-system contract for every Landing Page (colors, Light/Dark,
-   fluid heading scale, base structural tokens). Single source of truth —
-   never redefine, rename, or duplicate its tokens here. See
-   src/styles/landing-design-system.css. */
-@import "../../../styles/landing-design-system.css";
+/* This landing's own complete design-token contract — colors, Light/Dark,
+   fluid heading scale, and base structural tokens. Declared locally so this
+   landing is fully self-contained and never depends on another file inside
+   or outside the repo (see the astro-landing-pages Skill: "Design tokens:
+   same names everywhere, independent values per landing"). Token NAMES are
+   shared vocabulary across the gallery; the VALUES below belong only to
+   this landing. */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --background: var(--color-neutral-50);
+  --background-alt: var(--color-neutral-100);
+  --foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-white);
+  --surface-strong: var(--color-neutral-100);
+  --control: var(--color-neutral-200);
+  --control-hover: var(--color-neutral-300);
+  --ring: var(--color-neutral-900);
+
+  --primary: var(--color-neutral-900);
+  --primary-foreground: var(--color-white);
+  --emphasis: var(--color-black);
+
+  --disabled: var(--color-neutral-300);
+  --disabled-foreground: var(--color-neutral-500);
+
+  --inverted: var(--color-neutral-950);
+  --inverted-foreground: var(--color-white);
+  --inverted-surface: var(--color-neutral-900);
+
+  --placeholder: var(--color-neutral-900);
+  --placeholder-foreground: var(--color-white);
+  --placeholder-inverse: rgb(255 255 255 / 0.72);
+}
+
+[data-theme="dark"] {
+  --background: var(--color-neutral-950);
+  --background-alt: var(--color-neutral-900);
+  --foreground: var(--color-neutral-100);
+  --muted: var(--color-neutral-300);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-neutral-900);
+  --surface-strong: var(--color-neutral-800);
+  --control: var(--color-neutral-800);
+  --control-hover: var(--color-neutral-700);
+  --ring: var(--color-neutral-300);
+
+  --primary: var(--color-neutral-100);
+  --primary-foreground: var(--color-neutral-950);
+  --emphasis: var(--color-white);
+
+  --disabled: var(--color-neutral-700);
+  --disabled-foreground: var(--color-neutral-400);
+
+  --inverted: var(--color-neutral-100);
+  --inverted-foreground: var(--color-neutral-950);
+  --inverted-surface: var(--color-neutral-200);
+
+  --placeholder: var(--color-neutral-300);
+  --placeholder-foreground: var(--color-neutral-900);
+  --placeholder-inverse: rgb(10 10 10 / 0.65);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-emphasis: var(--emphasis);
+
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
+  --color-inverted-surface: var(--inverted-surface);
+
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-placeholder-inverse: var(--placeholder-inverse);
+}
+
+@theme {
+  /* Base reading typeface — Wix Madefor Text
+     (https://fonts.google.com/specimen/Wix+Madefor+Text), loaded once via
+     Google Fonts <link> tags in this landing's own <head> (see "Shared
+     typography" in the astro-landing-pages Skill) — never via @import
+     here. */
+  --font-sans: "Wix Madefor Text", sans-serif;
+  --font-display: "Wix Madefor Text", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Structural breakpoints beyond Tailwind's native sm/md/lg/xl/2xl, named
+     by the generic layout concern they solve. */
+  --breakpoint-footer: 45rem;
+  --breakpoint-cards: 47.5rem;
+  --breakpoint-nav: 56.25rem;
+  --breakpoint-stats: 67.5rem;
+  --breakpoint-display: 87.5rem;
+
+  --spacing-section: 7rem;
+  --spacing-container-x: 1.5rem;
+
+  --container-landing: 100rem;
+  --container-copy: 66ch;
+  --container-heading: 28ch;
+  --container-hero-heading: 18ch;
+
+  /* Signature motion curve for this landing's transitions and reveals. */
+  --ease-landing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Fluid heading scale. --text-figure is a distinct role (a large
+     standalone statistic/numeral), not a heading. */
+  --text-headline-1: clamp(3rem, 1.9rem + 4.68vw, 6rem);
+  --text-headline-2: clamp(1.875rem, 1.19rem + 2.93vw, 3.75rem);
+  --text-headline-3: clamp(1.25rem, 1.02rem + 0.98vw, 1.875rem);
+  --text-figure: clamp(2.5rem, 1.6rem + 3.9vw, 4.5rem);
+}
+
+/* Shared scroll-reveal utility — coordinates progressive enhancement with
+   this landing's own IntersectionObserver script (scripts/reveal.ts). */
+@utility reveal {
+  transform: translateY(0);
+  opacity: 1;
+
+  .js-reveal-ready & {
+    transform: translateY(calc(var(--spacing) * 6));
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 700ms;
+    transition-timing-function: var(--ease-landing);
+  }
+
+  .js-reveal-ready &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @variant motion-reduce {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transition-property: none !important;
+  }
+}
 
 /* Swiper Core (Productos) exposes its own theming through CSS custom
    properties rather than Tailwind-generated classes — Tailwind has no

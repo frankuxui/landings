@@ -18,7 +18,6 @@
     "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
     "downloadLocation": "https://api.unsplash.com/photos/yU8EgnnSU3c/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Nnx8bWFnYXppbmUlMjBlZGl0b3JpYWwlMjBsYXlvdXQlMjB0eXBvZ3JhcGh5JTIwZGVza3xlbnwxfDB8fHwxNzg3NDc1NzQ2fDA"
   },
-  "previewImage": "/landings/editorial-journal/thumbnail.svg",
   "createdAt": "2026-08-23",
   "author": "frankuxui",
   "themes": ["light", "dark"],

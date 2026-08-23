@@ -48,7 +48,6 @@ const landings = defineCollection({
     thumbnailWidth: z.number().optional(),
     thumbnailHeight: z.number().optional(),
     thumbnailCredit: unsplashCreditSchema.optional(),
-    previewImage: z.string().optional(),
     palettes: z.array(paletteSchema).default([]),
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),

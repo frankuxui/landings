@@ -20,136 +20,72 @@ const featured = allLandings
 <Layout>
   <Navbar />
 
-  <main>
-    <section class="hero">
-      <h1>Una galería de Landing Pages construidas con Astro</h1>
-      <p>
-        Explora, visualiza y consulta una colección de diseños de Landing Pages
-        agrupados por categoría. Cada landing es una unidad independiente: su
-        propio diseño, sus propios componentes y su propio código, listo para
-        inspeccionar.
-      </p>
-      <a class="cta" href="/landings">Explorar landings</a>
-    </section>
-
-    <section class="categories">
-      <h2>Categorías</h2>
-      <div class="grid">
-        {
-          categories.map((category: Category) => (
-            <a
-              class="category-card"
-              href={`/landings/category/${category.slug}`}
-            >
-              <h3>{category.label}</h3>
-              <p>{category.description}</p>
-            </a>
-          ))
-        }
+  <main class="py-28">
+    <section class="w-full">
+      <div class="container">
+        <header class="pb-10 w-full max-w-2xl">
+          <h1 class="text-3xl sm:text-4xl font-bold">
+            Una galería de Landing Pages construidas con Astro
+          </h1>
+          <p class="mt-6 text-lg">
+            Explora, visualiza y consulta una colección de diseños de Landing
+            Pages agrupados por categoría. Cada landing es una unidad
+            independiente: su propio diseño, sus propios componentes y su propio
+            código, listo para inspeccionar.
+          </p>
+          <a
+            class="h-10 mt-4 inline-flex items-center justify-center px-6 text-sm rounded font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-300"
+            href="/landings">Explorar landings</a
+          >
+        </header>
       </div>
     </section>
 
-    <section class="featured">
-      <h2>Destacadas</h2>
-      {
-        featured.length > 0 ? (
-          <div class="grid">
-            {featured.map((landing: LandingEntry) => (
-              <LandingCard landing={landing} />
-            ))}
-          </div>
-        ) : (
-          <p class="empty">
-            Todavía no hay landings publicadas. Esta plataforma está lista para
-            alojarlas — solo falta añadir la primera.
-          </p>
-        )
-      }
+    <section class="pt-10" id="categories">
+      <div class="container">
+        <header>
+          <h2 class="text-2xl font-bold">Categorías</h2>
+        </header>
+        <div
+          class="mt-6 w-full grid grid-cols-1 sm:grid-cols-6 md:grid-cols-9 lg:grid-cols-12 gap-x-4 items-start"
+        >
+          {
+            categories.map((category: Category) => (
+              <a
+                class="flex flex-col items-start gap-2 p-6 mb-4 rounded-2xl bg-foreground/5 hover:bg-foreground/10 transition-colors duration-300 col-span-3 min-h-[clamp(100px,20vw,135px)]"
+                href={`/landings/category/${category.slug}`}
+              >
+                <h3 class="font-semibold text-lg">{category.label}</h3>
+                <p class="text-sm text-muted">{category.description}</p>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="pt-10">
+      <div class="container">
+        <header>
+          <h2 class="text-2xl font-bold">Destacadas</h2>
+        </header>
+        {
+          featured.length > 0 ? (
+            <div class="mt-6 grid grid-cols-12 w-full gap-x-4">
+              {featured.map((landing: LandingEntry) => (
+                <LandingCard landing={landing} />
+              ))}
+            </div>
+          ) : (
+            <p class="empty">
+              Todavía no hay landings publicadas. Esta plataforma está lista
+              para alojarlas — solo falta añadir la primera.
+            </p>
+          )
+        }
+      </div>
     </section>
   </main>
 
   <Footer />
 </Layout>
-
-<style>
-  main {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 clamp(1rem, 4vw, 2.5rem);
-  }
-
-  .hero {
-    padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 6vw, 3rem);
-    max-width: 640px;
-  }
-
-  .hero h1 {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    line-height: 1.1;
-    margin: 0 0 1rem;
-  }
-
-  .hero p {
-    color: var(--platform-text-muted);
-    line-height: 1.6;
-    margin: 0 0 1.5rem;
-  }
-
-  .cta {
-    display: inline-block;
-    background: var(--platform-accent);
-    color: var(--platform-accent-contrast);
-    text-decoration: none;
-    padding: 0.7rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-  }
-
-  section {
-    padding: 2.5rem 0;
-  }
-
-  h2 {
-    margin: 0 0 1.25rem;
-    font-size: 1.5rem;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.25rem;
-  }
-
-  .category-card {
-    display: block;
-    padding: 1.25rem;
-    border: 1px solid var(--platform-border);
-    border-radius: var(--platform-radius);
-    text-decoration: none;
-    color: var(--platform-text);
-    background: var(--platform-surface);
-  }
-
-  .category-card:hover,
-  .category-card:focus-visible {
-    border-color: var(--platform-accent);
-  }
-
-  .category-card h3 {
-    margin: 0 0 0.4rem;
-    font-size: 1.05rem;
-  }
-
-  .category-card p {
-    margin: 0;
-    font-size: 0.85rem;
-    color: var(--platform-text-muted);
-  }
-
-  .empty {
-    color: var(--platform-text-muted);
-    padding: 1.5rem;
-    border: 1px dashed var(--platform-border);
-    border-radius: var(--platform-radius);
-  }
-</style>

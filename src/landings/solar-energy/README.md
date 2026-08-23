@@ -33,10 +33,14 @@ grises, sin excepción.
 - `data/` - contenido tipado de la landing (navegación, tecnología,
   soluciones, proceso, instalaciones, impacto, testimonios, artículos,
   sectores).
-- `styles/tailwind.css` - importa exclusivamente
-  `src/styles/landing-design-system.css` (tokens, Light/Dark, tipografía,
-  breakpoints y contenedores compartidos) más el theming local de la
-  pagination de Swiper (Testimonios), la única excepción genuinamente local.
+- `styles/tailwind.css` - sistema visual local y autocontenido de Tailwind
+  CSS v4: declara sus propios tokens (`:root`/`[data-theme="dark"]`/`@theme
+inline`/`@theme`), breakpoints, contenedores, escala tipográfica fluida,
+  easing y la utility `reveal`, sin importar ningún fichero fuera de esta
+  carpeta, más el theming local de la pagination de Swiper (Testimonios), la
+  única excepción genuinamente local. Los nombres de los tokens son el
+  vocabulario compartido de la galería; los valores pertenecen solo a esta
+  landing.
 - `scripts/` - `theme.ts` (escucha el `postMessage` de tema del shell de
   previsualización y lo aplica solo al propio documento), `reveal.ts`
   (reveals al hacer scroll vía `IntersectionObserver`), `menu.ts` (menú móvil
@@ -52,15 +56,20 @@ grises, sin excepción.
 ## Sistema de diseño compartido
 
 Esta landing forma parte del mismo sistema visual que el resto de la
-galería. `styles/tailwind.css` solo importa `tailwindcss` y
-`src/styles/landing-design-system.css` — no redeclara colores, Light/Dark,
-tipografía, easing, radius/shadow ni breakpoints/containers compartidos.
-Usa exclusivamente **Wix Madefor Text**, cargada en `<head>` con el mismo
-bloque `<link>` que el resto de landings.
+galería, pero es totalmente autónoma e independiente: `styles/tailwind.css`
+importa únicamente `tailwindcss` y declara localmente su propio contrato de
+tokens (colores semánticos, Light/Dark, tipografía, easing, breakpoints y
+contenedores) — no importa `src/styles/landing-design-system.css` ni ningún
+otro fichero de la plataforma o de otra landing. Los nombres de los tokens
+son el vocabulario compartido de la galería (`--background`, `--foreground`,
+`--surface`, `--muted`, `--primary`, etc.); los valores concretos pertenecen
+solo a esta landing. Usa exclusivamente **Wix Madefor Text**, cargada en
+`<head>` con el mismo bloque `<link>` que el resto de landings.
 
 Criterio aplicado para el CSS local:
 
-- Design token compartido -> ya vive en `landing-design-system.css`, se
+- Design token -> declarado localmente en `styles/tailwind.css` (mismo
+  nombre que el resto de la galería, valor propio de esta landing), se
   reutiliza vía utilities (`bg-background`, `text-foreground`, `bg-surface`,
   `text-muted`, `bg-primary`, `bg-placeholder`, `bg-placeholder-inverse`,
   etc.).
@@ -94,9 +103,11 @@ nunca por un nombre completo.
 
 ## Notas
 
-- El SVG de `thumbnail` usado por la tarjeta del catálogo vive en
-  `public/landings/solar-energy/thumbnail.svg` (autoría propia, sin
-  proveedor externo).
+- La imagen de `thumbnail` usada por la tarjeta del catálogo y la página de
+  detalle es una fotografía de Unsplash hotlinkeada (`images.unsplash.com`),
+  con su crédito (`thumbnailCredit`) persistido en
+  `src/content/landings/solar-energy.json`. No se aloja ninguna copia en
+  `public/`.
 - Todas las imágenes de contenido son placeholders (`bg-placeholder`/
   `bg-placeholder-inverse`) con proporción real, listos para sustituirse por
   `<img>`/`Image`/`Picture` sin rediseñar nada.

@@ -34,9 +34,11 @@ index. Strictly monochrome: white, black, and grayscale only.
   `StoryRow`, `ArchiveSlide`, `OpinionColumn`, `EditorPickItem`.
 - `data/` — typed content (`nav`, `topics`, `stories`, `dispatch`,
   `archive`, `opinions`, `editorsPicks`, `interview`, `feature`).
-- `styles/tailwind.css` — imports only `src/styles/landing-design-system.css`
-  plus the minimal, documented local Swiper pagination theming for the
-  Archive slider.
+- `styles/tailwind.css` — this landing's own complete design-token contract
+  (colors, Light/Dark, fluid heading scale, base structural tokens) plus the
+  minimal, documented local Swiper pagination theming for the Archive
+  slider. Fully self-contained — no import of any file outside this
+  landing's own folder.
 - `scripts/` — `theme.ts` (applies the preview shell's `postMessage` theme
   to this document only), `reveal.ts` (`IntersectionObserver` scroll
   reveals), `menu.ts` (accessible mobile nav), `navIndicator.ts` (active
@@ -60,14 +62,16 @@ matching `lg:grid-cols-…`, reverting to normal flow below `lg`):
 
 ## Shared design system
 
-Part of the same visual system as the rest of the gallery. `styles/tailwind.css`
-only imports `tailwindcss` and `src/styles/landing-design-system.css` — no
-color, Light/Dark, typography, easing, radius/shadow, or shared
-breakpoint/container tokens are redeclared. Uses **Wix Madefor Text**
-exclusively, loaded in `<head>` with the same `<link>` block as every other
-landing. No `@layer components` anywhere; no `ui.ts`/`styles.ts`/`classes.ts`
-or equivalent class-string files; no Astro component created solely to hide
-Tailwind classes.
+Part of the same visual system as the rest of the gallery, but fully
+self-contained: `styles/tailwind.css` declares this landing's own complete
+token set locally (`:root`, `[data-theme="dark"]`, `@theme inline`, `@theme`)
+under the same shared token _names_ used across the gallery (color, Light/Dark,
+typography, easing, breakpoint/container tokens), with independent values
+owned only by this landing — it imports nothing outside this landing's own
+folder. Uses **Wix Madefor Text** exclusively, loaded in `<head>` with the
+same `<link>` block as every other landing. No `@layer components` anywhere;
+no `ui.ts`/`styles.ts`/`classes.ts` or equivalent class-string files; no
+Astro component created solely to hide Tailwind classes.
 
 ## Buttons and borders
 
@@ -89,9 +93,10 @@ anywhere.
 
 ## Notes
 
-- The catalog thumbnail (`public/landings/editorial-journal/thumbnail.svg`)
-  is an original, monochrome SVG authored for this landing — no external
-  provider or `assets/cover.png` exists yet for this landing.
+- The `thumbnail` image used by both the catalog card and the detail page is
+  a hotlinked Unsplash photograph (`images.unsplash.com`), with its credit
+  (`thumbnailCredit`) persisted in `src/content/landings/editorial-journal.json`.
+  No copy is hosted under `public/`.
 - Every content image is a `bg-placeholder`/`bg-placeholder-inverse`
   placeholder at its real aspect ratio, ready to be swapped for a real
   `<img>`/`Image`/`Picture` without redesigning anything.

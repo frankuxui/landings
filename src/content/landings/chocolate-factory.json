@@ -18,7 +18,6 @@
     "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
     "downloadLocation": "https://api.unsplash.com/photos/67j_Tv-Ub-8/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8bWVsdGVkJTIwY2hvY29sYXRlJTIwdGV4dHVyZSUyMGNsb3NlJTIwdXAlMjBkYXJrfGVufDF8MHx8fDE3ODc0NzU3MjJ8MA"
   },
-  "previewImage": "/landings/chocolate-factory/cover.png",
   "palettes": [
     {
       "id": "grayscale",

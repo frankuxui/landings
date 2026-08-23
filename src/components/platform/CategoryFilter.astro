@@ -9,44 +9,27 @@ interface Props {
 const { active } = Astro.props
 ---
 
-<nav class="filter" aria-label="Filtrar por categoría">
-  <a href="/landings" class={!active ? "active" : ""}>Todas</a>
+<nav
+  class="flex items-center justify-start w-full flex-wrap gap-2"
+  aria-label="Filtrar por categoría"
+  role="navigation"
+>
+  <a
+    href="/landings"
+    class="rounded-full inline-flex items-center justify-center px-4 h-9 text-sm font-semibold transition-colors duration-300 hover:bg-foreground/5 data-[active=true]:bg-foreground/10"
+    data-active={!active ? "true" : "false"}
+  >
+    Todas
+  </a>
   {
     categories.map((category: Category) => (
       <a
         href={`/landings/category/${category.slug}`}
-        class={active === category.slug ? "active" : ""}
+        class="rounded-full inline-flex items-center justify-center px-4 h-9 text-sm font-semibold transition-colors duration-300 hover:bg-foreground/5 data-[active=true]:bg-foreground/10"
+        data-active={active === category.slug ? "true" : "false"}
       >
         {category.label}
       </a>
     ))
   }
 </nav>
-
-<style>
-  .filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  a {
-    padding: 0.4rem 0.9rem;
-    border-radius: 999px;
-    border: 1px solid var(--platform-border);
-    text-decoration: none;
-    color: var(--platform-text-muted);
-    font-size: 0.85rem;
-  }
-
-  a.active {
-    background: var(--platform-accent);
-    border-color: var(--platform-accent);
-    color: var(--platform-accent-contrast);
-  }
-
-  a:hover,
-  a:focus-visible {
-    border-color: var(--platform-accent);
-  }
-</style>

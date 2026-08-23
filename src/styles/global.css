@@ -1,11 +1,15 @@
-/*
-  Platform-only tokens and reset.
-  Scope: catalog chrome (Navbar, Footer, cards, preview toolbar) ONLY.
-  Landings never import this file — each landing owns its own tokens and styles.
-*/
+@import "tailwindcss";
 
 :root {
+  --foreground: #070707;
+  --background: #ffffff;
+  --muted: #565656;
+
+  --primary: #4338ca;
+  --primary-foreground: #ffffff;
+
   --platform-bg: #ffffff;
+
   --platform-surface: #f5f5f7;
   --platform-border: #e2e2e7;
   --platform-text: #14141a;
@@ -13,7 +17,21 @@
   --platform-accent: #4338ca;
   --platform-accent-contrast: #ffffff;
   --platform-radius: 12px;
-  --platform-font: system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --font: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@theme {
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+}
+
+@layer components {
+  .container {
+    @apply w-full max-w-7xl px-10 mx-auto;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,35 +42,6 @@
     --platform-text: #f2f2f5;
     --platform-text-muted: #a3a3ad;
   }
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: var(--platform-bg);
-  color: var(--platform-text);
-  font-family: var(--platform-font);
-  -webkit-font-smoothing: antialiased;
-}
-
-img,
-svg {
-  max-width: 100%;
-  display: block;
-}
-
-a {
-  color: inherit;
 }
 
 @media (prefers-reduced-motion: reduce) {

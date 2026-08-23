@@ -24,7 +24,6 @@
     "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
     "downloadLocation": "https://api.unsplash.com/photos/IwY-27ceRCA/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8c29sYXIlMjBwYW5lbHMlMjBmaWVsZCUyMGluc3RhbGxhdGlvbnxlbnwxfDB8fHwxNzg3NDc1NzM3fDA"
   },
-  "previewImage": "/landings/solar-energy/cover.png",
   "createdAt": "2026-08-23",
   "author": "frankuxui",
   "themes": ["light", "dark"],
