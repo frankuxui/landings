@@ -1,0 +1,75 @@
+---
+import { getCollection } from "astro:content"
+import Layout from "../../layouts/Layout.astro"
+import Navbar from "../../components/platform/Navbar.astro"
+import Footer from "../../components/platform/Footer.astro"
+import LandingCard from "../../components/platform/LandingCard.astro"
+import CategoryFilter from "../../components/platform/CategoryFilter.astro"
+import type { LandingEntry } from "../../types/landing"
+
+const landings = await getCollection(
+  "landings",
+  ({ data }: LandingEntry) => data.status === "published",
+)
+---
+
+<Layout title="Explorar landings — Landing Pages Gallery">
+  <Navbar />
+
+  <main>
+    <header class="page-header">
+      <h1>Explorar landings</h1>
+      <CategoryFilter />
+    </header>
+
+    {
+      landings.length > 0 ? (
+        <div class="grid">
+          {landings.map((landing: LandingEntry) => (
+            <LandingCard landing={landing} />
+          ))}
+        </div>
+      ) : (
+        <p class="empty">
+          Todavía no hay landings publicadas en el catálogo. Vuelve pronto —
+          esta sección se actualiza a medida que se añaden nuevos diseños.
+        </p>
+      )
+    }
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 2.5rem clamp(1rem, 4vw, 2.5rem) 4rem;
+  }
+
+  .page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .empty {
+    color: var(--platform-text-muted);
+    padding: 1.5rem;
+    border: 1px dashed var(--platform-border);
+    border-radius: var(--platform-radius);
+  }
+</style>

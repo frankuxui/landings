@@ -1,0 +1,52 @@
+---
+import { categories } from "../../data/categories"
+import type { Category } from "../../types/category"
+
+interface Props {
+  active?: string
+}
+
+const { active } = Astro.props
+---
+
+<nav class="filter" aria-label="Filtrar por categoría">
+  <a href="/landings" class={!active ? "active" : ""}>Todas</a>
+  {
+    categories.map((category: Category) => (
+      <a
+        href={`/landings/category/${category.slug}`}
+        class={active === category.slug ? "active" : ""}
+      >
+        {category.label}
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  a {
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--platform-border);
+    text-decoration: none;
+    color: var(--platform-text-muted);
+    font-size: 0.85rem;
+  }
+
+  a.active {
+    background: var(--platform-accent);
+    border-color: var(--platform-accent);
+    color: var(--platform-accent-contrast);
+  }
+
+  a:hover,
+  a:focus-visible {
+    border-color: var(--platform-accent);
+  }
+</style>

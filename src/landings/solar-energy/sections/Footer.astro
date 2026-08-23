@@ -1,0 +1,86 @@
+---
+import { LayoutGrid } from "@lucide/astro"
+import { navLinks } from "../data/nav"
+import type { NavLink } from "../types"
+
+const year = new Date().getFullYear()
+---
+
+<footer class="bg-inverted pt-16 pb-6 text-inverted-foreground">
+  <div
+    class="mx-auto grid w-full max-w-landing gap-10 px-container-x footer:grid-cols-[1.6fr_1fr_1fr] sm:px-8 xl:gap-16 xl:px-14"
+  >
+    <div>
+      <a
+        class="inline-flex items-center gap-3 text-inherit no-underline"
+        href="#inicio"
+      >
+        <span
+          class="inline-flex size-9 items-center justify-center rounded-sm bg-current/12"
+          aria-hidden="true"
+        >
+          <LayoutGrid width="18" height="18" stroke-width="1.75" />
+        </span>
+        <span class="text-xl sm:text-2xl">Heliogrid</span>
+      </a>
+      <p class="mt-4 max-w-copy text-current/75">
+        Análisis, diseño, instalación y monitorización de energía solar
+        fotovoltaica para hogares, empresas, industrias y organizaciones.
+      </p>
+    </div>
+
+    <nav aria-label="Enlaces del pie de página">
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
+      >
+        Navegación
+      </p>
+      <ul class="flex flex-col gap-3">
+        {
+          navLinks.map((link: NavLink) => (
+            <li>
+              <a
+                class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+                href={link.href}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div>
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
+      >
+        Contacto
+      </p>
+      <ul class="flex flex-col gap-3">
+        <li>
+          <a
+            class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+            href="mailto:correo@ejemplo.com">correo@ejemplo.com</a
+          >
+        </li>
+        <li>
+          <a
+            class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+            href="tel:+00000000000">+00 000 000 000</a
+          >
+        </li>
+        <li class="text-current/80">Ciudad, País</li>
+      </ul>
+    </div>
+  </div>
+
+  <div
+    class="mx-auto mt-16 w-full max-w-landing px-container-x sm:px-8 xl:px-14"
+  >
+    <div class="h-px w-full bg-current/12" aria-hidden="true"></div>
+    <p class="pt-6 text-sm text-current/60">
+      © {year} Heliogrid. Demo de landing ficticia.
+    </p>
+  </div>
+</footer>

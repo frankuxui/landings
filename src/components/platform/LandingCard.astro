@@ -1,0 +1,158 @@
+---
+import { getCategory } from "../../data/categories"
+import type { LandingProps } from "../../types/landing"
+
+type Props = LandingProps
+
+const { landing } = Astro.props
+const category = getCategory(landing.data.category)
+const credit = landing.data.thumbnailCredit
+---
+
+<article class="card">
+  <div class="thumb">
+    <img
+      src={landing.data.thumbnail}
+      alt={landing.data.thumbnailAlt ?? ""}
+      width={landing.data.thumbnailWidth}
+      height={landing.data.thumbnailHeight}
+      loading="lazy"
+      decoding="async"
+    />
+    {
+      credit && (
+        <p class="credit">
+          Foto:{" "}
+          <a href={credit.authorUrl} rel="noopener" target="_blank">
+            {credit.author}
+          </a>{" "}
+          ·{" "}
+          <a href={credit.unsplashUrl} rel="noopener" target="_blank">
+            Unsplash
+          </a>
+        </p>
+      )
+    }
+  </div>
+  <div class="body">
+    <div class="meta">
+      {category && <span class="category">{category.label}</span>}
+      {landing.data.featured && <span class="featured">Destacada</span>}
+    </div>
+    <h3>
+      <a class="card-link" href={`/landings/${landing.id}`}>
+        {landing.data.name}
+      </a>
+    </h3>
+    <p>{landing.data.subtitle ?? landing.data.description}</p>
+  </div>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--platform-border);
+    border-radius: var(--platform-radius);
+    overflow: hidden;
+    color: var(--platform-text);
+    background: var(--platform-surface);
+    transition:
+      transform 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .card:has(.card-link:hover),
+  .card:has(.card-link:focus-visible) {
+    transform: translateY(-2px);
+    border-color: var(--platform-accent);
+  }
+
+  .thumb {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    background: var(--platform-border);
+  }
+
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .credit {
+    position: absolute;
+    z-index: 2;
+    inset-inline: 0;
+    bottom: 0;
+    margin: 0;
+    display: flex;
+    gap: 0.3em;
+    align-items: center;
+    padding: 0.3rem 0.6rem;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.55), transparent);
+    color: #fff;
+    font-size: 0.7rem;
+    line-height: 1.3;
+  }
+
+  .credit a {
+    position: relative;
+    z-index: 2;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .credit a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  .body {
+    padding: 1rem 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .category {
+    color: var(--platform-accent);
+  }
+
+  .featured {
+    color: var(--platform-text-muted);
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .card-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .card-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--platform-text-muted);
+  }
+</style>

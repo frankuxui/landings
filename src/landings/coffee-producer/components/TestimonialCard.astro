@@ -1,0 +1,23 @@
+---
+import { Quote } from "@lucide/astro"
+import type { Testimonial } from "../types"
+
+export interface Props {
+  testimonial: Testimonial
+}
+
+const { testimonial } = Astro.props
+---
+
+<figure
+  class="reveal m-0 flex h-full flex-col gap-5 rounded-3xl bg-surface px-6 pt-10 pb-6 xl:px-8 xl:pt-12 xl:pb-8"
+>
+  <Quote class="size-7 text-foreground" aria-hidden="true" stroke-width="1.5" />
+  <blockquote class="m-0 text-xl leading-snug sm:text-2xl">
+    <p>{testimonial.quote}</p>
+  </blockquote>
+  <figcaption class="mt-auto flex flex-col not-italic">
+    <span class="font-semibold">{testimonial.author}</span>
+    <span class="text-sm text-muted">{testimonial.role}</span>
+  </figcaption>
+</figure>

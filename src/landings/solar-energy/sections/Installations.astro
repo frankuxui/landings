@@ -1,0 +1,34 @@
+---
+import InstallationTile from "../components/InstallationTile.astro"
+import { installations } from "../data/installations"
+import type { Installation } from "../types"
+---
+
+<section
+  class="bg-background py-section"
+  aria-labelledby="instalaciones-heading"
+>
+  <div class="w-full px-container-x sm:px-8 xl:px-14">
+    <div class="mb-12 max-w-heading sm:mb-16">
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        Instalaciones
+      </p>
+      <h2
+        id="instalaciones-heading"
+        class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        Proyectos de ejemplo, distintas escalas.
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-6 xl:gap-10">
+      {
+        installations.map((installation: Installation) => (
+          <InstallationTile installation={installation} />
+        ))
+      }
+    </div>
+  </div>
+</section>

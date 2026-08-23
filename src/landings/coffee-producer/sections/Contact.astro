@@ -1,0 +1,149 @@
+---
+import { MapPin, Phone, Mail, Clock } from "@lucide/astro"
+---
+
+<section
+  class="bg-background-alt py-section"
+  id="contacto"
+  aria-labelledby="contacto-heading"
+>
+  <div
+    class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14 grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-start xl:gap-24"
+  >
+    <div class="reveal">
+      <div class="mb-0 max-w-5xl">
+        <p
+          class="mb-4 inline-block font-sans text-sm font-semibold tracking-widest text-muted uppercase"
+        >
+          Contacto
+        </p>
+        <h2
+          id="contacto-heading"
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        >
+          Hablemos de tu próxima taza.
+        </h2>
+        <p class="mt-5 text-base text-muted sm:text-lg">
+          Ya seas una cafetería que busca un nuevo origen, una distribuidora o
+          simplemente quieras preguntarnos por nuestras variedades, respondemos
+          en menos de 48 horas laborables.
+        </p>
+      </div>
+
+      <address class="mt-12 grid gap-4 not-italic min-[1200px]:grid-cols-2">
+        <p class="flex items-center gap-3">
+          <MapPin
+            class="shrink-0"
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+          <span>Dirección de ejemplo, Ciudad, País</span>
+        </p>
+        <p class="flex items-center gap-3">
+          <Phone
+            class="shrink-0"
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+          <a
+            class="underline underline-offset-3 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+            href="tel:+00000000000">+00 000 000 000</a
+          >
+        </p>
+        <p class="flex items-center gap-3">
+          <Mail
+            class="shrink-0"
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+          <a
+            class="underline underline-offset-3 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+            href="mailto:correo@ejemplo.com">correo@ejemplo.com</a
+          >
+        </p>
+        <p class="flex items-center gap-3">
+          <Clock
+            class="shrink-0"
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+          <span>Horario de ejemplo</span>
+        </p>
+      </address>
+    </div>
+
+    <form
+      class="reveal flex flex-col gap-6 rounded-3xl bg-surface p-8 sm:p-10 xl:p-12"
+      action="mailto:correo@ejemplo.com"
+      method="post"
+      enctype="text/plain"
+    >
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-semibold" for="contact-name">Nombre</label>
+        <input
+          class="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-control/50 disabled:opacity-50 aria-invalid:border-foreground aria-invalid:border-2 aria-invalid:ring-3 aria-invalid:ring-foreground/20 md:text-sm dark:bg-control/30 dark:disabled:bg-control/80"
+          type="text"
+          id="contact-name"
+          name="nombre"
+          autocomplete="name"
+          required
+        />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-semibold" for="contact-email"
+          >Correo electrónico</label
+        >
+        <input
+          class="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-control/50 disabled:opacity-50 aria-invalid:border-foreground aria-invalid:border-2 aria-invalid:ring-3 aria-invalid:ring-foreground/20 md:text-sm dark:bg-control/30 dark:disabled:bg-control/80"
+          type="email"
+          id="contact-email"
+          name="email"
+          autocomplete="email"
+          inputmode="email"
+          required
+        />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-semibold" for="contact-org"
+          >Cafetería, restaurante o distribuidora (opcional)</label
+        >
+        <input
+          class="h-8 w-full min-w-0 rounded-lg border border-border bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-control/50 disabled:opacity-50 aria-invalid:border-foreground aria-invalid:border-2 aria-invalid:ring-3 aria-invalid:ring-foreground/20 md:text-sm dark:bg-control/30 dark:disabled:bg-control/80"
+          type="text"
+          id="contact-org"
+          name="organizacion"
+          autocomplete="organization"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-semibold" for="contact-message"
+          >Mensaje</label
+        >
+        <textarea
+          class="min-h-28 w-full min-w-0 resize-y rounded-lg border border-border bg-transparent px-2.5 py-1 text-base transition-colors outline-none placeholder:text-muted focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-control/50 disabled:opacity-50 aria-invalid:border-foreground aria-invalid:border-2 aria-invalid:ring-3 aria-invalid:ring-foreground/20 md:text-sm dark:bg-control/30 dark:disabled:bg-control/80"
+          id="contact-message"
+          name="mensaje"
+          rows="4"
+          required></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="self-start inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full px-6 py-3 text-base font-semibold no-underline transition duration-200 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border border-0 bg-primary text-primary-foreground hover:bg-emphasis active:bg-emphasis"
+      >
+        Enviar mensaje
+      </button>
+    </form>
+  </div>
+</section>

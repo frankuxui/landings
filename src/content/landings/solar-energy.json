@@ -1,0 +1,33 @@
+{
+  "name": "Heliogrid",
+  "title": "Heliogrid — Energía solar fotovoltaica",
+  "description": "Análisis, diseño, instalación y monitorización de energía solar fotovoltaica para hogares, empresas, industrias y organizaciones que quieren avanzar hacia la transición energética.",
+  "subtitle": "Energía solar fotovoltaica para hogares y empresas",
+  "category": "business",
+  "tags": [
+    "energía solar",
+    "fotovoltaica",
+    "sostenibilidad",
+    "instalaciones",
+    "eficiencia energética"
+  ],
+  "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
+  "thumbnail": "https://images.unsplash.com/photo-1629726797843-618688139f5a?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8c29sYXIlMjBwYW5lbHMlMjBmaWVsZCUyMGluc3RhbGxhdGlvbnxlbnwxfDB8fHwxNzg3NDc1NzM3fDA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
+  "thumbnailAlt": "Paneles solares negros instalados sobre un campo verde",
+  "thumbnailWidth": 5464,
+  "thumbnailHeight": 3640,
+  "thumbnailCredit": {
+    "id": "IwY-27ceRCA",
+    "author": "Raphael Cruz",
+    "authorUrl": "https://unsplash.com/@cyborgxxl?utm_source=astro_landings_gallery&utm_medium=referral",
+    "sourceUrl": "https://unsplash.com/photos/black-solar-panels-on-green-grass-field-during-daytime-IwY-27ceRCA?utm_source=astro_landings_gallery&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+    "downloadLocation": "https://api.unsplash.com/photos/IwY-27ceRCA/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8c29sYXIlMjBwYW5lbHMlMjBmaWVsZCUyMGluc3RhbGxhdGlvbnxlbnwxfDB8fHwxNzg3NDc1NzM3fDA"
+  },
+  "previewImage": "/landings/solar-energy/cover.png",
+  "createdAt": "2026-08-23",
+  "author": "frankuxui",
+  "themes": ["light", "dark"],
+  "featured": false,
+  "status": "published"
+}

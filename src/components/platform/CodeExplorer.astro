@@ -1,0 +1,38 @@
+---
+// Structural placeholder only — no fake file tree or file contents.
+// A later phase wires this to the landing's actual source files:
+// file tree, syntax highlighting, copy-file/component/landing, download.
+interface Props {
+  slug: string
+}
+
+const { slug } = Astro.props
+---
+
+<div class="code-explorer" data-slug={slug}>
+  <p class="placeholder">
+    Explorador de código próximamente. Aquí se listará la estructura de
+    <code>src/landings/{slug}/</code> con su código fuente, syntax highlighting y
+    opciones para copiar o descargar archivos.
+  </p>
+</div>
+
+<style>
+  .code-explorer {
+    padding: 1rem;
+    color: var(--platform-text-muted);
+  }
+
+  .placeholder {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  code {
+    font-family: ui-monospace, monospace;
+    background: var(--platform-border);
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+  }
+</style>

@@ -1,0 +1,40 @@
+---
+// Reusable "not implemented yet" state for an OptionsPanel section. When a
+// section's real functionality (folder structure, .zip download, color
+// customization, ...) is built, swap this out for the real component in
+// that section's slot — the panel's structure doesn't need to change.
+interface Props {
+  label: string
+  description: string
+}
+
+const { label, description } = Astro.props
+---
+
+<div class="coming-soon">
+  <p class="coming-soon-label">{label}</p>
+  <p class="coming-soon-description">{description}</p>
+</div>
+
+<style>
+  .coming-soon {
+    padding: 1rem;
+    border: 1px dashed var(--platform-border);
+    border-radius: var(--platform-radius);
+    color: var(--platform-text-muted);
+  }
+
+  .coming-soon-label {
+    margin: 0 0 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .coming-soon-description {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+</style>

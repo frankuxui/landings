@@ -1,0 +1,40 @@
+---
+import TechSpecBlock from "../components/TechSpecBlock.astro"
+import { techSpecs } from "../data/technology"
+import type { TechSpec } from "../types"
+---
+
+<section
+  class="bg-background-alt py-section"
+  id="tecnologia"
+  aria-labelledby="tecnologia-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div
+      class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start xl:gap-20"
+    >
+      <div class="reveal max-w-heading lg:sticky lg:top-28">
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          La tecnología
+        </p>
+        <h2
+          id="tecnologia-heading"
+          class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        >
+          Cuatro componentes, un mismo sistema.
+        </h2>
+        <p class="mt-5 max-w-copy text-base text-muted sm:text-lg">
+          Una instalación fotovoltaica no es un solo producto: es un conjunto de
+          decisiones técnicas que solo funcionan bien cuando encajan entre sí,
+          desde el panel hasta el dato que confirma su rendimiento.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:gap-5">
+        {techSpecs.map((spec: TechSpec) => <TechSpecBlock spec={spec} />)}
+      </div>
+    </div>
+  </div>
+</section>

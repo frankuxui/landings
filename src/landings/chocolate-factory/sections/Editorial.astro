@@ -1,0 +1,31 @@
+---
+import EditorialArticle from "../components/EditorialArticle.astro"
+import { editorialPieces } from "../data/articles"
+import type { EditorialPiece } from "../types"
+---
+
+<section class="bg-background py-section" aria-labelledby="editorial-heading">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="mb-16 max-w-heading">
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        Notas de obrador
+      </p>
+      <h2
+        id="editorial-heading"
+        class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        Lo que ocurre entre el grano y la tableta.
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:gap-8">
+      {
+        editorialPieces.map((piece: EditorialPiece) => (
+          <EditorialArticle piece={piece} />
+        ))
+      }
+    </div>
+  </div>
+</section>

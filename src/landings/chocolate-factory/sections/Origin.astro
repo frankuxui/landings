@@ -1,0 +1,85 @@
+---
+import Photo from "../components/Photo.astro"
+import { originImage } from "../data/images"
+
+interface CacaoVariety {
+  name: string
+  detail: string
+}
+
+const varieties: CacaoVariety[] = [
+  {
+    name: "Criollo",
+    detail: "Aromático, poco productivo, reservado a micro-lotes.",
+  },
+  {
+    name: "Trinitario",
+    detail: "Híbrido equilibrado entre aroma y rendimiento.",
+  },
+  { name: "Forastero", detail: "Base de nuestras mezclas de mayor volumen." },
+]
+---
+
+<section
+  class="bg-background-alt py-section"
+  id="origen"
+  aria-labelledby="origen-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div
+      class="grid gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-start xl:gap-24"
+    >
+      <article class="reveal max-w-copy">
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          Materia prima
+        </p>
+        <h2
+          id="origen-heading"
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        >
+          El cacao decide antes de llegar a fábrica.
+        </h2>
+        <p class="mt-6 text-base text-muted sm:text-lg">
+          Trabajamos con cacao en grano procedente de fincas de origen ficticio,
+          seleccionado por variedad, altitud y proceso de fermentación antes de
+          que entre a nuestra fábrica. Ningún lote se mezcla sin conocer de
+          dónde viene.
+        </p>
+        <blockquote
+          class="mt-8 border-0 pl-0 text-xl leading-snug font-medium text-foreground italic"
+        >
+          "No tostamos cacao anónimo: cada saco llega con su ficha de origen,
+          altitud y fecha de cosecha."
+        </blockquote>
+        <p class="mt-8 text-base text-muted sm:text-lg">
+          Esa disciplina en la selección es la que después permite que el
+          tueste, el conchado y el templado revelen matices reales de cada
+          origen, en lugar de enmascararlos con azúcar o vainilla añadida.
+        </p>
+
+        <dl class="mt-10 flex flex-col gap-6">
+          {
+            varieties.map((variety: CacaoVariety) => (
+              <div class="flex items-baseline gap-6">
+                <dt class="w-28 shrink-0 font-mono text-sm font-semibold text-foreground">
+                  {variety.name}
+                </dt>
+                <dd class="m-0 text-sm text-muted sm:text-base">
+                  {variety.detail}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </article>
+
+      <Photo
+        image={originImage}
+        ratio="3 / 4"
+        class="reveal lg:sticky lg:top-28"
+      />
+    </div>
+  </div>
+</section>

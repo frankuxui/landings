@@ -1,0 +1,312 @@
+---
+// The platform's landing preview shell: fixed toolbar (hideable, with an
+// always-available control to bring it back), a resizable/device-preset
+// viewport, and the extensible Options aside. This is platform chrome —
+// never imported by a landing.
+import { PanelTopOpen, GripVertical } from "@lucide/astro"
+import PreviewToolbar from "./PreviewToolbar.astro"
+import OptionsPanel from "./OptionsPanel.astro"
+import type { LandingPreviewProps } from "../../types/preview"
+
+type Props = LandingPreviewProps
+
+const { name, slug } = Astro.props
+const renderUrl = `/landings/${slug}/render`
+---
+
+<div class="preview-shell" id="preview-shell">
+  <PreviewToolbar name={name} slug={slug} />
+
+  <button
+    type="button"
+    class="toolbar-reveal"
+    id="show-toolbar"
+    aria-label="Mostrar barra de herramientas"
+    hidden
+  >
+    <PanelTopOpen aria-hidden="true" />
+  </button>
+
+  <div class="stage">
+    <div class="viewport-wrapper">
+      <div class="viewport" id="preview-viewport" data-device="desktop">
+        <iframe
+          id="preview-frame"
+          src={renderUrl}
+          title={`Vista previa de ${name}`}></iframe>
+      </div>
+      <div
+        class="resize-handle"
+        id="viewport-resize-handle"
+        role="separator"
+        aria-orientation="vertical"
+        aria-label="Redimensionar ancho del visualizador"
+        tabindex="0"
+      >
+        <GripVertical aria-hidden="true" />
+      </div>
+    </div>
+  </div>
+
+  <OptionsPanel name={name} slug={slug} />
+</div>
+
+<script>
+  import type { PreviewThemeMessage } from "../../types/preview"
+  import {
+    classifyDevice,
+    DEVICE_PRESET_WIDTH,
+    VIEWPORT_MIN_WIDTH,
+    VIEWPORT_MAX_WIDTH,
+    VIEWPORT_RESIZE_STEP,
+    VIEWPORT_RESIZE_STEP_LARGE,
+    type Device,
+  } from "../../types/preview"
+
+  const shell = document.getElementById("preview-shell")
+  const viewport = document.querySelector<HTMLDivElement>(".viewport")
+  const frame = document.querySelector<HTMLIFrameElement>("#preview-frame")
+  const revealButton =
+    document.querySelector<HTMLButtonElement>("#show-toolbar")
+  const resizeHandle = document.querySelector<HTMLDivElement>(
+    "#viewport-resize-handle",
+  )
+
+  // --- Theme bridge (unchanged) -------------------------------------------
+  document.addEventListener("preview:theme", (event) => {
+    const message: PreviewThemeMessage = {
+      type: "preview:theme",
+      theme: event.detail.theme,
+    }
+    frame?.contentWindow?.postMessage(message, "*")
+  })
+
+  // --- Toolbar visibility ---------------------------------------------------
+  revealButton?.addEventListener("click", () => {
+    document.dispatchEvent(
+      new CustomEvent("preview:toolbar-visibility", {
+        detail: { visible: true },
+      }),
+    )
+  })
+
+  document.addEventListener("preview:toolbar-visibility", (event) => {
+    if (!shell || !revealButton) return
+    const { visible } = event.detail
+    shell.dataset.toolbarHidden = visible ? "false" : "true"
+    revealButton.hidden = visible
+    if (!visible) revealButton.focus()
+  })
+
+  // --- Device presets (command) + width/breakpoint sync ---------------------
+  function clampWidth(width: number): number {
+    return Math.min(VIEWPORT_MAX_WIDTH, Math.max(VIEWPORT_MIN_WIDTH, width))
+  }
+
+  function applyWidth(width: number): void {
+    if (!viewport) return
+    viewport.style.width = `${clampWidth(width)}px`
+  }
+
+  document.addEventListener("preview:device", (event) => {
+    if (event.detail.device === "desktop") {
+      viewport?.style.removeProperty("width")
+      return
+    }
+    applyWidth(DEVICE_PRESET_WIDTH[event.detail.device])
+  })
+
+  let lastClassifiedDevice: Device | null = null
+
+  function syncFromWidth(width: number): void {
+    if (!viewport) return
+    const device = classifyDevice(width)
+    viewport.dataset.device = device
+    resizeHandle?.setAttribute("aria-valuenow", `${Math.round(width)}`)
+    if (device !== lastClassifiedDevice) {
+      lastClassifiedDevice = device
+      document.dispatchEvent(
+        new CustomEvent("preview:device-change", { detail: { device } }),
+      )
+    }
+  }
+
+  if (viewport) {
+    resizeHandle?.setAttribute("aria-valuemin", `${VIEWPORT_MIN_WIDTH}`)
+    resizeHandle?.setAttribute("aria-valuemax", `${VIEWPORT_MAX_WIDTH}`)
+
+    const widthObserver = new ResizeObserver((entries) => {
+      const entry = entries[0]
+      if (!entry) return
+      syncFromWidth(entry.contentRect.width)
+    })
+    widthObserver.observe(viewport)
+  }
+
+  // --- Manual resize: pointer drag -------------------------------------------
+  // `.viewport-wrapper` is centered by `.stage`, so growing the width moves
+  // the visible right edge by only half the delta — double the pointer delta
+  // so the handle tracks the cursor exactly.
+  let dragStartX = 0
+  let dragStartWidth = 0
+
+  function onPointerMove(event: PointerEvent): void {
+    const delta = (event.clientX - dragStartX) * 2
+    applyWidth(dragStartWidth + delta)
+  }
+
+  function onPointerUp(event: PointerEvent): void {
+    resizeHandle?.releasePointerCapture(event.pointerId)
+    viewport?.removeAttribute("data-resizing")
+    document.removeEventListener("pointermove", onPointerMove)
+    document.removeEventListener("pointerup", onPointerUp)
+  }
+
+  resizeHandle?.addEventListener("pointerdown", (event: PointerEvent) => {
+    if (!viewport) return
+    dragStartX = event.clientX
+    dragStartWidth = viewport.getBoundingClientRect().width
+    // Suppress the width transition while actively dragging — it exists for
+    // the discrete preset-button snap, but would otherwise lag the drag
+    // behind the pointer instead of tracking it in real time.
+    viewport.dataset.resizing = "true"
+    resizeHandle.setPointerCapture(event.pointerId)
+    document.addEventListener("pointermove", onPointerMove)
+    document.addEventListener("pointerup", onPointerUp)
+  })
+
+  // --- Manual resize: keyboard -------------------------------------------
+  resizeHandle?.addEventListener("keydown", (event: KeyboardEvent) => {
+    if (!viewport) return
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return
+
+    const step = event.shiftKey
+      ? VIEWPORT_RESIZE_STEP_LARGE
+      : VIEWPORT_RESIZE_STEP
+    const direction = event.key === "ArrowRight" ? 1 : -1
+    const currentWidth = viewport.getBoundingClientRect().width
+
+    event.preventDefault()
+    applyWidth(currentWidth + direction * step)
+  })
+</script>
+
+<style>
+  .preview-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .toolbar-reveal {
+    position: fixed;
+    top: 0.6rem;
+    right: 0.6rem;
+    z-index: 55;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--platform-border);
+    border-radius: 8px;
+    background: var(--platform-surface);
+    color: var(--platform-text);
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  }
+
+  .toolbar-reveal:hover,
+  .toolbar-reveal:focus-visible {
+    border-color: var(--platform-accent);
+  }
+
+  .toolbar-reveal :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
+  .stage {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
+    padding: calc(var(--toolbar-height, 4.5rem) + 2rem) clamp(1rem, 4vw, 2rem)
+      2rem;
+    transition: padding-top 0.25s ease;
+    background: var(--platform-bg);
+  }
+
+  .preview-shell[data-toolbar-hidden="true"] .stage {
+    padding-top: 2rem;
+  }
+
+  .viewport-wrapper {
+    position: relative;
+    max-width: 100%;
+  }
+
+  .viewport {
+    width: calc(100vw - clamp(2rem, 8vw, 8rem));
+    max-width: 1920px;
+    height: calc(100vh - 8rem);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--platform-border);
+    transition: width 0.15s ease;
+  }
+
+  .viewport[data-resizing="true"] {
+    transition: none;
+  }
+
+  .viewport[data-device="mobile"] {
+    height: 844px;
+  }
+
+  .viewport[data-device="tablet"] {
+    height: 1194px;
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    background: #fff;
+  }
+
+  .resize-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -0.9rem;
+    width: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    color: var(--platform-text-muted);
+    cursor: ew-resize;
+    touch-action: none;
+  }
+
+  .resize-handle:hover,
+  .resize-handle:focus-visible {
+    color: var(--platform-text);
+    background: var(--platform-border);
+  }
+
+  .resize-handle :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .resize-handle {
+      right: -0.5rem;
+      width: 1.25rem;
+    }
+  }
+</style>

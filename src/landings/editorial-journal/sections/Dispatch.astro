@@ -1,0 +1,116 @@
+---
+import { topics } from "../data/topics"
+import { dispatchItems } from "../data/dispatch"
+import type { Topic, DispatchItem } from "../types"
+
+const seenTopics = new Set<string>()
+
+function slugFor(topicLabel: string): string | undefined {
+  const match = topics.find((topic: Topic) => topic.label === topicLabel)
+  return match?.slug
+}
+---
+
+<section
+  id="dispatch"
+  class="bg-background py-16 sm:py-20 lg:py-28"
+  aria-labelledby="dispatch-heading"
+>
+  <div
+    class="mx-auto grid w-full max-w-landing gap-12 px-container-x sm:px-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-start xl:gap-20 xl:px-14"
+  >
+    <div class="reveal lg:sticky lg:top-24">
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        The dispatch
+      </p>
+      <h2
+        id="dispatch-heading"
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        Shorter notes from every desk.
+      </h2>
+      <p class="mt-5 text-base text-muted sm:text-lg">
+        A running feed of small stories, quotes, and observations that didn't
+        need a full feature — organized by the same six sections as the rest of
+        the journal.
+      </p>
+
+      <nav class="mt-8" aria-label="Jump to a topic in the dispatch">
+        <ol class="flex flex-col gap-1" aria-label="Topics in this dispatch">
+          {
+            topics.map((topic: Topic, index: number) => (
+              <li>
+                <a
+                  class="group flex items-center gap-3 rounded-sm px-2 py-2 -mx-2 text-sm text-muted no-underline transition duration-200 ease-landing hover:bg-control hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border data-[active=true]:text-foreground data-[active=true]:font-semibold"
+                  href={`#${topic.slug}`}
+                  data-dispatch-nav-link
+                  data-topic={topic.slug}
+                >
+                  <span class="font-mono text-xs" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  {topic.label}
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+    </div>
+
+    <div class="flex flex-col" data-dispatch-track>
+      {
+        dispatchItems.map((item: DispatchItem, index: number) => {
+          const slug = slugFor(item.topic)
+          const isFirstOfTopic = slug !== undefined && !seenTopics.has(slug)
+          if (slug !== undefined) seenTopics.add(slug)
+
+          return (
+            <div
+              id={isFirstOfTopic ? slug : undefined}
+              data-dispatch-item
+              data-topic={slug}
+              class:list={[
+                "reveal border-t border-border/50 py-8 first:border-t-0 first:pt-0 scroll-mt-28",
+                index === dispatchItems.length - 1 && "pb-0",
+              ]}
+            >
+              <p class="mb-3 font-mono text-xs font-semibold tracking-widest text-muted uppercase">
+                {item.topic}
+              </p>
+
+              {item.kind === "quote" ? (
+                <blockquote class="max-w-copy border-l-2 border-foreground/20 pl-5 text-xl leading-snug font-medium text-foreground italic sm:text-2xl">
+                  <p>&ldquo;{item.body}&rdquo;</p>
+                  {item.author && (
+                    <footer class="mt-3 text-sm font-normal not-italic text-muted">
+                      — {item.author}
+                      {item.role ? `, ${item.role}` : ""}
+                    </footer>
+                  )}
+                </blockquote>
+              ) : (
+                <>
+                  {item.title && (
+                    <h3 class="max-w-heading text-balance text-lg leading-snug font-semibold text-foreground sm:text-xl">
+                      {item.title}
+                    </h3>
+                  )}
+                  <p class="mt-3 max-w-copy text-base text-muted">
+                    {item.body}
+                  </p>
+                </>
+              )}
+            </div>
+          )
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/dispatchProgress"
+</script>

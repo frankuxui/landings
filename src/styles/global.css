@@ -1,0 +1,67 @@
+/*
+  Platform-only tokens and reset.
+  Scope: catalog chrome (Navbar, Footer, cards, preview toolbar) ONLY.
+  Landings never import this file — each landing owns its own tokens and styles.
+*/
+
+:root {
+  --platform-bg: #ffffff;
+  --platform-surface: #f5f5f7;
+  --platform-border: #e2e2e7;
+  --platform-text: #14141a;
+  --platform-text-muted: #5c5c66;
+  --platform-accent: #4338ca;
+  --platform-accent-contrast: #ffffff;
+  --platform-radius: 12px;
+  --platform-font: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --platform-bg: #0d0d12;
+    --platform-surface: #17171e;
+    --platform-border: #2a2a33;
+    --platform-text: #f2f2f5;
+    --platform-text-muted: #a3a3ad;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--platform-bg);
+  color: var(--platform-text);
+  font-family: var(--platform-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

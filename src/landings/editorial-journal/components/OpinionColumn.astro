@@ -1,0 +1,44 @@
+---
+import { ArrowUpRight } from "@lucide/astro"
+import type { OpinionPiece } from "../types"
+
+export interface Props {
+  piece: OpinionPiece
+}
+
+const { piece } = Astro.props
+---
+
+<article class="reveal flex flex-col border-t border-border/50 pt-6">
+  <p
+    class="mb-3 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+  >
+    {piece.topic}
+  </p>
+  <h3
+    class="text-balance text-lg leading-snug font-semibold text-foreground italic"
+  >
+    {piece.title}
+  </h3>
+  <p class="mt-3 grow text-sm text-muted">
+    {piece.excerpt}
+  </p>
+  <div class="mt-5 flex items-center justify-between gap-3">
+    <p class="text-xs text-muted">
+      {piece.author} · {piece.readTime}
+    </p>
+    <a
+      class="inline-flex min-h-11 shrink-0 cursor-pointer items-center gap-1.5 rounded-sm px-2 py-2 text-sm font-semibold text-foreground no-underline transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+      href="#"
+      aria-label={`Read the column: ${piece.title}`}
+    >
+      Read
+      <ArrowUpRight
+        aria-hidden="true"
+        width="16"
+        height="16"
+        stroke-width="1.5"
+      />
+    </a>
+  </div>
+</article>

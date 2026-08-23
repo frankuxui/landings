@@ -1,0 +1,58 @@
+---
+import {
+  ScanSearch,
+  Flame,
+  CircleDot,
+  Layers,
+  RefreshCw,
+  Thermometer,
+  Box,
+  CheckCheck,
+} from "@lucide/astro"
+import type { ProcessStep, ProcessStepName } from "../types"
+
+export interface Props {
+  step: ProcessStep
+}
+
+const { step } = Astro.props
+
+const icons: Record<ProcessStepName, typeof ScanSearch> = {
+  Selección: ScanSearch,
+  Tostado: Flame,
+  Molienda: CircleDot,
+  Refinado: Layers,
+  Conchado: RefreshCw,
+  Templado: Thermometer,
+  Moldeado: Box,
+  Acabado: CheckCheck,
+}
+
+const Icon = icons[step.iconLabel]
+---
+
+<li
+  class="reveal flex h-full w-[min(80vw,20rem)] shrink-0 snap-start flex-col justify-between gap-8 bg-surface p-6 xl:w-[22rem] xl:p-8"
+  data-process-step
+>
+  <div class="flex items-start justify-between gap-4">
+    <span class="font-mono text-sm text-muted" aria-hidden="true">
+      {step.number} / 08
+    </span>
+    <Icon
+      class="size-6 text-foreground"
+      aria-hidden="true"
+      stroke-width="1.5"
+    />
+  </div>
+  <div>
+    <h3
+      class="mb-3 text-balance text-headline-3 leading-tight font-semibold text-foreground"
+    >
+      {step.title}
+    </h3>
+    <p class="text-sm text-muted xl:text-base">
+      {step.description}
+    </p>
+  </div>
+</li>

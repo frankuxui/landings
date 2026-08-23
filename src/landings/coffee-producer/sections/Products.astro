@@ -1,0 +1,93 @@
+---
+import { ChevronLeft, ChevronRight } from "@lucide/astro"
+import ProductCard from "../components/ProductCard.astro"
+import { products } from "../data/products"
+import type { Product } from "../types"
+---
+
+<section
+  class="bg-background-alt py-section"
+  id="productos"
+  aria-labelledby="productos-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div
+      class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <div class="mb-0 max-w-5xl max-w-2xl">
+        <p
+          class="mb-4 inline-block font-sans text-sm font-semibold tracking-widest text-muted uppercase"
+        >
+          Productos
+        </p>
+        <h2
+          id="productos-heading"
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        >
+          Cuatro cafés, cuatro formas de contar el origen.
+        </h2>
+        <p class="mt-5 text-base text-muted sm:text-lg">
+          Nuestra gama se mantiene deliberadamente corta: cada referencia tiene
+          una razón de ser, desde el single origin de nuestras parcelas más
+          altas hasta el clásico que preparamos cada mañana en casa.
+        </p>
+      </div>
+
+      <div class="flex shrink-0 items-center gap-3">
+        <button
+          type="button"
+          class="size-11 justify-center rounded-full p-0 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full px-6 py-3 text-base font-semibold no-underline transition duration-200 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border border-0 bg-control text-foreground hover:bg-control-hover active:bg-control-hover"
+          data-products-prev
+          aria-label="Producto anterior"
+        >
+          <ChevronLeft
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+        </button>
+        <button
+          type="button"
+          class="size-11 justify-center rounded-full p-0 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full px-6 py-3 text-base font-semibold no-underline transition duration-200 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border border-0 bg-control text-foreground hover:bg-control-hover active:bg-control-hover"
+          data-products-next
+          aria-label="Producto siguiente"
+        >
+          <ChevronRight
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="products-slider swiper"
+      data-products-slider
+      aria-label="Carrusel de productos"
+      role="region"
+    >
+      <div class="swiper-wrapper">
+        {
+          products.map((product: Product) => (
+            <div class="swiper-slide h-auto">
+              <ProductCard product={product} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="products-slider-pagination mt-8 flex justify-center"
+      data-products-pagination
+    >
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/productsSlider"
+</script>

@@ -1,0 +1,25 @@
+---
+import { sectors } from "../data/sectors"
+---
+
+<section class="bg-background-alt py-16" aria-labelledby="confianza-heading">
+  <div class="w-full px-container-x text-center sm:px-8 xl:px-14">
+    <h2
+      id="confianza-heading"
+      class="mb-8 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+    >
+      Trabajamos con
+    </h2>
+    <p
+      class="mx-auto flex max-w-landing flex-wrap items-center justify-center gap-x-3 gap-y-3 text-balance text-2xl font-semibold text-foreground sm:text-3xl xl:text-4xl"
+    >
+      {
+        sectors.map((sector: string, index: number) => (
+          <span class="h-10 rounded inline-flex items-center justify-center bg-foreground/10 text-foreground px-6 py-2 text-sm font-semibold sm:text-base ">
+            {sector}
+          </span>
+        ))
+      }
+    </p>
+  </div>
+</section>

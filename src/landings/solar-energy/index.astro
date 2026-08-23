@@ -1,0 +1,99 @@
+---
+// Heliogrid - root document for this landing.
+// Fully self-contained: no platform Layout, no platform CSS/components.
+// Rendered in isolation by src/pages/landings/[slug]/render.astro.
+import "./styles/tailwind.css"
+
+import Header from "./sections/Header.astro"
+import Hero from "./sections/Hero.astro"
+import Transition from "./sections/Transition.astro"
+import Technology from "./sections/Technology.astro"
+import Solutions from "./sections/Solutions.astro"
+import Process from "./sections/Process.astro"
+import Installations from "./sections/Installations.astro"
+import Impact from "./sections/Impact.astro"
+import Testimonials from "./sections/Testimonials.astro"
+import Editorial from "./sections/Editorial.astro"
+import Trust from "./sections/Trust.astro"
+import CTAFinal from "./sections/CTAFinal.astro"
+import Contact from "./sections/Contact.astro"
+import Footer from "./sections/Footer.astro"
+
+const pageTitle = "Heliogrid - Energía solar fotovoltaica"
+const pageDescription =
+  "Heliogrid analiza, diseña, instala y monitoriza soluciones de energía solar fotovoltaica para hogares, empresas, industrias y organizaciones que quieren reducir su consumo de red y avanzar hacia la transición energética."
+const canonicalUrl = "/landings/solar-energy"
+const thumbnailUrl = "/landings/solar-energy/cover.png"
+---
+
+<!doctype html>
+<html
+  lang="es"
+  class="scroll-smooth overflow-x-clip scheme-light motion-reduce:scroll-auto dark:scheme-dark font-sans"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+
+    <!-- Shared Landing Pages typeface — Wix Madefor Text (Google Fonts).
+    Every landing loads the exact same weights/styles here; never via
+    @import in CSS, and never a different family. See "Shared typography"
+    in the astro-landing-pages Skill. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- This document is only ever embedded as the preview iframe's render
+    target (/landings/solar-energy/render). The indexable, canonical page
+    for this landing is the platform's own detail page. -->
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content="noindex" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={thumbnailUrl} />
+    <meta property="og:url" content={canonicalUrl} />
+  </head>
+  <body
+    class="min-h-full overflow-x-hidden bg-background text-base leading-relaxed text-foreground antialiased font-sans"
+  >
+    <a
+      class="absolute -top-full left-4 z-1000 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-primary px-5 py-3 text-base font-semibold text-primary-foreground no-underline transition duration-200 ease-landing focus-visible:top-4 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border hover:bg-emphasis active:bg-emphasis"
+      href="#main-content"
+    >
+      Saltar al contenido principal
+    </a>
+
+    <Header />
+
+    <main id="main-content">
+      <Hero />
+      <Transition />
+      <Technology />
+      <Solutions />
+      <Process />
+      <Installations />
+      <Impact />
+      <Testimonials />
+      <Editorial />
+      <Trust />
+      <CTAFinal />
+      <Contact />
+    </main>
+
+    <Footer />
+
+    <script>
+      import "./scripts/theme"
+      import "./scripts/reveal"
+      import "./scripts/navIndicator"
+      import "./scripts/parallax"
+    </script>
+  </body>
+</html>

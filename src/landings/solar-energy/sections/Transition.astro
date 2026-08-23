@@ -1,0 +1,84 @@
+---
+import ImagePlaceholder from "../components/ImagePlaceholder.astro"
+
+interface Statement {
+  title: string
+  description: string
+}
+
+const statements: Statement[] = [
+  {
+    title: "Menor dependencia de la red",
+    description:
+      "Cada instalación reduce la parte del consumo que depende exclusivamente del suministro externo.",
+  },
+  {
+    title: "Generación en el mismo lugar",
+    description:
+      "La electricidad se produce donde se consume, sin las pérdidas asociadas al transporte a larga distancia.",
+  },
+  {
+    title: "Decisiones medibles",
+    description:
+      "Cada proyecto se acompaña de datos de producción reales, no de una estimación genérica de catálogo.",
+  },
+]
+---
+
+<section
+  class="bg-inverted text-inverted-foreground"
+  aria-labelledby="transicion-heading"
+>
+  <div class="w-full px-container-x pt-section pb-16 sm:px-8 xl:px-14">
+    <p
+      class="mb-6 font-mono text-xs font-semibold tracking-widest text-current/70 uppercase"
+    >
+      Transición energética
+    </p>
+    <h2
+      id="transicion-heading"
+      class="max-w-hero-heading text-balance text-headline-1 leading-[0.98] font-bold text-current"
+    >
+      Reducir la dependencia de los combustibles fósiles empieza en el tejado.
+    </h2>
+    <p class="mt-8 max-w-copy text-lg text-current/80 sm:text-xl">
+      Cada instalación fotovoltaica que ponemos en marcha es una decisión
+      concreta: menos consumo asociado a la red convencional, más generación
+      distribuida y un uso de la energía diseñado a la escala real de cada
+      proyecto, ya sea una vivienda, una nave industrial o una comunidad entera
+      de vecinos.
+    </p>
+  </div>
+
+  <ImagePlaceholder
+    label="Solar farm at dusk, aerial view"
+    ratio="16 / 10"
+    inverse
+    parallax
+    class="w-full"
+  />
+
+  <div class="w-full px-container-x py-16 sm:px-8 xl:px-14">
+    <ul
+      class="grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-8"
+      aria-label="Compromisos de la transición energética"
+    >
+      {
+        statements.map((statement: Statement, index: number) => (
+          <li
+            class:list={[
+              "reveal relative pt-6",
+              index !== 0 &&
+                "before:absolute before:top-0 before:left-0 before:h-px before:w-full before:bg-current/15 before:content-[''] sm:before:h-full sm:before:w-px sm:pt-0 sm:pl-8",
+            ]}
+          >
+            <h3 class="text-lg font-semibold text-current sm:text-xl">
+              {statement.title}
+            </h3>
+            <p class="mt-3 text-current/75">{statement.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,205 @@
+---
+import { PanelTopClose, SlidersHorizontal } from "@lucide/astro"
+import DeviceSelector from "./DeviceSelector.astro"
+import ThemeSelector from "./ThemeSelector.astro"
+import type { LandingPreviewProps } from "../../types/preview"
+
+type Props = LandingPreviewProps
+
+const { name, slug } = Astro.props
+---
+
+<div class="toolbar" id="preview-toolbar">
+  <div class="left">
+    <a class="back" href={`/landings/${slug}`} aria-label="Volver al catálogo"
+      >← Volver</a
+    >
+    <span class="name">{name}</span>
+  </div>
+  <div class="center">
+    <DeviceSelector />
+    <ThemeSelector />
+  </div>
+  <div class="right">
+    <button type="button" id="open-options-panel">
+      <SlidersHorizontal aria-hidden="true" />
+      Opciones
+    </button>
+    <button
+      type="button"
+      id="hide-toolbar"
+      aria-label="Ocultar barra de herramientas"
+    >
+      <PanelTopClose aria-hidden="true" />
+    </button>
+  </div>
+</div>
+
+<script>
+  const toolbar = document.getElementById("preview-toolbar")
+  const hideButton = document.getElementById("hide-toolbar")
+
+  document
+    .getElementById("open-options-panel")
+    ?.addEventListener("click", () => {
+      document.dispatchEvent(new CustomEvent("preview:options-panel"))
+    })
+
+  hideButton?.addEventListener("click", () => {
+    document.dispatchEvent(
+      new CustomEvent("preview:toolbar-visibility", {
+        detail: { visible: false },
+      }),
+    )
+  })
+
+  // Publishes this toolbar's real rendered height as a CSS custom property
+  // on the document root so PreviewShell's `.stage` can reserve exactly
+  // that much space, without either component reaching into the other's DOM.
+  function publishHeight(): void {
+    if (!toolbar) return
+    document.documentElement.style.setProperty(
+      "--toolbar-height",
+      `${toolbar.offsetHeight}px`,
+    )
+  }
+
+  if (toolbar) {
+    const heightObserver = new ResizeObserver(publishHeight)
+    heightObserver.observe(toolbar)
+  }
+  publishHeight()
+
+  document.addEventListener("preview:toolbar-visibility", (event) => {
+    if (!toolbar) return
+    const { visible } = event.detail
+    toolbar.dataset.hidden = visible ? "false" : "true"
+    if (visible) hideButton?.focus()
+  })
+</script>
+
+<style>
+  .toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem clamp(1rem, 4vw, 2rem);
+    border-bottom: 1px solid var(--platform-border);
+    background: var(--platform-surface);
+    transform: translateY(0);
+    visibility: visible;
+    transition:
+      transform 0.25s ease,
+      visibility 0s linear 0s;
+  }
+
+  .toolbar[data-hidden="true"] {
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition:
+      transform 0.25s ease,
+      visibility 0s linear 0.25s;
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+    justify-self: start;
+  }
+
+  /* The device/theme selectors sit in the toolbar's true center column,
+     independent of how wide `.left`/`.right` end up — not just "grouped
+     toward the middle" via flex spacing. */
+  .center {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    justify-self: center;
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-self: end;
+  }
+
+  .back {
+    text-decoration: none;
+    color: var(--platform-text-muted);
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .name {
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .toolbar {
+      grid-template-columns: 1fr;
+      row-gap: 0.6rem;
+    }
+
+    .left {
+      justify-self: stretch;
+    }
+
+    .center {
+      justify-self: stretch;
+    }
+
+    .right {
+      justify-self: stretch;
+      justify-content: flex-end;
+    }
+  }
+
+  #open-options-panel,
+  #hide-toolbar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid var(--platform-border);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--platform-text);
+    padding: 0.4rem 0.9rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  #open-options-panel:hover,
+  #open-options-panel:focus-visible,
+  #hide-toolbar:hover,
+  #hide-toolbar:focus-visible {
+    border-color: var(--platform-accent);
+  }
+
+  #hide-toolbar {
+    padding: 0.4rem;
+  }
+
+  #open-options-panel :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+
+  #hide-toolbar :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+</style>

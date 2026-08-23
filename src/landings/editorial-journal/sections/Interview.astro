@@ -1,0 +1,55 @@
+---
+import ImagePlaceholder from "../components/ImagePlaceholder.astro"
+import { interviewIntro, interviewExchanges } from "../data/interview"
+import type { InterviewExchange } from "../types"
+---
+
+<section
+  id="interview"
+  class="bg-background-alt py-16 sm:py-20 lg:py-28"
+  aria-labelledby="interview-heading"
+>
+  <div
+    class="mx-auto grid w-full max-w-landing gap-12 px-container-x sm:px-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-start xl:gap-20 xl:px-14"
+  >
+    <div class="reveal lg:sticky lg:top-24">
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        People — Interview
+      </p>
+      <h2
+        id="interview-heading"
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        In conversation: a type designer on slowness.
+      </h2>
+
+      <ImagePlaceholder
+        label="Portrait — type designer"
+        ratio="3 / 4"
+        class="mt-8 max-w-xs"
+      />
+
+      <p class="mt-6 text-base text-muted">{interviewIntro}</p>
+    </div>
+
+    <div class="flex flex-col gap-10">
+      {
+        interviewExchanges.map((exchange: InterviewExchange, index: number) => (
+          <div class="reveal border-t border-border/50 pt-8 first:border-t-0 first:pt-0">
+            <p class="mb-3 font-mono text-xs text-muted">
+              Q{String(index + 1).padStart(2, "0")}
+            </p>
+            <p class="text-lg leading-snug font-semibold text-foreground sm:text-xl">
+              {exchange.question}
+            </p>
+            <p class="mt-4 max-w-copy text-base text-muted sm:text-lg">
+              {exchange.answer}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

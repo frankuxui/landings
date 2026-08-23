@@ -1,0 +1,63 @@
+---
+import { ArrowRight } from "@lucide/astro"
+import ImagePlaceholder from "../components/ImagePlaceholder.astro"
+import { featureArticle } from "../data/feature"
+---
+
+<section
+  id="feature"
+  class="bg-background-alt py-16 sm:py-20 lg:py-28"
+  aria-labelledby="feature-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="mb-8 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+    >
+      This week's report
+    </p>
+
+    <article
+      class="grid grid-cols-1 gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16"
+    >
+      <div class="reveal order-2 lg:order-1">
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          {featureArticle.category}
+        </p>
+        <h2
+          id="feature-heading"
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        >
+          {featureArticle.title}
+        </h2>
+        <p class="mt-6 max-w-copy text-base text-muted sm:text-lg">
+          {featureArticle.summary}
+        </p>
+        <p class="mt-8 text-sm text-muted">
+          {featureArticle.author} ·{" "}
+          <time datetime={featureArticle.isoDate}>{featureArticle.date}</time> ·{
+            " "
+          }
+          {featureArticle.readTime}
+        </p>
+        <a
+          class="mt-6 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-primary px-6 py-3 text-base font-semibold text-primary-foreground no-underline transition duration-200 ease-landing hover:bg-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-emphasis"
+          href="#long-form"
+        >
+          Continue reading
+          <ArrowRight
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </a>
+      </div>
+
+      <div class="reveal order-1 lg:order-2">
+        <ImagePlaceholder label={featureArticle.imageLabel} ratio="4 / 3" />
+      </div>
+    </article>
+  </div>
+</section>

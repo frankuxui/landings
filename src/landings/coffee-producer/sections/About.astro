@@ -1,0 +1,45 @@
+---
+import Photo from "../components/Photo.astro"
+import { aboutImage } from "../data/images"
+---
+
+<section
+  class="bg-background-alt py-section"
+  id="historia"
+  aria-labelledby="about-heading"
+>
+  <div
+    class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14 grid items-center gap-16 nav:grid-cols-[0.72fr_1.28fr] xl:gap-24"
+  >
+    <Photo image={aboutImage} ratio="3 / 4" class="reveal" />
+
+    <div class="reveal">
+      <div class="mb-0 max-w-5xl">
+        <p
+          class="mb-4 inline-block font-sans text-sm font-semibold tracking-widest text-muted uppercase"
+        >
+          Nuestra historia
+        </p>
+        <h2
+          id="about-heading"
+          class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        >
+          Tres generaciones cultivando la misma ladera.
+        </h2>
+        <p class="mt-5 text-base text-muted sm:text-lg">
+          Terraltura nació en 1994, cuando una familia productora decidió dejar
+          de vender su cosecha a intermediarios y tostar su propio café en los
+          Altos de Vientoclaro. Treinta años después, seguimos cultivando las
+          mismas parcelas de montaña, ahora junto a doce fincas vecinas que
+          comparten nuestra forma de entender el café.
+        </p>
+      </div>
+      <p class="mt-7 text-lg text-muted">
+        No perseguimos volumen: perseguimos que cada lote cuente una historia
+        clara de finca, altitud y proceso. Creemos que un café excepcional
+        empieza mucho antes del tueste - empieza en la tierra, en la sombra de
+        los árboles y en las manos que recogen cada cereza.
+      </p>
+    </div>
+  </div>
+</section>

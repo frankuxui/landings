@@ -1,0 +1,32 @@
+---
+import type { Article } from "../types"
+
+export interface Props {
+  article: Article
+  isFirst?: boolean
+}
+
+const { article, isFirst = false } = Astro.props
+---
+
+<article
+  class:list={[
+    "reveal relative flex flex-col gap-4 py-10 first:pt-0",
+    !isFirst &&
+      "before:absolute before:top-0 before:left-0 before:h-px before:w-full before:bg-foreground/10 before:content-['']",
+  ]}
+>
+  <p
+    class="font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+  >
+    {article.eyebrow}
+  </p>
+  <h3
+    class="text-balance text-headline-3 leading-tight font-semibold text-foreground"
+  >
+    {article.title}
+  </h3>
+  <p class="max-w-copy text-muted">
+    {article.excerpt}
+  </p>
+</article>

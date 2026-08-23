@@ -1,0 +1,29 @@
+---
+import EditorPickItem from "../components/EditorPickItem.astro"
+import { editorsPicks } from "../data/editorsPicks"
+import type { EditorsPick } from "../types"
+---
+
+<section
+  id="editors-picks"
+  class="bg-inverted py-16 text-inverted-foreground sm:py-20 lg:py-28"
+  aria-labelledby="editors-picks-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="mb-4 font-mono text-xs font-semibold tracking-widest text-inverted-foreground/60 uppercase"
+    >
+      Editor's picks
+    </p>
+    <h2
+      id="editors-picks-heading"
+      class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-inverted-foreground"
+    >
+      Three pieces worth the full read.
+    </h2>
+
+    <div class="mt-4">
+      {editorsPicks.map((pick: EditorsPick) => <EditorPickItem pick={pick} />)}
+    </div>
+  </div>
+</section>

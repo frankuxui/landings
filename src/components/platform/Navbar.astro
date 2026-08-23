@@ -1,0 +1,51 @@
+---
+// Platform navbar — used on catalog pages only, never inside a landing.
+---
+
+<header class="navbar">
+  <a class="brand" href="/">
+    <span class="brand-mark" aria-hidden="true"></span>
+    Landing Pages Gallery
+  </a>
+  <nav aria-label="Navegación principal">
+    <a href="/landings">Explorar landings</a>
+  </nav>
+</header>
+
+<style>
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem clamp(1rem, 4vw, 2.5rem);
+    border-bottom: 1px solid var(--platform-border);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--platform-text);
+  }
+
+  .brand-mark {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 2px;
+    background: var(--platform-accent);
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--platform-text-muted);
+    font-size: 0.95rem;
+  }
+
+  nav a:hover,
+  nav a:focus-visible {
+    color: var(--platform-text);
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+import type { Stat } from "../types"
+
+export interface Props {
+  stat: Stat
+}
+
+const { stat } = Astro.props
+
+const extractNumericValue = (
+  value: string,
+): { num: number; suffix: string } => {
+  const match = value.match(/^(\d+)(.*)$/)
+  if (match) {
+    return { num: parseInt(match[1], 10), suffix: match[2] }
+  }
+  return { num: 0, suffix: value }
+}
+
+const { num, suffix } = extractNumericValue(stat.value)
+---
+
+<div
+  class="reveal rounded-2xl bg-current/8 px-4 py-6 text-center xl:px-6 xl:py-8"
+  data-stat-item
+  data-stat-value={num}
+  data-stat-suffix={suffix}
+>
+  <p class="text-4xl sm:text-5xl display:text-6xl" data-stat-display>
+    0{suffix}
+  </p>
+  <p class="mt-2 text-sm tracking-widest text-current/75 uppercase">
+    {stat.label}
+  </p>
+</div>

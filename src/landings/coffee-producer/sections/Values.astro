@@ -1,0 +1,33 @@
+---
+import ValueCard from "../components/ValueCard.astro"
+import { values } from "../data/values"
+import type { ValueItem } from "../types"
+---
+
+<section class="bg-background py-section" aria-labelledby="valores-heading">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="mb-16 max-w-5xl">
+      <p
+        class="mb-4 inline-block font-sans text-sm font-semibold tracking-widest text-muted uppercase"
+      >
+        Lo que nos guía
+      </p>
+      <h2
+        id="valores-heading"
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        Compromisos que sostienen cada cosecha.
+      </h2>
+    </div>
+
+    <ul
+      class="grid grid-cols-1 gap-6 cards:grid-cols-2 xl:grid-cols-3 xl:gap-8"
+    >
+      {
+        values.map((value: ValueItem, index: number) => (
+          <ValueCard value={value} index={index} />
+        ))
+      }
+    </ul>
+  </div>
+</section>

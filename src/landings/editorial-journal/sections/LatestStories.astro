@@ -1,0 +1,52 @@
+---
+import { ArrowRight } from "@lucide/astro"
+import StoryRow from "../components/StoryRow.astro"
+import { stories } from "../data/stories"
+import type { Story } from "../types"
+---
+
+<section
+  id="latest-stories"
+  class="bg-background py-16 sm:py-20 lg:py-28"
+  aria-labelledby="latest-stories-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div
+      class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <div>
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          Latest stories
+        </p>
+        <h2
+          id="latest-stories-heading"
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        >
+          Fresh from the desk.
+        </h2>
+      </div>
+      <a
+        class="inline-flex min-h-11 shrink-0 cursor-pointer items-center gap-2 self-start rounded-sm border border-border bg-transparent px-5 py-2.5 text-sm font-semibold text-foreground no-underline transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover sm:self-auto"
+        href="#archive"
+      >
+        View all stories
+        <ArrowRight
+          aria-hidden="true"
+          width="16"
+          height="16"
+          stroke-width="1.5"
+        />
+      </a>
+    </div>
+
+    <ol aria-label="Latest published stories">
+      {
+        stories.map((story: Story, index: number) => (
+          <StoryRow story={story} index={index} />
+        ))
+      }
+    </ol>
+  </div>
+</section>

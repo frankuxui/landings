@@ -1,0 +1,120 @@
+---
+import ImagePlaceholder from "../components/ImagePlaceholder.astro"
+---
+
+<section
+  id="long-form"
+  class="bg-background py-16 sm:py-20 lg:py-28"
+  aria-labelledby="long-form-heading"
+>
+  <div
+    class="mx-auto grid w-full max-w-[calc(var(--container-copy)+14rem+3rem)] grid-cols-1 gap-10 px-container-x sm:px-8 lg:grid-cols-[minmax(0,var(--container-copy))_14rem] lg:items-start xl:px-14"
+  >
+    <article class="reveal min-w-0">
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        Technology — Long-form report
+      </p>
+      <h2
+        id="long-form-heading"
+        class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        The quiet migration back to paper forms.
+      </h2>
+      <p class="mt-4 text-lg text-muted italic sm:text-xl">
+        Twelve public services digitized in the same decade. All twelve are,
+        quietly, adding paper back in.
+      </p>
+      <p class="mt-6 text-sm text-muted">
+        Editorial Team ·{" "}
+        <time datetime="2026-08-21">August 21, 2026</time> · 12 min read
+      </p>
+
+      <div
+        class="mt-10 flex flex-col gap-6 text-base leading-relaxed text-foreground/90 sm:text-lg"
+      >
+        <p>
+          The first office to admit it was a small transit authority two states
+          over. Their online renewal form had a ninety-one percent completion
+          rate in usability testing and a forty-four percent completion rate in
+          the wild. The gap wasn't a bug. It was every account creation prompt,
+          every password requirement, every session that expired while someone
+          searched a drawer for a document number.
+        </p>
+        <p>
+          Paper doesn't ask you to remember a password. It doesn't time out. It
+          doesn't require a compatible browser, a stable connection, or a device
+          newer than the one already sitting on the kitchen table. For a
+          specific, recurring kind of transaction — renewal, registration,
+          enrollment — that turns out to matter more than any interface
+          improvement the digital form could offer.
+        </p>
+
+        <blockquote
+          class="my-4 max-w-copy border-l-2 border-foreground/20 pl-5 text-2xl leading-snug font-medium text-foreground italic sm:text-3xl"
+        >
+          <p>
+            "We didn't bring paper back because the software failed. We brought
+            it back because paper never asked anyone to create an account."
+          </p>
+        </blockquote>
+
+        <ImagePlaceholder
+          label="Long-form article image"
+          ratio="16 / 9"
+          parallax
+          class="my-2"
+        />
+
+        <p>
+          None of the twelve services abandoned their digital forms — they run
+          in parallel now, and the digital option still handles the majority of
+          transactions. What changed is smaller and more telling: paper stopped
+          being treated as the legacy fallback and started being treated as a
+          first-class channel, with its own design review and its own completion
+          targets.
+        </p>
+        <p>
+          That distinction — legacy fallback versus first-class channel — is
+          probably the actual story here. Nobody digitized a bad process and
+          made it good by putting it on a screen. The services that are thriving
+          are the ones that finally looked at both channels as equally
+          deliberate choices, and stopped assuming the newer one was
+          automatically the better one.
+        </p>
+      </div>
+    </article>
+
+    <aside
+      class="reveal flex flex-col gap-6 border-t border-border/50 pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8"
+      aria-label="Side notes"
+    >
+      <div>
+        <p
+          class="mb-2 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          Editor's note
+        </p>
+        <p class="text-sm text-muted">
+          Completion-rate figures throughout this piece are composites drawn
+          from the twelve services studied, not a single source — reported this
+          way at each service's request.
+        </p>
+      </div>
+      <div>
+        <p
+          class="mb-2 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          Related
+        </p>
+        <a
+          class="block text-sm font-medium text-foreground no-underline hover:underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+          href="#dispatch"
+        >
+          The dashboard that stopped updating
+        </a>
+      </div>
+    </aside>
+  </div>
+</section>

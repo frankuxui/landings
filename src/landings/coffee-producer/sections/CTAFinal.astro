@@ -1,0 +1,42 @@
+---
+import { ArrowRight, Mail } from "@lucide/astro"
+---
+
+<section class="bg-background py-section" aria-labelledby="cta-final-heading">
+  <div
+    class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14 flex max-w-5xl flex-col items-center gap-7 text-center"
+  >
+    <h2
+      id="cta-final-heading"
+      class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+    >
+      Lleva Terraltura a tu barra, tu mesa o tu cocina.
+    </h2>
+    <p class="mt-5 text-base text-muted sm:text-lg">
+      Descubre nuestras cuatro variedades o escríbenos si representas una
+      cafetería, un restaurante o una distribuidora interesada en trabajar con
+      nosotros.
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a
+        class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full px-6 py-3 text-base font-semibold no-underline transition duration-200 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border border-0 bg-primary text-primary-foreground hover:bg-emphasis active:bg-emphasis"
+        href="#productos"
+      >
+        Descubre nuestro café
+        <ArrowRight
+          aria-hidden="true"
+          width="18"
+          height="18"
+          stroke-width="1.5"
+        />
+      </a>
+      <a
+        class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full px-6 py-3 text-base font-semibold no-underline transition duration-200 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border border-0 bg-control text-foreground hover:bg-control-hover active:bg-control-hover"
+        href="#contacto"
+      >
+        Hablar con Terraltura
+        <Mail aria-hidden="true" width="18" height="18" stroke-width="1.5" />
+      </a>
+    </div>
+  </div>
+</section>

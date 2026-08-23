@@ -1,0 +1,25 @@
+---
+import ImagePlaceholder from "./ImagePlaceholder.astro"
+import type { ArchiveIssue } from "../types"
+
+export interface Props {
+  issue: ArchiveIssue
+}
+
+const { issue } = Astro.props
+---
+
+<article class="flex h-full flex-col">
+  <ImagePlaceholder label={issue.coverLabel} ratio="3 / 4" />
+  <p
+    class="mt-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+  >
+    Issue No. {issue.number}
+  </p>
+  <h3 class="mt-1 text-lg leading-snug font-semibold text-foreground">
+    {issue.title}
+  </h3>
+  <p class="mt-1 text-sm text-muted">
+    <time datetime={issue.isoDate}>{issue.date}</time>
+  </p>
+</article>

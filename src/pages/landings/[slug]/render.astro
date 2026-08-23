@@ -1,0 +1,38 @@
+---
+// Isolated render route — the iframe target for the preview shell.
+// Renders ONLY the landing's own root component (a full, self-contained
+// HTML document). No platform Layout, no platform CSS, no navbar/footer.
+import { getCollection } from "astro:content"
+import type { AstroComponentFactory } from "astro/runtime/server/index.js"
+import type { LandingEntry } from "../../../types/landing"
+
+export async function getStaticPaths() {
+  const landings = await getCollection(
+    "landings",
+    ({ data }: LandingEntry) => data.status === "published",
+  )
+  return landings.map((landing: LandingEntry) => ({
+    params: { slug: landing.id },
+  }))
+}
+
+const { slug } = Astro.params
+
+// Each landing lives at src/landings/[slug]/index.astro. This glob avoids
+// maintaining a central registry file — adding a landing is just adding
+// its folder + a matching metadata JSON entry in src/content/landings/.
+const landingModules = import.meta.glob<{ default: AstroComponentFactory }>(
+  "/src/landings/*/index.astro",
+)
+const importLanding = landingModules[`/src/landings/${slug}/index.astro`]
+
+if (!importLanding) {
+  throw new Error(
+    `No implementation found for landing "${slug}" at src/landings/${slug}/index.astro`,
+  )
+}
+
+const { default: LandingPage } = await importLanding()
+---
+
+<LandingPage />

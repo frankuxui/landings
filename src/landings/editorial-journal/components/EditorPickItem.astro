@@ -1,0 +1,46 @@
+---
+import { ArrowUpRight } from "@lucide/astro"
+import type { EditorsPick } from "../types"
+
+export interface Props {
+  pick: EditorsPick
+}
+
+const { pick } = Astro.props
+---
+
+<article
+  class="reveal grid grid-cols-1 gap-4 border-t border-inverted-foreground/15 py-10 first:border-t-0 first:pt-0 md:grid-cols-[6rem_1fr] md:gap-8"
+>
+  <span
+    class="font-mono text-4xl leading-none font-semibold text-inverted-foreground/30 md:text-5xl"
+    aria-hidden="true">{pick.index}</span
+  >
+  <div>
+    <p
+      class="mb-3 font-mono text-xs font-semibold tracking-widest text-inverted-foreground/60 uppercase"
+    >
+      {pick.category}
+    </p>
+    <h3
+      class="max-w-heading text-balance text-2xl leading-snug font-semibold text-inverted-foreground sm:text-3xl"
+    >
+      {pick.title}
+    </h3>
+    <p class="mt-4 max-w-copy text-base text-inverted-foreground/75">
+      {pick.excerpt}
+    </p>
+    <a
+      class="mt-6 inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-sm px-2 py-2 text-sm font-semibold text-inverted-foreground no-underline transition duration-200 ease-landing hover:bg-inverted-foreground/10 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-inverted-foreground active:bg-inverted-foreground/15"
+      href="#"
+    >
+      {pick.readTime}
+      <ArrowUpRight
+        aria-hidden="true"
+        width="16"
+        height="16"
+        stroke-width="1.5"
+      />
+    </a>
+  </div>
+</article>

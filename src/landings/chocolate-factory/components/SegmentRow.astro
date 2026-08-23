@@ -1,0 +1,25 @@
+---
+import type { Segment } from "../types"
+
+export interface Props {
+  segment: Segment
+}
+
+const { segment } = Astro.props
+---
+
+<li
+  class="reveal relative flex flex-col gap-3 py-8 before:absolute before:top-0 before:left-0 before:h-px before:w-full before:bg-current/12 before:content-[''] first:before:hidden sm:flex-row sm:items-baseline sm:gap-10"
+>
+  <span class="shrink-0 font-mono text-sm text-muted sm:w-12"
+    >{segment.number}</span
+  >
+  <div class="flex flex-col gap-2 sm:flex-1">
+    <h3
+      class="text-balance text-headline-3 leading-tight font-semibold text-foreground"
+    >
+      {segment.title}
+    </h3>
+    <p class="max-w-copy text-muted">{segment.description}</p>
+  </div>
+</li>

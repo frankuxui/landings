@@ -1,0 +1,38 @@
+---
+export interface Props {
+  value: string
+  label: string
+  variant?: "primary" | "secondary"
+  isFirst?: boolean
+}
+
+const { value, label, variant = "secondary", isFirst = false } = Astro.props
+---
+
+{
+  variant === "primary" ? (
+    <div class="reveal" data-stat-item data-stat-value={value}>
+      <p
+        class="font-mono text-figure leading-none text-current"
+        data-stat-display
+      >
+        0
+      </p>
+    </div>
+  ) : (
+    <div
+      class:list={[
+        "reveal relative flex flex-col gap-2 py-6 first:pt-0",
+        !isFirst &&
+          "before:absolute before:top-0 before:left-0 before:h-px before:w-full before:bg-current/12 before:content-['']",
+      ]}
+      data-stat-item
+      data-stat-value={value}
+    >
+      <p class="font-mono text-3xl text-current sm:text-4xl" data-stat-display>
+        0
+      </p>
+      <p class="text-sm tracking-wide text-current/70">{label}</p>
+    </div>
+  )
+}

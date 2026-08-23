@@ -1,0 +1,87 @@
+---
+import { ChevronLeft, ChevronRight } from "@lucide/astro"
+import TestimonialSlide from "../components/TestimonialSlide.astro"
+import { testimonials } from "../data/testimonials"
+import type { Testimonial } from "../types"
+---
+
+<section
+  class="bg-background-alt py-section"
+  aria-labelledby="testimonios-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div
+      class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <div class="max-w-5xl">
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          Quienes ya generan su energía
+        </p>
+        <h2
+          id="testimonios-heading"
+          class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        >
+          Hogares, negocios e industrias con Heliogrid.
+        </h2>
+      </div>
+
+      <div class="flex shrink-0 items-center gap-3">
+        <button
+          type="button"
+          class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border border-border bg-transparent p-0 text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
+          data-testimonials-prev
+          aria-label="Testimonio anterior"
+        >
+          <ChevronLeft
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </button>
+        <button
+          type="button"
+          class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border border-border bg-transparent p-0 text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
+          data-testimonials-next
+          aria-label="Testimonio siguiente"
+        >
+          <ChevronRight
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="testimonials-slider swiper"
+      data-testimonials-slider
+      aria-label="Carrusel de testimonios"
+      role="region"
+    >
+      <div class="swiper-wrapper">
+        {
+          testimonials.map((testimonial: Testimonial) => (
+            <div class="swiper-slide h-auto">
+              <TestimonialSlide testimonial={testimonial} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="testimonials-slider-pagination mt-8 flex justify-center"
+      data-testimonials-pagination
+    >
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/testimonialsSlider"
+</script>

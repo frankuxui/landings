@@ -1,0 +1,44 @@
+---
+import Photo from "./Photo.astro"
+import type { Product } from "../types"
+
+export interface Props {
+  product: Product
+}
+
+const { product } = Astro.props
+---
+
+<article
+  class="reveal flex h-full flex-col gap-5 rounded-3xl bg-surface p-5 xl:p-6"
+>
+  <Photo image={product.image} ratio="4 / 3" />
+  <div class="flex h-full flex-col">
+    <h3
+      class="min-h-[2lh] text-balance text-headline-3 leading-tight font-semibold text-foreground"
+    >
+      {product.name}
+    </h3>
+    <p class="mt-2 text-sm font-semibold text-muted">
+      {product.origin}
+    </p>
+    <p class="mt-4 text-muted display:text-lg">
+      {product.description}
+    </p>
+    <ul
+      class="mt-5 flex flex-wrap gap-2"
+      aria-label={`Notas de sabor de ${product.name}`}
+    >
+      {
+        product.tastingNotes.map((note: string) => (
+          <li class="rounded-full bg-surface-strong px-3 py-1 text-sm font-semibold text-foreground">
+            {note}
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-6 rounded-md bg-surface-strong px-3 py-2 text-sm text-muted">
+      {product.roast} · {product.format}
+    </p>
+  </div>
+</article>

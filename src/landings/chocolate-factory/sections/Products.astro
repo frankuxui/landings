@@ -1,0 +1,95 @@
+---
+import { ChevronLeft, ChevronRight } from "@lucide/astro"
+import ProductSlide from "../components/ProductSlide.astro"
+import { products } from "../data/products"
+import type { Product } from "../types"
+---
+
+<section
+  class="bg-background-alt py-section"
+  id="productos"
+  aria-labelledby="productos-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div
+      class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <div class="max-w-heading">
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          Catálogo de fábrica
+        </p>
+        <h2
+          id="productos-heading"
+          class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        >
+          Cinco referencias, un mismo obrador.
+        </h2>
+      </div>
+
+      <div class="flex shrink-0 items-center gap-3">
+        <span
+          class="font-mono text-sm text-muted"
+          data-products-counter
+          aria-hidden="true"
+        >
+          01 / 05
+        </span>
+        <button
+          type="button"
+          class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border border-border bg-transparent p-0 text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
+          data-products-prev
+          aria-label="Producto anterior"
+        >
+          <ChevronLeft
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </button>
+        <button
+          type="button"
+          class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border border-border bg-transparent p-0 text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
+          data-products-next
+          aria-label="Producto siguiente"
+        >
+          <ChevronRight
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="products-slider swiper"
+      data-products-slider
+      aria-label="Carrusel de productos"
+      role="region"
+    >
+      <div class="swiper-wrapper">
+        {
+          products.map((product: Product, index: number) => (
+            <div class="swiper-slide h-auto">
+              <ProductSlide product={product} index={index} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="products-slider-pagination mt-8 flex justify-center"
+      data-products-pagination
+    >
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/productsSlider"
+</script>

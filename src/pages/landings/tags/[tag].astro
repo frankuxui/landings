@@ -1,0 +1,118 @@
+---
+import { getCollection } from "astro:content"
+import Layout from "../../../layouts/Layout.astro"
+import Navbar from "../../../components/platform/Navbar.astro"
+import Footer from "../../../components/platform/Footer.astro"
+import LandingCard from "../../../components/platform/LandingCard.astro"
+import { slugifyTag } from "../../../utils/slugify"
+import type { LandingEntry } from "../../../types/landing"
+
+export async function getStaticPaths() {
+  const landings = await getCollection(
+    "landings",
+    ({ data }: LandingEntry) => data.status === "published",
+  )
+
+  const tagMap = new Map<string, { label: string; landings: LandingEntry[] }>()
+
+  for (const landing of landings) {
+    for (const tag of landing.data.tags) {
+      const slug = slugifyTag(tag)
+      const existing = tagMap.get(slug)
+      if (existing) {
+        existing.landings.push(landing)
+      } else {
+        tagMap.set(slug, { label: tag, landings: [landing] })
+      }
+    }
+  }
+
+  return Array.from(tagMap.entries()).map(
+    ([slug, { label, landings: tagged }]: [
+      string,
+      { label: string; landings: LandingEntry[] },
+    ]) => ({
+      params: { tag: slug },
+      props: { label, landings: tagged },
+    }),
+  )
+}
+
+interface Props {
+  label: string
+  landings: LandingEntry[]
+}
+
+const { label, landings } = Astro.props
+---
+
+<Layout
+  title={`${label} — Landing Pages Gallery`}
+  description={`Landings etiquetadas con "${label}".`}
+>
+  <Navbar />
+
+  <main>
+    <header class="page-header">
+      <span class="tag-badge">{label}</span>
+      <h1>Landings de {label}</h1>
+      <p>
+        {landings.length === 1 ? "1 landing" : `${landings.length} landings`} con
+        esta etiqueta.
+      </p>
+    </header>
+
+    <div class="grid">
+      {
+        landings.map((landing: LandingEntry) => (
+          <LandingCard landing={landing} />
+        ))
+      }
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 2.5rem clamp(1rem, 4vw, 2.5rem) 4rem;
+  }
+
+  .page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .tag-badge {
+    display: inline-block;
+    width: fit-content;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--platform-accent);
+    color: var(--platform-accent-contrast);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  .page-header p {
+    margin: 0;
+    color: var(--platform-text-muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+</style>

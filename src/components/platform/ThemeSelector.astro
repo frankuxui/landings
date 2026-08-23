@@ -1,0 +1,93 @@
+---
+// Toggles the theme of the previewed landing ONLY — never the catalog's own theme.
+// Sends a `postMessage` into the preview iframe; each landing owns a small script
+// that toggles `data-theme` on its OWN `document.documentElement`.
+import { Sun, Moon } from "@lucide/astro"
+---
+
+<div class="theme-selector" role="group" aria-label="Seleccionar tema">
+  <button type="button" data-theme="light" aria-pressed="true">
+    <Sun aria-hidden="true" />
+    <span class="label">Light</span>
+  </button>
+  <button type="button" data-theme="dark" aria-pressed="false">
+    <Moon aria-hidden="true" />
+    <span class="label">Dark</span>
+  </button>
+</div>
+
+<script>
+  import { isTheme } from "../../types/theme"
+
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    ".theme-selector button",
+  )
+
+  buttons.forEach((button: HTMLButtonElement) => {
+    button.addEventListener("click", () => {
+      const theme = button.dataset.theme
+      if (!isTheme(theme)) return
+
+      buttons.forEach((b: HTMLButtonElement) =>
+        b.setAttribute("aria-pressed", "false"),
+      )
+      button.setAttribute("aria-pressed", "true")
+
+      document.dispatchEvent(
+        new CustomEvent("preview:theme", { detail: { theme } }),
+      )
+    })
+  })
+</script>
+
+<style>
+  .theme-selector {
+    display: inline-flex;
+    border: 1px solid var(--platform-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 0;
+    background: transparent;
+    color: var(--platform-text-muted);
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  button :global(svg) {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  button[aria-pressed="true"] {
+    background: var(--platform-accent);
+    color: var(--platform-accent-contrast);
+  }
+
+  @media (max-width: 640px) {
+    /* Visually hidden, not `display:none` — the label stays in the button's
+       accessible name even though only the icon renders. */
+    .label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    button {
+      padding: 0.5rem;
+    }
+  }
+</style>

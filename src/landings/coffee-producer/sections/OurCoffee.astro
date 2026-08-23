@@ -1,0 +1,96 @@
+---
+import { MapPin, Leaf, Hand, Flame, Wind, Smile } from "@lucide/astro"
+
+interface CoffeeAttribute {
+  term: string
+  detail: string
+  icon: typeof MapPin
+}
+
+const attributes: CoffeeAttribute[] = [
+  {
+    term: "Origen",
+    detail: "Altos de Vientoclaro, 1.400-2.100 m s. n. m.",
+    icon: MapPin,
+  },
+  { term: "Variedad", detail: "Typica, Bourbon y Caturra", icon: Leaf },
+  {
+    term: "Selección",
+    detail: "Cereza recogida a mano en su punto óptimo de maduración",
+    icon: Hand,
+  },
+  {
+    term: "Tueste",
+    detail: "Pequeños lotes, artesanal, en obrador propio",
+    icon: Flame,
+  },
+  {
+    term: "Aroma",
+    detail: "Floral, a cacao tostado y frutos de temporada",
+    icon: Wind,
+  },
+  {
+    term: "Sabor",
+    detail: "Cuerpo medio, acidez brillante, final dulce",
+    icon: Smile,
+  },
+]
+---
+
+<section
+  class="bg-inverted py-section text-inverted-foreground"
+  id="cafe"
+  aria-labelledby="cafe-heading"
+>
+  <div
+    class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14 grid gap-16 lg:grid-cols-[0.82fr_1.18fr] lg:items-start xl:gap-24"
+  >
+    <div class="reveal lg:sticky lg:top-28">
+      <div class="mb-0 max-w-5xl">
+        <p
+          class="mb-4 inline-block font-sans text-sm font-semibold tracking-widest text-current uppercase opacity-85"
+        >
+          Nuestro café
+        </p>
+        <h2
+          id="cafe-heading"
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-current"
+        >
+          Un carácter que se reconoce en la primera taza.
+        </h2>
+      </div>
+      <p class="mt-5 text-base text-current/80 sm:text-lg">
+        Cada bolsa de Terraltura parte de un mismo compromiso: cultivar en
+        altura, seleccionar con criterio y tostar sin prisa. El resultado es un
+        café de especialidad con identidad propia, pensado tanto para quien lo
+        prepara en casa como para quien lo sirve a diario detrás de una barra.
+      </p>
+    </div>
+
+    <dl class="reveal flex flex-col gap-3">
+      {
+        attributes.map((attribute: CoffeeAttribute, index: number) => {
+          const Icon = attribute.icon
+          return (
+            <div
+              class:list={[
+                "grid grid-cols-[10rem_1fr] gap-6 rounded-md p-5 display:grid-cols-[12rem_1fr]",
+                index % 2 === 0 && "bg-current/7",
+              ]}
+            >
+              <dt class="flex items-center gap-4 text-lg sm:text-xl">
+                <span class="inline-flex items-center justify-center rounded-full bg-current/10 text-current size-10">
+                  <Icon size={20} class="shrink-0" />
+                </span>
+                {attribute.term}
+              </dt>
+              <dd class="flex items-center justify-start m-0 text-sm text-current/80 sm:text-base">
+                {attribute.detail}
+              </dd>
+            </div>
+          )
+        })
+      }
+    </dl>
+  </div>
+</section>

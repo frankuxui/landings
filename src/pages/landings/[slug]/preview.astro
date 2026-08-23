@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content"
+import PreviewLayout from "../../../layouts/PreviewLayout.astro"
+import PreviewShell from "../../../components/platform/PreviewShell.astro"
+import type { LandingEntry, LandingProps } from "../../../types/landing"
+
+export async function getStaticPaths() {
+  const landings = await getCollection(
+    "landings",
+    ({ data }: LandingEntry) => data.status === "published",
+  )
+  return landings.map((landing: LandingEntry) => ({
+    params: { slug: landing.id },
+    props: { landing },
+  }))
+}
+
+type Props = LandingProps
+
+const { landing } = Astro.props
+---
+
+<PreviewLayout title={landing.data.name}>
+  <PreviewShell name={landing.data.name} slug={landing.id} />
+</PreviewLayout>

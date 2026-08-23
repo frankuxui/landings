@@ -1,0 +1,27 @@
+{
+  "name": "Terraltura",
+  "title": "Terraltura — Café de origen cultivado en altura",
+  "description": "Café de especialidad cultivado, seleccionado y tostado en los Altos de Vientoclaro, desde el grano hasta la taza de cafeterías, restaurantes y hogares.",
+  "subtitle": "Café de origen cultivado y tostado en altura",
+  "category": "business",
+  "tags": ["café", "producción", "artesanal", "origen", "sostenibilidad"],
+  "technologies": ["Astro", "CSS", "@lucide/astro"],
+  "thumbnail": "https://images.unsplash.com/photo-1672851612794-6687bf0bf1a3?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8Y29mZmVlJTIwY2hlcnJpZXMlMjBicmFuY2glMjBwbGFudCUyMGNsb3NldXB8ZW58MXwwfHx8MTc4NzQ3NTcwNHww&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
+  "thumbnailAlt": "Racimo de granos de café maduros colgando de la planta",
+  "thumbnailWidth": 5568,
+  "thumbnailHeight": 3712,
+  "thumbnailCredit": {
+    "id": "p7xchIkJrJA",
+    "author": "David Restrepo",
+    "authorUrl": "https://unsplash.com/@davidremu_?utm_source=astro_landings_gallery&utm_medium=referral",
+    "sourceUrl": "https://unsplash.com/photos/a-bunch-of-coffee-beans-hanging-from-a-tree-p7xchIkJrJA?utm_source=astro_landings_gallery&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+    "downloadLocation": "https://api.unsplash.com/photos/p7xchIkJrJA/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8Y29mZmVlJTIwY2hlcnJpZXMlMjBicmFuY2glMjBwbGFudCUyMGNsb3NldXB8ZW58MXwwfHx8MTc4NzQ3NTcwNHww"
+  },
+  "previewImage": "/landings/coffee-producer/cover.png",
+  "createdAt": "2026-08-22",
+  "author": "frankuxui",
+  "themes": ["light", "dark"],
+  "featured": true,
+  "status": "published"
+}

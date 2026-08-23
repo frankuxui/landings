@@ -1,0 +1,49 @@
+---
+import { ArrowRight, Mail } from "@lucide/astro"
+---
+
+<section class="bg-background" aria-labelledby="cta-final-heading">
+  <div class="w-full px-container-x py-section sm:px-8 xl:px-14">
+    <p
+      class="mb-6 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+    >
+      Empieza hoy
+    </p>
+    <h2
+      id="cta-final-heading"
+      class="max-w-hero-heading text-balance text-headline-1 leading-[0.95] font-bold text-foreground"
+    >
+      Un sistema fotovoltaico diseñado para tu consumo real.
+    </h2>
+
+    <div
+      class="mt-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
+    >
+      <p class="max-w-copy text-lg text-muted sm:text-xl">
+        Estudio energético gratuito, sin compromiso, con una propuesta
+        dimensionada a tu vivienda, negocio o instalación industrial.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a
+          class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-primary px-6 py-3 text-base font-semibold text-primary-foreground no-underline transition duration-200 ease-landing hover:bg-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-emphasis"
+          href="#contacto"
+        >
+          Solicitar estudio energético
+          <ArrowRight
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </a>
+        <a
+          class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-control px-6 py-3 text-base font-semibold text-foreground no-underline transition duration-200 ease-landing hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+          href="mailto:correo@ejemplo.com"
+        >
+          Hablar con Heliogrid
+          <Mail aria-hidden="true" width="18" height="18" stroke-width="1.5" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

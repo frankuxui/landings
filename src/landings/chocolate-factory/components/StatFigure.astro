@@ -1,0 +1,40 @@
+---
+import type { ProductionStat } from "../types"
+
+export interface Props {
+  stat: ProductionStat
+  isLast?: boolean
+}
+
+const { stat, isLast = false } = Astro.props
+
+const extractNumericValue = (
+  value: string,
+): { num: number; suffix: string } => {
+  const match = value.match(/^(\d+)(.*)$/)
+  if (match) {
+    return { num: parseInt(match[1], 10), suffix: match[2] }
+  }
+  return { num: 0, suffix: value }
+}
+
+const { num, suffix } = extractNumericValue(stat.value)
+---
+
+<div
+  class:list={[
+    "reveal relative flex flex-col gap-2 py-6 sm:py-0 sm:pl-8 sm:first:pl-0",
+    !isLast &&
+      "sm:after:absolute sm:after:top-0 sm:after:right-0 sm:after:h-full sm:after:w-px sm:after:bg-current/15 sm:after:content-['']",
+  ]}
+  data-stat-item
+  data-stat-value={num}
+  data-stat-suffix={suffix}
+>
+  <p class="font-mono text-figure leading-none text-current" data-stat-display>
+    0{suffix}
+  </p>
+  <p class="text-sm tracking-wide text-current/70">
+    {stat.label}
+  </p>
+</div>

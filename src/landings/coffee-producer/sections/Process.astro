@@ -1,0 +1,37 @@
+---
+import ProcessStepCard from "../components/ProcessStepCard.astro"
+import { processSteps } from "../data/process"
+import type { ProcessStep } from "../types"
+---
+
+<section
+  class="bg-background py-section"
+  id="proceso"
+  aria-labelledby="proceso-heading"
+>
+  <div
+    class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14 grid gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:items-start xl:gap-20"
+  >
+    <div class="mb-0 max-w-5xl lg:sticky lg:top-28">
+      <p
+        class="mb-4 inline-block font-sans text-sm font-semibold tracking-widest text-muted uppercase"
+      >
+        Del cultivo a la taza
+      </p>
+      <h2
+        id="proceso-heading"
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        Seis etapas, una misma exigencia.
+      </h2>
+      <p class="mt-5 text-base text-muted sm:text-lg">
+        Ningún paso se salta ni se acelera. Así es como una cereza de café se
+        convierte, semanas después, en una taza con carácter propio.
+      </p>
+    </div>
+
+    <ol class="grid gap-4 footer:grid-cols-2 xl:gap-5">
+      {processSteps.map((step: ProcessStep) => <ProcessStepCard step={step} />)}
+    </ol>
+  </div>
+</section>

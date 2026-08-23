@@ -1,0 +1,121 @@
+---
+// Dispatches a `preview:device` CustomEvent (command: "apply this preset")
+// that PreviewShell listens to. This component never sets its own active
+// state from the click directly — it only reflects whatever PreviewShell
+// reports back via `preview:device-change` (the viewport's real measured
+// width), which keeps the active button correct whether the size came from
+// a button click, a manual drag, or anything else.
+import { Smartphone, Tablet, Monitor } from "@lucide/astro"
+import type { Device, DeviceOption } from "../../types/preview"
+
+const devices: DeviceOption[] = [
+  { id: "mobile", label: "Mobile" },
+  { id: "tablet", label: "Tablet" },
+  { id: "desktop", label: "Desktop" },
+]
+
+const icons: Record<Device, typeof Smartphone> = {
+  mobile: Smartphone,
+  tablet: Tablet,
+  desktop: Monitor,
+}
+---
+
+<div class="device-selector" role="group" aria-label="Seleccionar dispositivo">
+  {
+    devices.map((device: DeviceOption) => {
+      const Icon = icons[device.id]
+      return (
+        <button
+          type="button"
+          data-device={device.id}
+          aria-pressed={device.id === "desktop" ? "true" : "false"}
+        >
+          <Icon aria-hidden="true" />
+          <span class="label">{device.label}</span>
+        </button>
+      )
+    })
+  }
+</div>
+
+<script>
+  import { isDevice } from "../../types/preview"
+
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    ".device-selector button",
+  )
+
+  buttons.forEach((button: HTMLButtonElement) => {
+    button.addEventListener("click", () => {
+      const device = button.dataset.device
+      if (!isDevice(device)) return
+
+      document.dispatchEvent(
+        new CustomEvent("preview:device", { detail: { device } }),
+      )
+    })
+  })
+
+  document.addEventListener("preview:device-change", (event) => {
+    const { device } = event.detail
+    buttons.forEach((button: HTMLButtonElement) => {
+      button.setAttribute(
+        "aria-pressed",
+        button.dataset.device === device ? "true" : "false",
+      )
+    })
+  })
+</script>
+
+<style>
+  .device-selector {
+    display: inline-flex;
+    border: 1px solid var(--platform-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 0;
+    background: transparent;
+    color: var(--platform-text-muted);
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  button :global(svg) {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  button[aria-pressed="true"] {
+    background: var(--platform-accent);
+    color: var(--platform-accent-contrast);
+  }
+
+  @media (max-width: 640px) {
+    /* Visually hidden, not `display:none` — the label stays in the button's
+       accessible name even though only the icon renders. */
+    .label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    button {
+      padding: 0.5rem;
+    }
+  }
+</style>

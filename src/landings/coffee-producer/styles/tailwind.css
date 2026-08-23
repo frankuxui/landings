@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* Shared design-system contract for every Landing Page (colors, Light/Dark,
+   fluid heading scale, base structural tokens). Single source of truth —
+   never redefine, rename, or duplicate its tokens here. See
+   src/styles/landing-design-system.css. */
+@import "../../../styles/landing-design-system.css";
+
+/* Swiper Core (Productos) exposes its own theming through CSS custom
+   properties rather than Tailwind-generated classes — Tailwind has no
+   utility for them, so this is the minimal, official, landing-local way to
+   keep the pagination on the monochrome token system instead of Swiper's
+   default color. */
+.products-slider {
+  --swiper-pagination-color: var(--foreground);
+  --swiper-pagination-bullet-inactive-color: var(--muted);
+  --swiper-pagination-bullet-inactive-opacity: 0.6;
+  --swiper-pagination-bullet-size: 0.5rem;
+  --swiper-pagination-bullet-horizontal-gap: 0.375rem;
+}
+
+.products-slider-pagination .swiper-pagination-bullet {
+  cursor: pointer;
+}
+
+.products-slider-pagination .swiper-pagination-bullet:focus-visible {
+  outline: 3px solid var(--border);
+  outline-offset: 3px;
+}

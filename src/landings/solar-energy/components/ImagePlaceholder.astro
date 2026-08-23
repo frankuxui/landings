@@ -1,0 +1,53 @@
+---
+// Reusable image placeholder — reserves the exact box a real image will
+// occupy later. Supported ratios map to static Tailwind utilities.
+type PlaceholderRatio = "1 / 1" | "3 / 4" | "4 / 3" | "16 / 10" | "9 / 16"
+
+export interface Props {
+  label: string
+  ratio?: PlaceholderRatio
+  /** Use on an already-inverted section background (see the `inverted`
+   * section/component pattern) so the placeholder keeps contrast instead of
+   * disappearing into a same-toned surface. */
+  inverse?: boolean
+  /** Enables the subtle GSAP parallax enhancement in scripts/parallax.ts. */
+  parallax?: boolean
+  class?: string
+}
+
+const {
+  label,
+  ratio = "4 / 3",
+  inverse = false,
+  parallax = false,
+  class: className,
+} = Astro.props
+---
+
+<div
+  class:list={[
+    "relative w-full overflow-hidden",
+    ratio === "1 / 1" && "aspect-square",
+    ratio === "3 / 4" && "aspect-3/4",
+    ratio === "4 / 3" && "aspect-4/3",
+    ratio === "16 / 10" && "aspect-16/10",
+    ratio === "9 / 16" && "aspect-9/16",
+    className,
+  ]}
+>
+  <div
+    class:list={[
+      "absolute inset-0 flex items-end",
+      inverse
+        ? "bg-placeholder-inverse text-inherit"
+        : "bg-placeholder text-placeholder-foreground",
+      parallax && "scale-115",
+    ]}
+    data-parallax={parallax ? "true" : undefined}
+  >
+    <span
+      class="relative block w-full p-4 font-mono text-xs font-medium tracking-wide uppercase"
+      >{label}</span
+    >
+  </div>
+</div>

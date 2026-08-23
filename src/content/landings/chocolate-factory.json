@@ -1,0 +1,27 @@
+{
+  "name": "Fundición Ónix",
+  "title": "Fundición Ónix — Chocolate de precisión, de fábrica",
+  "description": "Chocolate de origen seleccionado, tostado, refinado, conchado y templado en una fábrica propia, desde el cacao en grano hasta la tableta de tiendas, restauración y distribución.",
+  "subtitle": "Chocolate de precisión, del grano a la tableta",
+  "category": "business",
+  "tags": ["chocolate", "producción", "fábrica", "cacao", "obrador"],
+  "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
+  "thumbnail": "https://images.unsplash.com/photo-1733560175037-249f8954789b?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8bWVsdGVkJTIwY2hvY29sYXRlJTIwdGV4dHVyZSUyMGNsb3NlJTIwdXAlMjBkYXJrfGVufDF8MHx8fDE3ODc0NzU3MjJ8MA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
+  "thumbnailAlt": "Chocolate fundido formando remolinos brillantes",
+  "thumbnailWidth": 6000,
+  "thumbnailHeight": 4000,
+  "thumbnailCredit": {
+    "id": "67j_Tv-Ub-8",
+    "author": "Has Tahishi",
+    "authorUrl": "https://unsplash.com/@dark_lens?utm_source=astro_landings_gallery&utm_medium=referral",
+    "sourceUrl": "https://unsplash.com/photos/a-close-up-view-of-chocolate-flowing-in-a-bowl-67j_Tv-Ub-8?utm_source=astro_landings_gallery&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+    "downloadLocation": "https://api.unsplash.com/photos/67j_Tv-Ub-8/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8bWVsdGVkJTIwY2hvY29sYXRlJTIwdGV4dHVyZSUyMGNsb3NlJTIwdXAlMjBkYXJrfGVufDF8MHx8fDE3ODc0NzU3MjJ8MA"
+  },
+  "previewImage": "/landings/chocolate-factory/cover.png",
+  "createdAt": "2026-08-23",
+  "author": "frankuxui",
+  "themes": ["light", "dark"],
+  "featured": false,
+  "status": "published"
+}

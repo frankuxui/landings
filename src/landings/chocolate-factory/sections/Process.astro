@@ -1,0 +1,55 @@
+---
+import ProcessStepCard from "../components/ProcessStepCard.astro"
+import { processSteps } from "../data/process"
+import type { ProcessStep } from "../types"
+---
+
+<section
+  class="bg-background py-section"
+  id="proceso"
+  aria-labelledby="proceso-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="mb-12 flex flex-col gap-5 sm:mb-16 sm:max-w-heading">
+      <p
+        class="font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        Ocho etapas, un mismo obrador
+      </p>
+      <h2
+        id="proceso-heading"
+        class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        Del grano seleccionado a la pieza acabada.
+      </h2>
+      <p class="text-base text-muted sm:text-lg">
+        En pantallas anchas, la sección se ancla mientras avanzas: desplázate
+        hacia abajo para recorrer las ocho etapas en horizontal. En Mobile y
+        Tablet, desliza la fila con el dedo.
+      </p>
+    </div>
+  </div>
+
+  <div data-process-pin class="relative">
+    <div
+      class="process-rail overflow-x-auto px-container-x pb-2 sm:px-8 lg:px-14"
+      data-process-scroll
+    >
+      <ol
+        class="flex w-max snap-x snap-mandatory gap-4 xl:gap-6"
+        data-process-list
+        aria-label="Etapas del proceso de producción"
+      >
+        {
+          processSteps.map((step: ProcessStep) => (
+            <ProcessStepCard step={step} />
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/processScroll"
+</script>

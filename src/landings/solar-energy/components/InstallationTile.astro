@@ -1,0 +1,27 @@
+---
+import ImagePlaceholder from "./ImagePlaceholder.astro"
+import type { Installation } from "../types"
+
+export interface Props {
+  installation: Installation
+}
+
+const { installation } = Astro.props
+---
+
+<figure
+  class:list={[
+    "reveal m-0 flex flex-col gap-3",
+    installation.span === "large" && "lg:col-span-4",
+    installation.span === "medium" && "lg:col-span-2",
+  ]}
+>
+  <ImagePlaceholder
+    label={installation.label}
+    ratio={installation.ratio}
+    parallax={installation.span === "large"}
+  />
+  <figcaption class="font-mono text-xs text-muted uppercase">
+    {installation.caption}
+  </figcaption>
+</figure>

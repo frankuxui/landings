@@ -1,0 +1,49 @@
+---
+import { ArrowRight, ArrowUpRight } from "@lucide/astro"
+---
+
+<section
+  class="bg-background py-16 sm:py-20 lg:py-28"
+  aria-labelledby="cta-final-heading"
+>
+  <div
+    class="mx-auto flex w-full max-w-landing flex-col items-start gap-8 border-t border-border/50 px-container-x pt-16 sm:px-8 xl:px-14"
+  >
+    <h2
+      id="cta-final-heading"
+      class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+    >
+      There's always one more issue worth opening.
+    </h2>
+    <p class="max-w-copy text-base text-muted sm:text-lg">
+      Twenty-four issues in, Folio still reads the same way it did on the first
+      one: slowly, and one piece at a time.
+    </p>
+    <div class="flex flex-wrap items-center gap-4">
+      <a
+        class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-primary px-6 py-3 text-base font-semibold text-primary-foreground no-underline transition duration-200 ease-landing hover:bg-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-emphasis"
+        href="#archive"
+      >
+        Explore the archive
+        <ArrowRight
+          aria-hidden="true"
+          width="18"
+          height="18"
+          stroke-width="1.5"
+        />
+      </a>
+      <a
+        class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm px-4 py-3 text-base font-semibold text-foreground no-underline transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+        href="#latest-stories"
+      >
+        Start with the latest stories
+        <ArrowUpRight
+          aria-hidden="true"
+          width="18"
+          height="18"
+          stroke-width="1.5"
+        />
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,155 @@
+---
+import { getCollection } from "astro:content"
+import Layout from "../layouts/Layout.astro"
+import Navbar from "../components/platform/Navbar.astro"
+import Footer from "../components/platform/Footer.astro"
+import LandingCard from "../components/platform/LandingCard.astro"
+import { categories } from "../data/categories"
+import type { Category } from "../types/category"
+import type { LandingEntry } from "../types/landing"
+
+const allLandings = await getCollection(
+  "landings",
+  ({ data }: LandingEntry) => data.status === "published",
+)
+const featured = allLandings
+  .filter((landing: LandingEntry) => landing.data.featured)
+  .slice(0, 6)
+---
+
+<Layout>
+  <Navbar />
+
+  <main>
+    <section class="hero">
+      <h1>Una galería de Landing Pages construidas con Astro</h1>
+      <p>
+        Explora, visualiza y consulta una colección de diseños de Landing Pages
+        agrupados por categoría. Cada landing es una unidad independiente: su
+        propio diseño, sus propios componentes y su propio código, listo para
+        inspeccionar.
+      </p>
+      <a class="cta" href="/landings">Explorar landings</a>
+    </section>
+
+    <section class="categories">
+      <h2>Categorías</h2>
+      <div class="grid">
+        {
+          categories.map((category: Category) => (
+            <a
+              class="category-card"
+              href={`/landings/category/${category.slug}`}
+            >
+              <h3>{category.label}</h3>
+              <p>{category.description}</p>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="featured">
+      <h2>Destacadas</h2>
+      {
+        featured.length > 0 ? (
+          <div class="grid">
+            {featured.map((landing: LandingEntry) => (
+              <LandingCard landing={landing} />
+            ))}
+          </div>
+        ) : (
+          <p class="empty">
+            Todavía no hay landings publicadas. Esta plataforma está lista para
+            alojarlas — solo falta añadir la primera.
+          </p>
+        )
+      }
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 4vw, 2.5rem);
+  }
+
+  .hero {
+    padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 6vw, 3rem);
+    max-width: 640px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    line-height: 1.1;
+    margin: 0 0 1rem;
+  }
+
+  .hero p {
+    color: var(--platform-text-muted);
+    line-height: 1.6;
+    margin: 0 0 1.5rem;
+  }
+
+  .cta {
+    display: inline-block;
+    background: var(--platform-accent);
+    color: var(--platform-accent-contrast);
+    text-decoration: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  section {
+    padding: 2.5rem 0;
+  }
+
+  h2 {
+    margin: 0 0 1.25rem;
+    font-size: 1.5rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .category-card {
+    display: block;
+    padding: 1.25rem;
+    border: 1px solid var(--platform-border);
+    border-radius: var(--platform-radius);
+    text-decoration: none;
+    color: var(--platform-text);
+    background: var(--platform-surface);
+  }
+
+  .category-card:hover,
+  .category-card:focus-visible {
+    border-color: var(--platform-accent);
+  }
+
+  .category-card h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.05rem;
+  }
+
+  .category-card p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--platform-text-muted);
+  }
+
+  .empty {
+    color: var(--platform-text-muted);
+    padding: 1.5rem;
+    border: 1px dashed var(--platform-border);
+    border-radius: var(--platform-radius);
+  }
+</style>

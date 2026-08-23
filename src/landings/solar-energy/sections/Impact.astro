@@ -1,0 +1,56 @@
+---
+import StatFigure from "../components/StatFigure.astro"
+import { primaryImpactStat, secondaryImpactStats } from "../data/impact"
+import type { SecondaryImpactStat } from "../types"
+---
+
+<section
+  class="bg-inverted text-inverted-foreground"
+  id="impacto"
+  aria-labelledby="impacto-heading"
+>
+  <div
+    class="mx-auto grid w-full max-w-landing gap-12 px-container-x py-section sm:px-8 lg:grid-cols-[1.2fr_1fr] lg:items-end lg:gap-16 xl:px-14"
+  >
+    <div data-stats-primary>
+      <h2 id="impacto-heading" class="sr-only">
+        Impacto de Heliogrid en cifras
+      </h2>
+      <p
+        class="mb-6 font-mono text-xs font-semibold tracking-widest text-current/70 uppercase"
+      >
+        Impacto
+      </p>
+      <div class="flex flex-wrap items-baseline gap-4">
+        <StatFigure
+          value={primaryImpactStat.value}
+          label=""
+          variant="primary"
+        />
+        <span class="font-mono text-lg text-current/70 sm:text-xl">
+          {primaryImpactStat.unit}
+        </span>
+      </div>
+      <p class="mt-6 max-w-copy text-current/75">
+        {primaryImpactStat.description}
+      </p>
+    </div>
+
+    <div class="flex flex-col" data-stats-secondary>
+      {
+        secondaryImpactStats.map((stat: SecondaryImpactStat, index: number) => (
+          <StatFigure
+            value={stat.value}
+            label={stat.label}
+            variant="secondary"
+            isFirst={index === 0}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/statsCounter"
+</script>

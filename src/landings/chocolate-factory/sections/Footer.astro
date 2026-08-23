@@ -1,0 +1,89 @@
+---
+import { navLinks } from "../data/nav"
+import type { NavLink } from "../types"
+
+const year = new Date().getFullYear()
+---
+
+<footer class="bg-inverted pt-16 pb-6 text-inverted-foreground">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <a
+      class="inline-block text-4xl leading-none font-bold tracking-tight text-inherit no-underline sm:text-6xl xl:text-7xl"
+      href="#inicio"
+    >
+      Fundición Ónix
+    </a>
+    <p class="mt-4 max-w-copy text-current/75">
+      Chocolate de origen seleccionado, tostado, refinado y templado en nuestra
+      propia fábrica de Vado de Ceniza, una región de montaña ficticia.
+    </p>
+
+    <div class="mt-16 grid gap-10 sm:grid-cols-3 xl:gap-16">
+      <nav aria-label="Enlaces del pie de página">
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
+        >
+          Navegación
+        </p>
+        <ul class="flex flex-col gap-3">
+          {
+            navLinks.map((link: NavLink) => (
+              <li>
+                <a
+                  class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+                  href={link.href}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
+        >
+          Contacto
+        </p>
+        <ul class="flex flex-col gap-3">
+          <li>
+            <a
+              class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+              href="mailto:correo@ejemplo.com">correo@ejemplo.com</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+              href="tel:+00000000000">+00 000 000 000</a
+            >
+          </li>
+          <li class="text-current/80">Ciudad, País</li>
+        </ul>
+      </div>
+
+      <div>
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
+        >
+          Redes de ejemplo
+        </p>
+        <ul class="flex flex-col gap-3">
+          <li class="text-current/80">Instagram</li>
+          <li class="text-current/80">LinkedIn</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="mx-auto mt-16 w-full max-w-landing px-container-x sm:px-8 xl:px-14"
+  >
+    <div class="h-px w-full bg-current/12" aria-hidden="true"></div>
+    <p class="pt-6 text-sm text-current/60">
+      © {year} Fundición Ónix. Demo de landing ficticia.
+    </p>
+  </div>
+</footer>

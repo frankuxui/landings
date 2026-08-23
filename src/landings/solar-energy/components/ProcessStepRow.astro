@@ -1,0 +1,64 @@
+---
+import {
+  ScanSearch,
+  Compass,
+  Wrench,
+  Zap,
+  Activity,
+  SlidersHorizontal,
+} from "@lucide/astro"
+import type { ProcessStep, ProcessStepName } from "../types"
+
+export interface Props {
+  step: ProcessStep
+  index: number
+}
+
+const { step, index } = Astro.props
+
+const icons: Record<ProcessStepName, typeof ScanSearch> = {
+  Análisis: ScanSearch,
+  Diseño: Compass,
+  Instalación: Wrench,
+  "Puesta en marcha": Zap,
+  Monitorización: Activity,
+  Optimización: SlidersHorizontal,
+}
+
+const Icon = icons[step.title]
+---
+
+<li
+  class="reveal group grid grid-cols-[3rem_1fr] gap-5 py-6 first:pt-0 sm:grid-cols-[4rem_1fr] sm:gap-7 xl:py-8"
+  data-process-step
+  data-step-index={index}
+>
+  <div class="flex flex-col items-center gap-3">
+    <span
+      class="font-mono text-sm text-muted transition-colors duration-300 ease-landing group-data-active:text-foreground"
+      data-step-number
+      aria-hidden="true">{step.number}</span
+    >
+    <span
+      class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-background text-muted transition-colors duration-300 ease-landing sm:h-14 sm:w-14 border-4 border-background-alt"
+    >
+      <Icon
+        class="size-6 shrink-0 text-muted transition-colors duration-300 ease-landing group-data-active:text-foreground sm:size-7"
+        aria-hidden="true"
+        stroke-width="1.5"
+        data-step-icon
+      />
+    </span>
+  </div>
+  <div>
+    <h3
+      class="text-balance text-headline-3 leading-tight font-semibold text-muted transition-colors duration-300 ease-landing group-data-active:text-foreground"
+      data-step-title
+    >
+      {step.title}
+    </h3>
+    <p class="mt-3 text-muted">
+      {step.description}
+    </p>
+  </div>
+</li>

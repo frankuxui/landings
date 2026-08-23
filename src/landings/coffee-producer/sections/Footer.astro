@@ -1,0 +1,86 @@
+---
+import { Coffee } from "@lucide/astro"
+import { navLinks } from "../data/nav"
+import type { NavLink } from "../types"
+
+const year = new Date().getFullYear()
+---
+
+<footer class="bg-inverted pt-16 pb-6 text-inverted-foreground">
+  <div
+    class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14 grid gap-10 footer:grid-cols-[1.8fr_1fr_1fr] xl:gap-16"
+  >
+    <div>
+      <a
+        class="inline-flex items-center gap-2 text-xl text-inherit no-underline sm:text-2xl"
+        href="#inicio"
+      >
+        <Coffee aria-hidden="true" width="22" height="22" stroke-width="1.5" />
+        <span>Terraltura</span>
+      </a>
+      <p class="mt-4 max-w-[52ch] text-current/80">
+        Café de especialidad cultivado, seleccionado y tostado en una región de
+        montaña ficticia desde 1994.
+      </p>
+      <ul class="mt-6 flex gap-3" aria-label="Redes sociales de ejemplo">
+        <li>
+          <span
+            class="inline-flex min-h-11 items-center rounded-full bg-current/10 px-4 py-2.5 text-sm font-semibold"
+          >
+            Instagram
+          </span>
+        </li>
+        <li>
+          <span
+            class="inline-flex min-h-11 items-center rounded-full bg-current/10 px-4 py-2.5 text-sm font-semibold"
+          >
+            LinkedIn
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <nav aria-label="Enlaces del pie de página">
+      <p class="mb-4 font-semibold text-current/85">Navegación</p>
+      <ul class="flex flex-col gap-3">
+        {
+          navLinks.map((link: NavLink) => (
+            <li>
+              <a
+                class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+                href={link.href}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div>
+      <p class="mb-4 font-semibold text-current/85">Contacto</p>
+      <ul class="flex flex-col gap-3">
+        <li>
+          <a
+            class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+            href="mailto:correo@ejemplo.com">correo@ejemplo.com</a
+          >
+        </li>
+        <li>
+          <a
+            class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+            href="tel:+00000000000">+00 000 000 000</a
+          >
+        </li>
+        <li>Ciudad, País</li>
+      </ul>
+    </div>
+  </div>
+
+  <div
+    class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14 mt-16 pt-6 text-sm text-current/70"
+  >
+    <p>© {year} Terraltura. Demo de landing ficticia.</p>
+  </div>
+</footer>

@@ -1,0 +1,206 @@
+---
+// Fixed aside, closed by default, slides in from the right (translateX).
+// PreviewToolbar's "Opciones" button opens it by dispatching
+// `preview:options-panel`; closing (close button or Escape) is handled
+// entirely locally, including returning focus to whatever triggered the
+// open.
+//
+// Extensibility: each `<section>` below is one future capability (see the
+// Skill's "Panel de opciones" rule). Only "Código" has any real content
+// today (CodeExplorer, itself still a structural placeholder) — the rest
+// render `ComingSoonNotice` until they're built. Adding a real feature later
+// means swapping that one section's rendered content, not restructuring the
+// panel.
+import { Code, FolderTree, Download, Palette, X } from "@lucide/astro"
+import CodeExplorer from "./CodeExplorer.astro"
+import ComingSoonNotice from "./ComingSoonNotice.astro"
+import type { LandingPreviewProps } from "../../types/preview"
+
+type Props = LandingPreviewProps
+
+const { slug } = Astro.props
+---
+
+<aside
+  class="options-panel"
+  id="options-panel"
+  aria-label="Opciones del visualizador"
+  hidden
+>
+  <div class="header">
+    <h2>Opciones</h2>
+    <button type="button" data-close aria-label="Cerrar panel de opciones">
+      <X aria-hidden="true" />
+    </button>
+  </div>
+
+  <div class="body">
+    <section class="option-section" aria-labelledby="option-code-heading">
+      <h3 id="option-code-heading">
+        <Code aria-hidden="true" />
+        Código
+      </h3>
+      <CodeExplorer slug={slug} />
+    </section>
+
+    <section class="option-section" aria-labelledby="option-structure-heading">
+      <h3 id="option-structure-heading">
+        <FolderTree aria-hidden="true" />
+        Estructura de carpetas
+      </h3>
+      <ComingSoonNotice
+        label="Próximamente"
+        description="Aquí podrás explorar la estructura de archivos de la landing."
+      />
+    </section>
+
+    <section class="option-section" aria-labelledby="option-download-heading">
+      <h3 id="option-download-heading">
+        <Download aria-hidden="true" />
+        Descargar
+      </h3>
+      <ComingSoonNotice
+        label="Próximamente"
+        description="Descarga esta landing como un archivo .zip listo para usar."
+      />
+    </section>
+
+    <section class="option-section" aria-labelledby="option-colors-heading">
+      <h3 id="option-colors-heading">
+        <Palette aria-hidden="true" />
+        Personalizar colores
+      </h3>
+      <ComingSoonNotice
+        label="Próximamente"
+        description="Ajusta la paleta de esta landing antes de descargarla."
+      />
+    </section>
+  </div>
+</aside>
+
+<script>
+  const panel = document.getElementById("options-panel")
+  const closeButton =
+    panel?.querySelector<HTMLButtonElement>("[data-close]") ?? null
+
+  let lastFocusedElement: HTMLElement | null = null
+
+  function openPanel(): void {
+    if (!panel) return
+    lastFocusedElement = document.activeElement as HTMLElement | null
+    panel.hidden = false
+    closeButton?.focus()
+    document.addEventListener("keydown", onKeydown)
+  }
+
+  function closePanel(): void {
+    if (!panel) return
+    panel.hidden = true
+    document.removeEventListener("keydown", onKeydown)
+    lastFocusedElement?.focus()
+  }
+
+  function onKeydown(event: KeyboardEvent): void {
+    if (event.key === "Escape") closePanel()
+  }
+
+  document.addEventListener("preview:options-panel", openPanel)
+  closeButton?.addEventListener("click", closePanel)
+</script>
+
+<style>
+  .options-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(420px, 100%);
+    background: var(--platform-surface);
+    border-left: 1px solid var(--platform-border);
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    transform: translateX(0);
+    transition: transform 0.28s ease;
+  }
+
+  .options-panel[hidden] {
+    display: flex;
+    transform: translateX(100%);
+    visibility: hidden;
+    transition:
+      transform 0.28s ease,
+      visibility 0s linear 0.28s;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--platform-border);
+    background: var(--platform-surface);
+  }
+
+  .header h2 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .header button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--platform-text-muted);
+    cursor: pointer;
+  }
+
+  .header button:hover,
+  .header button:focus-visible {
+    background: var(--platform-border);
+    color: var(--platform-text);
+  }
+
+  .header button :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
+  .body {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .option-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.6rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--platform-text);
+  }
+
+  .option-section h3 :global(svg) {
+    width: 16px;
+    height: 16px;
+    color: var(--platform-text-muted);
+  }
+
+  @media (max-width: 480px) {
+    .options-panel {
+      width: 100%;
+    }
+  }
+</style>

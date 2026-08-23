@@ -1,0 +1,58 @@
+---
+import ImagePlaceholder from "./ImagePlaceholder.astro"
+import type { Story } from "../types"
+
+export interface Props {
+  story: Story
+  index: number
+}
+
+const { story, index } = Astro.props
+const number = String(index + 1).padStart(2, "0")
+---
+
+<li
+  class="reveal border-t border-border/50 py-8 first:border-t-0 first:pt-0 sm:py-10"
+>
+  <a
+    class="group grid grid-cols-1 gap-5 text-inherit no-underline focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-border sm:grid-cols-[3rem_1fr] sm:gap-6 md:grid-cols-[3rem_1fr_auto]"
+    href="#"
+  >
+    <span
+      class="hidden font-mono text-sm text-muted sm:block"
+      aria-hidden="true">{number}</span
+    >
+
+    <div class="min-w-0">
+      <p
+        class="mb-2 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        {story.category}
+      </p>
+      <h3
+        class="text-balance text-xl leading-snug font-semibold text-foreground group-hover:underline sm:text-2xl"
+      >
+        {story.title}
+      </h3>
+      <p class="mt-3 max-w-copy text-sm text-muted sm:text-base">
+        {story.excerpt}
+      </p>
+      <p class="mt-4 text-xs text-muted sm:text-sm">
+        {story.author} · <time datetime={story.isoDate}>{story.date}</time> ·{
+          " "
+        }
+        {story.readTime}
+      </p>
+    </div>
+
+    {
+      story.thumbnail && (
+        <ImagePlaceholder
+          label={story.thumbnail}
+          ratio="4 / 3"
+          class="order-first w-full sm:order-none sm:w-40 md:w-48"
+        />
+      )
+    }
+  </a>
+</li>

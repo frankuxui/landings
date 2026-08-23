@@ -1,0 +1,92 @@
+---
+import { ArrowRight, Handshake } from "@lucide/astro"
+import Photo from "../components/Photo.astro"
+import { heroImage } from "../data/images"
+---
+
+<section
+  class="bg-background pt-32 pb-20 sm:pt-40 sm:pb-section"
+  id="inicio"
+  aria-label="Presentación"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="mb-6 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+    >
+      Fundición Ónix · Vado de Ceniza
+    </p>
+
+    <h1
+      class="max-w-hero-heading text-balance text-headline-1 leading-[0.95] font-bold text-foreground"
+    >
+      Del cacao en bruto al chocolate exacto.
+    </h1>
+
+    <div
+      class="mt-14 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-end xl:gap-20"
+    >
+      <div class="flex flex-col gap-8">
+        <p class="max-w-copy text-lg text-muted sm:text-xl">
+          Seleccionamos cacao en grano, tostamos, refinamos, conchamos y
+          templamos cada lote en nuestra propia fábrica de Vado de Ceniza. Sin
+          intermediarios entre la finca y la tableta.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a
+            class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-primary px-6 py-3 text-base font-semibold text-primary-foreground no-underline transition duration-200 ease-landing hover:bg-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-emphasis"
+            href="#productos"
+          >
+            Ver colección
+            <ArrowRight
+              aria-hidden="true"
+              width="18"
+              height="18"
+              stroke-width="1.5"
+            />
+          </a>
+          <a
+            class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-transparent px-6 py-3 text-base font-semibold text-foreground no-underline transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+            href="#distribucion"
+          >
+            Trabajar con nosotros
+            <Handshake
+              aria-hidden="true"
+              width="18"
+              height="18"
+              stroke-width="1.5"
+            />
+          </a>
+        </div>
+
+        <dl class="mt-6 grid max-w-sm grid-cols-2 gap-6">
+          <div>
+            <dt class="text-xs tracking-wide text-muted uppercase">
+              Cacao mínimo
+            </dt>
+            <dd class="mt-1 font-mono text-2xl font-semibold text-foreground">
+              68%
+            </dd>
+          </div>
+          <div>
+            <dt class="text-xs tracking-wide text-muted uppercase">
+              Controles por lote
+            </dt>
+            <dd class="mt-1 font-mono text-2xl font-semibold text-foreground">
+              12
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="relative ml-auto w-full max-w-md lg:max-w-none">
+        <Photo image={heroImage} ratio="4 / 3" />
+        <span
+          class="absolute top-4 right-4 bg-background-alt px-3 py-1.5 font-mono text-xs font-semibold text-foreground"
+          aria-hidden="true"
+        >
+          N.º 001 / Templado
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

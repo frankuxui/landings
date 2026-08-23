@@ -1,0 +1,53 @@
+---
+import {
+  Sprout,
+  Hand,
+  ScanSearch,
+  SunMedium,
+  Flame,
+  Coffee,
+} from "@lucide/astro"
+import type { ProcessStep, ProcessStepName } from "../types"
+
+export interface Props {
+  step: ProcessStep
+}
+
+const { step } = Astro.props
+
+const icons: Record<ProcessStepName, typeof Sprout> = {
+  Cultivo: Sprout,
+  Recolección: Hand,
+  Selección: ScanSearch,
+  Secado: SunMedium,
+  Tostado: Flame,
+  Preparación: Coffee,
+}
+
+const Icon = icons[step.iconLabel]
+---
+
+<li
+  class="reveal grid h-full grid-cols-[auto_1fr] items-start gap-5 rounded-2xl bg-surface p-6 xl:p-8"
+>
+  <div class="flex w-14 flex-col items-center gap-2 display:w-16">
+    <span class="text-xl text-muted sm:text-2xl" aria-hidden="true"
+      >{step.number}</span
+    >
+    <Icon
+      class="size-7 text-foreground"
+      aria-hidden="true"
+      stroke-width="1.5"
+    />
+  </div>
+  <div>
+    <h3
+      class="mb-3 text-balance text-headline-3 leading-tight font-semibold text-foreground"
+    >
+      {step.title}
+    </h3>
+    <p class="text-muted display:text-lg">
+      {step.description}
+    </p>
+  </div>
+</li>
