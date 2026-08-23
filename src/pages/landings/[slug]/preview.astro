@@ -21,5 +21,9 @@ const { landing } = Astro.props
 ---
 
 <PreviewLayout title={landing.data.name}>
-  <PreviewShell name={landing.data.name} slug={landing.id} />
+  <PreviewShell
+    name={landing.data.name}
+    slug={landing.id}
+    palettes={landing.data.palettes}
+  />
 </PreviewLayout>

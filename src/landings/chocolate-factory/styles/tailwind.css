@@ -40,3 +40,57 @@
   outline: 3px solid var(--border);
   outline-offset: 3px;
 }
+
+/* Optional per-landing color palette system — see "Optional per-landing
+   color palettes" in the astro-landing-pages Skill. `--color-primary` also
+   happens to be the name the shared design system's `@theme inline` block
+   registers to generate Tailwind's `bg-primary`/`text-primary` utilities —
+   but those compiled utilities bind directly to `--primary` (the shared
+   monochrome token), not `--color-primary`, so this block never silently
+   retints anything; a component only picks up a palette by explicitly
+   using `bg-[var(--color-primary)]`/`text-[var(--color-light)]`/etc.
+   Grayscale is the mandatory default (`:root` and the explicit
+   `[data-palette="grayscale"]` resolve identically); `[data-palette="cocoa"]`
+   is opt-in, applied only via the platform's palette selector
+   (scripts/palette.ts) or a downloaded copy's own persisted choice — never
+   automatically. Each palette also defines a `[data-theme="dark"]` variant,
+   mirroring how the shared `--primary`/`--primary-foreground` tokens invert
+   between Light and Dark: `primary` and `light` swap roles, `secondary` and
+   `accent` swap roles, `tertiary` stays the same mid-tone — so `--color-*`
+   stays high-contrast and legible in both themes, exactly like the rest of
+   this landing's token system. Currently consumed by every official
+   `primary`-variant button/link: the skip link, Header's "Ver colección"
+   CTA (desktop and mobile), Hero's CTA, and Contact's submit button. */
+:root,
+html[data-palette="grayscale"] {
+  --color-primary: #171717;
+  --color-secondary: #404040;
+  --color-tertiary: #737373;
+  --color-accent: #a3a3a3;
+  --color-light: #f5f5f5;
+}
+
+html[data-palette="cocoa"] {
+  --color-primary: #6f1d1b;
+  --color-secondary: #bb9457;
+  --color-tertiary: #432818;
+  --color-accent: #99582a;
+  --color-light: #ffe6a7;
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"][data-palette="grayscale"] {
+  --color-primary: #f5f5f5;
+  --color-secondary: #a3a3a3;
+  --color-tertiary: #737373;
+  --color-accent: #404040;
+  --color-light: #171717;
+}
+
+html[data-theme="dark"][data-palette="cocoa"] {
+  --color-primary: #ffe6a7;
+  --color-secondary: #99582a;
+  --color-tertiary: #432818;
+  --color-accent: #bb9457;
+  --color-light: #6f1d1b;
+}

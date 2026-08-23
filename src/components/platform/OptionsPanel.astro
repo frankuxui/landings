@@ -14,11 +14,12 @@
 import { Code, FolderTree, Download, Palette, X } from "@lucide/astro"
 import CodeExplorer from "./CodeExplorer.astro"
 import ComingSoonNotice from "./ComingSoonNotice.astro"
+import PaletteOptions from "./PaletteOptions.astro"
 import type { LandingPreviewProps } from "../../types/preview"
 
 type Props = LandingPreviewProps
 
-const { slug } = Astro.props
+const { slug, palettes = [] } = Astro.props
 ---
 
 <aside
@@ -70,10 +71,16 @@ const { slug } = Astro.props
         <Palette aria-hidden="true" />
         Personalizar colores
       </h3>
-      <ComingSoonNotice
-        label="Próximamente"
-        description="Ajusta la paleta de esta landing antes de descargarla."
-      />
+      {
+        palettes.length > 0 ? (
+          <PaletteOptions palettes={palettes} />
+        ) : (
+          <ComingSoonNotice
+            label="Próximamente"
+            description="Esta landing todavía no tiene paletas alternativas."
+          />
+        )
+      }
     </section>
   </div>
 </aside>

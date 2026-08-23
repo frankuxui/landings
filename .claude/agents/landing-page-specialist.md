@@ -13,11 +13,26 @@ Your job is to focus exclusively on: visually interesting design, original compo
 
 Before doing any work on a landing, invoke the `astro-landing-pages` Skill (via the Skill tool) — it holds the detailed rules for isolation, design tokens, Light/Dark scoping, responsive workflow, accessibility, performance, animation, and auditing that govern every task you do here. Treat it as binding, not optional guidance.
 
-## Visual rule: monochrome only — mandatory, no exceptions
+## Visual rule: monochrome only — the default for every landing, with one opt-in exception
 
 > Las Landing Pages de este proyecto son deliberadamente monocromáticas. Solo se permiten blanco, negro y escala de grises. El objetivo es mostrar ideas de diseño neutrales y descargables que posteriormente cada usuario pueda adaptar a su propia identidad visual.
 
-Every landing — current and future — is white, black, and grayscale only (plus transparencies derived from those tones). No brand colors, no chromatic accents or gradients, no hue of any kind, and never use color to distinguish a CTA, icon, state, or section. This applies to every component without exception: buttons, links, icons, forms, inputs, badges, cards, navigation, hover/active/focus states, tabs, accordions, modals, tooltips, decorative graphics, placeholders, CTAs. Both Light and Dark (when a landing has the switcher) stay strictly monochrome — differentiate them through contrast, surfaces, and gray levels, never by introducing a color. Differentiate interactive states through contrast, surface, opacity, weight, underline, scale, or motion instead of color, and keep contrast high enough that the absence of color never costs clarity. Full detail in the Skill.
+Every landing — current and future — is white, black, and grayscale only (plus transparencies derived from those tones) as its default, unmodified state. No brand colors, no chromatic accents or gradients, no hue of any kind, and never use color to distinguish a CTA, icon, state, or section. This applies to every component: buttons, links, icons, forms, inputs, badges, cards, navigation, hover/active/focus states, tabs, accordions, modals, tooltips, decorative graphics, placeholders, CTAs. Both Light and Dark (when a landing has the switcher) stay strictly monochrome — differentiate them through contrast, surfaces, and gray levels, never by introducing a color. Differentiate interactive states through contrast, surface, opacity, weight, underline, scale, or motion instead of color, and keep contrast high enough that the absence of color never costs clarity.
+
+**The one documented exception:** a landing may additionally define an opt-in color-palette system — see "Optional per-landing color palettes" below. Grayscale still remains the mandatory default every visitor sees first; a chromatic palette only ever applies when a visitor explicitly picks one from the platform's palette selector, and only through the 5-token `--color-*` contract, never as a silent site-wide retint. Full detail in the Skill.
+
+## Optional per-landing color palettes
+
+> A partir de ahora, cuando un usuario lo active desde el panel de Opciones del preview, una landing puede mostrar una identidad cromática opcional. La escala de grises sigue siendo la paleta por defecto de todas las landings; el resto de paletas son un añadido opt-in, nunca automático.
+
+Add this only when explicitly requested for a specific landing — it is not a default feature. When you do:
+
+- Declare exactly 5 custom properties, always these names: `--color-primary`, `--color-secondary`, `--color-tertiary`, `--color-accent`, `--color-light`. Never rename, add, or remove one.
+- In that landing's own `styles/tailwind.css`: a `:root`/`html[data-palette="grayscale"]` block (mandatory default, values match the landing's existing monochrome design) plus one `html[data-palette="…"]` block per additional palette, **and** a `[data-theme="dark"]` variant for every palette (mirror the shared `--primary`/`--primary-foreground` inversion pattern: `primary`↔`light` swap, `secondary`↔`accent` swap, `tertiary` stays). A palette without a Dark variant is incomplete.
+- Persist the same palettes (id, name, `colors`) in that landing's `src/content/landings/[slug].json` under `palettes` — the platform's picker reads this, so it must match the CSS values exactly. Landings that don't opt in keep `palettes: []` (the schema default) and the Options sidebar's "Personalizar colores" section falls back to its Próximamente placeholder.
+- Selection lives in the **Options sidebar**, not the toolbar and not a separate modal: `PaletteOptions.astro`, rendered by `OptionsPanel.astro`'s "Personalizar colores" section. The switching mechanism mirrors the Light/Dark theme bridge exactly: `PaletteOptions` dispatches `preview:palette` → `PreviewShell` relays it via `postMessage` → the landing's own `scripts/palette.ts` toggles `data-palette` on **its own** `document.documentElement` only — never `window.top`. Unlike theme, the choice is also persisted to `localStorage` (a landing-scoped key) and restored via a synchronous `<script is:inline>` in `<head>` (no-flash), with every applied palette reported back via `postMessage({type:'preview:palette-sync', palette})` so the sidebar mirrors real state.
+- Wire the tokens to a small, deliberate set of components (e.g. the official `primary` button variant via `bg-[var(--color-primary)] text-[var(--color-light)]`) — decide this explicitly per task, don't leave the tokens defined but unused, and don't reach further than what was asked.
+- Copy the reference implementation in `chocolate-factory` (`scripts/palette.ts`, the inline head script in `index.astro`, the CSS blocks in `styles/tailwind.css`) and the platform's `PaletteOptions.astro`/`OptionsPanel.astro` rather than reinventing the pattern. Full detail in the Skill.
 
 ## Visual rule: borders and official buttons — mandatory, no exceptions
 
@@ -246,14 +261,14 @@ Desktop, Laptop, Tablet, and Mobile carry equal weight. On every change, activel
 6. Confirm there's no introduced horizontal overflow.
 7. Check Light/Dark when applicable.
 8. Confirm basic accessibility.
-9. Confirm the landing is strictly monochrome — no chromatic color anywhere, in either theme.
+9. Confirm the landing is strictly monochrome outside the opt-in palette system — no chromatic color anywhere by default, in either theme. If the landing has a palette system: confirm `palettes` metadata matches the CSS exactly, every palette has both Light and Dark variants, and grayscale renders identically to the pre-palette design.
 10. Confirm every button maps to `primary | secondary | ghost | tertiary`, all five states work, and only `tertiary` may have a border.
 11. Confirm badges, labels, cards, and visually equivalent grouped surfaces have no border.
 12. Audit CSS files and `<style>` blocks; **confirm no `@layer components` exists** — all styling must be Tailwind utilities in markup, not component classes.
 13. Confirm every residual native-CSS exception is minimal, local, and documented.
 14. Confirm responsive, theme, interactive, sticky, and reduced-motion styling uses Tailwind variants where Tailwind is sufficient; if GSAP is used, confirm cleanup, `prefers-reduced-motion`, resize behavior, console output, keyboard navigation, and active-section synchronization.
 15. Confirm theming flows through the semantic token system (`:root` / `[data-theme="dark"]` / `@theme inline`) rather than `dark:`-paired utilities, and that any remaining `bg-placeholder`/`bg-placeholder-inverse` usage has a stated technical reason rather than standing in for finished photography.
-15b. Confirm every section needing a photograph uses a real Unsplash image sourced via the `unsplash-images` Skill — complete persisted metadata, visible attribution, hotlinked `photo.urls` URL, zero `api.unsplash.com` calls in production code.
+    15b. Confirm every section needing a photograph uses a real Unsplash image sourced via the `unsplash-images` Skill — complete persisted metadata, visible attribution, hotlinked `photo.urls` URL, zero `api.unsplash.com` calls in production code.
 16. **Confirm the landing's `tailwind.css` imports `src/styles/landing-design-system.css` and declares zero color, typography-scale, easing, radius/shadow, or shared-breakpoint/container tokens of its own** — if theming was touched, diff this landing's compiled token output against another landing's and confirm they're byte-identical.
 17. **Confirm the landing's `<head>` loads Wix Madefor Text via the shared `<link>` block only** — no second font family, no `@import` font load.
 18. **Confirm every file in the landing has an English filename** (ids/anchors/copy stay in the landing's content language), and **confirm every short-header/long-content two-column section uses `lg:sticky` matching its `lg:grid-cols-…` split**.

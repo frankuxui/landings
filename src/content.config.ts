@@ -15,6 +15,24 @@ const unsplashCreditSchema = z.object({
   downloadLocation: z.string(),
 })
 
+/**
+ * A landing's selectable color palette — see src/types/palette.ts
+ * (`PaletteOption`). Every landing defaults to grayscale even when this
+ * array is empty; a non-empty array is the platform's signal to render the
+ * preview toolbar's palette selector for that landing.
+ */
+const paletteSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  colors: z.object({
+    primary: z.string(),
+    secondary: z.string(),
+    tertiary: z.string(),
+    accent: z.string(),
+    light: z.string(),
+  }),
+})
+
 const landings = defineCollection({
   loader: glob({ pattern: "*.json", base: "./src/content/landings" }),
   schema: z.object({
@@ -31,6 +49,7 @@ const landings = defineCollection({
     thumbnailHeight: z.number().optional(),
     thumbnailCredit: unsplashCreditSchema.optional(),
     previewImage: z.string().optional(),
+    palettes: z.array(paletteSchema).default([]),
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     author: z.string().default("frankuxui"),

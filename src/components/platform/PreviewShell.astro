@@ -10,7 +10,7 @@ import type { LandingPreviewProps } from "../../types/preview"
 
 type Props = LandingPreviewProps
 
-const { name, slug } = Astro.props
+const { name, slug, palettes } = Astro.props
 const renderUrl = `/landings/${slug}/render`
 ---
 
@@ -48,11 +48,14 @@ const renderUrl = `/landings/${slug}/render`
     </div>
   </div>
 
-  <OptionsPanel name={name} slug={slug} />
+  <OptionsPanel name={name} slug={slug} palettes={palettes} />
 </div>
 
 <script>
-  import type { PreviewThemeMessage } from "../../types/preview"
+  import type {
+    PreviewThemeMessage,
+    PreviewPaletteMessage,
+  } from "../../types/preview"
   import {
     classifyDevice,
     DEVICE_PRESET_WIDTH,
@@ -77,6 +80,15 @@ const renderUrl = `/landings/${slug}/render`
     const message: PreviewThemeMessage = {
       type: "preview:theme",
       theme: event.detail.theme,
+    }
+    frame?.contentWindow?.postMessage(message, "*")
+  })
+
+  // --- Palette bridge -------------------------------------------------------
+  document.addEventListener("preview:palette", (event) => {
+    const message: PreviewPaletteMessage = {
+      type: "preview:palette",
+      palette: event.detail.palette,
     }
     frame?.contentWindow?.postMessage(message, "*")
   })

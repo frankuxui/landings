@@ -1,0 +1,208 @@
+---
+// Palette picker for the "Personalizar colores" section of the Options
+// sidebar. Renders nothing meaningful when the landing defines no
+// palettes — OptionsPanel falls back to ComingSoonNotice in that case.
+//
+// Mirrors ThemeSelector's cross-document bridge: this component only
+// dispatches a `preview:palette` DOM CustomEvent; PreviewShell relays it
+// into the iframe via `postMessage`, and each opted-in landing owns a
+// small script (scripts/palette.ts) that toggles `data-palette` on its OWN
+// `document.documentElement`. This component never reaches into the
+// iframe directly — it only listens for the landing's own
+// `preview:palette-sync` postMessage to mirror the real current state.
+import SvgSuccessAnimation from "./SvgSuccessAnimation.astro"
+import type { PaletteOption } from "../../types/palette"
+import { DEFAULT_PALETTE_ID } from "../../types/palette"
+
+export interface Props {
+  palettes: PaletteOption[]
+}
+
+const { palettes } = Astro.props
+---
+
+<div class="palette-options" role="group" aria-label="Paleta de colores">
+  {
+    palettes.map((palette: PaletteOption) => (
+      <button
+        type="button"
+        class="palette-card"
+        data-palette-option={palette.id}
+        aria-pressed={palette.id === DEFAULT_PALETTE_ID}
+      >
+        <span class="palette-swatch" aria-hidden="true">
+          <span style={`background:${palette.colors.primary}`} />
+          <span style={`background:${palette.colors.secondary}`} />
+          <span style={`background:${palette.colors.tertiary}`} />
+          <span style={`background:${palette.colors.accent}`} />
+          <span style={`background:${palette.colors.light}`} />
+        </span>
+        <span class="palette-card-footer">
+          <span class="palette-name">{palette.name}</span>
+          <span class="palette-check" aria-hidden="true">
+            <SvgSuccessAnimation
+              size={20}
+              background={palette.colors.primary}
+              foreground={palette.colors.light}
+              duration={700}
+            />
+          </span>
+        </span>
+      </button>
+    ))
+  }
+</div>
+
+<script>
+  import { DEFAULT_PALETTE_ID } from "../../types/palette"
+  import type { PreviewPaletteSyncMessage } from "../../types/preview"
+
+  function isPreviewPaletteSyncMessage(
+    value: unknown,
+  ): value is PreviewPaletteSyncMessage {
+    if (typeof value !== "object" || value === null) return false
+    const candidate = value as Record<string, unknown>
+    return (
+      candidate.type === "preview:palette-sync" &&
+      typeof candidate.palette === "string"
+    )
+  }
+
+  // The check badge's SVG draws its fill + stroke animation once on mount
+  // (`animation: … forwards`). Selecting a palette again would only toggle
+  // opacity without replaying it. Force a reflow by resetting `animation`
+  // so it plays again on every selection.
+  function replaySuccessAnimation(cardEl: HTMLElement): void {
+    const targets = cardEl.querySelectorAll<HTMLElement>(
+      ".success-fill-circle, .success-check",
+    )
+    if (targets.length === 0) return
+
+    targets.forEach((el: HTMLElement) => {
+      el.style.animation = "none"
+    })
+    void cardEl.offsetWidth
+    targets.forEach((el: HTMLElement) => {
+      el.style.animation = ""
+    })
+  }
+
+  function setupPaletteOptions(): void {
+    const options = document.querySelectorAll<HTMLButtonElement>(
+      "[data-palette-option]",
+    )
+    if (options.length === 0) return
+
+    function updateActiveOption(paletteId: string): void {
+      options.forEach((option: HTMLButtonElement) => {
+        const isActive = option.dataset.paletteOption === paletteId
+        option.dataset.state = isActive ? "active" : ""
+        option.setAttribute("aria-pressed", String(isActive))
+      })
+    }
+
+    options.forEach((option: HTMLButtonElement) => {
+      option.addEventListener("click", () => {
+        const palette = option.dataset.paletteOption
+        if (!palette) return
+
+        updateActiveOption(palette)
+        replaySuccessAnimation(option)
+        document.dispatchEvent(
+          new CustomEvent("preview:palette", { detail: { palette } }),
+        )
+      })
+    })
+
+    // Mirrors the landing's real current palette — whether it's the
+    // grayscale default reported right after load, the result of this
+    // picker's own click, or a choice the landing itself restored from its
+    // own persisted storage.
+    window.addEventListener("message", (event: MessageEvent<unknown>) => {
+      if (!isPreviewPaletteSyncMessage(event.data)) return
+      updateActiveOption(event.data.palette)
+    })
+
+    updateActiveOption(DEFAULT_PALETTE_ID)
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupPaletteOptions)
+  } else {
+    setupPaletteOptions()
+  }
+</script>
+
+<style>
+  .palette-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .palette-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    padding: 0.6rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.15s ease;
+  }
+
+  .palette-card:hover,
+  .palette-card:focus-visible {
+    background: var(--platform-border);
+  }
+
+  .palette-card[data-state="active"] {
+    background: var(--platform-border);
+    box-shadow: inset 0 0 0 1.5px var(--platform-accent);
+  }
+
+  .palette-swatch {
+    display: flex;
+    width: 100%;
+    height: 2.75rem;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .palette-swatch span {
+    flex: 1;
+  }
+
+  .palette-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .palette-name {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--platform-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .palette-check {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .palette-card[data-state="active"] .palette-check {
+    opacity: 1;
+  }
+</style>

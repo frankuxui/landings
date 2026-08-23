@@ -56,12 +56,26 @@ const thumbnailUrl = "/landings/chocolate-factory/cover.png"
     <meta property="og:description" content={pageDescription} />
     <meta property="og:image" content={thumbnailUrl} />
     <meta property="og:url" content={canonicalUrl} />
+
+    <!-- Synchronous, no-flash restore of a previously chosen color palette
+    (see scripts/palette.ts and "Optional per-landing color palettes" in the
+    astro-landing-pages Skill) — must run before first paint, so it lives
+    inline in <head> rather than the deferred module script at the end of
+    <body>. Grayscale (no attribute / the CSS default) applies when nothing
+    is stored. -->
+    <script is:inline>
+      try {
+        var storedPalette = localStorage.getItem("chocolate-factory:palette")
+        if (storedPalette)
+          document.documentElement.dataset.palette = storedPalette
+      } catch (error) {}
+    </script>
   </head>
   <body
     class="min-h-full overflow-x-hidden bg-background text-base leading-relaxed text-foreground antialiased font-sans"
   >
     <a
-      class="absolute -top-full left-4 z-1000 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-primary px-5 py-3 text-base font-semibold text-primary-foreground no-underline transition duration-200 ease-landing focus-visible:top-4 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border hover:bg-emphasis active:bg-emphasis"
+      class="absolute -top-full left-4 z-1000 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-[var(--color-primary)] px-5 py-3 text-base font-semibold text-[var(--color-light)] no-underline transition duration-200 ease-landing hover:opacity-90 focus-visible:top-4 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90"
       href="#main-content"
     >
       Saltar al contenido principal
@@ -85,6 +99,7 @@ const thumbnailUrl = "/landings/chocolate-factory/cover.png"
 
     <script>
       import "./scripts/theme"
+      import "./scripts/palette"
       import "./scripts/reveal"
       import "./scripts/navIndicator"
     </script>

@@ -1,4 +1,5 @@
 import type { Theme } from "./theme"
+import type { PaletteOption } from "./palette"
 
 /** Canonical device viewports offered by the preview device switcher. */
 export const DEVICES = ["mobile", "tablet", "desktop"] as const
@@ -70,6 +71,13 @@ export const VIEWPORT_RESIZE_STEP_LARGE = 120
 export interface LandingPreviewProps {
   name: string
   slug: string
+  /**
+   * This landing's selectable color palettes (empty/omitted when it only
+   * offers the grayscale default). Optional so components that don't
+   * render a palette picker (e.g. `OptionsPanel`) aren't forced to thread
+   * it through.
+   */
+  palettes?: PaletteOption[]
 }
 
 /**
@@ -87,6 +95,11 @@ export interface PreviewThemeEventDetail {
   theme: Theme
 }
 
+/** `detail` payload of the `preview:palette` DOM CustomEvent (command: apply this palette id). */
+export interface PreviewPaletteEventDetail {
+  palette: string
+}
+
 /** `detail` payload of the `preview:toolbar-visibility` DOM CustomEvent. */
 export interface PreviewToolbarVisibilityEventDetail {
   visible: boolean
@@ -101,6 +114,27 @@ export interface PreviewThemeMessage {
   theme: Theme
 }
 
+/**
+ * Cross-document `postMessage` command sent from the platform's preview
+ * shell into a landing's own iframe document to switch its color palette.
+ */
+export interface PreviewPaletteMessage {
+  type: "preview:palette"
+  palette: string
+}
+
+/**
+ * Cross-document `postMessage` notification sent FROM a landing's own
+ * iframe document back to the platform's preview shell whenever the
+ * landing applies a palette (whether from a `PreviewPaletteMessage`
+ * command or from its own persisted localStorage restore on load) — lets
+ * the toolbar's palette selector mirror the landing's real current state.
+ */
+export interface PreviewPaletteSyncMessage {
+  type: "preview:palette-sync"
+  palette: string
+}
+
 declare global {
   interface DocumentEventMap {
     /** Command: apply this device's preset width to the viewport. */
@@ -113,6 +147,8 @@ declare global {
      */
     "preview:device-change": CustomEvent<PreviewDeviceEventDetail>
     "preview:theme": CustomEvent<PreviewThemeEventDetail>
+    /** Command: apply this palette id to the previewed landing. */
+    "preview:palette": CustomEvent<PreviewPaletteEventDetail>
     /** Show or hide the preview toolbar. */
     "preview:toolbar-visibility": CustomEvent<PreviewToolbarVisibilityEventDetail>
     /** Request to open the options panel (aside). */
