@@ -7,56 +7,215 @@ description: Design, build, modify, and audit Astro landing pages inside this pr
 
 Specialized knowledge for working on individual landing pages inside this repo's landing-page gallery platform (see [AGENTS.md](../../../AGENTS.md) for the platform architecture). This platform hosts many independent landings side by side — never assume there is only one.
 
-## Shared design system — mandatory, single source of truth, no exceptions
+## Design tokens: same names everywhere, independent values per landing — mandatory, no shared file
 
-> Todas las Landing Pages de este proyecto pertenecen al mismo sistema visual. Deben utilizar exactamente los mismos tokens semánticos, variables de color, valores Light/Dark, escala de grises, escala tipográfica, breakpoints y reglas fundamentales de Tailwind.
+> Las landings son totalmente independientes entre sí, por lo tanto, no podrán tener conexiones entre ellas ni compartir componentes, estilos o datos. No se utilizará el fichero `landing-design-system.css` ni se compartirá entre landings. Cada landing tendrá su propia estructura de carpetas, estilos, datos, variables, scripts, secciones, funciones y componentes.
 >
-> Una nueva Landing Page no puede introducir, eliminar, renombrar o modificar tokens globales del sistema de diseño. Cualquier modificación del contrato de tokens debe realizarse a nivel global y aplicarse a todas las landings.
->
-> La diferenciación entre landings debe conseguirse mediante composición, arquitectura, jerarquía, layout, spacing, contenido, interacción y movimiento; nunca creando una identidad cromática o una escala tipográfica independiente.
->
-> **MISMO DESIGN SYSTEM, DISTINTO DISEÑO.**
+> Todas las landings sí tendrán las mismas variables CSS y el mismo tema dark por defecto — esto permite maquetar más rápido reutilizando los mismos nombres, aunque sus valores sean diferentes en cada landing.
 
-This project is a platform that exhibits many landing-page _designs_ — it is not a collection of different visual identities. What changes between one landing and another is the design, the composition, and the content organization; **never** the fundamental tokens of the visual system.
+**There is no shared design-system file.** `src/styles/landing-design-system.css` does not exist and must never be reintroduced — no landing imports a platform-level token file, another landing's token file, or any file outside its own folder for colors, typography scale, breakpoints, spacing, easing, or the `reveal` utility. This was previously the one documented exception to landing isolation; it no longer is. Isolation is now absolute — see "Ground rule: isolation" below, which has no exception left.
 
-### The single source of truth: `src/styles/landing-design-system.css`
+Every landing declares its **entire** token set locally, inside its own `src/landings/[slug]/styles/tailwind.css`: `:root` (Light values), `[data-theme="dark"]` (Dark values), the matching `@theme inline` color-utility mapping, `@custom-variant dark`, the fluid heading scale, `--font-sans`/`--font-display`/`--font-mono`, any shared-named breakpoints/spacing/container tokens it uses, `--ease-landing`, and the `reveal` `@utility` — copied structurally from another landing (or from this Skill's reference block below) and then owned entirely by that landing from that point on. Nothing here is `@import`ed from anywhere outside the landing's own folder.
 
-Every color token, Light/Dark value, the grayscale scale, the fluid heading scale, and the base structural tokens (spacing, easing, shared breakpoints, shared containers) are declared **exactly once**, in `src/styles/landing-design-system.css`. This is the canonical, binding contract — read it before touching any landing's theming.
+### What stays constant: the name contract
 
-Every landing imports it from its own Tailwind entry instead of redeclaring any part of it:
+Every landing that needs a given role uses the **exact same token name** for it — this is what lets you move between landings and immediately know `bg-surface`, `text-muted`, `bg-primary` without relearning each landing's vocabulary. Reuse these names verbatim, never invent a landing-branded synonym (no `--coffee-background`, no `--chocolate-surface`, no `--ease-onix`):
+
+- Color roles: `--background`, `--background-alt`, `--foreground`, `--muted`, `--border`, `--surface`, `--surface-strong`, `--control`, `--control-hover`, `--ring`, `--primary`, `--primary-foreground`, `--emphasis`, `--disabled`, `--disabled-foreground`, `--inverted`, `--inverted-foreground`, `--inverted-surface`, `--placeholder`, `--placeholder-foreground`, `--placeholder-inverse`, exposed via the matching `@theme inline` mapping (`bg-background`, `text-foreground`, `bg-surface`, `bg-primary`, `bg-placeholder`, etc.).
+- `@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));` — the same Light/Dark mechanism, declared independently in every landing.
+- Typography scale: `--text-headline-1`, `--text-headline-2`, `--text-headline-3`, `--text-figure`, plus `--font-sans`/`--font-display` (Wix Madefor Text — see "Shared typography" below) and `--font-mono`.
+- Reusable named breakpoints beyond Tailwind's native `sm`/`md`/`lg`/`xl`/`2xl`, when a landing needs one: `--breakpoint-footer`, `--breakpoint-cards`, `--breakpoint-nav`, `--breakpoint-stats`, `--breakpoint-display`.
+- `--spacing-section`, `--spacing-container-x`, `--container-landing`, `--container-copy`, `--container-heading`, `--container-hero-heading`.
+- `--ease-landing` — the shared name for each landing's own signature motion curve.
+- The `reveal` `@utility` (scroll-reveal progressive enhancement), declared locally, built on that landing's own `--ease-landing`.
+
+### What's independent now: the values
+
+Each landing chooses its own values for every token above, declared only in its own `tailwind.css`. In practice, most landings will still pick equivalent grayscale shades and the same structural numbers by convention — but that is now each landing's own choice, not an enforced import. A landing's values are never "wrong" for differing from another landing's; they are only wrong if they break the monochrome rule (below) or invent a new token name instead of reusing one of the names above.
+
+**Never**, regardless of independent values: introduce a chromatic color into any of these tokens outside the opt-in palette system (see "Optional per-landing color palettes" below), rename a token from the list above, or leave a role from that list undeclared when the landing's markup uses its utility.
+
+### Reference block — copy and then own it
+
+Every new landing starts from a copy of this structure in its own `styles/tailwind.css` (values below are a reasonable grayscale starting point — a landing may use different shades, this is a template, not a shared source of truth):
 
 ```css
-/* src/landings/[slug]/styles/tailwind.css */
 @import "tailwindcss";
-@import "../../../styles/landing-design-system.css";
 
-/* Only truly landing-local exceptions go below this line — see
-   "What stays landing-local" below. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --background: var(--color-neutral-50);
+  --background-alt: var(--color-neutral-100);
+  --foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-white);
+  --surface-strong: var(--color-neutral-100);
+  --control: var(--color-neutral-200);
+  --control-hover: var(--color-neutral-300);
+  --ring: var(--color-neutral-900);
+
+  --primary: var(--color-neutral-900);
+  --primary-foreground: var(--color-white);
+  --emphasis: var(--color-black);
+
+  --disabled: var(--color-neutral-300);
+  --disabled-foreground: var(--color-neutral-500);
+
+  --inverted: var(--color-neutral-950);
+  --inverted-foreground: var(--color-white);
+  --inverted-surface: var(--color-neutral-900);
+
+  --placeholder: var(--color-neutral-900);
+  --placeholder-foreground: var(--color-white);
+  --placeholder-inverse: rgb(255 255 255 / 0.72);
+}
+
+[data-theme="dark"] {
+  --background: var(--color-neutral-950);
+  --background-alt: var(--color-neutral-900);
+  --foreground: var(--color-neutral-100);
+  --muted: var(--color-neutral-300);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-neutral-900);
+  --surface-strong: var(--color-neutral-800);
+  --control: var(--color-neutral-800);
+  --control-hover: var(--color-neutral-700);
+  --ring: var(--color-neutral-300);
+
+  --primary: var(--color-neutral-100);
+  --primary-foreground: var(--color-neutral-950);
+  --emphasis: var(--color-white);
+
+  --disabled: var(--color-neutral-700);
+  --disabled-foreground: var(--color-neutral-400);
+
+  --inverted: var(--color-neutral-100);
+  --inverted-foreground: var(--color-neutral-950);
+  --inverted-surface: var(--color-neutral-200);
+
+  --placeholder: var(--color-neutral-300);
+  --placeholder-foreground: var(--color-neutral-900);
+  --placeholder-inverse: rgb(10 10 10 / 0.65);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-emphasis: var(--emphasis);
+
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
+  --color-inverted-surface: var(--inverted-surface);
+
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-placeholder-inverse: var(--placeholder-inverse);
+}
+
+@theme {
+  --font-sans: "Wix Madefor Text", sans-serif;
+  --font-display: "Wix Madefor Text", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --breakpoint-footer: 45rem;
+  --breakpoint-cards: 47.5rem;
+  --breakpoint-nav: 56.25rem;
+  --breakpoint-stats: 67.5rem;
+  --breakpoint-display: 87.5rem;
+
+  --spacing-section: 7rem;
+  --spacing-container-x: 1.5rem;
+
+  --container-landing: 100rem;
+  --container-copy: 66ch;
+  --container-heading: 28ch;
+  --container-hero-heading: 18ch;
+
+  --ease-landing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --text-headline-1: clamp(3rem, 1.9rem + 4.68vw, 6rem);
+  --text-headline-2: clamp(1.875rem, 1.19rem + 2.93vw, 3.75rem);
+  --text-headline-3: clamp(1.25rem, 1.02rem + 0.98vw, 1.875rem);
+  --text-figure: clamp(2.5rem, 1.6rem + 3.9vw, 4.5rem);
+}
+
+@utility reveal {
+  transform: translateY(0);
+  opacity: 1;
+
+  .js-reveal-ready & {
+    transform: translateY(calc(var(--spacing) * 6));
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 700ms;
+    transition-timing-function: var(--ease-landing);
+  }
+
+  .js-reveal-ready &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @variant motion-reduce {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transition-property: none !important;
+  }
+}
+
+/* Only genuinely landing-local exceptions go below this line (e.g. Swiper
+   pagination theming, a scrollbar-hiding rule for a horizontal rail). */
 ```
 
-This is the **one deliberate, single-direction exception** to the isolation rule below: a landing may depend on this one shared platform-level token file — and only this file. It must never depend on another landing's folder, another landing's components/scripts, or platform chrome/component code, and this shared file must never depend on or reference any specific landing back.
+### No custom radius/shadow tokens — use Tailwind's own default scale
 
-`@import` resolution here is native Tailwind v4 / Lightning CSS behavior (splitting `@theme`/`:root` declarations across files via `@import` is an officially supported pattern) — no build config changes, no TypeScript indirection, no runtime cost. This is Astro + Tailwind's own answer to "one design system, many isolated implementations": **design system shared, visual implementation isolated.**
+Do not declare landing-local `--radius-*` tokens (no `--radius-button`, `--radius-field`, `--radius-card`, `--radius-block`, or equivalents) or a landing-local `--shadow-*` token for a single-use value. Tailwind v4 already ships a complete radius scale (`rounded-none/xs/sm/md/lg/xl/2xl/3xl/full`) and shadow scale (`shadow-xs/sm/md/lg/xl/2xl`) — these are the shared "ingredients" every landing reuses. A landing gets its own pill-shaped buttons, sharp "mold" corners, or soft rounded cards by picking a **different step from this same built-in scale** directly in markup (`rounded-full` for a pill button in one landing, `rounded-xs` for a sharp industrial one in another) — never by inventing a same-named-different-value custom token. A single-use shadow (e.g. a hairline header separator) is a one-off value applied as an arbitrary Tailwind utility directly in the element's `class` (`shadow-[0_1px_0_0_rgb(0_0_0/0.08)]`), per the existing one-off-styling rule below — it does not belong in `@theme` at all.
 
-### What the shared file locks — never redefine, rename, add, or remove
+### What SÍ can — and must — change between landings
 
-- The full semantic color contract: `--background`, `--background-alt`, `--foreground`, `--muted`, `--border`, `--surface`, `--surface-strong`, `--control`, `--control-hover`, `--ring`, `--primary`, `--primary-foreground`, `--emphasis`, `--disabled`, `--disabled-foreground`, `--inverted`, `--inverted-foreground`, `--inverted-surface`, `--placeholder`, `--placeholder-foreground`, `--placeholder-inverse` — same names, same count, same Light values, same Dark values, in every landing. No `--coffee-background`, no `--chocolate-surface`, no `--solar-muted`, no landing-branded color token of any kind, and no landing quietly using `--background: #f8f8f8` while another uses `--background: #ffffff`.
-- The matching `@theme inline` block exposing every one of those as a Tailwind color utility (`bg-background`, `text-foreground`, `bg-surface`, `bg-surface-strong`, `text-muted`, `border-border`, `bg-primary`, `text-primary-foreground`, `bg-placeholder`, `text-placeholder-foreground`, `bg-placeholder-inverse`, etc.) — every landing works with these exact utilities.
-- `@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));` — the one Light/Dark mechanism, identical everywhere.
-- The fluid heading scale: `--text-headline-1`, `--text-headline-2`, `--text-headline-3`, `--text-figure` — same `clamp()` values in every landing. A landing composes _which_ step it applies to which role (a Hero can use `text-headline-1` while another landing's equivalent heading uses `text-headline-2`) — that choice is the differentiation. Inventing a new step, a new name, or different `clamp()` numbers under the same name is not.
-- `--font-sans`/`--font-display` (the shared Wix Madefor Text reading typeface — see "Shared typography" below) and `--font-mono` (the shared monospace accent, available to any landing that wants numbering/technical-label styling — not landing-branded, e.g. never `--font-mono-onix`).
-- Reusable named breakpoints beyond Tailwind's native `sm`/`md`/`lg`/`xl`/`2xl`: `--breakpoint-footer`, `--breakpoint-cards`, `--breakpoint-nav`, `--breakpoint-stats`, `--breakpoint-display`. A landing reaches for one of these only when its component genuinely needs that exact threshold — using none of them is just as valid as using several.
-- `--spacing-section`, `--spacing-container-x`, `--container-landing`, `--container-copy`, `--container-heading`, `--container-hero-heading` — the shared rhythm and content-column widths.
-- `--ease-landing` — the one shared signature motion curve. Never a landing-branded easing name (no `--ease-terraltura`, no `--ease-onix`) even if the curve value would be identical — a second name for the same value is exactly the drift this file exists to prevent.
-- The shared `reveal` `@utility` (scroll-reveal progressive enhancement), built on `--ease-landing`.
+Landings must still look strikingly different from one another. Composition, Hero structure, disposición, grids, number of columns, section order, spacing between blocks, section widths, Full Width vs. contained, sticky sections, cards, articles, Swipers (including their own pagination-bullet size/opacity/shape — that's component composition, not a shared token), placeholders, navigation, visual hierarchy, negative space, rhythm, asymmetry, GSAP/parallax/ScrollTrigger logic, typographic layout, content, and storytelling are all fully open per landing. One landing can be editorial/artisanal, another industrial/modular, another technical/Full-Width — as long as all of them reuse the same token **names**.
 
-If any of the above genuinely needs to change, that is a decision made **once, in `landing-design-system.css`, applied to every landing simultaneously** — never a per-landing override, and never something an individual landing task decides on its own.
+Reusing the same token names and Tailwind rules does **not** mean copying Hero, Cards, Navbar, Footer, layouts, sections, or animations between landings — and it does not mean literally sharing a file. It means precisely the opposite:
+
+**Same names, independent values, independent everything else.**
+
+### Auditing token drift — mandatory whenever a landing is created, modified, or audited
+
+Compare the landing's own `styles/tailwind.css` against the name contract above and against its own past state — never against another landing's file or compiled output:
+
+1. the landing's `tailwind.css` does not `@import` `landing-design-system.css`, another landing's `tailwind.css`, or any file outside its own folder — zero cross-landing or shared-file dependency of any kind;
+2. it declares its own complete `:root`, `[data-theme="dark"]`, `@theme inline`, and `@custom-variant dark` — nothing is missing because "it's supposed to come from the shared file" (there is no shared file);
+3. every token it declares uses one of the shared **names** from "What stays constant" above — no landing-branded synonym, no renamed role;
+4. no landing-local `--radius-*`/`--shadow-*` custom token exists — check for Tailwind's own default radius/shadow utilities used directly instead;
+5. every color token stays strictly monochrome (see the rule below) — values may legitimately differ from another landing's, but never introduce a hue outside the opt-in palette system;
+6. any content the landing's `tailwind.css` contains beyond the token block is genuinely landing-local (e.g. Swiper pagination-bullet composition, a scrollbar-hiding rule for a landing-specific horizontal rail);
+7. the landing's `<head>` loads Wix Madefor Text via the shared `<link>` block (see "Shared typography" below) and nothing else — no second font family, no CSS `@import` font load, no bundled webfont;
+8. run `npm run build` and confirm this landing's compiled CSS bundle has zero references to another landing's folder or to a platform-level stylesheet.
 
 ### Shared typography — one typeface, no exceptions
 
 > Todas las landings deben utilizar exclusivamente Wix Madefor Text como tipografía principal. Misma tipografía y sistema tipográfico para todas las landings; únicamente cambia el diseño.
 
-Every landing uses **[Wix Madefor Text](https://fonts.google.com/specimen/Wix+Madefor+Text)** ([license](https://fonts.google.com/specimen/Wix+Madefor+Text/license)) as its one and only reading typeface — no landing may introduce a different font family, Google or otherwise, to differentiate its design. Personality between landings comes from size, weight (400–800), italic, tracking, line-height, composition, hierarchy, and spacing applied to this same typeface — never from swapping the typeface itself.
+Every landing uses **[Wix Madefor Text](https://fonts.google.com/specimen/Wix+Madefor+Text)** ([license](https://fonts.google.com/specimen/Wix+Madefor+Text/license)) as its one and only reading typeface — no landing may introduce a different font family, Google or otherwise, to differentiate its design. Personality between landings comes from size, weight (400–800), italic, tracking, line-height, composition, hierarchy, and spacing applied to this same typeface — never from swapping the typeface itself. This is a repeated **convention** every landing implements independently (its own `<link>` tags, its own `--font-sans`/`--font-display` declaration) — not a shared file dependency, so it does not conflict with landing isolation.
 
 **Loading:** every landing's own `index.astro` loads the exact same Google Fonts `<link>` tags in its `<head>`, with variable-weight (400–800) and italic support:
 
@@ -71,7 +230,7 @@ Every landing uses **[Wix Madefor Text](https://fonts.google.com/specimen/Wix+Ma
 
 Load it via `<link>` in `<head>` only — never duplicate the load with a CSS `@import url(...)` in the landing's `tailwind.css` or anywhere else. Since each landing is rendered as its own isolated `<html>` document (see the platform architecture), each one's `<head>` legitimately carries this same `<link>` block; that is not a duplicate load in the sense to avoid — the sense to avoid is a _second, different_ font request inside the same document (a stray `@import`, a second Google Fonts family, a bundled `@font-face`) stacked on top of the `<link>` tags.
 
-**Tailwind tokens:** the font family itself is a shared token, declared once in `src/styles/landing-design-system.css`:
+**Tailwind tokens:** the font family is declared independently, identically, in each landing's own `tailwind.css`:
 
 ```css
 @theme {
@@ -80,32 +239,9 @@ Load it via `<link>` in `<head>` only — never duplicate the load with a CSS `@
 }
 ```
 
-A landing uses the resulting `font-sans` utility (Tailwind's default body/UI text utility) directly — never declares its own `--font-sans`/`--font-display`/equivalent, and never a landing-branded font token. The shared `--font-mono` accent (for numbering/technical labels, see "Shared design system" above) remains available and is not affected by this rule — it is a distinct, secondary, non-primary role.
+A landing uses the resulting `font-sans` utility (Tailwind's default body/UI text utility) directly — never declares a landing-branded font token. The `--font-mono` accent (for numbering/technical labels) is available under that same shared name in every landing that wants it — declared locally, per landing.
 
 **Audit whenever a landing is created, modified, or audited:** grep the landing for `fonts.googleapis.com`/`@import url` — there must be exactly one `<link>`-based load of Wix Madefor Text in `<head>` and zero CSS `@import` font loads; grep for any other font-family declaration (`font-family:`, a second `@theme` font token, a bundled webfont file) and remove it; confirm `<html>`/`<body>` (or the equivalent root element) actually applies `font-sans` so the typeface is in effect.
-
-### No custom radius/shadow tokens — use Tailwind's own default scale
-
-Do not declare landing-local `--radius-*` tokens (no `--radius-button`, `--radius-field`, `--radius-card`, `--radius-block`, or equivalents) or a landing-local `--shadow-*` token for a single-use value. Tailwind v4 already ships a complete radius scale (`rounded-none/xs/sm/md/lg/xl/2xl/3xl/full`) and shadow scale (`shadow-xs/sm/md/lg/xl/2xl`) — these are the shared "ingredients" every landing reuses. A landing gets its own pill-shaped buttons, sharp "mold" corners, or soft rounded cards by picking a **different step from this same built-in scale** directly in markup (`rounded-full` for a pill button in one landing, `rounded-xs` for a sharp industrial one in another) — never by inventing a same-named-different-value custom token. A single-use shadow (e.g. a hairline header separator) is a one-off value applied as an arbitrary Tailwind utility directly in the element's `class` (`shadow-[0_1px_0_0_rgb(0_0_0/0.08)]`), per the existing one-off-styling rule below — it does not belong in `@theme` at all.
-
-### What SÍ can — and must — change between landings
-
-Landings must still look strikingly different from one another. Composition, Hero structure, disposición, grids, number of columns, section order, spacing between blocks, section widths, Full Width vs. contained, sticky sections, cards, articles, Swipers (including their own pagination-bullet size/opacity/shape — that's component composition, not a shared token), placeholders, navigation, visual hierarchy, negative space, rhythm, asymmetry, GSAP/parallax/ScrollTrigger logic, typographic layout, content, and storytelling are all fully open per landing. One landing can be editorial/artisanal, another industrial/modular, another technical/Full-Width — as long as all of them are built from exactly the same tokens.
-
-Sharing colors, tokens, typography scale, breakpoints, and Tailwind rules does **not** mean copying Hero, Cards, Navbar, Footer, layouts, sections, or animations between landings. It means precisely the opposite:
-
-**System: constant. Design: variable.**
-
-### Auditing token drift — mandatory whenever a landing is created, modified, or audited
-
-Compare the landing's own `styles/tailwind.css` against `src/styles/landing-design-system.css` and against every other landing's compiled output:
-
-1. the landing's `tailwind.css` imports the shared file and declares zero color tokens, zero `@theme inline` mapping, and zero `@custom-variant dark` of its own;
-2. no landing-local `--radius-*`/`--shadow-*` custom token exists — check for Tailwind's own default radius/shadow utilities used directly instead;
-3. no landing-local color token, headline/figure typography token, easing token, or shared breakpoint/container token is redeclared, renamed, or given a different value than the shared file;
-4. any content the landing's `tailwind.css` still contains after the shared import is genuinely landing-local (e.g. Swiper pagination-bullet composition, a scrollbar-hiding rule for a landing-specific horizontal rail) — not a duplicated piece of the shared contract;
-5. the landing's `<head>` loads Wix Madefor Text via the exact shared `<link>` block (see "Shared typography" above) and nothing else — no second font family, no CSS `@import` font load, no bundled webfont;
-6. run `npm run build` and diff the compiled `:root`/`[data-theme="dark"]`/`@theme` output of this landing's CSS bundle against another landing's — the token declarations must be byte-identical; only landing-specific selectors/rules may differ.
 
 ## Visual rule: monochrome only — the default for every landing, with one documented opt-in exception
 
@@ -210,20 +346,35 @@ Whenever a landing is created, modified, or audited, explicitly check:
 5. all five interactive states work in Light and Dark;
 6. removing borders did not reduce hierarchy, accessibility, or responsive clarity.
 
-## Ground rule: isolation
+## Ground rule: isolation — absolute, no exceptions
 
-Every landing lives entirely inside `src/landings/[slug]/` (its own components, sections, styles, assets, data, README) plus one metadata file at `src/content/landings/[slug].json`. A landing's styles, assets, variables, and components belong to that landing alone — with exactly one documented exception (below).
+> Las landings son totalmente independientes entre sí, por lo tanto, no podrán tener conexiones entre ellas ni compartir componentes, estilos o datos. Cada landing tendrá su propia estructura de carpetas y contendrá todos los archivos necesarios para funcionar de forma autónoma. Ninguna landing puede depender de componentes, estilos, datos, variables, funciones o configuraciones pertenecientes a otra landing.
 
-**Never let a change to one landing touch:**
+Every landing lives entirely inside `src/landings/[slug]/` and contains **everything** it needs to run on its own — no exception, nothing deferred to "the platform will provide it":
 
-- another landing's folder
+- components
+- styles (its own `tailwind.css` — see "Design tokens" above)
+- CSS variables/design tokens
+- Tailwind configuration
+- data
+- functions/scripts
+- assets
+- `README.md` (see "`README.md` — mandatory for every landing" above)
+- color palettes (its own grayscale default, plus any opt-in palettes — see "Optional per-landing color palettes" below)
+
+— plus one metadata file at `src/content/landings/[slug].json`, outside the landing folder itself, which is platform catalog data (category, tags, thumbnail, status), not part of the landing's own runtime. Every item in the list above belongs to that landing **alone, with no exception**. This is what makes a future "download this landing" feature possible with zero untangling: a downloaded landing's folder must already be a fully self-contained island — build it, and nothing else, and it works.
+
+**Never let a change to one landing touch, or a landing depend on:**
+
+- another landing's folder, for any reason — not components, not scripts, not data, not styles, not types
+- a shared platform-level design-token file — there is none; `src/styles/landing-design-system.css` does not exist and must never be reintroduced (see "Design tokens: same names everywhere, independent values per landing" above)
 - the platform catalog (`src/pages/index.astro`, `src/pages/landings/**`)
 - platform components (`src/components/platform/**`)
 - `src/styles/global.css` or any platform CSS variable
 
-If a problem seems to require touching something global, the fix almost always belongs inside the landing's own architecture instead. Global CSS is not a dumping ground for one landing's bug fix.
+If a problem seems to require touching something global or reaching into another landing, the fix almost always belongs inside the landing's own architecture instead — usually by copying the needed structure into that landing's own folder and then owning it independently. Global CSS is not a dumping ground for one landing's bug fix, and no landing is a dependency of another.
 
-**The one deliberate exception:** every landing's `styles/tailwind.css` imports the shared token contract at `src/styles/landing-design-system.css` (see "Shared design system" above). This is a single, one-directional, read-only dependency on a platform-level file that exists specifically to be the landing design system's single source of truth — it is not an opening to depend on anything else platform- or landing-side. A landing still never depends on another landing, and `landing-design-system.css` never depends on or references any specific landing back.
+There used to be one documented exception here — a shared `landing-design-system.css` token file every landing imported. That exception is retired. Every landing now declares its full token set locally; only the token **names** are shared, as a convention, never a file.
 
 ## File naming: every file in English, always
 
@@ -234,6 +385,22 @@ Every file inside a landing — `sections/*.astro`, `components/*.astro`, `data/
 **IDs, `href` anchors, and visible copy stay in whatever language the landing's content is written in** — this rule is only about the physical filename and, for consistency, the matching imported component/variable name in the parent `index.astro` (e.g. `import Contact from "./sections/Contact.astro"` rendering a `<section id="contacto">`). Never rename an `id`/anchor to match the filename, and never translate visible content to satisfy this rule — a Spanish-content landing keeps `id="proceso"`/`href="#proceso"` in its nav data and markup exactly as authored; only the file on disk (and the import/tag identifier referencing it) is English.
 
 When creating a new landing, name every file in English from the first draft — don't write Spanish-named files intending to rename them "later." When auditing an existing landing, grep its `sections/`, `components/`, `data/`, and `scripts/` folders for non-English filenames and rename them, updating every `import`/component-tag reference in `index.astro` (and any cross-file import) to match — verify with `astro check`/`tsc`/`build` afterward that nothing broke.
+
+## `README.md` — mandatory for every landing
+
+> Cada landing debe incluir su propio archivo `README.md`, documentando su estructura de carpetas, configuración específica, estilos utilizados, variables CSS disponibles, paletas de colores disponibles, componentes propios, y cualquier configuración necesaria para su correcto funcionamiento.
+
+Every landing has its own `src/landings/[slug]/README.md` — not optional, not "add it later." A landing task (creation, modification, or audit) is not complete while its `README.md` is missing or out of date with what the task changed. It documents, at minimum:
+
+1. **Folder structure** — the landing's own `components/`, `sections/`, `data/`, `scripts/`, `styles/`, `assets/` layout, with a one-line note on what belongs in each.
+2. **Landing-specific configuration** — anything a contributor (or a future downloader) needs to know to run this landing on its own: dependencies beyond the project baseline (e.g. Swiper, GSAP), any native-CSS exception and why it exists, any non-obvious build/runtime requirement.
+3. **Styles used** — the styling approach (Tailwind utility-first, `@theme`/`@utility` usage) and a pointer to `styles/tailwind.css` as the landing's own design-system entry.
+4. **Available CSS variables** — the token names this landing declares in `:root`/`[data-theme="dark"]` (reusing the shared name contract from "Design tokens" above) and, briefly, what each role means.
+5. **Available color palettes** — if the landing has the optional palette system (see "Optional per-landing color palettes" below): every palette id/name it defines and its 5 `--color-*` values. If it only has the grayscale default, say so explicitly rather than omitting the section.
+6. **The landing's own components** — a short list of its `components/*.astro` with a one-line purpose each, distinct from `sections/*.astro` (page sections) if both exist.
+7. **Anything else required for correct operation** — env vars, external services, known constraints.
+
+Keep it landing-specific and self-contained: a `README.md` that just says "see the platform docs" fails the point of it — the whole reason it exists is so this landing's folder is independently understandable without reading anything outside it (see "Ground rule: isolation" below). When a task changes the folder structure, the token set, the palette list, or the component list, update `README.md` in the same task — don't leave it describing a previous state.
 
 ## Catalog cover image: `assets/cover.png`
 
@@ -249,14 +416,14 @@ If a landing has no curated `assets/cover.png`, its catalog `thumbnail` may inst
 ## Before touching any code
 
 1. Identify exactly which landing is affected (its slug / `src/landings/[slug]/`).
-2. Read its metadata (`src/content/landings/[slug].json`) and its `README.md` if present.
+2. Read its metadata (`src/content/landings/[slug].json`) and its `README.md` — every landing has one (see "`README.md` — mandatory for every landing" above); if it's missing, that's a gap to fix as part of the task, not a step to skip.
 3. Read its existing components/sections and styles before writing anything new.
 4. Identify its design tokens (colors, spacing, radius, typography) — reuse them, don't invent parallel ones.
 5. Check its breakpoints and how Light/Dark is currently scoped.
 6. Note any existing animations/interactions.
 7. Decide what must NOT change (approved sections, existing behavior outside the task's scope).
 
-Don't restructure a whole landing when a localized fix solves the problem.
+Don't restructure a whole landing when a localized fix solves the problem. If the task changes the landing's folder structure, tokens, palettes, or component list, update its `README.md` before considering the task done.
 
 ## Astro-first
 
@@ -288,9 +455,30 @@ Use Tailwind utilities as the normal and primary solution for layout, grid, flex
 
 - Responsive behavior uses Tailwind breakpoint and container-query variants. Manual media queries are prohibited unless Tailwind has a documented technical limitation for the exact need.
 - Use `hover:`, `focus:`, `focus-visible:`, `active:`, `disabled:`, `aria-*:`, `group`, `peer`, `dark:`, and `motion-reduce:` variants where appropriate.
-- Prefer named theme utilities and Tailwind's spacing/type/color scales. Use arbitrary values only when the composition genuinely needs a value that no suitable utility or project token represents.
+- Prefer named theme utilities and Tailwind's spacing/type scale. Use arbitrary values only when the composition genuinely needs a value that no suitable utility or token represents — **except colors, which are never arbitrary; see below.**
 - Class names must remain statically detectable by Tailwind. Do not construct utility names dynamically from string fragments.
 - Preserve the project's monochrome and border/button rules through Tailwind utilities; Tailwind does not relax either rule.
+
+#### No arbitrary Tailwind color values — mandatory, no exceptions
+
+> Está prohibido utilizar valores arbitrarios de Tailwind para colores. Los colores deben utilizar siempre las variables definidas en el sistema de estilos de la propia landing.
+
+Never write a raw color literal directly in an arbitrary-value utility — no hex, no `rgb()`/`rgba()`, no `oklch()`, no named CSS color, anywhere in a landing's markup:
+
+```html
+<!-- Prohibited -->
+<div class="bg-[#333333]"></div>
+<p class="text-[rgb(20,20,20)]"></p>
+```
+
+Every color in a landing's markup resolves through that landing's own token system — either a named Tailwind utility generated by its `@theme inline` mapping (`bg-surface`, `text-muted`, `border-border`) or, for the rare case no named utility exists for the exact property/token combination needed, an arbitrary-value utility that references the CSS custom property by name, never a literal value:
+
+```html
+<!-- Correct: still arbitrary-value syntax, but resolves through the token, not a literal -->
+<div class="bg-[var(--surface-strong)]"></div>
+```
+
+This is not a stylistic preference — it's what keeps a downloaded landing re-themeable by editing only its `tailwind.css`: if a color is ever hardcoded as a literal in markup, changing the token no longer changes that element, and the landing silently drifts from its own design system. Audit whenever a landing is created, modified, or audited: grep the landing for `-\[#`, `-\[rgb`, `-\[rgba`, `-\[oklch`, `-\[hsl` inside `class`/`class:list` attributes — any match is a violation to fix, either by switching to the matching named utility or to `[var(--token-name)]`.
 
 ### Reuse without CSS shortcuts
 
@@ -342,17 +530,30 @@ When an exception is necessary:
 
 A landing task is not complete if it adds an unnecessary CSS file, a large `<style>` block, manual layout/spacing/typography classes, duplicated styles, unjustified arbitrary values, or any native CSS that Tailwind can express.
 
-### Design tokens: semantic variables — mandatory, shared, never redeclared per landing
+### Design tokens: semantic variables — mandatory, same names, declared independently per landing
 
 > Las Landing Pages deben utilizar tokens semánticos expuestos mediante `@theme inline`. Light/Dark se resuelve cambiando los valores de las variables CSS bajo `[data-theme="dark"]`, manteniendo las mismas utilities Tailwind en el markup.
 
 This is the mandatory theming architecture for every current and future landing. It replaces pairing every utility with a `dark:` counterpart (`bg-white dark:bg-black`, `text-black dark:text-white`) as the default mechanism: the markup's classes stay identical between themes, and only the underlying CSS variable values change.
 
-**These tokens are declared exactly once, for every landing at once, in `src/styles/landing-design-system.css`** (see "Shared design system" at the top of this Skill) — `:root` base values, `[data-theme="dark"]` overrides, and the `@theme inline` mapping that turns each `--name` variable into the matching `bg-name` / `text-name` / `border-name` Tailwind utility. A landing's own `styles/tailwind.css` never declares its own `:root`, `[data-theme="dark"]`, or `@theme inline` block — it only does:
+**Every landing declares this full block itself, in its own `styles/tailwind.css`** — `:root` base values, `[data-theme="dark"]` overrides, and the `@theme inline` mapping that turns each `--name` variable into the matching `bg-name` / `text-name` / `border-name` Tailwind utility. There is no shared file to import; see "Design tokens: same names everywhere, independent values per landing" at the top of this Skill for the full reference block to copy:
 
 ```css
 @import "tailwindcss";
-@import "../../../styles/landing-design-system.css";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  /* this landing's own Light values */
+}
+
+[data-theme="dark"] {
+  /* this landing's own Dark values */
+}
+
+@theme inline {
+  /* this landing's own name -> utility mapping */
+}
 ```
 
 and then uses the resulting utilities directly in markup, unchanged across themes:
@@ -367,7 +568,7 @@ and then uses the resulting utilities directly in markup, unchanged across theme
 >
 ```
 
-If a landing's composition seems to need "one more gray" or an additional surface level, resolve it first through the existing tokens, contrast, opacity, and composition (`bg-foreground/10`, `bg-surface-strong`, `text-muted`, `border-border/50`, etc.) before concluding a new token is needed. A genuinely new shared token is a global decision made once in `landing-design-system.css` and applied to every landing — never a token added inside one landing's own `tailwind.css` "because it fits this landing's theme better."
+If a landing's composition seems to need "one more gray" or an additional surface level, resolve it first through the existing tokens, contrast, opacity, and composition (`bg-foreground/10`, `bg-surface-strong`, `text-muted`, `border-border/50`, etc.) before concluding a new token is needed. A genuinely new token is added locally, inside that landing's own `tailwind.css` — it does not require touching any other landing, because there is no shared file left to keep in sync.
 
 #### Image placeholders use `bg-placeholder`
 
@@ -543,9 +744,9 @@ If the landing needs additional container sizes, extend them via the `--containe
 
 Do not use a viewport media query to solve a problem that is actually about a component's own width, and do not use a container query when the change truly depends on the viewport.
 
-#### Theme variables — shared first, landing-local only for genuine one-offs
+#### Theme variables — same names first, landing-local values always
 
-The base font, color, fluid-heading, easing, shared-breakpoint, and shared-container tokens already live in `@theme`/`@theme inline` inside `src/styles/landing-design-system.css` (see "Shared design system" above) — a landing never redeclares any of them. A landing's own `tailwind.css` only reaches for `@theme` when it has a **genuinely landing-specific, structurally reusable** value that isn't part of the shared contract and isn't already covered by Tailwind's own default scale — for example a landing-specific named breakpoint tied to one component's own content threshold, declared via `--breakpoint-*` the same way the shared file's `--breakpoint-nav`/`--breakpoint-cards`/etc. are (reuse the shared name first if an equivalent need already exists there).
+The base font, color, fluid-heading, easing, and named-breakpoint/container tokens each live in that landing's own `@theme`/`@theme inline` block (see "Design tokens: same names everywhere, independent values per landing" above) — reuse the shared **name** for a role that already has one instead of inventing a synonym. A landing reaches for a new `@theme` entry when it has a **genuinely landing-specific, structurally reusable** value that isn't already covered by one of those shared names or by Tailwind's own default scale — for example a landing-specific named breakpoint tied to one component's own content threshold, declared via `--breakpoint-*` the same way the reference `--breakpoint-nav`/`--breakpoint-cards`/etc. are (reuse the shared name first if an equivalent need already exists there).
 
 Radius and shadow are **not** landing-`@theme` territory: Tailwind v4's own default scale (`rounded-none/xs/sm/md/lg/xl/2xl/3xl/full`, `shadow-xs/sm/md/lg/xl/2xl`) is the shared "ingredient set" every landing already has — get a pill button, a sharp industrial corner, or a soft card by picking a different built-in step directly in markup, never by declaring a same-role custom `--radius-*`/`--shadow-*` token. A one-off shadow value belongs as an arbitrary utility in `class` (see the Native CSS / arbitrary-value guidance below), not in `@theme`.
 
@@ -627,23 +828,23 @@ For every landing creation, modification, or audit:
 6. verify responsive, Light/Dark, interactive, and reduced-motion behavior uses Tailwind variants;
 7. verify Light/Dark theming flows through the semantic token system (`:root` / `[data-theme="dark"]` / `@theme inline`) rather than `dark:`-paired utilities, and that raw grayscale utilities aren't standing in for a reusable role a token should express;
 8. verify every section that needs a photograph uses a real, correctly attributed Unsplash image sourced via the `unsplash-images` Skill rather than a permanent placeholder; any remaining `bg-placeholder`/`bg-placeholder-inverse` usage has a stated technical reason (loading/skeleton state, content genuinely still pending) rather than being the default;
-9. **verify the landing's `styles/tailwind.css` imports `src/styles/landing-design-system.css` and declares zero of its own color tokens, `@theme inline` mapping, `@custom-variant dark`, headline/figure typography tokens, `--ease-*`, shared breakpoint/container tokens, or `--radius-*`/`--shadow-*` custom tokens** — anything left in the landing's own file must be genuinely landing-local (Swiper composition, a landing-specific scrollbar rule, a landing-specific one-off breakpoint);
+9. **verify the landing's `styles/tailwind.css` declares its own complete color tokens, `@theme inline` mapping, `@custom-variant dark`, headline/figure typography tokens, and `--ease-*`, using the shared token **names** (never a shared file, never another landing's file) — and that no `--radius-*`/`--shadow-*` custom token exists**; anything left beyond the token block must be genuinely landing-local (Swiper composition, a landing-specific scrollbar rule, a landing-specific one-off breakpoint);
 10. run a production build so Tailwind source detection and generated utilities are proven;
 11. verify the rendered landing at Mobile, Tablet, Laptop, and Desktop in Light and Dark.
 
-## Design system: shared across every landing, never per-landing
+## Design tokens: same names, independent per landing (recap)
 
-Every landing works with exactly the same visual system — imported from `src/styles/landing-design-system.css` (see "Shared design system" above), never redefined locally:
+Every landing works with the same token **vocabulary**, declared **locally, independently, in its own `tailwind.css`** — never imported from a shared file (see "Design tokens: same names everywhere, independent values per landing" above for the full contract and reference block):
 
-- the **grayscale-only** semantic color palette (`--background`, `--foreground`, `--surface`, `--surface-strong`, `--muted`, `--border`, `--primary`, `--primary-foreground`, `--inverted`, `--inverted-surface`, `--placeholder`, `--placeholder-foreground`, `--placeholder-inverse`, and the rest of the fixed set in the shared file — see the monochrome rule above, no chromatic tokens, no landing-added roles)
+- the **grayscale-only** semantic color palette (`--background`, `--foreground`, `--surface`, `--surface-strong`, `--muted`, `--border`, `--primary`, `--primary-foreground`, `--inverted`, `--inverted-surface`, `--placeholder`, `--placeholder-foreground`, `--placeholder-inverse`, and the rest of the fixed name set — see the monochrome rule above, no chromatic tokens outside the opt-in palette system, no landing-added roles)
 - the fluid heading typography scale (`--text-headline-1/2/3`, `--text-figure`)
-- the shared spacing rhythm and container widths (`--spacing-section`, `--container-landing`, `--container-copy`, `--container-heading`, `--container-hero-heading`)
-- the shared named breakpoints (`--breakpoint-footer/cards/nav/stats/display`)
-- the one shared easing curve (`--ease-landing`) and the `reveal` scroll utility built on it
+- the spacing rhythm and container widths (`--spacing-section`, `--container-landing`, `--container-copy`, `--container-heading`, `--container-hero-heading`)
+- the named breakpoints (`--breakpoint-footer/cards/nav/stats/display`)
+- an easing curve under the name `--ease-landing`, and the `reveal` scroll utility built on it
 
-A landing composes with these exact ingredients — which heading step goes on its Hero, which container width its articles use, whether it needs a shared breakpoint at all, which native Tailwind radius/shadow step its buttons and cards use — to build a completely different design. It does not get its own color, its own typography scale, its own radius/shadow tokens, or its own easing curve. If a genuinely new shared need surfaces, it's added to `landing-design-system.css` once, for every landing — never invented locally "for this landing's theme."
+A landing composes with these exact ingredient **names** — which heading step goes on its Hero, which container width its articles use, whether it needs a named breakpoint at all, which native Tailwind radius/shadow step its buttons and cards use — to build a completely different design, with its own independently chosen values. It does not invent a new token name, its own radius/shadow tokens, or a landing-branded easing name. If a landing genuinely needs a new reusable role no existing name covers, it adds that token locally, inside its own file — it is that landing's own addition, not a request to change a shared file that no longer exists.
 
-Avoid repeated arbitrary values when a named Tailwind utility or a shared token will do. Don't reach for a raw grayscale utility (`bg-neutral-950`, `text-neutral-600`, …) for anything that plays a reusable role — that belongs in the shared token system instead. Composition, layout, and content are where each landing's identity actually comes from — see "What SÍ can — and must — change between landings" above.
+Avoid repeated arbitrary values when a named Tailwind utility or a token will do. Don't reach for a raw grayscale utility (`bg-neutral-950`, `text-neutral-600`, …) for anything that plays a reusable role — that belongs in the landing's own token system instead. Composition, layout, and content are where each landing's identity actually comes from — see "What SÍ can — and must — change between landings" above.
 
 ## Light / Dark
 
@@ -672,9 +873,9 @@ Every landing that opts into this system defines exactly these 5 custom properti
 --color-light;
 ```
 
-- Never rename, add, or remove one of these 5 for a "palette-enabled" landing — the platform's palette modal and any future tooling assume this exact contract.
-- These are a **separate namespace from the shared design system's tokens** (`--background`, `--foreground`, `--primary`, `--placeholder`, etc. in `src/styles/landing-design-system.css`). `--color-primary` happens to share a name with the Tailwind theme-registration key the shared file's `@theme inline` block uses to generate `bg-primary`/`text-primary` — but Tailwind's compiled utilities for those bind to `--primary` directly, not `--color-primary`, so declaring this block never silently retints existing monochrome components. A component only participates in the palette system by explicitly referencing one of the 5 tokens (e.g. `bg-[var(--color-primary)]`, `text-[var(--color-light)]`) — nothing does so automatically.
-- Declare the 5 tokens in the landing's own `styles/tailwind.css` (never in the shared `landing-design-system.css` — this is landing-local, opt-in data, not a shared contract) as a documented native-CSS exception, following the pattern below.
+- Never rename, add, or remove one of these 5 for a "palette-enabled" landing — the platform's Options sidebar and any future tooling assume this exact contract.
+- These are a **separate namespace from that landing's own design tokens** (`--background`, `--foreground`, `--primary`, `--placeholder`, etc., declared locally per "Design tokens: same names everywhere, independent values per landing" above). `--color-primary` happens to share a name with the Tailwind theme-registration key that landing's own `@theme inline` block uses to generate `bg-primary`/`text-primary` — but Tailwind's compiled utilities for those bind to `--primary` directly, not `--color-primary`, so declaring this block never silently retints existing monochrome components. A component only participates in the palette system by explicitly referencing one of the 5 tokens (e.g. `bg-[var(--color-primary)]`, `text-[var(--color-light)]`) — nothing does so automatically.
+- Declare the 5 tokens in the landing's own `styles/tailwind.css` as a documented native-CSS exception, following the pattern below — this is landing-local, opt-in data, never shared with another landing.
 
 ### Structure: one `:root` default + one attribute selector per palette
 
@@ -971,7 +1172,7 @@ No change is complete while it leaves behind untyped code, unnecessary `any`, Ty
 ## Auditing a landing
 
 When asked to audit a landing, review and report, prioritized by impact:
-architecture/isolation, **shared design-system compliance (the landing's `tailwind.css` imports `landing-design-system.css` and introduces zero of its own color/typography-scale/easing/shared-breakpoint tokens — see "Shared design system" above)**, **English filenames across `sections/`/`components/`/`data/`/`scripts/`**, **`lg:sticky` applied to every genuine short-header/long-content two-column section**, Astro usage, **Tailwind utility-first compliance and justified native-CSS exceptions**, **semantic design-token compliance (`:root`/`[data-theme="dark"]`/`@theme inline`, no raw grayscale utility standing in for a reusable role, `bg-placeholder`/`bg-placeholder-inverse` reserved for genuine technical fallback states rather than standing in for finished photography)**, **real-photography compliance (sections that need a photo use an Unsplash image sourced via the `unsplash-images` Skill, with complete persisted metadata and visible attribution)**, semantics, accessibility, responsive behavior, design/UX quality, **monochrome compliance (no chromatic colors anywhere outside the opt-in palette system — see the rule above)**, **palette-system compliance where the landing has one (`palettes` metadata matches the CSS values exactly, every palette defines both Light and Dark variants, grayscale renders identically to the pre-palette design, `scripts/palette.ts` toggles only this document's own `<html>`)**, **border and official button-system compliance**, theme (Light/Dark) correctness, performance, images, typography, animations, SEO, dead code, duplication, unnecessary dependencies.
+architecture/isolation, **`README.md` present and accurate (structure, configuration, styles, CSS variables, available palettes, own components, and any setup needed to run — see "`README.md` — mandatory for every landing" above)**, **no arbitrary Tailwind color literals (`-[#…]`, `-[rgb(…)]`, `-[oklch(…)]`, etc.) anywhere in markup — every color resolves through a named token utility or `[var(--token)]`**, **design-token compliance (the landing's `tailwind.css` declares its own complete color/typography-scale/easing/breakpoint tokens locally, using the shared token names, with zero import of a shared file or another landing's file — see "Design tokens: same names everywhere, independent values per landing" above)**, **English filenames across `sections/`/`components/`/`data/`/`scripts/`**, **`lg:sticky` applied to every genuine short-header/long-content two-column section**, Astro usage, **Tailwind utility-first compliance and justified native-CSS exceptions**, **semantic design-token compliance (`:root`/`[data-theme="dark"]`/`@theme inline`, no raw grayscale utility standing in for a reusable role, `bg-placeholder`/`bg-placeholder-inverse` reserved for genuine technical fallback states rather than standing in for finished photography)**, **real-photography compliance (sections that need a photo use an Unsplash image sourced via the `unsplash-images` Skill, with complete persisted metadata and visible attribution)**, semantics, accessibility, responsive behavior, design/UX quality, **monochrome compliance (no chromatic colors anywhere outside the opt-in palette system — see the rule above)**, **palette-system compliance where the landing has one (`palettes` metadata matches the CSS values exactly, every palette defines both Light and Dark variants, grayscale renders identically to the pre-palette design, `scripts/palette.ts` toggles only this document's own `<html>`)**, **border and official button-system compliance**, theme (Light/Dark) correctness, performance, images, typography, animations, SEO, dead code, duplication, unnecessary dependencies.
 
 ## After making changes
 
@@ -990,11 +1191,13 @@ architecture/isolation, **shared design-system compliance (the landing's `tailwi
 13. Confirm theming uses the semantic token system (`:root` / `[data-theme="dark"]` / `@theme inline`) rather than `dark:`-paired utilities, and that any remaining `bg-placeholder`/`bg-placeholder-inverse` usage is a stated technical fallback, not a stand-in for finished photography.
     13b. Confirm every section that needs a photograph uses a real Unsplash image sourced via the `unsplash-images` Skill — persisted metadata complete, visible attribution present, `photo.urls`-derived URL hotlinked, no `api.unsplash.com` call anywhere in production code.
     13c. If the landing has an opt-in color-palette system: confirm `palettes` in its metadata JSON matches the CSS values exactly, every palette id has both a Light and a `[data-theme="dark"]` variant, grayscale renders identically to the pre-palette design, and `scripts/palette.ts` toggles `data-palette` on this landing's own `document.documentElement` only.
-14. **Confirm the landing's `tailwind.css` imports `src/styles/landing-design-system.css` and adds zero of its own color, typography-scale, easing, radius/shadow, or shared-breakpoint/container tokens** — if the task touched theming at all, diff this landing's compiled `:root`/`[data-theme="dark"]`/`@theme` CSS output against another landing's and confirm the token declarations are byte-identical.
+14. **Confirm the landing's `tailwind.css` declares its own complete color, typography-scale, easing, and named-breakpoint/container tokens locally (reusing the shared token names), with zero `@import` of a shared file or another landing's file, and zero `--radius-*`/`--shadow-*` custom tokens.**
 15. **Confirm the landing's `<head>` loads Wix Madefor Text via the shared `<link>` block and nothing else** — no second font, no `@import` font load.
 16. **Confirm every file in the landing (`sections/`, `components/`, `data/`, `scripts/`) has an English filename** — ids/anchors/copy stay in the landing's own content language.
 17. **Confirm every two-column "short header + considerably longer content" section uses `lg:sticky` (1024px) on the short column, matching its `lg:grid-cols-…` split** — this is the default treatment for that pattern, not an optional extra.
-18. Confirm no other landing or the platform shell was touched.
-19. Report the files changed and the notable decisions made.
+18. Confirm no other landing or the platform shell was touched, and that the landing depends on nothing outside its own folder.
+19. **Confirm `README.md` exists and reflects the current state** — folder structure, configuration, styles, CSS variables, available palettes, own components — updating it if the task changed any of these.
+20. **Grep the touched files for arbitrary color literals** (`-[#`, `-[rgb`, `-[rgba`, `-[oklch`, `-[hsl` inside a `class`/`class:list`) — zero matches; every color must resolve through a token.
+21. Report the files changed and the notable decisions made.
 
 Work conservatively on existing code; work creatively when asked to design something new. The goal is always: **visually excellent, technically solid landing pages that never compromise the isolation, performance, or maintainability of the platform.**
