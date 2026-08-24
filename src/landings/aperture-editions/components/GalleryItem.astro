@@ -1,0 +1,56 @@
+---
+// One tile in the masonry "Gallery" shop grid. Title and price stay visible
+// at rest — including on touch devices with no hover — while category and
+// description reveal on hover/focus at Laptop/Desktop, alongside an image
+// scale, matching the progressive-reveal pattern used across the
+// marketplace's other card types.
+import WorkImage from "./WorkImage.astro"
+import type { Work } from "../types"
+
+interface Props {
+  work: Work
+  aspect: string
+}
+
+const { work, aspect } = Astro.props
+---
+
+<article class="reveal mb-3 break-inside-avoid sm:mb-4">
+  <a
+    href="#featured-works"
+    class="group relative block overflow-hidden bg-inverted-surface text-inverted-foreground no-underline focus-visible:outline-3 focus-visible:outline-offset-[-3px] focus-visible:outline-inverted-foreground"
+  >
+    {work.isNew && (
+      <span
+        class="absolute top-3 left-3 z-10 bg-inverted-foreground px-2.5 py-1 text-[0.6rem] font-semibold tracking-widest text-inverted uppercase"
+      >
+        New
+      </span>
+    )}
+    <WorkImage
+      image={work.image}
+      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+      class:list={["block w-full", aspect]}
+      imgClass="grayscale contrast-105 transition-transform duration-500 ease-landing group-hover:scale-105"
+      creditPlacement="overlay"
+    />
+    <div
+      class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/5 to-transparent p-4"
+    >
+      <p
+        class="text-[0.65rem] font-semibold tracking-widest text-current/70 uppercase opacity-100 transition-opacity duration-300 ease-landing lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-visible:opacity-100"
+      >
+        {work.category}
+      </p>
+      <p class="mt-1 text-base font-semibold text-current">{work.title}</p>
+      <p class="text-sm text-current/80">
+        {work.photographer} · {work.price}
+      </p>
+      <p
+        class="mt-0 max-h-0 overflow-hidden text-xs text-current/75 opacity-0 transition-all duration-300 ease-landing lg:group-hover:mt-2 lg:group-hover:max-h-16 lg:group-hover:opacity-100 lg:group-focus-visible:mt-2 lg:group-focus-visible:max-h-16 lg:group-focus-visible:opacity-100"
+      >
+        {work.description}
+      </p>
+    </div>
+  </a>
+</article>

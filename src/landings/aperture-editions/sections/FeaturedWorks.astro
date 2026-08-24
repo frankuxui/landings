@@ -1,0 +1,142 @@
+---
+// Scroll-driven "Featured Works": a pinned detail panel that stays fixed on
+// Laptop/Desktop while the photographs scroll past it (see
+// scripts/featuredWorksScroll.ts). Baseline (no JS, Mobile/Tablet, or
+// `prefers-reduced-motion: reduce`): a fully self-contained, normally
+// scrolling list — every work carries its own complete caption directly
+// beneath its photograph, so no information depends on the enhancement.
+import WorkImage from "../components/WorkImage.astro"
+import { featuredWorks } from "../data/featuredWorks"
+import type { Work } from "../types"
+---
+
+<section
+  id="featured-works"
+  class="bg-background py-section"
+  aria-labelledby="featured-works-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div
+      class="grid grid-cols-1 gap-12 lg:grid-cols-[0.9fr_1.3fr] lg:items-start lg:gap-20"
+      data-work-track
+    >
+      <div class="lg:sticky lg:top-28" data-work-pin-slot>
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          Featured works
+        </p>
+        <h2
+          id="featured-works-heading"
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        >
+          Five editions worth pausing for.
+        </h2>
+        <p class="mt-5 max-w-copy text-base text-muted sm:text-lg">
+          A rotating shortlist, picked directly by our editorial team. Scroll
+          to move through each edition without losing the details that
+          matter — technique, provenance, and price.
+        </p>
+
+        <div
+          class="mt-8 hidden border-t border-border/60 pt-6 lg:block"
+          data-work-panel
+          hidden
+        >
+          <p class="font-mono text-xs text-muted" data-work-panel-index
+          ></p>
+          <h3
+            class="mt-2 text-2xl leading-tight font-semibold text-foreground"
+            data-work-panel-title
+          >
+          </h3>
+          <p class="mt-1 text-sm text-muted" data-work-panel-photographer
+          ></p>
+          <dl
+            class="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 border-t border-border/60 pt-5 text-sm"
+          >
+            <div>
+              <dt class="text-muted">Year</dt>
+              <dd class="mt-0.5 text-foreground" data-work-panel-year></dd>
+            </div>
+            <div>
+              <dt class="text-muted">Location</dt>
+              <dd class="mt-0.5 text-foreground" data-work-panel-location
+              ></dd>
+            </div>
+            <div>
+              <dt class="text-muted">Technique</dt>
+              <dd class="mt-0.5 text-foreground" data-work-panel-technique
+              ></dd>
+            </div>
+            <div>
+              <dt class="text-muted">Edition</dt>
+              <dd class="mt-0.5 text-foreground" data-work-panel-edition
+              ></dd>
+            </div>
+          </dl>
+          <p
+            class="mt-5 text-sm text-muted"
+            data-work-panel-description
+          >
+          </p>
+          <a
+            class="mt-6 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-none border-0 bg-primary px-6 py-3 text-base font-semibold text-primary-foreground no-underline transition duration-200 ease-landing hover:bg-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-emphasis"
+            href="#gallery"
+          >
+            View at <span data-work-panel-price></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-14" data-work-list>
+        {
+          featuredWorks.map((work: Work, index: number) => (
+            <article
+              class="reveal"
+              data-work-item
+              data-work-index={index}
+              data-title={work.title}
+              data-photographer={work.photographer}
+              data-year={work.year}
+              data-location={work.location}
+              data-technique={work.technique}
+              data-price={work.price}
+              data-edition={work.editionSize}
+              data-description={work.description}
+            >
+              <WorkImage
+                image={work.image}
+                sizes="(min-width: 1024px) 60vw, 100vw"
+                class="aspect-[4/5] w-full sm:aspect-[16/10]"
+                imgClass="grayscale contrast-105"
+              />
+              <div class="mt-4" data-work-caption>
+                <p class="font-mono text-xs text-muted">
+                  {String(index + 1).padStart(2, "0")} /{" "}
+                  {String(featuredWorks.length).padStart(2, "0")}
+                </p>
+                <h3 class="mt-2 text-xl leading-tight font-semibold text-foreground sm:text-2xl">
+                  {work.title}
+                </h3>
+                <p class="mt-1 text-sm text-muted">
+                  {work.photographer} · {work.year} · {work.location}
+                </p>
+                <p class="mt-3 max-w-copy text-sm text-muted">
+                  {work.description}
+                </p>
+                <p class="mt-3 text-sm font-semibold text-foreground">
+                  {work.technique} · {work.editionSize} · from {work.price}
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/featuredWorksScroll"
+</script>

@@ -160,6 +160,33 @@
   }
 }
 
+/* Form field focus treatment tied to this landing's mold-cast identity
+   (see README "Diferenciación": straight, almost-rectangular radii). The
+   border snaps to full contrast and a hard-edged ring "sets" around the
+   field in one motion, like metal settling into a mold, instead of a
+   generic soft glow. */
+@utility focus-cast {
+  transition: border-color 200ms var(--ease-landing);
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--foreground);
+    animation: cast-ring 320ms var(--ease-landing) both;
+  }
+}
+
+@keyframes cast-ring {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--foreground) 0%, transparent);
+  }
+  55% {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--foreground) 30%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--foreground) 20%, transparent);
+  }
+}
+
 /* Hides the native scrollbar on the mobile/tablet horizontal process rail
    while keeping it fully scrollable/swipeable and keyboard-reachable —
    Tailwind has no utility for scrollbar-width/-webkit-scrollbar, so this is

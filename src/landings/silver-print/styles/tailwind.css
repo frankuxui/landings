@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+/* Silver Print — this landing's own complete design-token contract. Colors,
+   Light/Dark, fluid heading scale, and base structural tokens are declared
+   locally so this landing is fully self-contained and never depends on
+   another file inside or outside the repo (see the astro-landing-pages
+   Skill: "Design tokens: same names everywhere, independent values per
+   landing"). Token NAMES are shared vocabulary across the gallery; the
+   VALUES below belong only to this landing — tuned for a wide, editorial,
+   fine-art gallery composition (generous negative space, sharp corners,
+   near-fullscreen photography). */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Only fires on real hover-capable pointers (mouse/trackpad). Used so the
+   richer hover reveals on collection/gallery cards are a progressive
+   enhancement layered on top of an always-visible baseline, never the only
+   way to reach that information on touch devices. */
+@custom-variant can-hover (@media (hover: hover) and (pointer: fine));
+
+:root {
+  --background: var(--color-neutral-50);
+  --background-alt: var(--color-neutral-100);
+  --foreground: var(--color-neutral-950);
+  --muted: var(--color-neutral-600);
+  --border: var(--color-neutral-400);
+
+  --surface: var(--color-white);
+  --surface-strong: var(--color-neutral-100);
+  --control: var(--color-neutral-200);
+  --control-hover: var(--color-neutral-300);
+  --ring: var(--color-neutral-950);
+
+  --primary: var(--color-neutral-950);
+  --primary-foreground: var(--color-white);
+  --emphasis: var(--color-black);
+
+  --disabled: var(--color-neutral-200);
+  --disabled-foreground: var(--color-neutral-400);
+
+  --inverted: var(--color-black);
+  --inverted-foreground: var(--color-white);
+  --inverted-surface: var(--color-neutral-900);
+
+  --placeholder: var(--color-neutral-900);
+  --placeholder-foreground: var(--color-white);
+  --placeholder-inverse: rgb(255 255 255 / 0.72);
+}
+
+[data-theme="dark"] {
+  --background: var(--color-black);
+  --background-alt: var(--color-neutral-950);
+  --foreground: var(--color-neutral-100);
+  --muted: var(--color-neutral-400);
+  --border: var(--color-neutral-700);
+
+  --surface: var(--color-neutral-950);
+  --surface-strong: var(--color-neutral-900);
+  --control: var(--color-neutral-800);
+  --control-hover: var(--color-neutral-700);
+  --ring: var(--color-neutral-200);
+
+  --primary: var(--color-neutral-50);
+  --primary-foreground: var(--color-neutral-950);
+  --emphasis: var(--color-white);
+
+  --disabled: var(--color-neutral-800);
+  --disabled-foreground: var(--color-neutral-500);
+
+  --inverted: var(--color-neutral-100);
+  --inverted-foreground: var(--color-neutral-950);
+  --inverted-surface: var(--color-neutral-200);
+
+  --placeholder: var(--color-neutral-300);
+  --placeholder-foreground: var(--color-neutral-950);
+  --placeholder-inverse: rgb(10 10 10 / 0.65);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-emphasis: var(--emphasis);
+
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
+  --color-inverted-surface: var(--inverted-surface);
+
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-placeholder-inverse: var(--placeholder-inverse);
+}
+
+@theme {
+  --font-sans: "Wix Madefor Text", sans-serif;
+  --font-display: "Wix Madefor Text", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --breakpoint-nav: 64rem;
+
+  --spacing-section: 8rem;
+  --spacing-container-x: 1.5rem;
+
+  --container-landing: 100rem;
+  --container-copy: 62ch;
+  --container-heading: 24ch;
+  --container-hero-heading: 20ch;
+
+  --ease-landing: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --text-headline-1: clamp(2.75rem, 1.55rem + 5.5vw, 6.5rem);
+  --text-headline-2: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --text-headline-3: clamp(1.375rem, 1.1rem + 1.2vw, 2rem);
+  --text-figure: clamp(2.25rem, 1.5rem + 3.4vw, 4.25rem);
+}
+
+@utility reveal {
+  transform: translateY(0);
+  opacity: 1;
+
+  .js-reveal-ready & {
+    transform: translateY(calc(var(--spacing) * 7));
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 800ms;
+    transition-timing-function: var(--ease-landing);
+  }
+
+  .js-reveal-ready &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @variant motion-reduce {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transition-property: none !important;
+  }
+}
+
+/* Landing-local exceptions below this line. */
+
+/* Swiper's own pagination-bullet composition for the "Spotlight" carousel —
+   Tailwind utilities can't reach into Swiper's internally generated
+   .swiper-pagination-bullet markup, so its size/opacity/shape is themed
+   here, scoped to this landing's own carousel only. */
+[data-spotlight-pagination] .swiper-pagination-bullet {
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0 0.3rem !important;
+  border-radius: 999px;
+  background: var(--foreground);
+  opacity: 0.25;
+  transition: opacity 300ms var(--ease-landing);
+}
+
+[data-spotlight-pagination] .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+/* Hides the native scrollbar on the horizontally scrollable Photographers
+   rail on touch/trackpad while keeping it natively scrollable and
+   keyboard-reachable — Tailwind has no utility for scrollbar-width/-webkit
+   scrollbar pseudo-elements. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

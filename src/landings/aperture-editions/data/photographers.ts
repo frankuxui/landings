@@ -1,0 +1,93 @@
+// Fictional photographer profiles (names, bios, specialties, stats) paired
+// with real Unsplash portrait photography per the `unsplash-images` Skill.
+// See CLAUDE.md's rule against plausible real personal data — none of these
+// people exist; the photographs used to represent them are real and
+// correctly attributed to their actual photographers.
+import type { Photographer } from "../types"
+
+export const photographers: Photographer[] = [
+  {
+    id: "elena-marsh",
+    name: "Elena Marsh",
+    specialty: "Architecture & Urban Structures",
+    country: "Portugal",
+    worksCount: 18,
+    bio: "Elena spends most of her time on scaffolding and rooftops, chasing the exact hour when a building's shadow becomes more interesting than the building itself.",
+    portrait: {
+      id: "PENDING_ELENA_MARSH",
+      src: "",
+      alt: "",
+      width: 0,
+      height: 0,
+      color: "",
+      author: "",
+      authorUrl: "",
+      sourceUrl: "",
+      unsplashUrl: "",
+      downloadLocation: "",
+    },
+  },
+  {
+    id: "kaito-fujimori",
+    name: "Kaito Fujimori",
+    specialty: "Nature & Landscape",
+    country: "Japan",
+    worksCount: 24,
+    bio: "Kaito hikes for days to reach a single vantage point, then waits again for the weather to agree with him. Patience is the whole craft, he says.",
+    portrait: {
+      id: "PENDING_KAITO_FUJIMORI",
+      src: "",
+      alt: "",
+      width: 0,
+      height: 0,
+      color: "",
+      author: "",
+      authorUrl: "",
+      sourceUrl: "",
+      unsplashUrl: "",
+      downloadLocation: "",
+    },
+  },
+  {
+    id: "noa-berglund",
+    name: "Noa Berglund",
+    specialty: "Street & Documentary",
+    country: "Sweden",
+    worksCount: 15,
+    bio: "Noa shoots almost entirely on foot, at walking pace, in the same six blocks of the city she has photographed for a decade.",
+    portrait: {
+      id: "PENDING_NOA_BERGLUND",
+      src: "",
+      alt: "",
+      width: 0,
+      height: 0,
+      color: "",
+      author: "",
+      authorUrl: "",
+      sourceUrl: "",
+      unsplashUrl: "",
+      downloadLocation: "",
+    },
+  },
+  {
+    id: "ines-duarte",
+    name: "Ines Duarte",
+    specialty: "Portrait & Studio",
+    country: "Brazil",
+    worksCount: 12,
+    bio: "Ines works almost exclusively with a single light source, believing a portrait says more with one shadow than with none.",
+    portrait: {
+      id: "PENDING_INES_DUARTE",
+      src: "",
+      alt: "",
+      width: 0,
+      height: 0,
+      color: "",
+      author: "",
+      authorUrl: "",
+      sourceUrl: "",
+      unsplashUrl: "",
+      downloadLocation: "",
+    },
+  },
+]

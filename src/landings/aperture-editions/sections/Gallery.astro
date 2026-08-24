@@ -1,0 +1,58 @@
+---
+// The masonry shop grid — every edition on the marketplace, in one browse.
+// Deliberately varied aspect ratios (via CSS multi-column + break-inside
+// avoid) instead of a uniform card grid, so the section reads like a real
+// print wall rather than a product-list table.
+import GalleryItem from "../components/GalleryItem.astro"
+import { works } from "../data/works"
+import type { Work } from "../types"
+
+const aspects = [
+  "aspect-[3/4]",
+  "aspect-[4/5]",
+  "aspect-square",
+  "aspect-[4/3]",
+  "aspect-[3/4]",
+  "aspect-[16/10]",
+  "aspect-[4/5]",
+  "aspect-square",
+  "aspect-[3/4]",
+  "aspect-[4/3]",
+  "aspect-[4/5]",
+]
+---
+
+<section
+  id="gallery"
+  class="bg-background py-section"
+  aria-labelledby="gallery-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="mb-10 max-w-heading sm:mb-14">
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        Gallery
+      </p>
+      <h2
+        id="gallery-heading"
+        class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        The full wall, one scroll at a time.
+      </h2>
+      <p class="mt-5 text-base text-muted sm:text-lg">
+        Every edition currently available on the marketplace — archival
+        prints and licensed digital downloads, from every photographer and
+        every collection.
+      </p>
+    </div>
+
+    <div class="columns-2 gap-3 sm:columns-3 sm:gap-4 lg:columns-4">
+      {
+        works.map((work: Work, index: number) => (
+          <GalleryItem work={work} aspect={aspects[index % aspects.length]} />
+        ))
+      }
+    </div>
+  </div>
+</section>

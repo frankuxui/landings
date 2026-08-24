@@ -160,6 +160,32 @@
   }
 }
 
+/* Form field focus treatment matching this landing's warm, rounded
+   identity (soft radii throughout: rounded-lg fields, rounded-3xl form
+   panel). The ring blooms outward on focus like a ripple settling in a
+   cup, rather than snapping in with a hard edge. */
+@utility focus-pour {
+  transition: border-color 250ms var(--ease-landing);
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--foreground);
+    animation: pour-ring 480ms var(--ease-landing) both;
+  }
+}
+
+@keyframes pour-ring {
+  from {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--foreground) 45%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--foreground) 10%, transparent);
+  }
+  to {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--foreground) 16%, transparent);
+  }
+}
+
 /* Swiper Core (Productos) exposes its own theming through CSS custom
    properties rather than Tailwind-generated classes — Tailwind has no
    utility for them, so this is the minimal, official, landing-local way to

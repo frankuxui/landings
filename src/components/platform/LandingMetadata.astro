@@ -11,47 +11,62 @@ const category = getCategory(data.category)
 const dateFormatter = new Intl.DateTimeFormat("es", { dateStyle: "medium" })
 ---
 
-<dl class="metadata">
-  <div>
-    <dt>Categoría</dt>
-    <dd>{category?.label ?? data.category}</dd>
+<dl
+  class="w-full max-w-3xl mt-6 grid gap-4 sm:gap-6 xl:gap-8 grid-cols-[repeat(auto-fit,minmax(160px,1fr))]"
+>
+  <div class="flex flex-col gap-2">
+    <dt class="uppercase font-semibold text-xs text-muted/60">Categoría</dt>
+    <dd class="font-medium text-sm">{category?.label ?? data.category}</dd>
   </div>
-  <div>
-    <dt>Autor</dt>
-    <dd>{data.author}</dd>
+  <div class="flex flex-col gap-2">
+    <dt class="uppercase font-semibold text-xs text-muted/60">Autor</dt>
+    <dd class="font-medium text-sm">{data.author}</dd>
   </div>
-  <div>
-    <dt>Creada</dt>
-    <dd>{dateFormatter.format(data.createdAt)}</dd>
+  <div class="flex flex-col gap-2">
+    <dt class="uppercase font-semibold text-xs text-muted/60">Creada</dt>
+    <dd class="font-medium text-sm">
+      {dateFormatter.format(data.createdAt)}
+    </dd>
   </div>
   {
     data.updatedAt && (
-      <div>
-        <dt>Actualizada</dt>
-        <dd>{dateFormatter.format(data.updatedAt)}</dd>
+      <div class="flex flex-col gap-2">
+        <dt class="uppercase font-semibold text-xs text-muted/60">
+          Actualizada
+        </dt>
+        <dd class="font-medium text-sm">
+          {dateFormatter.format(data.updatedAt)}
+        </dd>
       </div>
     )
   }
-  <div>
-    <dt>Temas disponibles</dt>
-    <dd>{data.themes.join(", ")}</dd>
+  <div class="flex flex-col gap-2">
+    <dt class="uppercase font-semibold text-xs text-muted/60">
+      Temas disponibles
+    </dt>
+    <dd class="font-medium text-sm">{data.themes.join(", ")}</dd>
   </div>
   {
     data.technologies.length > 0 && (
-      <div>
-        <dt>Tecnologías</dt>
-        <dd>{data.technologies.join(", ")}</dd>
+      <div class="flex flex-col gap-2">
+        <dt class="uppercase font-semibold text-xs text-muted/60">
+          Tecnologías
+        </dt>
+        <dd class="font-medium text-sm">{data.technologies.join(", ")}</dd>
       </div>
     )
   }
   {
     data.tags.length > 0 && (
-      <div class="tags">
-        <dt>Tags</dt>
-        <dd>
+      <div class="tags flex flex-col gap-2">
+        <dt class="uppercase font-semibold text-xs text-muted/60">Tags</dt>
+        <dd class="font-medium text-sm flex flex-wrap gap-2">
           {data.tags.map((tag: string) => (
-            <a class="tag" href={`/landings/tags/${slugifyTag(tag)}`}>
-              {tag}
+            <a
+              class="h-7 inline-flex items-center justify-center rounded-full px-4 bg-foreground/5 motion-safe:transition-colors duration-300 text-xs font-medium hover:bg-foreground/10"
+              href={`/landings/tags/${slugifyTag(tag)}`}
+            >
+              {tag.charAt(0).toUpperCase() + tag.slice(1)}
             </a>
           ))}
         </dd>
@@ -59,46 +74,3 @@ const dateFormatter = new Intl.DateTimeFormat("es", { dateStyle: "medium" })
     )
   }
 </dl>
-
-<style>
-  .metadata {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1rem 1.5rem;
-    margin: 0;
-  }
-
-  dt {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    color: var(--platform-text-muted);
-    margin-bottom: 0.25rem;
-  }
-
-  dd {
-    margin: 0;
-    font-size: 0.95rem;
-  }
-
-  .tags dd {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .tag {
-    font-size: 0.75rem;
-    padding: 0.15rem 0.5rem;
-    border-radius: 999px;
-    background: var(--platform-border);
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.15s ease;
-  }
-
-  .tag:hover {
-    background: var(--platform-accent);
-    color: var(--platform-accent-contrast);
-  }
-</style>

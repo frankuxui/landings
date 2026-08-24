@@ -160,6 +160,28 @@
   }
 }
 
+/* Form field focus treatment matching this landing's editorial/print
+   identity (font-mono eyebrows, numbered rows — see README "Art
+   direction"). A baseline rule sits under the field at rest and draws in
+   fully on focus, like underlining a line in a manuscript, instead of a
+   boxed ring. Background tint shifts alongside it so the focus indicator
+   still has real area, not just a thin line. */
+@utility focus-underline {
+  background-image: linear-gradient(currentcolor, currentcolor);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition:
+    background-size 320ms var(--ease-landing),
+    background-color 200ms var(--ease-landing);
+
+  &:focus-visible {
+    outline: none;
+    background-size: 100% 2px;
+    background-color: var(--control-hover);
+  }
+}
+
 /* Swiper Core (Archive) exposes its own theming through CSS custom
    properties rather than Tailwind-generated classes — Tailwind has no
    utility for them, so this is the minimal, official, landing-local way to

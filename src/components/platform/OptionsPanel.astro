@@ -1,9 +1,11 @@
 ---
-// Fixed aside, closed by default, slides in from the right (translateX).
+// Off-canvas drawer, closed by default, slides in from the right.
 // PreviewToolbar's "Opciones" button opens it by dispatching
-// `preview:options-panel`; closing (close button or Escape) is handled
-// entirely locally, including returning focus to whatever triggered the
-// open.
+// `preview:options-panel`. Open/close behavior — entry/exit animation,
+// focus trap, scroll lock, Escape, backdrop click, and returning focus to
+// the opener — is handled by the reusable `Drawer` class (src/lib/drawer.ts),
+// which drives everything through the `data-state` attribute this component
+// styles below. No motion or state logic lives in this file's script.
 //
 // Extensibility: each `<section>` below is one future capability (see the
 // Skill's "Panel de opciones" rule). Only "Código" has any real content
@@ -22,123 +24,156 @@ type Props = LandingPreviewProps
 const { slug, palettes = [] } = Astro.props
 ---
 
-<aside
-  class="options-panel"
+<div
+  class="options-drawer"
   id="options-panel"
+  role="dialog"
+  aria-modal="true"
   aria-label="Opciones del visualizador"
   hidden
 >
-  <div class="header">
-    <h2>Opciones</h2>
-    <button type="button" data-close aria-label="Cerrar panel de opciones">
-      <X aria-hidden="true" />
-    </button>
-  </div>
+  <div class="backdrop" data-drawer-backdrop aria-hidden="true"></div>
 
-  <div class="body">
-    <section class="option-section" aria-labelledby="option-code-heading">
-      <h3 id="option-code-heading">
-        <Code aria-hidden="true" />
-        Código
-      </h3>
-      <CodeExplorer slug={slug} />
-    </section>
+  <aside class="panel" aria-label="Opciones del visualizador">
+    <div class="header">
+      <h2>Opciones</h2>
+      <button
+        type="button"
+        data-drawer-close
+        data-drawer-autofocus
+        aria-label="Cerrar panel de opciones"
+      >
+        <X aria-hidden="true" />
+      </button>
+    </div>
 
-    <section class="option-section" aria-labelledby="option-structure-heading">
-      <h3 id="option-structure-heading">
-        <FolderTree aria-hidden="true" />
-        Estructura de carpetas
-      </h3>
-      <ComingSoonNotice
-        label="Próximamente"
-        description="Aquí podrás explorar la estructura de archivos de la landing."
-      />
-    </section>
+    <div class="body">
+      <section class="option-section" aria-labelledby="option-code-heading">
+        <h3 id="option-code-heading">
+          <Code aria-hidden="true" />
+          Código
+        </h3>
+        <CodeExplorer slug={slug} />
+      </section>
 
-    <section class="option-section" aria-labelledby="option-download-heading">
-      <h3 id="option-download-heading">
-        <Download aria-hidden="true" />
-        Descargar
-      </h3>
-      <ComingSoonNotice
-        label="Próximamente"
-        description="Descarga esta landing como un archivo .zip listo para usar."
-      />
-    </section>
+      <section
+        class="option-section"
+        aria-labelledby="option-structure-heading"
+      >
+        <h3 id="option-structure-heading">
+          <FolderTree aria-hidden="true" />
+          Estructura de carpetas
+        </h3>
+        <ComingSoonNotice
+          label="Próximamente"
+          description="Aquí podrás explorar la estructura de archivos de la landing."
+        />
+      </section>
 
-    <section class="option-section" aria-labelledby="option-colors-heading">
-      <h3 id="option-colors-heading">
-        <Palette aria-hidden="true" />
-        Personalizar colores
-      </h3>
-      {
-        palettes.length > 0 ? (
-          <PaletteOptions palettes={palettes} />
-        ) : (
-          <ComingSoonNotice
-            label="Próximamente"
-            description="Esta landing todavía no tiene paletas alternativas."
-          />
-        )
-      }
-    </section>
-  </div>
-</aside>
+      <section class="option-section" aria-labelledby="option-download-heading">
+        <h3 id="option-download-heading">
+          <Download aria-hidden="true" />
+          Descargar
+        </h3>
+        <ComingSoonNotice
+          label="Próximamente"
+          description="Descarga esta landing como un archivo .zip listo para usar."
+        />
+      </section>
+
+      <section class="option-section" aria-labelledby="option-colors-heading">
+        <h3 id="option-colors-heading">
+          <Palette aria-hidden="true" />
+          Personalizar colores
+        </h3>
+        {
+          palettes.length > 0 ? (
+            <PaletteOptions palettes={palettes} />
+          ) : (
+            <ComingSoonNotice
+              label="Próximamente"
+              description="Esta landing todavía no tiene paletas alternativas."
+            />
+          )
+        }
+      </section>
+    </div>
+  </aside>
+</div>
 
 <script>
-  const panel = document.getElementById("options-panel")
-  const closeButton =
-    panel?.querySelector<HTMLButtonElement>("[data-close]") ?? null
+  import { Drawer } from "../../lib/drawer"
 
-  let lastFocusedElement: HTMLElement | null = null
+  const root = document.getElementById("options-panel")
 
-  function openPanel(): void {
-    if (!panel) return
-    lastFocusedElement = document.activeElement as HTMLElement | null
-    panel.hidden = false
-    closeButton?.focus()
-    document.addEventListener("keydown", onKeydown)
+  if (root) {
+    // Behavior (open/close, focus trap, scroll lock, Escape, backdrop) is the
+    // Drawer's job; all motion lives in this component's CSS, keyed off the
+    // `data-state` the Drawer writes. The panel is opened by the toolbar's
+    // `preview:options-panel` event rather than a `trigger` selector.
+    const drawer = new Drawer({
+      root,
+      panel: ".panel",
+      backdrop: true,
+      orientation: "right",
+    }).init()
+
+    document.addEventListener("preview:options-panel", () => drawer.open())
   }
-
-  function closePanel(): void {
-    if (!panel) return
-    panel.hidden = true
-    document.removeEventListener("keydown", onKeydown)
-    lastFocusedElement?.focus()
-  }
-
-  function onKeydown(event: KeyboardEvent): void {
-    if (event.key === "Escape") closePanel()
-  }
-
-  document.addEventListener("preview:options-panel", openPanel)
-  closeButton?.addEventListener("click", closePanel)
 </script>
 
 <style>
-  .options-panel {
+  .options-drawer {
     position: fixed;
+    inset: 0;
+    z-index: 60;
+  }
+
+  /* The Drawer sets `hidden` only after the exit animation ends, so the
+     panel stays mounted long enough to animate out. */
+  .options-drawer[hidden] {
+    display: none;
+  }
+
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--foreground) 60%, transparent);
+    opacity: 0;
+    transition: opacity 0.28s ease;
+  }
+
+  .panel {
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     width: min(420px, 100%);
     background: var(--platform-surface);
     border-left: 1px solid var(--platform-border);
-    z-index: 60;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    transform: translateX(0);
+    transform: translateX(100%);
     transition: transform 0.28s ease;
+    will-change: transform;
   }
 
-  .options-panel[hidden] {
-    display: flex;
-    transform: translateX(100%);
-    visibility: hidden;
-    transition:
-      transform 0.28s ease,
-      visibility 0s linear 0.28s;
+  /* Entrance and exit are the same transition reversed. `data-state` is
+     written by the Drawer: `open` slides in, `closing` slides back out. */
+  .options-drawer[data-state="open"] .panel {
+    transform: translateX(0);
+  }
+
+  .options-drawer[data-state="open"] .backdrop {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .backdrop,
+    .panel {
+      transition: none;
+    }
   }
 
   .header {
@@ -206,7 +241,7 @@ const { slug, palettes = [] } = Astro.props
   }
 
   @media (max-width: 480px) {
-    .options-panel {
+    .panel {
       width: 100%;
     }
   }

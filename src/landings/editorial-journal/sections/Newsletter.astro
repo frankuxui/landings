@@ -38,7 +38,7 @@ import { Send } from "@lucide/astro"
           >Email address</label
         >
         <input
-          class="h-12 w-full min-w-0 rounded-xs bg-control px-4 py-2 text-base transition-colors outline-none placeholder:text-muted focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+          class="h-12 w-full min-w-0 rounded-xs bg-control px-4 py-2 text-base outline-none placeholder:text-muted focus-underline disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
           type="email"
           id="newsletter-email"
           name="email"
@@ -59,7 +59,7 @@ import { Send } from "@lucide/astro"
               type="checkbox"
               name="interests"
               value="feature"
-              class="size-4 rounded-xs accent-foreground"
+              class="size-4 rounded-xs accent-foreground focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-border"
               checked
             />
             Feature reports
@@ -69,7 +69,7 @@ import { Send } from "@lucide/astro"
               type="checkbox"
               name="interests"
               value="dispatch"
-              class="size-4 rounded-xs accent-foreground"
+              class="size-4 rounded-xs accent-foreground focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-border"
               checked
             />
             Dispatch
@@ -79,7 +79,7 @@ import { Send } from "@lucide/astro"
               type="checkbox"
               name="interests"
               value="opinion"
-              class="size-4 rounded-xs accent-foreground"
+              class="size-4 rounded-xs accent-foreground focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-border"
             />
             Opinion
           </label>

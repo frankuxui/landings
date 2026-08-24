@@ -1,0 +1,75 @@
+---
+// One tile in the asymmetric "Collections" composition. Core identifying
+// info (category, title, photographer, price) stays visible at all times —
+// including on touch devices with no hover — while the longer description
+// and "Discover" affordance are a hover/focus-only enhancement on Laptop
+// and Desktop, where the extra motion has room to work.
+import { ArrowUpRight } from "@lucide/astro"
+import WorkImage from "./WorkImage.astro"
+import type { Work } from "../types"
+
+interface Props {
+  work: Work
+  class?: string
+  sizes: string
+}
+
+const { work, class: className, sizes } = Astro.props
+---
+
+<a
+  href="#gallery"
+  class:list={[
+    "group reveal relative block overflow-hidden bg-inverted-surface text-inverted-foreground no-underline focus-visible:outline-3 focus-visible:outline-offset-[-3px] focus-visible:outline-inverted-foreground",
+    className,
+  ]}
+>
+  {work.limited && (
+    <span
+      class="absolute top-3 left-3 z-10 bg-inverted-foreground px-2.5 py-1 text-[0.65rem] font-semibold tracking-widest text-inverted uppercase"
+    >
+      Limited edition
+    </span>
+  )}
+
+  <WorkImage
+    image={work.image}
+    sizes={sizes}
+    class="absolute inset-0 h-full w-full"
+    imgClass="grayscale contrast-105 transition-transform duration-700 ease-landing group-hover:scale-110"
+    creditPlacement="overlay"
+  />
+
+  <div
+    class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative z-10 flex h-full flex-col justify-end p-5 sm:p-6">
+    <p
+      class="mb-2 font-mono text-[0.65rem] font-semibold tracking-widest text-current/70 uppercase"
+    >
+      {work.category}
+    </p>
+    <h3 class="text-xl leading-tight font-semibold sm:text-2xl">
+      {work.title}
+    </h3>
+    <p class="mt-1 text-sm text-current/80">
+      {work.photographer} · from {work.price}
+    </p>
+
+    <p
+      class="mt-0 max-h-20 overflow-hidden text-sm text-current/75 opacity-100 transition-all duration-300 ease-landing lg:mt-0 lg:max-h-0 lg:opacity-0 lg:group-hover:mt-3 lg:group-hover:max-h-20 lg:group-hover:opacity-100 lg:group-focus-visible:mt-3 lg:group-focus-visible:max-h-20 lg:group-focus-visible:opacity-100"
+    >
+      {work.description}
+    </p>
+
+    <span
+      class="mt-3 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-current opacity-100 transition-opacity duration-300 ease-landing lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-visible:opacity-100"
+    >
+      Discover the collection
+      <ArrowUpRight aria-hidden="true" width="16" height="16" stroke-width="1.75" />
+    </span>
+  </div>
+</a>

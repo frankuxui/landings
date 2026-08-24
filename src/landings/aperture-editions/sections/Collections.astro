@@ -1,0 +1,61 @@
+---
+import { collectionWorks } from "../data/collections"
+import CollectionCard from "../components/CollectionCard.astro"
+import type { Work } from "../types"
+
+// Deliberately asymmetric spans instead of a uniform card grid — the whole
+// point of "Collections" is that no two categories compete for the same
+// amount of visual weight. Mobile/Tablet fall back to a simple single
+// column below `sm`, then a light two-column rhythm from `sm` to `lg`
+// before the full asymmetric composition takes over at `lg`.
+const spans = [
+  "sm:col-span-4 sm:row-span-2 lg:col-span-4 lg:row-span-2", // Architecture — large
+  "sm:col-span-2 lg:col-span-2", // Nature
+  "sm:col-span-2 lg:col-span-2", // Street
+  "sm:col-span-3 sm:row-span-2 lg:col-span-2 lg:row-span-2", // Portrait — tall
+  "sm:col-span-3 lg:col-span-4", // Travel — wide
+  "sm:col-span-3 lg:col-span-3", // Minimal
+  "sm:col-span-3 lg:col-span-3", // Black & White
+]
+---
+
+<section
+  id="collections"
+  class="bg-background py-section"
+  aria-labelledby="collections-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="mb-10 max-w-heading sm:mb-14">
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        Collections
+      </p>
+      <h2
+        id="collections-heading"
+        class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        Seven ways to see the same world.
+      </h2>
+      <p class="mt-5 text-base text-muted sm:text-lg">
+        Every collection is curated by a single photographer's eye, not an
+        algorithm — architecture, nature, street, portraiture, travel,
+        minimalism, and monochrome, each with its own visual grammar.
+      </p>
+    </div>
+
+    <div
+      class="grid grid-cols-1 gap-3 sm:grid-cols-6 sm:auto-rows-[13rem] lg:auto-rows-[15rem]"
+    >
+      {
+        collectionWorks.map((work: Work, index: number) => (
+          <CollectionCard
+            work={work}
+            sizes="(min-width: 1024px) 40vw, (min-width: 640px) 50vw, 100vw"
+            class={`aspect-[4/3] sm:aspect-auto ${spans[index]}`}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>

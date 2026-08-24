@@ -1,0 +1,36 @@
+---
+import WorkImage from "./WorkImage.astro"
+import type { Work } from "../types"
+
+interface Props {
+  work: Work
+}
+
+const { work } = Astro.props
+---
+
+<article class="h-full">
+  <a
+    href="#gallery"
+    class="group block h-full no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+  >
+    <WorkImage
+      image={work.image}
+      sizes="(min-width: 1024px) 32vw, (min-width: 640px) 60vw, 85vw"
+      class="aspect-[3/4] w-full"
+      imgClass="grayscale contrast-105 transition-transform duration-500 ease-landing group-hover:scale-105"
+      creditPlacement="below"
+    />
+    <div class="mt-4">
+      <p class="font-mono text-xs tracking-widest text-current/60 uppercase">
+        {work.category}
+      </p>
+      <h3 class="mt-2 text-xl leading-tight font-semibold text-current">
+        {work.title}
+      </h3>
+      <p class="mt-1 text-sm text-current/70">
+        {work.photographer} · from {work.price}
+      </p>
+    </div>
+  </a>
+</article>

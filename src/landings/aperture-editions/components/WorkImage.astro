@@ -1,0 +1,73 @@
+---
+// Shared structural pattern reused across Collections, Featured Works, New
+// Arrivals, Gallery, and Spotlight: a hotlinked Unsplash photograph with a
+// visible, keyboard-reachable photographer + Unsplash credit inside a
+// <figcaption> (see the unsplash-images Skill, §9.4). This is a genuine
+// repeated structure/behavior — not a class-string wrapper — so it earns
+// its own Astro component.
+import type { UnsplashImage } from "../types"
+
+interface Props {
+  image: UnsplashImage
+  sizes: string
+  class?: string
+  imgClass?: string
+  loading?: "eager" | "lazy"
+  fetchpriority?: "high" | "low" | "auto"
+  creditPlacement?: "overlay" | "below"
+}
+
+const {
+  image,
+  sizes,
+  class: className,
+  imgClass,
+  loading = "lazy",
+  fetchpriority = "auto",
+  creditPlacement = "overlay",
+} = Astro.props
+
+const srcset = [400, 800, 1200, 1600, 2000]
+  .map((width: number) => `${image.src}?w=${width}&auto=format&fit=crop&q=80 ${width}w`)
+  .join(", ")
+---
+
+<figure class:list={["group/figure relative m-0", className]}>
+  <img
+    src={`${image.src}?w=1200&auto=format&fit=crop&q=80`}
+    srcset={srcset}
+    sizes={sizes}
+    alt={image.alt}
+    width={image.width}
+    height={image.height}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    decoding="async"
+    class:list={["h-full w-full object-cover", imgClass]}
+  />
+  <figcaption
+    class:list={[
+      "text-xs text-inverted-foreground/90",
+      creditPlacement === "overlay"
+        ? "absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-gradient-to-t from-black/70 via-black/10 to-transparent px-3 py-2 opacity-0 transition-opacity duration-300 ease-landing group-hover/figure:opacity-100 group-focus-within/figure:opacity-100 motion-reduce:opacity-100"
+        : "mt-2 flex items-center justify-between gap-2 text-muted",
+    ]}
+  >
+    <span>
+      Photo by{" "}
+      <a
+        href={image.authorUrl}
+        rel="noopener"
+        class="underline underline-offset-2 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+        >{image.author}</a
+      >
+      {" "}on{" "}
+      <a
+        href={image.unsplashUrl}
+        rel="noopener"
+        class="underline underline-offset-2 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+        >Unsplash</a
+      >
+    </span>
+  </figcaption>
+</figure>

@@ -44,75 +44,39 @@ interface Props {
 }
 
 const { label, landings } = Astro.props
+const labelName = label.charAt(0).toUpperCase() + label.slice(1)
 ---
 
 <Layout
-  title={`${label} — Landing Pages Gallery`}
-  description={`Landings etiquetadas con "${label}".`}
+  title={`${labelName} — Landing Pages Gallery`}
+  description={`Landings etiquetadas con "${labelName}".`}
 >
   <Navbar />
 
-  <main>
-    <header class="page-header">
-      <span class="tag-badge">{label}</span>
-      <h1>Landings de {label}</h1>
-      <p>
-        {landings.length === 1 ? "1 landing" : `${landings.length} landings`} con
-        esta etiqueta.
-      </p>
-    </header>
-
-    <div class="grid">
-      {
-        landings.map((landing: LandingEntry) => (
-          <LandingCard landing={landing} />
-        ))
-      }
+  <main class="pt-10 pb-28">
+    <div class="container">
+      <header class="pb-10 w-full max-w-2xl">
+        <h1 class="text-3xl sm:text-4xl font-bold">
+          {labelName}
+        </h1>
+        <p class="mt-6 text-lg">
+          {landings.length === 1 ? "1 landing" : `${landings.length} landings`} con
+          esta etiqueta.
+        </p>
+        <a
+          class="h-10 mt-4 inline-flex items-center justify-center px-6 text-sm rounded font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-300"
+          href="/landings">Explorar landings</a
+        >
+      </header>
+      <div class="mt-6 grid grid-cols-12 w-full gap-x-4">
+        {
+          landings.map((landing: LandingEntry) => (
+            <LandingCard landing={landing} />
+          ))
+        }
+      </div>
     </div>
   </main>
 
   <Footer />
 </Layout>
-
-<style>
-  main {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 2.5rem clamp(1rem, 4vw, 2.5rem) 4rem;
-  }
-
-  .page-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .tag-badge {
-    display: inline-block;
-    width: fit-content;
-    font-size: 0.75rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 999px;
-    background: var(--platform-accent);
-    color: var(--platform-accent-contrast);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
-
-  h1 {
-    margin: 0;
-    font-size: 2rem;
-  }
-
-  .page-header p {
-    margin: 0;
-    color: var(--platform-text-muted);
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.25rem;
-  }
-</style>

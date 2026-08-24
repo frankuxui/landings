@@ -1,0 +1,78 @@
+---
+// A compact horizontal band of recently added editions — kept visually and
+// structurally distinct from the masonry Gallery below it (a tight,
+// same-height row rather than a varied grid) so "just added" reads as its
+// own quick scan, not a repeat of the main shop.
+import { ArrowRight } from "@lucide/astro"
+import WorkImage from "../components/WorkImage.astro"
+import { works } from "../data/works"
+import type { Work } from "../types"
+
+const newArrivals = works.filter((work: Work) => work.isNew)
+---
+
+<section
+  class="bg-background-alt py-16 sm:py-20"
+  aria-labelledby="new-arrivals-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div
+      class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <div>
+        <p
+          class="mb-3 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          Just added
+        </p>
+        <h2
+          id="new-arrivals-heading"
+          class="text-balance text-headline-3 leading-tight font-semibold text-foreground"
+        >
+          New arrivals from the studio floor.
+        </h2>
+      </div>
+      <a
+        class="inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-foreground no-underline hover:underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        href="#gallery"
+      >
+        See the full gallery
+        <ArrowRight aria-hidden="true" width="16" height="16" stroke-width="1.75" />
+      </a>
+    </div>
+
+    <ul class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+      {
+        newArrivals.map((work: Work) => (
+          <li class="reveal">
+            <a
+              href="#gallery"
+              class="group block no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+            >
+              <span class="relative block overflow-hidden bg-placeholder">
+                <span
+                  class="absolute top-2 left-2 z-10 bg-inverted px-2 py-0.5 text-[0.6rem] font-semibold tracking-widest text-inverted-foreground uppercase"
+                >
+                  New
+                </span>
+                <WorkImage
+                  image={work.image}
+                  sizes="(min-width: 640px) 22vw, 45vw"
+                  class="aspect-[3/4]"
+                  imgClass="grayscale transition-transform duration-500 ease-landing group-hover:scale-105"
+                  creditPlacement="overlay"
+                />
+              </span>
+              <p class="mt-2.5 text-sm font-semibold text-foreground">
+                {work.title}
+              </p>
+              <p class="text-xs text-muted">
+                {work.photographer} · {work.price}
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
