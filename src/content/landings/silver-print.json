@@ -1,0 +1,26 @@
+{
+  "name": "Silver Print",
+  "title": "Silver Print — Fine Art Photography",
+  "description": "A curated marketplace for fine art photography. Buy original prints and digital files from the world's leading contemporary photographers. Museum-quality archival prints delivered worldwide.",
+  "subtitle": "Where photographers sell their finest work",
+  "category": "ecommerce",
+  "tags": ["photography", "fine-art", "gallery", "ecommerce", "prints"],
+  "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
+  "thumbnail": "https://images.unsplash.com/photo-1516912481800-cf969d5d6b23?auto=format&fit=crop&w=1200&q=80",
+  "thumbnailAlt": "Aerial city photography at dusk showing a dense geometric urban grid",
+  "thumbnailWidth": 5472,
+  "thumbnailHeight": 3648,
+  "thumbnailCredit": {
+    "id": "1516912481800-cf969d5d6b23",
+    "author": "Marcus Loke",
+    "authorUrl": "https://unsplash.com/@marcusloke?utm_source=astro_landings_gallery&utm_medium=referral",
+    "sourceUrl": "https://unsplash.com/photos/1516912481800-cf969d5d6b23?utm_source=astro_landings_gallery&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+    "downloadLocation": "https://api.unsplash.com/photos/1516912481800-cf969d5d6b23/download"
+  },
+  "createdAt": "2026-08-24",
+  "author": "frankuxui",
+  "themes": ["light", "dark"],
+  "featured": false,
+  "status": "published"
+}

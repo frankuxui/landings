@@ -1,0 +1,103 @@
+---
+import { MapPin, ImageIcon } from "@lucide/astro"
+import { photographers } from "../data/photographers"
+import type { Photographer } from "../types"
+---
+
+<section
+  id="fotografos"
+  class="bg-background py-24 sm:py-32"
+  aria-labelledby="photographers-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-6 sm:px-10 xl:px-14">
+    <!-- Header -->
+    <div class="mb-14">
+      <p
+        class="mb-3 font-mono text-xs font-semibold tracking-[0.25em] text-muted uppercase reveal"
+        data-reveal
+      >
+        Photographers
+      </p>
+      <h2
+        id="photographers-heading"
+        class="text-headline-2 font-bold leading-[1.05] tracking-tight text-foreground reveal"
+        data-reveal
+      >
+        The artists<br />behind the lens
+      </h2>
+    </div>
+
+    <!-- Horizontal scroll rail (mobile) / grid (desktop) -->
+    <div
+      class="no-scrollbar -mx-6 flex gap-5 overflow-x-auto px-6 pb-4 sm:-mx-10 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-5 lg:overflow-visible lg:px-0 lg:pb-0 xl:-mx-0 xl:px-0"
+      role="list"
+      aria-label="Photographer profiles"
+    >
+      {
+        photographers.map((p: Photographer) => (
+          <article
+            class="group flex-none w-64 lg:w-auto reveal"
+            data-reveal
+            role="listitem"
+          >
+            <div class="relative mb-5 overflow-hidden bg-placeholder">
+              <img
+                src={p.image.src}
+                alt={p.image.alt}
+                width={p.image.width}
+                height={p.image.height}
+                class="aspect-[3/4] w-full object-cover object-top grayscale transition duration-600 ease-landing can-hover:group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 transition duration-300 ease-landing can-hover:group-hover:opacity-100">
+                <p class="text-xs leading-relaxed text-white/80 line-clamp-3">
+                  {p.bio}
+                </p>
+              </div>
+              <p class="absolute bottom-1.5 right-2 font-mono text-[0.5rem] text-white/25">
+                <a
+                  href={p.image.authorUrl}
+                  class="hover:text-white/50"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {p.image.author}
+                </a>
+              </p>
+            </div>
+
+            <div>
+              <h3 class="mb-1 text-base font-bold tracking-tight text-foreground">
+                {p.name}
+              </h3>
+              <p class="mb-2 text-sm font-medium text-muted">{p.specialty}</p>
+              <div class="mb-3 flex items-center gap-3 text-xs text-muted">
+                <span class="inline-flex items-center gap-1">
+                  <MapPin
+                    aria-hidden="true"
+                    width="11"
+                    height="11"
+                    stroke-width="1.5"
+                  />
+                  {p.country}
+                </span>
+                <span class="inline-flex items-center gap-1">
+                  <ImageIcon
+                    aria-hidden="true"
+                    width="11"
+                    height="11"
+                    stroke-width="1.5"
+                  />
+                  {p.worksCount} works
+                </span>
+              </div>
+              <p class="text-xs leading-relaxed text-muted line-clamp-3 lg:line-clamp-none">
+                {p.bio}
+              </p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,166 @@
+---
+import { ShoppingCart, ArrowRight } from "@lucide/astro"
+import { galleryItems } from "../data/gallery"
+import type { GalleryItem } from "../types"
+---
+
+<section
+  id="galeria"
+  class="bg-background py-24 sm:py-32"
+  aria-labelledby="gallery-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-6 sm:px-10 xl:px-14">
+    <!-- Header -->
+    <div
+      class="mb-14 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <div>
+        <p
+          class="mb-3 font-mono text-xs font-semibold tracking-[0.25em] text-muted uppercase reveal"
+          data-reveal
+        >
+          Shop
+        </p>
+        <h2
+          id="gallery-heading"
+          class="text-headline-2 font-bold leading-[1.05] tracking-tight text-foreground reveal"
+          data-reveal
+        >
+          The Gallery
+        </h2>
+      </div>
+      <p
+        class="max-w-[38ch] text-sm leading-relaxed text-muted reveal"
+        data-reveal
+      >
+        Every photograph available as a museum-quality archival print or a
+        high-resolution digital file, delivered within 48 hours.
+      </p>
+    </div>
+
+    <!-- Asymmetric editorial grid -->
+    <!--
+      Native CSS technical exception: CSS Grid with named areas / auto-placement
+      for an asymmetric editorial composition that changes layout significantly
+      across breakpoints. Tailwind's grid utilities handle column counts and
+      gaps, but the spanning logic requires inline `style` for aspect-ratio
+      driven by per-item data (GalleryRatio type). Tailwind cannot express
+      dynamic ratio values from data without arbitrary values.
+    -->
+    <div
+      class="grid auto-rows-auto grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4"
+    >
+      {
+        galleryItems.map((item: GalleryItem, index: number) => {
+          // Determine grid span based on ratio and position for editorial variety
+          const isWide = item.ratio === "4 / 3" || item.ratio === "3 / 2"
+          const isTall = item.ratio === "3 / 4" || item.ratio === "4 / 5"
+          const isSquare = item.ratio === "1 / 1"
+
+          const spanClass = isWide
+            ? "col-span-2"
+            : isTall
+              ? "col-span-1"
+              : isSquare && index % 5 === 2
+                ? "col-span-2 lg:col-span-1"
+                : "col-span-1"
+
+          return (
+            <div
+              class:list={[
+                "group relative overflow-hidden bg-placeholder reveal",
+                spanClass,
+              ]}
+              data-reveal
+              style={`aspect-ratio: ${item.ratio}`}
+            >
+              <img
+                src={item.image.src}
+                alt={item.image.alt}
+                width={item.image.width}
+                height={item.image.height}
+                class="h-full w-full object-cover grayscale transition duration-500 ease-landing can-hover:group-hover:scale-[1.04]"
+                loading="lazy"
+              />
+
+              <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/20 to-transparent p-4 transition-opacity duration-300 ease-landing can-hover:opacity-0 can-hover:group-hover:opacity-100 can-hover:group-focus-within:opacity-100 sm:p-5">
+                <p class="mb-0.5 font-mono text-[0.55rem] font-semibold tracking-widest text-white/50 uppercase">
+                  {item.category}
+                </p>
+                <h3 class="mb-1 text-sm font-bold text-white sm:text-base">
+                  {item.name}
+                </h3>
+                <p class="mb-1 text-xs text-white/70">{item.author}</p>
+                <p class="mb-3 hidden text-xs leading-relaxed text-white/60 sm:block">
+                  {item.description}
+                </p>
+                <div class="flex items-center justify-between gap-3">
+                  <span class="text-sm font-bold text-white">{item.price}</span>
+                  <button
+                    type="button"
+                    class="inline-flex min-h-8 cursor-pointer items-center gap-1.5 rounded-sm border-0 bg-white px-3 py-1.5 text-xs font-semibold text-black transition duration-200 hover:bg-white/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 active:bg-white/70"
+                    aria-label={`Add ${item.name} to cart`}
+                  >
+                    <ShoppingCart
+                      aria-hidden="true"
+                      width="12"
+                      height="12"
+                      stroke-width="2"
+                    />
+                    <span class="hidden sm:inline">Add to cart</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between bg-gradient-to-t from-black/60 p-3 can-hover:hidden">
+                <div>
+                  <h3 class="text-xs font-bold text-white">{item.name}</h3>
+                  <p class="text-xs text-white/70">{item.price}</p>
+                </div>
+                <button
+                  type="button"
+                  class="inline-flex size-7 cursor-pointer items-center justify-center rounded-full border-0 bg-white text-black focus-visible:outline-2 focus-visible:outline-white/60"
+                  aria-label={`Add ${item.name} to cart`}
+                >
+                  <ShoppingCart
+                    aria-hidden="true"
+                    width="13"
+                    height="13"
+                    stroke-width="2"
+                  />
+                </button>
+              </div>
+
+              <p class="absolute top-2 right-2 font-mono text-[0.5rem] text-white/20">
+                <a
+                  href={item.image.authorUrl}
+                  class="hover:text-white/50"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.image.author}
+                </a>
+              </p>
+            </div>
+          )
+        })
+      }
+    </div>
+
+    <!-- Load more CTA -->
+    <div class="mt-14 flex justify-center reveal" data-reveal>
+      <a
+        href="#galeria"
+        class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border border-border px-8 py-3 text-base font-semibold text-foreground no-underline transition duration-200 ease-landing hover:border-foreground hover:bg-surface-strong focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-border active:bg-control"
+      >
+        View all works
+        <ArrowRight
+          aria-hidden="true"
+          width="16"
+          height="16"
+          stroke-width="2"
+        />
+      </a>
+    </div>
+  </div>
+</section>

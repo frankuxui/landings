@@ -1,0 +1,172 @@
+---
+import { Printer, Package, Shield, Zap } from "@lucide/astro"
+
+const features = [
+  {
+    icon: "printer",
+    title: "Museum-grade prints",
+    body: "Every print is produced on Hahnemühle Photo Rag or Baryta using 12-colour Epson pigment ink — archival stability of 100+ years under standard display conditions.",
+  },
+  {
+    icon: "package",
+    title: "Careful packaging",
+    body: "Flat prints ship in acid-free sleeves inside rigid board mailers. Rolled prints arrive in custom tubes with end-caps and foam padding. Insurance included on all orders above $200.",
+  },
+  {
+    icon: "shield",
+    title: "Certificate of authenticity",
+    body: "Every physical print includes a hand-signed certificate with the edition number, print date, paper specification and photographer's signature.",
+  },
+  {
+    icon: "zap",
+    title: "Digital delivery",
+    body: "High-resolution TIFF or JPEG files are available for immediate download after purchase — ready for your own printing service or digital display.",
+  },
+]
+
+const formats = [
+  { size: '8 × 10"', metric: "20 × 25 cm", price: "From $240" },
+  { size: '12 × 16"', metric: "30 × 40 cm", price: "From $320" },
+  { size: '16 × 20"', metric: "40 × 50 cm", price: "From $480" },
+  { size: '20 × 24"', metric: "50 × 60 cm", price: "From $640" },
+  { size: '24 × 32"', metric: "60 × 80 cm", price: "From $890" },
+  { size: "Custom", metric: "On request", price: "Contact us" },
+]
+---
+
+<section
+  class="bg-background-alt py-24 sm:py-32"
+  aria-labelledby="print-info-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-6 sm:px-10 xl:px-14">
+    <!-- Section header -->
+    <div
+      class="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.4fr] lg:gap-20"
+    >
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <p
+          class="mb-3 font-mono text-xs font-semibold tracking-[0.25em] text-muted uppercase reveal"
+          data-reveal
+        >
+          Print Quality
+        </p>
+        <h2
+          id="print-info-heading"
+          class="text-headline-2 font-bold leading-[1.05] tracking-tight text-foreground reveal"
+          data-reveal
+        >
+          Printed to<br />last a century
+        </h2>
+        <p class="mt-6 text-base leading-relaxed text-muted reveal" data-reveal>
+          We use the same materials as museum print shops. Because a photograph
+          is only as permanent as the surface it lives on.
+        </p>
+      </div>
+
+      <!-- Feature list -->
+      <div class="flex flex-col gap-8">
+        {
+          features.map((f) => (
+            <div class="flex gap-5 reveal" data-reveal>
+              <div class="mt-0.5 flex-none">
+                <div class="flex size-10 items-center justify-center bg-surface-strong text-foreground">
+                  {f.icon === "printer" && (
+                    <Printer
+                      aria-hidden="true"
+                      width="18"
+                      height="18"
+                      stroke-width="1.5"
+                    />
+                  )}
+                  {f.icon === "package" && (
+                    <Package
+                      aria-hidden="true"
+                      width="18"
+                      height="18"
+                      stroke-width="1.5"
+                    />
+                  )}
+                  {f.icon === "shield" && (
+                    <Shield
+                      aria-hidden="true"
+                      width="18"
+                      height="18"
+                      stroke-width="1.5"
+                    />
+                  )}
+                  {f.icon === "zap" && (
+                    <Zap
+                      aria-hidden="true"
+                      width="18"
+                      height="18"
+                      stroke-width="1.5"
+                    />
+                  )}
+                </div>
+              </div>
+              <div>
+                <h3 class="mb-2 text-base font-bold text-foreground">
+                  {f.title}
+                </h3>
+                <p class="text-sm leading-relaxed text-muted">{f.body}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Print sizes table -->
+    <div class="mt-16 reveal" data-reveal>
+      <h3
+        class="mb-6 font-mono text-xs font-semibold tracking-[0.25em] text-muted uppercase"
+      >
+        Available formats
+      </h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th
+                class="py-3 pr-8 text-left font-semibold text-foreground"
+                scope="col">Size (imperial)</th
+              >
+              <th
+                class="py-3 pr-8 text-left font-semibold text-foreground"
+                scope="col">Size (metric)</th
+              >
+              <th
+                class="py-3 text-left font-semibold text-foreground"
+                scope="col">Starting price</th
+              >
+            </tr>
+          </thead>
+          <tbody>
+            {
+              formats.map((row, i) => (
+                <tr
+                  class:list={[
+                    "border-b border-border/40",
+                    i % 2 === 0 ? "bg-transparent" : "bg-surface/40",
+                  ]}
+                >
+                  <td class="py-3.5 pr-8 font-mono text-foreground">
+                    {row.size}
+                  </td>
+                  <td class="py-3.5 pr-8 text-muted">{row.metric}</td>
+                  <td class="py-3.5 font-semibold text-foreground">
+                    {row.price}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-xs text-muted">
+        All prints produced on Hahnemühle Fine Art paper stock. Custom sizes,
+        canvas, and acrylic mounting available on request.
+      </p>
+    </div>
+  </div>
+</section>

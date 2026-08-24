@@ -1,0 +1,186 @@
+---
+import { ArrowRight, ChevronDown } from "@lucide/astro"
+import { featuredWorks } from "../data/featuredWorks"
+
+const heroWork = featuredWorks[0]
+---
+
+<section
+  class="relative min-h-[95svh] overflow-hidden bg-black"
+  aria-labelledby="hero-heading"
+  data-hero
+>
+  <!-- Hero photograph (clip-path animated via GSAP) -->
+  <div
+    class="absolute inset-0 will-change-transform"
+    data-hero-image-wrap
+    aria-hidden="true"
+  >
+    <img
+      src={heroWork.image.src.replace("w=1600", "w=2000")}
+      alt={heroWork.image.alt}
+      width={heroWork.image.width}
+      height={heroWork.image.height}
+      class="h-full w-full object-cover object-center grayscale"
+      loading="eager"
+      fetchpriority="high"
+      data-hero-image
+    />
+    <!-- Dark overlay for text legibility -->
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20"
+      aria-hidden="true"
+    >
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div
+    class="relative z-10 mx-auto flex h-full min-h-[95svh] w-full max-w-landing flex-col justify-end px-6 pb-16 pt-32 sm:px-10 xl:px-14"
+  >
+    <div class="max-w-[52rem]">
+      <!-- Eyebrow -->
+      <p
+        class="mb-6 font-mono text-xs font-semibold tracking-[0.25em] text-white/60 uppercase opacity-0"
+        data-hero-el
+      >
+        Featured Collection — Architecture
+      </p>
+
+      <!-- Heading -->
+      <h1
+        id="hero-heading"
+        class="mb-6 text-balance text-headline-1 font-bold leading-[0.95] tracking-tight text-white opacity-0"
+        data-hero-el
+      >
+        {heroWork.title}
+      </h1>
+
+      <!-- Meta -->
+      <div
+        class="mb-8 flex flex-wrap items-center gap-4 opacity-0"
+        data-hero-el
+      >
+        <span class="text-sm font-medium text-white/70"
+          >by {heroWork.author}</span
+        >
+        <span class="h-3 w-px bg-white/30" aria-hidden="true"></span>
+        <span class="text-sm font-medium text-white/70">{heroWork.year}</span>
+        <span class="h-3 w-px bg-white/30" aria-hidden="true"></span>
+        <span class="text-sm font-semibold text-white">{heroWork.price}</span>
+      </div>
+
+      <!-- CTAs -->
+      <div class="flex flex-wrap items-center gap-4 opacity-0" data-hero-el>
+        <a
+          class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-white px-6 py-3 text-base font-semibold text-black no-underline transition duration-300 ease-landing hover:bg-white/85 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/60 active:bg-white/70"
+          href="#colecciones"
+        >
+          Explore Collections
+          <ArrowRight
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="2"
+          />
+        </a>
+        <a
+          class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border border-white/30 px-6 py-3 text-base font-medium text-white no-underline transition duration-300 ease-landing hover:border-white/60 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/60 active:bg-white/20"
+          href="#obras"
+        >
+          View this work
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div
+      class="absolute right-8 bottom-10 flex flex-col items-center gap-3 sm:right-12 xl:right-16"
+      aria-hidden="true"
+    >
+      <span
+        class="[writing-mode:vertical-rl] font-mono text-[0.6rem] tracking-[0.25em] text-white/40 uppercase"
+        >Scroll</span
+      >
+      <ChevronDown
+        class="size-4 animate-bounce text-white/40 motion-reduce:animate-none"
+        stroke-width="1.5"
+      />
+    </div>
+  </div>
+
+  <!-- Photo credit -->
+  <p
+    class="absolute bottom-4 left-6 z-10 font-mono text-[0.6rem] text-white/30 sm:left-10"
+  >
+    Photo by
+    <a
+      href={heroWork.image.authorUrl}
+      class="underline underline-offset-2 hover:text-white/60 focus-visible:outline-1 focus-visible:outline-white/40"
+      target="_blank"
+      rel="noopener noreferrer">{heroWork.image.author}</a
+    > on
+    <a
+      href={heroWork.image.unsplashUrl}
+      class="underline underline-offset-2 hover:text-white/60 focus-visible:outline-1 focus-visible:outline-white/40"
+      target="_blank"
+      rel="noopener noreferrer">Unsplash</a
+    >
+  </p>
+</section>
+
+<script>
+  import gsap from "gsap"
+  import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches
+
+  // Clip-path reveal on hero image + parallax
+  const imageWrap = document.querySelector<HTMLElement>(
+    "[data-hero-image-wrap]",
+  )
+  const heroImage = document.querySelector<HTMLElement>("[data-hero-image]")
+  const heroEls = document.querySelectorAll<HTMLElement>("[data-hero-el]")
+
+  if (!prefersReduced && imageWrap) {
+    // Initial clip-path reveal
+    gsap.from(imageWrap, {
+      clipPath: "inset(100% 0% 0% 0%)",
+      duration: 1.4,
+      ease: "power3.out",
+      delay: 0.1,
+    })
+
+    // Text stagger
+    gsap.to(heroEls, {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: "power3.out",
+      stagger: 0.12,
+      delay: 0.5,
+      from: { opacity: 0, y: 30 },
+    })
+
+    // Subtle parallax on scroll
+    if (heroImage) {
+      gsap.to(heroImage, {
+        yPercent: 12,
+        ease: "none",
+        scrollTrigger: {
+          trigger: "[data-hero]",
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      })
+    }
+  } else {
+    // No motion — immediately show elements
+    gsap.set(heroEls, { opacity: 1, y: 0 })
+  }
+</script>

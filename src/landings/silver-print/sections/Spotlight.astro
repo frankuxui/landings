@@ -1,0 +1,185 @@
+---
+import { ArrowLeft, ArrowRight } from "@lucide/astro"
+import { spotlightItems } from "../data/spotlight"
+import type { SpotlightItem } from "../types"
+---
+
+<section
+  class="overflow-hidden bg-inverted py-24 sm:py-32"
+  aria-labelledby="spotlight-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-6 sm:px-10 xl:px-14">
+    <!-- Header -->
+    <div class="mb-10 flex items-end justify-between">
+      <div>
+        <p
+          class="mb-3 font-mono text-xs font-semibold tracking-[0.25em] text-inverted-foreground/50 uppercase"
+        >
+          Spotlight
+        </p>
+        <h2
+          id="spotlight-heading"
+          class="text-headline-2 font-bold leading-[1.05] tracking-tight text-inverted-foreground"
+        >
+          Selected Editions
+        </h2>
+      </div>
+      <!-- Navigation buttons -->
+      <div class="flex items-center gap-2" aria-label="Carousel navigation">
+        <button
+          type="button"
+          class="spotlight-prev inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-inverted-foreground/20 bg-transparent text-inverted-foreground transition duration-200 ease-landing hover:border-inverted-foreground/60 hover:bg-inverted-foreground/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-inverted-foreground/40 active:bg-inverted-foreground/20 disabled:cursor-not-allowed disabled:opacity-30"
+          aria-label="Previous slide"
+          disabled
+        >
+          <ArrowLeft
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </button>
+        <button
+          type="button"
+          class="spotlight-next inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-inverted-foreground/20 bg-transparent text-inverted-foreground transition duration-200 ease-landing hover:border-inverted-foreground/60 hover:bg-inverted-foreground/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-inverted-foreground/40 active:bg-inverted-foreground/20 disabled:cursor-not-allowed disabled:opacity-30"
+          aria-label="Next slide"
+        >
+          <ArrowRight
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Swiper — extends beyond the container to show partial next slide -->
+  <div
+    class="spotlight-swiper swiper pl-6 sm:pl-10 xl:pl-14"
+    data-spotlight-swiper
+  >
+    <div class="swiper-wrapper">
+      {
+        spotlightItems.map((item: SpotlightItem) => (
+          <div class="swiper-slide !w-[min(90vw,640px)] sm:!w-[min(75vw,720px)] lg:!w-[min(65vw,800px)]">
+            <div class="group relative overflow-hidden bg-inverted-surface">
+              <div class="relative aspect-[3/4] sm:aspect-[4/3] lg:aspect-[16/10]">
+                <img
+                  src={item.image.src}
+                  alt={item.image.alt}
+                  width={item.image.width}
+                  height={item.image.height}
+                  class="h-full w-full object-cover grayscale"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between p-6 sm:p-8">
+                  <div>
+                    <span class="mb-3 inline-block bg-inverted-foreground px-2.5 py-1 font-mono text-[0.6rem] font-semibold tracking-widest text-inverted uppercase">
+                      {item.badge}
+                    </span>
+                    <h3 class="mb-1 text-xl font-bold tracking-tight text-white sm:text-2xl">
+                      {item.title}
+                    </h3>
+                    <p class="mb-4 text-sm text-white/70">by {item.author}</p>
+                    <div class="flex items-center gap-4">
+                      <span class="text-lg font-bold text-white">
+                        {item.price}
+                      </span>
+                      <a
+                        href="#galeria"
+                        class="inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-sm border-0 bg-white px-4 py-2 text-sm font-semibold text-black no-underline transition duration-200 hover:bg-white/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 active:bg-white/70"
+                      >
+                        Acquire
+                        <ArrowRight
+                          aria-hidden="true"
+                          width="13"
+                          height="13"
+                          stroke-width="2"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="absolute top-3 right-3 font-mono text-[0.5rem] text-white/25">
+                  <a
+                    href={item.image.authorUrl}
+                    class="hover:text-white/50"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.image.author}
+                  </a>{" "}
+                  / Unsplash
+                </p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Pagination — styled via [data-spotlight-pagination] in tailwind.css -->
+    <div class="swiper-pagination mt-8 text-center" data-spotlight-pagination>
+    </div>
+  </div>
+</section>
+
+<!-- Swiper CSS — technical exception: cannot be expressed as Tailwind utilities;
+     Swiper generates its own class names (.swiper, .swiper-wrapper, etc.) that
+     this landing does not control. Scoped here to the spotlight section only. -->
+<style>
+  @import "swiper/css";
+</style>
+
+<script>
+  import Swiper from "swiper"
+  import { Navigation, Pagination } from "swiper/modules"
+
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches
+
+  const prevBtn = document.querySelector<HTMLButtonElement>(".spotlight-prev")
+  const nextBtn = document.querySelector<HTMLButtonElement>(".spotlight-next")
+
+  const swiper = new Swiper(".spotlight-swiper", {
+    modules: [Navigation, Pagination],
+    slidesPerView: "auto",
+    spaceBetween: 16,
+    grabCursor: true,
+    speed: prefersReduced ? 0 : 600,
+    navigation: {
+      prevEl: ".spotlight-prev",
+      nextEl: ".spotlight-next",
+    },
+    pagination: {
+      el: "[data-spotlight-pagination]",
+      clickable: true,
+    },
+    breakpoints: {
+      640: { spaceBetween: 20 },
+      1024: { spaceBetween: 24 },
+    },
+    a11y: {
+      prevSlideMessage: "Previous slide",
+      nextSlideMessage: "Next slide",
+    },
+    on: {
+      init(sw: Swiper) {
+        if (prevBtn) prevBtn.disabled = sw.isBeginning
+        if (nextBtn) nextBtn.disabled = sw.isEnd
+      },
+      slideChange(sw: Swiper) {
+        if (prevBtn) prevBtn.disabled = sw.isBeginning
+        if (nextBtn) nextBtn.disabled = sw.isEnd
+      },
+    },
+  })
+
+  // Cleanup on page unload
+  window.addEventListener("beforeunload", () => swiper.destroy(true, true))
+</script>

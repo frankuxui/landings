@@ -1,0 +1,212 @@
+---
+import { ArrowRight } from "@lucide/astro"
+import { featuredWorks } from "../data/featuredWorks"
+import type { FeaturedWork } from "../types"
+---
+
+<section
+  id="obras"
+  class="bg-background-alt py-24 sm:py-32"
+  aria-labelledby="works-heading"
+  data-works-section
+>
+  <div class="mx-auto w-full max-w-landing px-6 sm:px-10 xl:px-14">
+    <!-- Section label -->
+    <p
+      class="mb-16 font-mono text-xs font-semibold tracking-[0.25em] text-muted uppercase"
+    >
+      Featured Works
+    </p>
+
+    <div class="grid grid-cols-1 gap-16 lg:grid-cols-[2fr_3fr] lg:gap-24">
+      <!-- LEFT: sticky info panel -->
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <h2
+          id="works-heading"
+          class="mb-8 text-headline-2 font-bold leading-[1.05] tracking-tight text-foreground"
+        >
+          Obras<br />destacadas
+        </h2>
+
+        <!-- Work info — toggled by GSAP based on scroll position -->
+        {
+          featuredWorks.map((work: FeaturedWork, i: number) => (
+            <div
+              class:list={[
+                "work-info transition-all duration-500 ease-landing",
+                i === 0
+                  ? "opacity-100"
+                  : "pointer-events-none opacity-0 absolute top-0",
+              ]}
+              data-work-info={i}
+            >
+              <p class="mb-2 font-mono text-xs font-semibold tracking-[0.2em] text-muted uppercase">
+                {work.author} · {work.year}
+              </p>
+              <h3 class="mb-4 text-headline-3 font-bold tracking-tight text-foreground">
+                {work.title}
+              </h3>
+              <p class="mb-2 text-sm text-muted">{work.location}</p>
+              <p class="mb-2 text-sm text-muted italic">{work.technique}</p>
+              <p class="mb-6 text-base leading-relaxed text-foreground/80">
+                {work.description}
+              </p>
+              <div class="mb-8 flex items-center gap-4">
+                <span class="text-xl font-bold text-foreground">
+                  {work.price}
+                </span>
+                <span class="font-mono text-xs text-muted">
+                  Digital or Print
+                </span>
+              </div>
+              <a
+                href="#galeria"
+                class="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-sm border-0 bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground no-underline transition duration-200 ease-landing hover:bg-emphasis focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-border active:bg-emphasis"
+              >
+                Acquire this work
+                <ArrowRight
+                  aria-hidden="true"
+                  width="15"
+                  height="15"
+                  stroke-width="2"
+                />
+              </a>
+            </div>
+          ))
+        }
+
+        <!-- Work navigation dots -->
+        <div class="mt-10 flex items-center gap-3" aria-hidden="true">
+          {
+            featuredWorks.map((_: FeaturedWork, i: number) => (
+              <button
+                type="button"
+                class:list={[
+                  "work-dot h-0.5 transition-all duration-300 ease-landing border-0 p-0 cursor-pointer",
+                  i === 0
+                    ? "w-8 bg-foreground"
+                    : "w-4 bg-border hover:bg-muted",
+                ]}
+                data-work-dot={i}
+                aria-label={`Go to work ${i + 1}`}
+              />
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- RIGHT: scrolling images -->
+      <div class="flex flex-col gap-8" data-works-images>
+        {
+          featuredWorks.map((work: FeaturedWork, i: number) => (
+            <div
+              class="relative overflow-hidden bg-placeholder transition-opacity duration-400 ease-landing"
+              data-work-image={i}
+            >
+              <img
+                src={work.image.src}
+                alt={work.image.alt}
+                width={work.image.width}
+                height={work.image.height}
+                class="aspect-[4/3] w-full object-cover grayscale"
+                loading="lazy"
+              />
+              <div class="absolute bottom-0 right-0 flex items-end justify-between p-5">
+                <p class="font-mono text-[0.6rem] text-white/40">
+                  <a
+                    href={work.image.authorUrl}
+                    class="hover:text-white/70"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {work.image.author}
+                  </a>{" "}
+                  / Unsplash
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap"
+  import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches
+
+  const section = document.querySelector<HTMLElement>("[data-works-section]")
+  const infoPanels = document.querySelectorAll<HTMLElement>("[data-work-info]")
+  const images = document.querySelectorAll<HTMLElement>("[data-work-image]")
+  const dots = document.querySelectorAll<HTMLButtonElement>("[data-work-dot]")
+
+  let currentActive = 0
+
+  function activateWork(index: number): void {
+    if (index === currentActive) return
+    currentActive = index
+
+    // Update info panels
+    infoPanels.forEach((panel: HTMLElement, i: number) => {
+      if (i === index) {
+        panel.classList.remove(
+          "pointer-events-none",
+          "opacity-0",
+          "absolute",
+          "top-0",
+        )
+        panel.classList.add("opacity-100")
+      } else {
+        panel.classList.remove("opacity-100")
+        panel.classList.add(
+          "pointer-events-none",
+          "opacity-0",
+          "absolute",
+          "top-0",
+        )
+      }
+    })
+
+    // Update dots
+    dots.forEach((dot: HTMLButtonElement, i: number) => {
+      if (i === index) {
+        dot.classList.add("w-8", "bg-foreground")
+        dot.classList.remove("w-4", "bg-border")
+      } else {
+        dot.classList.remove("w-8", "bg-foreground")
+        dot.classList.add("w-4", "bg-border")
+      }
+    })
+  }
+
+  // Manual dot navigation
+  dots.forEach((dot: HTMLButtonElement) => {
+    dot.addEventListener("click", () => {
+      const idx = parseInt(dot.dataset.workDot ?? "0", 10)
+      activateWork(idx)
+      // Scroll the matching image into view
+      images[idx]?.scrollIntoView({ behavior: "smooth", block: "nearest" })
+    })
+  })
+
+  if (!prefersReduced && section) {
+    // ScrollTrigger: each image entering the middle of the viewport activates the info panel
+    images.forEach((img: HTMLElement) => {
+      const idx = parseInt(img.dataset.workImage ?? "0", 10)
+      ScrollTrigger.create({
+        trigger: img,
+        start: "top 60%",
+        end: "bottom 40%",
+        onEnter: () => activateWork(idx),
+        onEnterBack: () => activateWork(idx),
+      })
+    })
+  }
+</script>
