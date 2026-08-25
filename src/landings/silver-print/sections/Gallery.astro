@@ -83,7 +83,7 @@ import type { GalleryItem } from "../types"
                 loading="lazy"
               />
 
-              <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/20 to-transparent p-4 transition-opacity duration-300 ease-landing can-hover:opacity-0 can-hover:group-hover:opacity-100 can-hover:group-focus-within:opacity-100 sm:p-5">
+              <div class="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/80 via-black/20 to-transparent p-4 opacity-0 transition-opacity duration-300 ease-landing can-hover:opacity-0 can-hover:group-hover:opacity-100 can-hover:group-focus-within:opacity-100 sm:p-5">
                 <p class="mb-0.5 font-mono text-[0.55rem] font-semibold tracking-widest text-white/50 uppercase">
                   {item.category}
                 </p>
@@ -112,7 +112,7 @@ import type { GalleryItem } from "../types"
                 </div>
               </div>
 
-              <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between bg-gradient-to-t from-black/60 p-3 can-hover:hidden">
+              <div class="absolute bottom-0 left-0 right-0 flex items-end justify-between bg-linear-to-t from-black/60 p-3 can-hover:hidden">
                 <div>
                   <h3 class="text-xs font-bold text-white">{item.name}</h3>
                   <p class="text-xs text-white/70">{item.price}</p>
