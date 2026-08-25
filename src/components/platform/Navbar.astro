@@ -1,11 +1,12 @@
 ---
 // Platform navbar — used on catalog pages only, never inside a landing.
+import { withBase } from "../../utils/url"
 ---
 
 <header
   class="navbar fixed top-0 left-0 right-0 z-50 bg-platform-background/90 backdrop-blur-sm h-20 flex items-center justify-between border-b border-border/60"
 >
   <div class="container h-full flex items-center justify-between">
-    <a class="font-semibold" href="/">Galería</a>
+    <a class="font-semibold" href={withBase("/")}>Galería</a>
   </div>
 </header>

@@ -71,12 +71,26 @@ const thumbnailUrl =
     <meta property="og:description" content={pageDescription} />
     <meta property="og:image" content={thumbnailUrl} />
     <meta property="og:url" content={canonicalUrl} />
+
+    <!-- Synchronous, no-flash restore of a previously chosen color palette
+    (see scripts/palette.ts and "Per-landing color palette" in the
+    astro-landing-pages Skill) — must run before first paint, so it lives
+    inline in <head> rather than the deferred module script at the end of
+    <body>. Grayscale (no attribute / the CSS default) applies when nothing
+    is stored. -->
+    <script is:inline>
+      try {
+        var storedPalette = localStorage.getItem("coffee-producer-palette")
+        if (storedPalette)
+          document.documentElement.dataset.palette = storedPalette
+      } catch (error) {}
+    </script>
   </head>
   <body
     class="min-h-full overflow-x-clip bg-background text-base leading-relaxed text-foreground antialiased font-sans"
   >
     <a
-      class="absolute -top-full left-4 z-1000 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-md px-5 py-3 text-base font-semibold no-underline transition duration-200 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border border-0 bg-primary text-primary-foreground hover:bg-emphasis active:bg-emphasis focus-visible:top-4"
+      class="absolute -top-full left-4 z-1000 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-md px-5 py-3 text-base font-semibold no-underline transition duration-200 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border border-0 bg-(--color-primary) text-(--color-light) hover:opacity-90 active:opacity-90 focus-visible:top-4"
       href="#main-content"
     >
       Skip to main content
@@ -101,6 +115,7 @@ const thumbnailUrl =
 
     <script>
       import "./scripts/theme"
+      import "./scripts/palette"
       import "./scripts/reveal"
       import "./scripts/navIndicator"
     </script>

@@ -191,16 +191,14 @@
 }
 
 /* Photography stays grayscale (the mandatory default) but recovers its
-   original color the moment a color palette is active — tied to the same
-   `data-palette` attribute the "Optional per-landing color palettes" system
-   uses (see the astro-landing-pages Skill). This landing doesn't currently
-   ship a palette picker, so `data-palette` is never set and photos stay
-   grayscale; the moment one is added (same mechanism as `chocolate-factory`,
-   the reference implementation), photography responds automatically — no
-   further change needed here. The `[data-palette]` qualifier on the
+   original color the moment the "cascara" palette (or any future
+   non-grayscale palette) is active — tied to the same `data-palette`
+   attribute the "Per-landing color palette" system uses (see the
+   astro-landing-pages Skill). The `[data-palette]` qualifier on the
    override matters: without it, `:not([data-palette="grayscale"])` would
-   also match when the attribute is simply absent (today's actual default),
-   showing color instead of grayscale. */
+   also match when the attribute is simply absent (the state before
+   scripts/palette.ts's synchronous restore runs), showing color instead of
+   grayscale. */
 @utility photo-tone {
   filter: grayscale(100%) contrast(125%);
   transition: filter 400ms var(--ease-landing);
@@ -214,13 +212,30 @@
    properties rather than Tailwind-generated classes — Tailwind has no
    utility for them, so this is the minimal, official, landing-local way to
    keep the pagination on the monochrome token system instead of Swiper's
-   default color. */
+   default color. The active bullet also follows this landing's "cascara"
+   palette (see the astro-landing-pages Skill "Per-landing color palette" §
+   the Swiper pagination pattern): only `--swiper-pagination-color` (the
+   active bullet, the "which slide am I on" accent) switches to
+   `--color-primary` once a non-grayscale palette is active — the inactive
+   bullets stay on the plain grayscale `--muted` token, unchanged. This
+   section (`bg-background-alt`) never gets a `palette-surface-*` background
+   swap, so `--color-primary` is checked directly against the plain
+   `--background-alt` neutral surface: cascara's `--color-primary` on
+   `--background-alt` is ~10.7:1 in Light (#5b2a1f on #f5f5f5) and ~10.5:1 in
+   Dark (#f2c98a on #171717) — `--color-primary` mirrors `--foreground`'s own
+   Light/Dark polarity (dark-on-light, then light-on-dark), so it stays
+   legible against this plain neutral surface in both themes without a
+   separate contrast token. */
 .products-slider {
   --swiper-pagination-color: var(--foreground);
   --swiper-pagination-bullet-inactive-color: var(--muted);
   --swiper-pagination-bullet-inactive-opacity: 0.6;
   --swiper-pagination-bullet-size: 0.5rem;
   --swiper-pagination-bullet-horizontal-gap: 0.375rem;
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    --swiper-pagination-color: var(--color-primary);
+  }
 }
 
 .products-slider-pagination .swiper-pagination-bullet {
@@ -230,4 +245,174 @@
 .products-slider-pagination .swiper-pagination-bullet:focus-visible {
   outline: 3px solid var(--border);
   outline-offset: 3px;
+}
+
+/* Per-landing color palette system — see "Per-landing color palette" in the
+   astro-landing-pages Skill. `--color-primary` also happens to be the name
+   the shared design system's `@theme inline` block registers to generate
+   Tailwind's `bg-primary`/`text-primary` utilities — but those compiled
+   utilities bind directly to `--primary` (the shared monochrome token), not
+   `--color-primary`, so this block never silently retints anything; a
+   component only picks up a palette by explicitly using
+   `bg-(--color-primary)`/`text-(--color-light)`/etc. Grayscale is the
+   mandatory default (`:root` and the explicit `[data-palette="grayscale"]`
+   resolve identically); `[data-palette="cascara"]` is opt-in, applied only
+   via the platform's palette selector (scripts/palette.ts) or a
+   downloaded copy's own persisted choice — never automatically. "Cascara"
+   is named after the dried, tea-like infusion made from the coffee cherry's
+   own skin — this landing's palette is grounded in the coffee-production
+   chain itself: `--color-primary` is a deep roasted-cherry brown (the
+   roast identity), `--color-secondary` a terracotta clay (the highland
+   soil the farms grow in), `--color-tertiary` a muted dried-cherry red-brown
+   (the ripe cherry before processing), `--color-accent` the near-black of a
+   fresh dark roast, and `--color-light` the pale golden hue of brewed
+   cascara/crema — warm, earthy, appetite- and craft-adjacent tones a
+   visitor could plausibly trace back to specialty coffee even without a
+   label. Each palette also defines a `[data-theme="dark"]` variant,
+   mirroring how the shared `--primary`/`--primary-foreground` tokens invert
+   between Light and Dark: `primary` and `light` swap polarity, `secondary`
+   and `accent` get theme-appropriate values, `tertiary` stays the same
+   mid-tone — so `--color-*` stays high-contrast and legible in both themes,
+   exactly like the rest of this landing's token system. Currently consumed
+   by every official primary-variant button/link: the skip link, Header's
+   "Discover our coffee" CTA (desktop and mobile), Hero's primary CTA,
+   CTAFinal's primary CTA, and Contact's submit button. */
+
+:root,
+html[data-palette="grayscale"] {
+  --color-primary: #171717;
+  --color-secondary: #404040;
+  --color-tertiary: #737373;
+  --color-accent: #a3a3a3;
+  --color-light: #f5f5f5;
+}
+
+html[data-palette="cascara"] {
+  --color-primary: #5b2a1f;
+  --color-secondary: #b5651d;
+  --color-tertiary: #6b2f2a;
+  --color-accent: #241209;
+  --color-light: #f2c98a;
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"][data-palette="grayscale"] {
+  --color-primary: #f5f5f5;
+  --color-secondary: #a3a3a3;
+  --color-tertiary: #737373;
+  --color-accent: #404040;
+  --color-light: #171717;
+}
+
+html[data-theme="dark"][data-palette="cascara"] {
+  --color-primary: #f2c98a;
+  --color-secondary: #d99a4e;
+  --color-tertiary: #6b2f2a;
+  --color-accent: #f0b23e;
+  --color-light: #2a130c;
+}
+
+/* "Fresh Greens" — a second opt-in palette grounded in the highland
+   agriculture side of this landing's story (the living plant, not just the
+   roasted bean): `--color-primary` is hunter-green (#386641, the deepest,
+   most saturated tone in the set — the CTA-driving color), `--color-light`
+   is vanilla-cream (#f2e8cf, the palest tone — brewed-milk warmth),
+   `--color-secondary` sage-green (#6a994e, the working mid-tone of the
+   coffee shrub's own foliage), `--color-tertiary` yellow-green (#a7c957,
+   the brightest leaf/new-growth tone), and `--color-accent` blushed-brick
+   (#bc4749, the one warm contrast note — ripe cherry against the green).
+   Contrast: primary-on-light for the primary CTA is ~5.5:1 in Light
+   (#386641 on #f2e8cf) and ~11.8:1 in Dark (#f2e8cf on #1b2e1f); the
+   `palette-surface-primary`/`palette-surface-light` section swaps stay
+   >6.5:1 against their paired `inverted-foreground`/`foreground`/`muted`
+   text in both themes. Dark's `primary` reuses Light's `light` value
+   literally (a bright cream reads correctly against Dark's near-black
+   `inverted-foreground`); Dark's `light` is a freshly chosen deep
+   forest-green surface (not a literal reuse of Light's primary) sized for
+   contrast against Dark's light `foreground`/`muted` text; `secondary` and
+   `accent` are brightened, same-hue variants of their Light values so they
+   stay visible against dark surfaces; `tertiary` is unchanged, already
+   bright enough to read in both themes. */
+html[data-palette="fresh-greens"] {
+  --color-primary: #386641;
+  --color-secondary: #6a994e;
+  --color-tertiary: #a7c957;
+  --color-accent: #bc4749;
+  --color-light: #f2e8cf;
+}
+
+html[data-theme="dark"][data-palette="fresh-greens"] {
+  --color-primary: #f2e8cf;
+  --color-secondary: #8fc46e;
+  --color-tertiary: #a7c957;
+  --color-accent: #e0707a;
+  --color-light: #1b2e1f;
+}
+
+/* "Mystic Midnight Tones" — a third opt-in palette leaning into the roast's
+   after-dark, small-batch craft register rather than the daylight-farm
+   story the other two palettes tell: `--color-primary` is midnight-violet
+   (#31081f, the darkest, most saturated tone — the CTA-driving color),
+   `--color-light` is alabaster-grey (#dce0d9, the palest tone),
+   `--color-secondary` black-cherry (#6b0f1a, a deep wine-red mid-tone),
+   `--color-tertiary` charcoal (#595959, a neutral mid-grey that keeps one
+   foot in the grayscale system), and `--color-accent` grey-olive (#808f85,
+   a muted, desaturated green-grey — a quiet accent rather than a loud one,
+   matching the palette's restrained, late-night register). Contrast:
+   primary-on-light for the primary CTA is ~13.3:1 in Light (#31081f on
+   #dce0d9) and ~14.1:1 in Dark (#dce0d9 on #24051a); the
+   `palette-surface-primary`/`palette-surface-light` section swaps stay
+   >14:1 against their paired `inverted-foreground`/`foreground`/`muted`
+   text in both themes. Dark's `primary` reuses Light's `light` value
+   literally (already gives excellent contrast against Dark's near-black
+   `inverted-foreground`, no adjustment needed); Dark's `light` is a
+   freshly chosen, near-black violet surface in the same hue family as
+   Light's primary but distinct from a literal reuse of it; `secondary` and
+   `accent` are brightened, same-hue variants of their Light values
+   (black-cherry and grey-olive) so they stay visible against dark
+   surfaces; `tertiary` (charcoal) is unchanged, already a workable
+   mid-grey in both themes. */
+html[data-palette="mystic-midnight"] {
+  --color-primary: #31081f;
+  --color-secondary: #6b0f1a;
+  --color-tertiary: #595959;
+  --color-accent: #808f85;
+  --color-light: #dce0d9;
+}
+
+html[data-theme="dark"][data-palette="mystic-midnight"] {
+  --color-primary: #dce0d9;
+  --color-secondary: #b23347;
+  --color-tertiary: #595959;
+  --color-accent: #a3b0a6;
+  --color-light: #24051a;
+}
+
+/* Section-level palette effect — see the astro-landing-pages Skill
+   "Per-landing color palette" § "Section-level effect (not just
+   buttons/photos)". These utilities only ever set `background-color`
+   inside the same `[data-palette]:not([data-palette="grayscale"])` guard
+   as `photo-tone` above, so they carry zero color in the mandatory
+   grayscale default (§9). Always paired in markup alongside — never
+   instead of — the section's existing grayscale surface utility:
+   `palette-surface-primary` next to `bg-inverted` (OurCoffee, Stats — both
+   invert Light/Dark the same way `--color-primary` does, so
+   `text-inverted-foreground` stays correctly contrasted with no text-color
+   change: ~11.6:1 Light / ~12:1 Dark), `palette-surface-light` next to
+   `bg-background-alt` (Testimonials, About — both track the same Light/Dark
+   polarity as `--color-light`, so `text-foreground`/`text-muted` stay
+   correctly contrasted: `text-muted` on `--color-light` is ~4.8:1 Light /
+   ~10.8:1 Dark). Neither of these four sections contains a `bg-control`-
+   style interactive element, so the control-contrast pitfall described in
+   the Skill doesn't apply here and no `palette-control` utility is needed. */
+@utility palette-surface-primary {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-primary);
+  }
+}
+
+@utility palette-surface-light {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-light);
+  }
 }

@@ -1,7 +1,9 @@
 ---
 import { getCategory } from "../../data/categories"
 import { slugifyTag } from "../../utils/slugify"
+import { withBase } from "../../utils/url"
 import type { LandingProps } from "../../types/landing"
+import WidgetAboutMe from "./WidgetAboutMe.astro"
 
 type Props = LandingProps
 
@@ -17,10 +19,6 @@ const dateFormatter = new Intl.DateTimeFormat("es", { dateStyle: "medium" })
   <div class="flex flex-col gap-2">
     <dt class="uppercase font-semibold text-xs text-muted/60">Categoría</dt>
     <dd class="font-medium text-sm">{category?.label ?? data.category}</dd>
-  </div>
-  <div class="flex flex-col gap-2">
-    <dt class="uppercase font-semibold text-xs text-muted/60">Autor</dt>
-    <dd class="font-medium text-sm">{data.author}</dd>
   </div>
   <div class="flex flex-col gap-2">
     <dt class="uppercase font-semibold text-xs text-muted/60">Creada</dt>
@@ -64,7 +62,7 @@ const dateFormatter = new Intl.DateTimeFormat("es", { dateStyle: "medium" })
           {data.tags.map((tag: string) => (
             <a
               class="h-7 inline-flex items-center justify-center rounded-full px-4 bg-foreground/5 motion-safe:transition-colors duration-300 text-xs font-medium hover:bg-foreground/10"
-              href={`/landings/tags/${slugifyTag(tag)}`}
+              href={withBase(`/landings/tags/${slugifyTag(tag)}`)}
             >
               {tag.charAt(0).toUpperCase() + tag.slice(1)}
             </a>
@@ -73,4 +71,9 @@ const dateFormatter = new Intl.DateTimeFormat("es", { dateStyle: "medium" })
       </div>
     )
   }
+  <div class="flex flex-col gap-2 col-span-1 sm:col-span-2">
+    <dt class="uppercase font-semibold text-xs text-muted/60">Autor</dt>
+    <dd class="font-medium text-sm hidden">{data.author}</dd>
+    <WidgetAboutMe />
+  </div>
 </dl>

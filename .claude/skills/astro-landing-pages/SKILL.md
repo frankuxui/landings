@@ -36,7 +36,7 @@ Rules:
 
 ### The landing's displayed name matches its slug
 
-The brand/site name shown on the page — `Header.astro`'s logo text, `Footer.astro`'s logo/copyright, `<title>`/`og:title`, and `src/content/landings/[slug].json`'s `name`/`title` — is the Title Case form of the landing's own slug, not an invented fictional brand. `coffee-producer` → "Coffee Producer", `solar-energy` → "Solar Energy", `silver-print` → "Silver Print". This keeps the gallery's identity (the slug) and the landing's on-page identity (what a visitor reads) always in sync, so a landing is instantly recognizable from either its URL or its own header — a fictional brand name (e.g. "Terraltura" for `coffee-producer`) is a mismatch to fix, not a stylistic choice to keep. Fictional place names, product names, or other flavor content used *inside* the landing's copy (e.g. a coffee origin's regional name) are unaffected by this rule — it governs only the landing's own displayed identity.
+The brand/site name shown on the page — `Header.astro`'s logo text, `Footer.astro`'s logo/copyright, `<title>`/`og:title`, and `src/content/landings/[slug].json`'s `name`/`title` — is the Title Case form of the landing's own slug, not an invented fictional brand. `coffee-producer` → "Coffee Producer", `solar-energy` → "Solar Energy", `silver-print` → "Silver Print". This keeps the gallery's identity (the slug) and the landing's on-page identity (what a visitor reads) always in sync, so a landing is instantly recognizable from either its URL or its own header — a fictional brand name (e.g. "Terraltura" for `coffee-producer`) is a mismatch to fix, not a stylistic choice to keep. Fictional place names, product names, or other flavor content used _inside_ the landing's copy (e.g. a coffee origin's regional name) are unaffected by this rule — it governs only the landing's own displayed identity.
 
 ### No logo marks — the wordmark is the logo
 
@@ -224,7 +224,7 @@ If a landing genuinely needs a breakpoint step this set doesn't cover, that is a
 - A landing with a dense grid of cards (pricing tiers, product cards, stat blocks) needs a `text-headline-3`/body scale that stays legible at small card widths — oversized card headings are a common failure mode, watch for it specifically.
 - A landing whose header logo, nav, and CTA all have to fit on one line at the `nav:` breakpoint needs its logotype and nav type sized with that constraint in mind — a large logo wordmark plus a full-size nav plus a CTA button is exactly how a header breaks first, before any content section does.
 
-Pick real numbers (a `clamp(min, preferred, max)` per role, same shape as before) that fit the landing being designed, and treat them as fixed for *that* landing once chosen — still no arbitrary one-off `text-[32px]` in markup, still driven entirely through the `@theme` tokens. Differentiation between landings now comes from both composition *and* the typographic scale itself, not composition alone.
+Pick real numbers (a `clamp(min, preferred, max)` per role, same shape as before) that fit the landing being designed, and treat them as fixed for _that_ landing once chosen — still no arbitrary one-off `text-[32px]` in markup, still driven entirely through the `@theme` tokens. Differentiation between landings now comes from both composition _and_ the typographic scale itself, not composition alone.
 
 **`--font-sans` must be remapped to `--font-base`.** Every landing's `<html>`/`<body>` already carries the `font-sans` Tailwind utility (see folder-structure markup below) — without `--font-sans: var(--font-base)` in `@theme`, that utility silently falls back to Tailwind's default system sans-serif and Wix Madefor Text never actually renders in an isolated build. Do not "fix" this by adding a native `html, body { font-family: var(--font-base) }` rule instead — remap the token so the existing utility resolves correctly.
 
@@ -246,7 +246,9 @@ Pick real numbers (a `clamp(min, preferred, max)` per role, same shape as before
 ```astro
 <div>
   <p class="mb-4 text-xs uppercase">Eyebrow label</p>
-  <h2 class="max-w-heading text-headline-2 font-semibold">A heading with the correct width.</h2>
+  <h2 class="max-w-heading text-headline-2 font-semibold">
+    A heading with the correct width.
+  </h2>
 </div>
 ```
 
@@ -295,7 +297,7 @@ Every `<img>` rendering a real photograph applies a single `@utility photo-tone`
 
 This keeps photography grayscale by default (as §9 requires) while automatically recovering full color the instant a landing's optional color palette (see "Optional per-landing color palettes" below) is anything other than grayscale — tied to the same `data-palette` attribute the palette tokens already key off, no extra script or state needed. A landing without a palette picker yet simply never sets `data-palette`, so `photo-tone` behaves exactly like plain `grayscale`/`contrast-*` did — inert until a palette system is added, at which point photography responds automatically with zero further change.
 
-The `[data-palette]` presence check in the override matters and must not be dropped: `:not([data-palette="grayscale"])` alone also matches when the attribute is simply *absent* (today's actual default before any palette is ever chosen), which would show color instead of grayscale by default — exactly backwards. Always require the attribute to be present via `[data-palette]:not(...)`.
+The `[data-palette]` presence check in the override matters and must not be dropped: `:not([data-palette="grayscale"])` alone also matches when the attribute is simply _absent_ (today's actual default before any palette is ever chosen), which would show color instead of grayscale by default — exactly backwards. Always require the attribute to be present via `[data-palette]:not(...)`.
 
 ## 10. Light / Dark
 
@@ -330,9 +332,15 @@ Never via CSS `@import url(...)`. Never more than one font family loaded per lan
 `<html>` and `<body>` in `index.astro` apply the font and color-scheme entirely through Tailwind utilities — never through a native CSS rule:
 
 ```html
-<html lang="en" class="scroll-smooth overflow-x-clip scheme-light motion-reduce:scroll-auto dark:scheme-dark font-sans">
+<html
+  lang="en"
+  class="scroll-smooth overflow-x-clip scheme-light motion-reduce:scroll-auto dark:scheme-dark font-sans"
+>
   ...
-  <body class="min-h-full overflow-x-clip bg-background text-base leading-relaxed text-foreground antialiased font-sans">
+  <body
+    class="min-h-full overflow-x-clip bg-background text-base leading-relaxed text-foreground antialiased font-sans"
+  ></body>
+</html>
 ```
 
 `scheme-light`/`dark:scheme-dark` replace a native `color-scheme` declaration; `font-sans` (resolving to `--font-base` via the `--font-sans` remap in `@theme`) replaces a native `font-family` declaration. A landing that instead declares `color-scheme` or `font-family` inside `:root`/`html, body {}` in its `tailwind.css` is duplicating what the markup already does correctly — remove the CSS rule, don't add a second mechanism.
@@ -552,6 +560,103 @@ Declare in `src/content/landings/[slug].json` under `palettes`. Values must exac
 ### Mechanism
 
 Mirrors the Light/Dark bridge: `PaletteOptions` dispatches `preview:palette` → `PreviewShell` relays via `postMessage` → landing's `scripts/palette.ts` toggles `data-palette` on its own `document.documentElement` only. Persisted to `localStorage` with synchronous restore in `<head>`. Reference implementation: `chocolate-factory`.
+
+### Section-level effect (not just buttons/photos)
+
+A palette limited to the primary button and `photo-tone` is real but subtle — a visitor can switch palettes and barely notice. Every landing's palette should also give **2–4 deliberately chosen sections** a visibly different surface color when a non-grayscale palette is active, so switching the palette reads as an obvious, page-level change, not just a tinted button. Reference implementation: `editorial-journal` (`styles/tailwind.css`, `sections/EditorsPicks.astro`, `sections/CTAFinal.astro`, `sections/Newsletter.astro`).
+
+**The exact mechanism** (declared next to `photo-tone`, same file, same guard):
+
+```css
+@utility palette-surface-primary {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-primary);
+  }
+}
+
+@utility palette-surface-light {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-light);
+  }
+}
+```
+
+Each utility only ever sets `background-color` inside the `html[data-palette]:not([data-palette="grayscale"])` guard — never outside it, and never a bare declaration of its own. That means it carries no color in the grayscale/default state (§9 stays intact) and must always be paired in markup with the section's existing grayscale surface utility, never replace it:
+
+```astro
+<section class="bg-inverted palette-surface-primary ...">
+  <section class="bg-background palette-surface-light ...">
+    <section class="bg-background-alt palette-surface-light ..."></section>
+  </section>
+</section>
+```
+
+**Which token to pick, and why it stays accessible without touching any text token:** match the palette token to the semantic surface token it's replacing, based on how each already behaves across Light/Dark, not by picking a color that merely looks good:
+
+- A section using `bg-inverted`/`text-inverted-foreground` (a surface that is dark-with-light-text in Light mode and light-with-dark-text in Dark mode) pairs with `palette-surface-primary` (`--color-primary`) — `--color-primary` is defined to invert Light/Dark exactly the same way `--inverted` does, so the section's existing `text-inverted-foreground` (and any `/NN` opacity steps on it) stay correctly contrasted with zero changes to the text color itself.
+- A section using `bg-background`/`bg-background-alt` with ordinary `text-foreground`/`text-muted` copy pairs with `palette-surface-light` (`--color-light`) — `--color-light` is defined to track `--background`'s own Light/Dark behavior (light surface in Light mode, dark surface in Dark mode), so `text-foreground`/`text-muted` again stay correctly contrasted unchanged.
+
+Because the chosen palette token always mirrors the light/dark polarity of the semantic token it replaces, this pattern gets correct WCAG AA contrast in both Light and Dark, for every palette, without introducing a second set of foreground tokens — verify it anyway for each palette actually shipped (near-black/near-white palette hues make this easy to satisfy, but a palette with a mid-tone `--color-primary`/`--color-light` must be checked, not assumed).
+
+Pick sections deliberately, not everywhere: candidates are sections that already carry a distinct surface role in the grayscale design (an inverted/dark band, an alt-background band, a card panel) so the swap reads as a genuine 1:1 surface replacement — never a new color introduced where none existed, and never so many sections that the grayscale default and the palette state stop feeling like the same layout.
+
+### The control-contrast pitfall
+
+`palette-surface-primary`/`palette-surface-light` only ever repaint a section's _background_, on the assumption that whatever text/foreground token already sits on top of it (`text-inverted-foreground`, `text-foreground`, `text-muted`, …) keeps working unchanged because it mirrors the same Light/Dark polarity. That assumption holds for _text_, but not automatically for a grayscale **control** (a `bg-control`-style secondary button, chip, or badge) that happens to live inside one of those sections: `--control` is a plain neutral gray, with no relationship to the palette at all, so once the section's background moves to `--color-primary`/`--color-light`, the control's own gray background can land at a similar luminance to the section behind it in whichever theme happens to put both colors in the same range — and the control visually disappears, even though its own text-on-control contrast is technically fine. This is a real, recurring failure mode, not a one-off styling bug — check for it any time a `palette-surface-primary`/`palette-surface-light` section contains a `bg-control`/`bg-surface`-style interactive element, not just full-bleed CTA buttons already built with `bg-(--color-primary)`/`text-(--color-light)`.
+
+**The fix pattern** (reference implementation: `chocolate-factory`, `styles/tailwind.css` `palette-control` next to `palette-surface-primary`/`palette-surface-light`, applied to Distribution's "Download dossier" button): unlike `palette-surface-*`, a control utility must swap **both** the background and the text/icon color together, because no existing grayscale text token is guaranteed to invert in the right direction against whichever palette hue is chosen as the control's new background:
+
+```css
+@utility palette-control {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-accent);
+    color: var(--color-control-foreground);
+  }
+
+  html[data-palette]:not([data-palette="grayscale"]) &:where(:hover, :active) {
+    background-color: var(--color-accent);
+    color: var(--color-control-foreground);
+    opacity: 0.88;
+  }
+}
+```
+
+- Pick the background hue by computing real contrast (WCAG relative luminance, not eyeballing) against whichever `palette-surface-*` background the control is actually likely to sit on in every theme × palette combination — `--color-accent` was chosen in `chocolate-factory` because it holds ~4:1 against `--color-light` in both Light and Dark for the "cocoa" palette; a different palette's `--color-accent` value must be checked independently rather than assumed safe.
+- Add a dedicated `--color-control-foreground` custom property (declared next to the palette's hues, one value per theme × palette combination) tuned so the control's text/icon clears 4.5:1 against that background — this is a contrast-only companion token, not a 7th palette hue, the same precedent as `--color-primary-foreground`.
+- Apply the new utility class _alongside_ the control's existing grayscale classes (`bg-control`, `text-foreground`, `hover:bg-control-hover`, …), never instead of them, so grayscale stays the untouched default and only a non-grayscale palette repaints the control — same guard, same additive pattern as `palette-surface-*`.
+- Full-bleed CTA buttons already built with `bg-(--color-primary)`/`text-(--color-light)` (the landing's primary-button convention) are already safe against a `palette-surface-*` section, because `--color-primary`/`--color-light` are defined as mirror-opposite pairs by construction — this pitfall is specific to secondary/tertiary controls still riding on plain grayscale `--control`.
+
+### Swiper active-bullet color
+
+The primary button, `photo-tone`, `palette-surface-*`, and `palette-control` are not the only accent points a palette should reach — a landing using Swiper Core (§18) also has its pagination bullets, and the _active_ bullet is exactly the kind of small, high-visibility accent (the "which slide am I on" indicator) that should visibly follow a palette switch, in the same spirit as the rest of this section.
+
+Every landing's Swiper pagination theming already declares a fixed grayscale pairing as a documented native-CSS exception (Tailwind has no utility for Swiper's custom properties), scoped to that landing's own slider selector:
+
+```css
+.stories-slider {
+  --swiper-pagination-color: var(--foreground);
+  --swiper-pagination-bullet-inactive-color: var(--muted);
+}
+```
+
+Add a palette override, same guard as everywhere else in this section, that switches only the _active_ bullet color (`--swiper-pagination-color`) to a palette token once a non-grayscale palette is active — leave `--swiper-pagination-bullet-inactive-color` on its existing grayscale `--muted` token untouched, since the inactive dots are not the accent:
+
+```css
+.stories-slider {
+  --swiper-pagination-color: var(--foreground);
+  --swiper-pagination-bullet-inactive-color: var(--muted);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    --swiper-pagination-color: var(--color-primary);
+  }
+}
+```
+
+**Which token to pick:** check the real background the slider actually sits in — if that section is plain `bg-background`/`bg-background-alt` with no `palette-surface-*` swap applied to it (the common case, since a slider section rarely doubles as one of the 2–4 chosen palette-tinted sections), `--color-primary` is the right choice: it's defined to mirror `--foreground`'s own Light/Dark polarity (dark-on-light in Light, light-on-dark in Dark), so it stays high-contrast against a plain neutral surface in both themes without needing a dedicated contrast-companion token, the same reasoning as the primary-button convention. If the slider instead sits inside a section that _does_ carry a `palette-surface-primary`/`palette-surface-light` background, treat the bullet like the `palette-control` case instead — verify `--color-primary`/`--color-accent` against that section's actual palette-swapped background, not the plain neutral one, and use `--color-accent` + a contrast-companion token if `--color-primary` doesn't clear a real 3:1 there.
+
+Verify the actual contrast (WCAG relative luminance, not eyeballing) for the chosen token against the slider's real background, for every palette × theme combination the landing defines — not just one. Reference implementation: `chocolate-factory` (`.products-slider` in `styles/tailwind.css`, `--color-primary` against plain `--background-alt`, ~13.9:1 Light / ~14.6:1 Dark for the "cocoa" palette) and `editorial-journal` (`.archive-slider`, `--color-primary` against plain `--background`, ~15–16:1 across both "broadsheet" and "proof-blue" in both themes).
+
+**Known debt:** `solar-energy`, `aperture-editions`, `grandparent-care`, `coffee-producer`, `pet-care-haven`, and `journalist-dispatch` all still ship this same fixed grayscale Swiper pagination pattern, unmodified — each with its own slider selector name and its own `--foreground`/`--inverted-foreground` + `--muted` pairing, none of it wired to that landing's palette yet. This is debt to fix, not intentional, the same way `palettes: []` and the canonical-breakpoints deviations are debt — bring each landing's active-bullet color in line with its own palette (following the same verification requirement above) whenever that landing is next touched for palette-related work, rather than leaving it as an unnoticed gap.
 
 ## Category guidance
 

@@ -205,13 +205,30 @@
    properties rather than Tailwind-generated classes — Tailwind has no
    utility for them, so this is the minimal, official, landing-local way to
    keep the pagination on the monochrome token system instead of Swiper's
-   default color. */
+   default color. The active bullet also follows this landing's optional
+   color palette (see the astro-landing-pages Skill "Per-landing color
+   palette" § the Swiper pagination pattern): only `--swiper-pagination-
+   color` (the active bullet, the "which slide am I on" accent) switches to
+   `--color-primary` once a non-grayscale palette is active — the inactive
+   bullets stay on the plain grayscale `--muted` token, unchanged. This
+   section (`bg-background-alt`) never gets a `palette-surface-*` background
+   swap, so `--color-primary` is checked directly against the plain
+   `--background-alt` neutral surface: cocoa's `--color-primary` on
+   `--background-alt` is ~13.9:1 in Light (#461615 on #f5f5f5) and ~14.6:1 in
+   Dark (#ffe6a7 on #171717) — `--color-primary` mirrors `--foreground`'s own
+   Light/Dark polarity (dark-on-light, then light-on-dark), so it stays
+   legible against this plain neutral surface in both themes without a
+   separate contrast token. */
 .products-slider {
   --swiper-pagination-color: var(--foreground);
   --swiper-pagination-bullet-inactive-color: var(--muted);
   --swiper-pagination-bullet-inactive-opacity: 0.5;
   --swiper-pagination-bullet-size: 0.4rem;
   --swiper-pagination-bullet-horizontal-gap: 0.375rem;
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    --swiper-pagination-color: var(--color-primary);
+  }
 }
 
 .products-slider-pagination .swiper-pagination-bullet {
@@ -244,6 +261,7 @@
    this landing's token system. Currently consumed by every official
    `primary`-variant button/link: the skip link, Header's "View collection"
    CTA (desktop and mobile), Hero's CTA, and Contact's submit button. */
+
 :root,
 html[data-palette="grayscale"] {
   --color-primary: #171717;
@@ -251,6 +269,7 @@ html[data-palette="grayscale"] {
   --color-tertiary: #737373;
   --color-accent: #a3a3a3;
   --color-light: #f5f5f5;
+  --color-control-foreground: var(--color-black);
 }
 
 html[data-palette="cocoa"] {
@@ -258,8 +277,9 @@ html[data-palette="cocoa"] {
   --color-primary-foreground: #ffe6a7;
   --color-secondary: #bb9457;
   --color-tertiary: #432818;
-  --color-accent: #99582a;
-  --color-light: #ffe6a7;
+  --color-accent: #000000;
+  --color-light: #ffd876;
+  --color-control-foreground: var(--color-white);
 }
 
 html[data-theme="dark"],
@@ -269,14 +289,16 @@ html[data-theme="dark"][data-palette="grayscale"] {
   --color-tertiary: #737373;
   --color-accent: #404040;
   --color-light: #171717;
+  --color-control-foreground: var(--color-white);
 }
 
 html[data-theme="dark"][data-palette="cocoa"] {
-  --color-primary: #ffe6a7;
+  --color-primary: #ffd876;
   --color-secondary: #99582a;
   --color-tertiary: #432818;
-  --color-accent: #bb9457;
+  --color-accent: #ffcf58;
   --color-light: #6f1d1b;
+  --color-control-foreground: var(--color-black);
 }
 
 /* Photography stays grayscale (the mandatory default) but recovers its
@@ -295,5 +317,68 @@ html[data-theme="dark"][data-palette="cocoa"] {
 
   html[data-palette]:not([data-palette="grayscale"]) & {
     filter: none;
+  }
+}
+
+/* Section-level palette effect — see the astro-landing-pages Skill
+   "Per-landing color palette" § "Section-level effect (not just
+   buttons/photos)". These utilities only ever set `background-color`
+   inside the same `[data-palette]:not([data-palette="grayscale"])` guard
+   as `photo-tone` above, so they carry zero color in the mandatory
+   grayscale default (§9). Always paired in markup alongside — never
+   instead of — the section's existing grayscale surface utility:
+   `palette-surface-primary` next to `bg-inverted` (both invert Light/Dark
+   the same way, so `text-inverted-foreground` stays correctly contrasted
+   with no text-color change), `palette-surface-light` next to
+   `bg-background`/`bg-background-alt` (both track the same Light/Dark
+   polarity, so `text-foreground`/`text-muted` stay correctly contrasted). */
+@utility palette-surface-primary {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-primary);
+  }
+}
+
+@utility palette-surface-light {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-light);
+  }
+}
+
+/* Palette-aware control (button/chip) treatment — companion to
+   `palette-surface-primary`/`palette-surface-light` above. A grayscale
+   `bg-control`-style secondary control (e.g. Distribution's "Download
+   dossier" button) that lives inside a `palette-surface-*` section would
+   otherwise keep its plain `--control` gray background, which can land at
+   a similar luminance to the section's own palette background once a
+   non-grayscale palette is active (e.g. cocoa's dark maroon `--color-light`
+   in Dark theme) and disappear as a distinct clickable control even though
+   its own text-on-button contrast is fine. Unlike `palette-surface-*` —
+   which only ever changes a background, because the section's existing
+   text token already stays correctly contrasted against it — this utility
+   must swap the background AND the text/icon color together: no existing
+   grayscale text token inverts in the right direction against
+   `--color-accent` (`--color-accent` gets *darker* in Light and *lighter*
+   in Dark — the opposite of `--foreground`). `--color-accent` was picked
+   as the background because it holds ~4:1 contrast against `--color-light`
+   in both Light and Dark (see the astro-landing-pages Skill's "Section-
+   level effect" § control-contrast pitfall), so the control visually
+   separates from a `palette-surface-light` section; the dedicated
+   `--color-control-foreground` companion (declared next to each palette's
+   hues above) is tuned to clear 4.5:1 against `--color-accent` in both
+   themes. Always paired in markup alongside the control's existing
+   grayscale classes (`bg-control`, `text-foreground`, `hover:bg-control-
+   hover`, `active:bg-control-hover`) — never instead of them — so grayscale
+   stays the untouched default and only a non-grayscale palette repaints
+   the control. */
+@utility palette-control {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-accent);
+    color: var(--color-control-foreground);
+  }
+
+  html[data-palette]:not([data-palette="grayscale"]) &:where(:hover, :active) {
+    background-color: var(--color-accent);
+    color: var(--color-control-foreground);
+    opacity: 0.88;
   }
 }

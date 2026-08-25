@@ -1,5 +1,6 @@
 ---
 import { getCategory } from "../../data/categories"
+import { withBase } from "../../utils/url"
 import type { LandingProps } from "../../types/landing"
 
 type Props = LandingProps
@@ -11,8 +12,8 @@ const credit = landing.data.thumbnailCredit
 
 <article class="w-full col-span-4 mb-4">
   <a
-    href={`/landings/${landing.id}`}
-    class="landing-card group relative flex flex-col justify-end overflow-hidden rounded-3xl min-h-[clamp(300px,30vw,36rem)] bg-black/5 transition-shadow duration-300 hover:shadow-lg hover:shadow-black/20"
+    href={withBase(`/landings/${landing.id}`)}
+    class="landing-card group relative flex flex-col justify-end overflow-hidden rounded-3xl min-h-[clamp(400px,36vw,38rem)] bg-black/5 transition-shadow duration-300 hover:shadow-lg hover:shadow-black/20"
     aria-label={`Ver landing: ${landing.data.title}`}
   >
     {

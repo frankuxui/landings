@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css"
 import type { PageMetadata } from "../types/metadata"
+import { withBase } from "../utils/url"
 
 type Props = PageMetadata
 
@@ -21,8 +22,8 @@ const absoluteUrl = url ? `${baseUrl}${url}` : baseUrl
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <link rel="icon" href={withBase("/favicon.ico")} />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta property="og:type" content="website" />

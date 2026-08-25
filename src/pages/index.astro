@@ -7,6 +7,7 @@ import LandingCard from "../components/platform/LandingCard.astro"
 import { categories } from "../data/categories"
 import type { Category } from "../types/category"
 import type { LandingEntry } from "../types/landing"
+import { withBase } from "../utils/url"
 
 const allLandings = await getCollection(
   "landings",
@@ -39,7 +40,7 @@ const featured = allLandings
           </div>
           <a
             class="h-10 mt-4 md:ml-auto inline-flex items-center justify-center px-6 text-sm rounded-full font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-300"
-            href="/landings">Explorar landings</a
+            href={withBase("/landings")}>Explorar landings</a
           >
         </header>
       </div>
@@ -57,7 +58,7 @@ const featured = allLandings
             categories.map((category: Category) => (
               <a
                 class="flex flex-col items-start gap-2 p-6 mb-4 rounded-2xl bg-foreground/5 hover:bg-foreground/10 transition-colors duration-300 col-span-3 min-h-[clamp(100px,20vw,135px)]"
-                href={`/landings/category/${category.slug}`}
+                href={withBase(`/landings/category/${category.slug}`)}
               >
                 <h3 class="font-semibold text-lg">{category.label}</h3>
                 <p class="text-sm text-muted">{category.description}</p>

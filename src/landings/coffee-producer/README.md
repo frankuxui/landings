@@ -75,8 +75,46 @@ gallery, values owned by this landing): `--background`,
 
 ## Color palettes
 
-This landing does not define optional color palettes: it uses exclusively
-the default monochrome palette (`palettes: []` in its metadata).
+Strictly monochrome by default (`grayscale`), with three opt-in thematic
+palettes a visitor can switch to via the preview toolbar's palette
+selector:
+
+- **Cascara** (`cascara`) — named after the dried, tea-like infusion made
+  from the coffee cherry's own skin, grounding the palette directly in the
+  coffee-production chain this landing is about, not a generic reused set
+  of hues. `--color-primary` is a deep roasted-cherry brown (the roast
+  identity), `--color-secondary` a terracotta clay (the highland soil the
+  farms grow in), `--color-tertiary` a muted dried-cherry red-brown (the
+  ripe cherry before processing), `--color-accent` the near-black of a
+  fresh dark roast, and `--color-light` the pale golden hue of brewed
+  cascara/crema. Applied to the primary CTA/link convention (skip link,
+  Header's "Discover our coffee" CTA, Hero's CTA, CTAFinal's CTA, Contact's
+  submit button), to photography (`photo-tone` recovers full color), to the
+  Products slider's active pagination bullet, and to four sections chosen
+  for a visible, page-level surface swap: OurCoffee and Stats
+  (`palette-surface-primary`, next to their existing `bg-inverted`), and
+  About and Testimonials (`palette-surface-light`, next to their existing
+  `bg-background-alt`). Declared in `styles/tailwind.css` as
+  `[data-palette="cascara"]` (plus its `[data-theme="dark"]` variant),
+  switchable via `scripts/palette.ts` and persisted to `localStorage`
+  (`coffee-producer-palette`) with a synchronous, no-flash restore in
+  `index.astro`'s `<head>`. Mirrors `chocolate-factory`'s reference
+  implementation, scoped to this landing only.
+- **Fresh Greens** (`fresh-greens`) — leans into the living-plant, highland
+  agriculture side of the story rather than the roasted bean. `--color-primary`
+  is hunter-green (`#386641`), `--color-secondary` sage-green (`#6a994e`),
+  `--color-tertiary` yellow-green (`#a7c957`), `--color-accent` blushed-brick
+  (`#bc4749`, the one warm contrast note against all the greens), and
+  `--color-light` vanilla-cream (`#f2e8cf`). Declared as
+  `[data-palette="fresh-greens"]` plus its `[data-theme="dark"]` variant,
+  wired through the same `scripts/palette.ts` mechanism as Cascara.
+- **Mystic Midnight Tones** (`mystic-midnight`) — a darker, small-batch,
+  after-hours register. `--color-primary` is midnight-violet (`#31081f`),
+  `--color-secondary` black-cherry (`#6b0f1a`), `--color-tertiary` charcoal
+  (`#595959`), `--color-accent` grey-olive (`#808f85`), and `--color-light`
+  alabaster-grey (`#dce0d9`). Declared as `[data-palette="mystic-midnight"]`
+  plus its `[data-theme="dark"]` variant, wired through the same
+  `scripts/palette.ts` mechanism.
 
 ## Fictional data and privacy
 

@@ -36,6 +36,60 @@ const cultureImage: UnsplashImage = {
     "https://api.unsplash.com/photos/8raw7IqO-Yk/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8dmludGFnZSUyMG9mZmljZSUyMGNoYWlyJTIwZnVybml0dXJlfGVufDB8MHx8fDE3ODc2ODE4ODN8MA",
 }
 
+const technologyImage: UnsplashImage = {
+  id: "0VGG7cqTwCo",
+  src: "https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8aGFuZCUyMGhvbGRpbmclMjBzbWFydHBob25lJTIwc2NyZWVuJTIwY2xvc2UlMjB1cHxlbnwxfDB8fHwxNzg3Njg2Mzk5fDA&ixlib=rb-4.1.0",
+  alt: "A hand holding a smartphone, standing in for the interruptive rating prompt this story examines",
+  width: 6000,
+  height: 4000,
+  color: "#262640",
+  author: "Rodion Kutsaiev",
+  authorUrl:
+    "https://unsplash.com/@frostroomhead?utm_source=astro_landings_gallery&utm_medium=referral",
+  sourceUrl:
+    "https://unsplash.com/photos/person-holding-smartphone-0VGG7cqTwCo?utm_source=astro_landings_gallery&utm_medium=referral",
+  unsplashUrl:
+    "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+  downloadLocation:
+    "https://api.unsplash.com/photos/0VGG7cqTwCo/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8aGFuZCUyMGhvbGRpbmclMjBzbWFydHBob25lJTIwc2NyZWVuJTIwY2xvc2UlMjB1cHxlbnwxfDB8fHwxNzg3Njg2Mzk5fDA",
+}
+
+const designImage: UnsplashImage = {
+  id: "JzcEdsEy1hg",
+  src: "https://images.unsplash.com/photo-1776320267046-48aad358db5b?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Nnx8bGV0dGVycHJlc3MlMjBtZXRhbCUyMHR5cGUlMjBibG9ja3MlMjBtYWNyb3xlbnwxfDB8fHwxNzg3Njg2Mzk5fDA&ixlib=rb-4.1.0",
+  alt: "Antique wooden letterpress type blocks, the typeface craft this story is about",
+  width: 8163,
+  height: 6336,
+  color: "#262626",
+  author: "Declan Sun",
+  authorUrl:
+    "https://unsplash.com/@declansun?utm_source=astro_landings_gallery&utm_medium=referral",
+  sourceUrl:
+    "https://unsplash.com/photos/close-up-of-antique-wooden-letterpress-type-blocks-JzcEdsEy1hg?utm_source=astro_landings_gallery&utm_medium=referral",
+  unsplashUrl:
+    "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+  downloadLocation:
+    "https://api.unsplash.com/photos/JzcEdsEy1hg/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Nnx8bGV0dGVycHJlc3MlMjBtZXRhbCUyMHR5cGUlMjBibG9ja3MlMjBtYWNyb3xlbnwxfDB8fHwxNzg3Njg2Mzk5fDA",
+}
+
+const ideasImage: UnsplashImage = {
+  id: "eDrVX0B600w",
+  src: "https://images.unsplash.com/photo-1777144159742-a138f0f7f7dc?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8c3RhY2slMjBvZiUyMG9sZCUyMGJvb2tzJTIwc2hlbGZ8ZW58MXwwfHx8MTc4NzY4NjQwMHww&ixlib=rb-4.1.0",
+  alt: "A shelf densely packed with old books, many of them likely still unread",
+  width: 4608,
+  height: 2592,
+  color: "#260c0c",
+  author: "sourmarb",
+  authorUrl:
+    "https://unsplash.com/@sourmarb?utm_source=astro_landings_gallery&utm_medium=referral",
+  sourceUrl:
+    "https://unsplash.com/photos/a-bookshelf-filled-with-many-old-books-eDrVX0B600w?utm_source=astro_landings_gallery&utm_medium=referral",
+  unsplashUrl:
+    "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+  downloadLocation:
+    "https://api.unsplash.com/photos/eDrVX0B600w/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8c3RhY2slMjBvZiUyMG9sZCUyMGJvb2tzJTIwc2hlbGZ8ZW58MXwwfHx8MTc4NzY4NjQwMHww",
+}
+
 const peopleImage: UnsplashImage = {
   id: "505eectW54k",
   src: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8d3JpdGVyJTIwdHlwaW5nJTIwbm90ZWJvb2slMjBkZXNrfGVufDB8MHx8fDE3ODc2ODE4ODN8MA&ixlib=rb-4.1.0",
@@ -75,6 +129,7 @@ export const stories: Story[] = [
     date: "August 17, 2026",
     isoDate: "2026-08-17",
     readTime: "5 min read",
+    image: technologyImage,
   },
   {
     category: "Culture",
@@ -96,6 +151,7 @@ export const stories: Story[] = [
     date: "August 11, 2026",
     isoDate: "2026-08-11",
     readTime: "8 min read",
+    image: designImage,
   },
   {
     category: "Ideas",
@@ -106,6 +162,7 @@ export const stories: Story[] = [
     date: "August 8, 2026",
     isoDate: "2026-08-08",
     readTime: "9 min read",
+    image: ideasImage,
   },
   {
     category: "People",

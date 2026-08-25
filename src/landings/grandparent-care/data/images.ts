@@ -102,6 +102,71 @@ export const galleryImages: UnsplashImage[] = [
     downloadLocation:
       "https://api.unsplash.com/photos/0nvqzhZjWzw/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Z3JhbmRtb3RoZXIlMjBjb29raW5nJTIwa2l0Y2hlbiUyMGdyYW5kY2hpbGQlMjB0b2dldGhlcnxlbnwxfDB8fHwxNzg3NjgxNzk5fDA",
   },
+  {
+    id: "fcjiG7b5p6s",
+    src: "https://images.unsplash.com/photo-1758612898864-20590aab51fb?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Z3JhbmRmYXRoZXIlMjBncmFuZHNvbiUyMHBsYXlpbmclMjBjaGVzcyUyMHRhYmxlfGVufDB8MHx8fDE3ODc2ODkwNjR8MA&ixlib=rb-4.1.0&w=1600&h=1200&fit=crop&crop=entropy&auto=format&q=80",
+    alt: "A grandfather and his grandson leaning over a chessboard together, deep in thought",
+    width: 3840,
+    height: 2160,
+    author: "Vitaly Gariev",
+    authorUrl: `https://unsplash.com/@silverkblack?${UTM}`,
+    sourceUrl: `https://unsplash.com/photos/grandfather-and-grandson-playing-chess-together-indoors-fcjiG7b5p6s?${UTM}`,
+    unsplashUrl: `https://unsplash.com/?${UTM}`,
+    downloadLocation:
+      "https://api.unsplash.com/photos/fcjiG7b5p6s/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Z3JhbmRmYXRoZXIlMjBncmFuZHNvbiUyMHBsYXlpbmclMjBjaGVzcyUyMHRhYmxlfGVufDB8MHx8fDE3ODc2ODkwNjR8MA",
+  },
+  {
+    id: "C7G9Zo7R9lw",
+    src: "https://images.unsplash.com/photo-1758612897934-a56dbd09a39e?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NXx8Z3JhbmRwYXJlbnRzJTIwZ3JhbmRjaGlsZHJlbiUyMGxpdmluZyUyMHJvb20lMjBjb252ZXJzYXRpb24lMjBjYW5kaWR8ZW58MHwwfHx8MTc4NzY4OTEwNnww&ixlib=rb-4.1.0&w=1300&h=1700&fit=crop&crop=entropy&auto=format&q=80",
+    alt: "A grandfather and grandson lying side by side on the floor, mid-conversation",
+    width: 3840,
+    height: 2160,
+    author: "Vitaly Gariev",
+    authorUrl: `https://unsplash.com/@silverkblack?${UTM}`,
+    sourceUrl: `https://unsplash.com/photos/grandfather-and-grandson-lying-on-the-floor-talking-C7G9Zo7R9lw?${UTM}`,
+    unsplashUrl: `https://unsplash.com/?${UTM}`,
+    downloadLocation:
+      "https://api.unsplash.com/photos/C7G9Zo7R9lw/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NXx8Z3JhbmRwYXJlbnRzJTIwZ3JhbmRjaGlsZHJlbiUyMGxpdmluZyUyMHJvb20lMjBjb252ZXJzYXRpb24lMjBjYW5kaWR8ZW58MHwwfHx8MTc4NzY4OTEwNnww",
+  },
+  {
+    id: "0eybus8IRFo",
+    src: "https://images.unsplash.com/photo-1776613049786-0054c719b453?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8OHx8ZWxkZXJseSUyMHdvbWFuJTIwZ3JhbmRjaGlsZCUyMHdhbGtpbmclMjBwYXRoJTIwaGFuZCUyMGluJTIwaGFuZHxlbnwwfDB8fHwxNzg3Njg5MTA1fDA&ixlib=rb-4.1.0&w=1800&h=1200&fit=crop&crop=entropy&auto=format&q=80",
+    alt: "An elderly couple walking hand in hand along a quiet outdoor path",
+    width: 3713,
+    height: 2475,
+    author: "Andreea Munteanu",
+    authorUrl: `https://unsplash.com/@andreeamun?${UTM}`,
+    sourceUrl: `https://unsplash.com/photos/elderly-couple-walking-hand-in-hand-outdoors-0eybus8IRFo?${UTM}`,
+    unsplashUrl: `https://unsplash.com/?${UTM}`,
+    downloadLocation:
+      "https://api.unsplash.com/photos/0eybus8IRFo/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8OHx8ZWxkZXJseSUyMHdvbWFuJTIwZ3JhbmRjaGlsZCUyMHdhbGtpbmclMjBwYXRoJTIwaGFuZCUyMGluJTIwaGFuZHxlbnwwfDB8fHwxNzg3Njg5MTA1fDA",
+  },
+  {
+    id: "7BaYZDLzWYs",
+    src: "https://images.unsplash.com/photo-1787258110694-ce4e8c7715d5?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8ZWxkZXJseSUyMHdvbWFuJTIwZ3JhbmRjaGlsZCUyMHdhbGtpbmclMjBwYXRoJTIwaGFuZCUyMGluJTIwaGFuZHxlbnwwfDB8fHwxNzg3Njg5MTA1fDA&ixlib=rb-4.1.0&w=1300&h=1700&fit=crop&crop=entropy&auto=format&q=80",
+    alt: "An older woman walking alone along a dirt path lined with wildflowers",
+    width: 6500,
+    height: 4305,
+    author: "Clara García",
+    authorUrl: `https://unsplash.com/@kara_belle?${UTM}`,
+    sourceUrl: `https://unsplash.com/photos/woman-walking-on-path-with-flowers-7BaYZDLzWYs?${UTM}`,
+    unsplashUrl: `https://unsplash.com/?${UTM}`,
+    downloadLocation:
+      "https://api.unsplash.com/photos/7BaYZDLzWYs/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8ZWxkZXJseSUyMHdvbWFuJTIwZ3JhbmRjaGlsZCUyMHdhbGtpbmclMjBwYXRoJTIwaGFuZCUyMGluJTIwaGFuZHxlbnwwfDB8fHwxNzg3Njg5MTA1fDA",
+  },
+  {
+    id: "Al8e7zVpdkA",
+    src: "https://images.unsplash.com/photo-1631981787167-2a2d0a5b4492?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8Z3JhbmRmYXRoZXIlMjBncmFuZGNoaWxkJTIwcGxhbnRpbmclMjBnYXJkZW4lMjB0b2dldGhlcnxlbnwwfDF8fHwxNzg3Njg5MTA1fDA&ixlib=rb-4.1.0&w=1200&h=1600&fit=crop&crop=entropy&auto=format&q=80",
+    alt: "An older man tending quietly to plants in his garden",
+    width: 2783,
+    height: 4175,
+    author: "Pauline Bernard",
+    authorUrl: `https://unsplash.com/@studiopoline?${UTM}`,
+    sourceUrl: `https://unsplash.com/photos/an-older-man-is-tending-to-a-garden-Al8e7zVpdkA?${UTM}`,
+    unsplashUrl: `https://unsplash.com/?${UTM}`,
+    downloadLocation:
+      "https://api.unsplash.com/photos/Al8e7zVpdkA/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8Z3JhbmRmYXRoZXIlMjBncmFuZGNoaWxkJTIwcGxhbnRpbmclMjBnYXJkZW4lMjB0b2dldGhlcnxlbnwwfDF8fHwxNzg3Njg5MTA1fDA",
+  },
 ]
 
 export const storyImages: Record<string, UnsplashImage> = {

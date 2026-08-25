@@ -1,5 +1,6 @@
 ---
 import { categories } from "../../data/categories"
+import { withBase } from "../../utils/url"
 import type { Category } from "../../types/category"
 
 interface Props {
@@ -15,7 +16,7 @@ const { active } = Astro.props
   role="navigation"
 >
   <a
-    href="/landings"
+    href={withBase("/landings")}
     class="rounded-full inline-flex items-center justify-center px-4 h-9 text-sm font-semibold transition-colors duration-300 hover:bg-foreground/5 data-[active=true]:bg-foreground/10"
     data-active={!active ? "true" : "false"}
   >
@@ -24,7 +25,7 @@ const { active } = Astro.props
   {
     categories.map((category: Category) => (
       <a
-        href={`/landings/category/${category.slug}`}
+        href={withBase(`/landings/category/${category.slug}`)}
         class="rounded-full inline-flex items-center justify-center px-4 h-9 text-sm font-semibold transition-colors duration-300 hover:bg-foreground/5 data-[active=true]:bg-foreground/10"
         data-active={active === category.slug ? "true" : "false"}
       >

@@ -4,18 +4,8 @@
   "description": "Specialty coffee grown, selected, and roasted in the Altos de Vientoclaro highlands, from bean to cup for cafés, restaurants, and homes.",
   "subtitle": "Single-origin coffee grown and roasted in the highlands",
   "category": "business",
-  "tags": [
-    "coffee",
-    "production",
-    "craft",
-    "origin",
-    "sustainability"
-  ],
-  "technologies": [
-    "Astro",
-    "CSS",
-    "@lucide/astro"
-  ],
+  "tags": ["coffee", "production", "craft", "origin", "sustainability"],
+  "technologies": ["Astro", "CSS", "@lucide/astro"],
   "thumbnail": "https://images.unsplash.com/photo-1672851612794-6687bf0bf1a3?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8Y29mZmVlJTIwY2hlcnJpZXMlMjBicmFuY2glMjBwbGFudCUyMGNsb3NldXB8ZW58MXwwfHx8MTc4NzQ3NTcwNHww&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
   "thumbnailAlt": "Cluster of ripe coffee beans hanging from the branch",
   "thumbnailWidth": 5568,
@@ -39,14 +29,44 @@
         "accent": "#a3a3a3",
         "light": "#f5f5f5"
       }
+    },
+    {
+      "id": "cascara",
+      "name": "Cascara",
+      "colors": {
+        "primary": "#5b2a1f",
+        "secondary": "#b5651d",
+        "tertiary": "#6b2f2a",
+        "accent": "#241209",
+        "light": "#f2c98a"
+      }
+    },
+    {
+      "id": "fresh-greens",
+      "name": "Fresh Greens",
+      "colors": {
+        "primary": "#386641",
+        "secondary": "#6a994e",
+        "tertiary": "#a7c957",
+        "accent": "#bc4749",
+        "light": "#f2e8cf"
+      }
+    },
+    {
+      "id": "mystic-midnight",
+      "name": "Mystic Midnight Tones",
+      "colors": {
+        "primary": "#31081f",
+        "secondary": "#6b0f1a",
+        "tertiary": "#595959",
+        "accent": "#808f85",
+        "light": "#dce0d9"
+      }
     }
   ],
   "createdAt": "2026-08-22",
   "author": "frankuxui",
-  "themes": [
-    "light",
-    "dark"
-  ],
+  "themes": ["light", "dark"],
   "featured": true,
   "status": "published"
 }

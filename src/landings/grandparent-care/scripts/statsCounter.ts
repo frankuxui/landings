@@ -26,6 +26,14 @@ if (statItems.length > 0) {
     })
   }
 
+  // Track only the ScrollTrigger instances this module creates. Killing
+  // `ScrollTrigger.getAll()` would tear down every trigger on the page —
+  // including ones already registered by other sections that appear earlier
+  // in the DOM (e.g. the Gallery reveals) — permanently freezing them in
+  // their pre-reveal hidden state since nothing would remain to fire the
+  // reveal animation.
+  let statScrollTriggers: ScrollTrigger[] = []
+
   const animateStats = (): void => {
     statItems.forEach((item: HTMLElement) => {
       const { display, value, suffix } = readStat(item)
@@ -33,7 +41,7 @@ if (statItems.length > 0) {
 
       const counter = { count: 0 }
 
-      gsap.to(counter, {
+      const tween = gsap.to(counter, {
         count: value,
         duration: 2,
         ease: "power2.out",
@@ -46,13 +54,15 @@ if (statItems.length > 0) {
           display.textContent = `${Math.floor(counter.count)}${suffix}`
         },
       })
+      if (tween.scrollTrigger) statScrollTriggers.push(tween.scrollTrigger)
     })
   }
 
   const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
 
   const applyMotionPreference = (prefersReducedMotion: boolean): void => {
-    ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) => trigger.kill())
+    statScrollTriggers.forEach((trigger: ScrollTrigger) => trigger.kill())
+    statScrollTriggers = []
     setFinalValues()
     if (!prefersReducedMotion) animateStats()
   }

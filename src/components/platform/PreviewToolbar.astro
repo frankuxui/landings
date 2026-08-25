@@ -7,6 +7,7 @@ import {
 } from "@lucide/astro"
 import DeviceSelector from "./DeviceSelector.astro"
 import ThemeSelector from "./ThemeSelector.astro"
+import { withBase } from "../../utils/url"
 import type { LandingPreviewProps } from "../../types/preview"
 
 type Props = LandingPreviewProps
@@ -23,7 +24,7 @@ const { name, slug } = Astro.props
       <div class="flex-none">
         <a
           class="inline-flex items-center gap-2 group"
-          href={`/landings/${slug}`}
+          href={withBase(`/landings/${slug}`)}
           aria-label="Volver al catálogo"
         >
           <span

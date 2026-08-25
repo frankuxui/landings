@@ -187,13 +187,30 @@
    properties rather than Tailwind-generated classes — Tailwind has no
    utility for them, so this is the minimal, official, landing-local way to
    keep the pagination and drag cursor on the monochrome token system
-   instead of Swiper's default color. */
+   instead of Swiper's default color. The active bullet also follows this
+   landing's optional color palette (see the astro-landing-pages Skill
+   "Per-landing color palette" § the Swiper pagination pattern): only
+   `--swiper-pagination-color` (the active bullet) switches to
+   `--color-primary` once a non-grayscale palette is active — the inactive
+   bullets stay on the plain grayscale `--muted` token. This section
+   (`bg-background`) never gets a `palette-surface-*` swap, so
+   `--color-primary` is checked directly against the plain `--background`
+   neutral surface for both palettes: "broadsheet" is ~15.7:1 in Light
+   (#2b1c12 on #fafafa) and ~16:1 in Dark (#f3e6cc on #0a0a0a); "proof-blue"
+   is ~15:1 in Light (#16233b on #fafafa) and ~16.8:1 in Dark (#e8edf3 on
+   #0a0a0a) — `--color-primary` mirrors `--foreground`'s own Light/Dark
+   polarity, so it stays legible against this plain neutral surface for
+   every palette × theme combination this landing defines. */
 .archive-slider {
   --swiper-pagination-color: var(--foreground);
   --swiper-pagination-bullet-inactive-color: var(--muted);
   --swiper-pagination-bullet-inactive-opacity: 0.6;
   --swiper-pagination-bullet-size: 0.5rem;
   --swiper-pagination-bullet-horizontal-gap: 0.375rem;
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    --swiper-pagination-color: var(--color-primary);
+  }
 }
 
 .archive-slider-pagination .swiper-pagination-bullet {
@@ -233,7 +250,33 @@
    `primary`-variant button/link: the skip link, Header's mobile "Subscribe"
    CTA, Hero's "Read the feature" CTA, Feature's "Continue reading" CTA,
    CTAFinal's "Explore the archive" CTA, and the Newsletter's submit
-   button. */
+   button.
+
+   `palette-surface-primary`/`palette-surface-light` (below) extend the same
+   idea from buttons/photos to whole sections, so switching the palette reads
+   as an obvious, page-level change rather than a single tinted button.
+   Deliberately applied to only three sections, each already carrying a
+   distinct surface role in the grayscale design so the swap reads as a true
+   1:1 replacement, never a new color introduced on top:
+   - EditorsPicks — already `bg-inverted`/`text-inverted-foreground` (dark
+     surface, light text). `palette-surface-primary` swaps that dark surface
+     for `--color-primary`, which is deliberately defined to invert
+     light/dark exactly like `--inverted` does, so the existing
+     `text-inverted-foreground` (and its `/60`, `/75`, `/15`, `/30` opacity
+     steps in EditorPickItem) keep working unchanged and stay legible against
+     the new colored surface in both Light and Dark.
+   - CTAFinal and Newsletter — plain `bg-background`/`bg-background-alt`
+     sections using ordinary `text-foreground`/`text-muted` copy.
+     `palette-surface-light` swaps that surface for `--color-light`, which is
+     defined to track `--background`'s own light/dark behavior (light in
+     Light mode, dark in Dark mode), so `text-foreground`/`text-muted` stay
+     correctly contrasted without any change to the text tokens themselves.
+   Both utilities only ever override the `background-color` already declared
+   by the section's own `bg-inverted`/`bg-background`/`bg-background-alt`
+   utility in markup — they carry no color value of their own in the
+   grayscale state, so the default first-seen page is completely unaffected
+   (§9). See "Per-landing color palette" → "Section-level effect" in the
+   astro-landing-pages Skill for the reusable pattern this documents. */
 :root,
 html[data-palette="grayscale"] {
   --color-primary: #171717;
@@ -282,6 +325,29 @@ html[data-theme="dark"][data-palette="proof-blue"] {
   --color-tertiary: #6b86a6;
   --color-accent: #2f4d7a;
   --color-light: #16233b;
+}
+
+/* Section-level palette effect — see the doc comment above the palette
+   blocks for which sections use these and why. Each utility only overrides
+   `background-color`; it never sets one on its own, so it must always be
+   paired in markup with the section's existing grayscale background
+   utility (`bg-inverted`, `bg-background`, `bg-background-alt`) rather than
+   replacing it — that base class is what the grayscale/default state
+   renders, and this override only ever fires once a non-grayscale palette
+   is active. Same `[data-palette]:not([data-palette="grayscale"])` guard as
+   `photo-tone` above, for the same reason: `:not([data-palette="grayscale"])`
+   alone also matches when the attribute is absent (today's actual default),
+   which would show color before any palette is ever chosen. */
+@utility palette-surface-primary {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-primary);
+  }
+}
+
+@utility palette-surface-light {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-light);
+  }
 }
 
 /* Photography stays grayscale (the mandatory default) but recovers its

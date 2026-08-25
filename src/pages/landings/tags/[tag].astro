@@ -5,6 +5,7 @@ import Navbar from "../../../components/platform/Navbar.astro"
 import Footer from "../../../components/platform/Footer.astro"
 import LandingCard from "../../../components/platform/LandingCard.astro"
 import { slugifyTag } from "../../../utils/slugify"
+import { withBase } from "../../../utils/url"
 import type { LandingEntry } from "../../../types/landing"
 
 export async function getStaticPaths() {
@@ -65,7 +66,7 @@ const labelName = label.charAt(0).toUpperCase() + label.slice(1)
         </p>
         <a
           class="h-10 mt-4 inline-flex items-center justify-center px-6 text-sm rounded font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-300"
-          href="/landings">Explorar landings</a
+          href={withBase("/landings")}>Explorar landings</a
         >
       </header>
       <div class="mt-6 grid grid-cols-12 w-full gap-x-4">

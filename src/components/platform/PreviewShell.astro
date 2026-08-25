@@ -6,12 +6,13 @@
 import { PanelTopOpen, GripVertical } from "@lucide/astro"
 import PreviewToolbar from "./PreviewToolbar.astro"
 import OptionsPanel from "./OptionsPanel.astro"
+import { withBase } from "../../utils/url"
 import type { LandingPreviewProps } from "../../types/preview"
 
 type Props = LandingPreviewProps
 
 const { name, slug, palettes } = Astro.props
-const renderUrl = `/landings/${slug}/render`
+const renderUrl = withBase(`/landings/${slug}/render`)
 ---
 
 <div class="preview-shell" id="preview-shell">
