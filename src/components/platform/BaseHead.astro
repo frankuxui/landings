@@ -1,0 +1,150 @@
+---
+// Platform-only SEO head. Used exclusively by the catalog shell (Layout.astro)
+// — never imported inside a landing, which owns its own <head> per the
+// isolation rule.
+import type { PageMetadata } from "../../types/metadata"
+import { withBase } from "../../utils/url"
+
+type Props = PageMetadata
+
+const SITE_NAME = "Landing Pages Gallery"
+const DEFAULT_TITLE = "Landing Pages Gallery"
+const DEFAULT_DESCRIPTION =
+  "Explora, visualiza y consulta una colección de Landing Pages construidas con Astro, agrupadas por categoría."
+const DEFAULT_IMAGE = "/opengraph.png"
+const LOCALE = "es_ES"
+
+const {
+  title = DEFAULT_TITLE,
+  description = DEFAULT_DESCRIPTION,
+  image = DEFAULT_IMAGE,
+  imageAlt = SITE_NAME,
+  url,
+  type = "website",
+  noindex = false,
+} = Astro.props
+
+const baseUrl = Astro.url.origin
+const isAbsoluteImage = /^https?:\/\//.test(image)
+const absoluteImage = isAbsoluteImage ? image : `${baseUrl}${withBase(image)}`
+const absoluteUrl = url ? `${baseUrl}${url}` : `${baseUrl}${Astro.url.pathname}`
+
+const webSiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: `${baseUrl}${withBase("/")}`,
+  description: DEFAULT_DESCRIPTION,
+  inLanguage: "es",
+}
+
+const webPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": type === "article" ? "Article" : "WebPage",
+  name: title,
+  description,
+  url: absoluteUrl,
+  isPartOf: {
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: `${baseUrl}${withBase("/")}`,
+  },
+  inLanguage: "es",
+}
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={absoluteUrl} />
+<meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
+
+<meta
+  name="theme-color"
+  content="#ffffff"
+  media="(prefers-color-scheme: light)"
+/>
+<meta
+  name="theme-color"
+  content="#0d0d12"
+  media="(prefers-color-scheme: dark)"
+/>
+
+<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+<link rel="icon" type="image/x-icon" href={withBase("/favicon.ico")} />
+<link
+  rel="icon"
+  type="image/png"
+  sizes="16x16"
+  href={withBase("/favicon-16x16.png")}
+/>
+<link
+  rel="icon"
+  type="image/png"
+  sizes="32x32"
+  href={withBase("/favicon-32x32.png")}
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="57x57"
+  href={withBase("/apple-touch-icon-57x57.png")}
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="72x72"
+  href={withBase("/apple-touch-icon-72x72.png")}
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="76x76"
+  href={withBase("/apple-touch-icon-76x76.png")}
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="114x114"
+  href={withBase("/apple-touch-icon-114x114.png")}
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="120x120"
+  href={withBase("/apple-touch-icon-120x120.png")}
+/>
+<link
+  rel="apple-touch-icon"
+  sizes="144x144"
+  href={withBase("/apple-touch-icon-144x144.png")}
+/>
+<link rel="apple-touch-icon" href={withBase("/apple-touch-icon.png")} />
+<link rel="manifest" href={withBase("/site.webmanifest")} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={SITE_NAME} />
+<meta property="og:locale" content={LOCALE} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={absoluteUrl} />
+<meta property="og:image" content={absoluteImage} />
+<meta property="og:image:alt" content={imageAlt} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={absoluteImage} />
+<meta name="twitter:image:alt" content={imageAlt} />
+
+<!-- Structured data -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(webSiteJsonLd)}
+  is:inline
+/>
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(webPageJsonLd)}
+  is:inline
+/>

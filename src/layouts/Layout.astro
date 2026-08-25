@@ -1,37 +1,15 @@
 ---
 import "../styles/global.css"
+import BaseHead from "../components/platform/BaseHead.astro"
 import type { PageMetadata } from "../types/metadata"
-import { withBase } from "../utils/url"
 
 type Props = PageMetadata
-
-const {
-  title = "Landing Pages Gallery",
-  description = "Explora, visualiza y consulta una colección de Landing Pages construidas con Astro.",
-  image,
-  url,
-} = Astro.props
-
-const baseUrl = Astro.url.origin
-const absoluteImage = image ? `${baseUrl}${image}` : undefined
-const absoluteUrl = url ? `${baseUrl}${url}` : baseUrl
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
-    <link rel="icon" href={withBase("/favicon.ico")} />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    {absoluteImage && <meta property="og:image" content={absoluteImage} />}
-    <meta property="og:url" content={absoluteUrl} />
-    <title>{title}</title>
+    <BaseHead {...Astro.props} />
   </head>
   <body>
     <slot />
