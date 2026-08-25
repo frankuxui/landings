@@ -1,0 +1,67 @@
+---
+// Emotional gallery — an asymmetric layout of three large photographs, each
+// revealed through its own clip-path wipe and drifting on scroll (see
+// scripts/galleryReveal.ts), rather than a uniform grid.
+import PhotoCredit from "../components/PhotoCredit.astro"
+import { galleryImages } from "../data/images"
+import type { UnsplashImage } from "../types"
+---
+
+<section class="bg-background py-section" aria-labelledby="gallery-heading">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+    >
+      Moments
+    </p>
+    <h2
+      id="gallery-heading"
+      class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      data-split-reveal
+    >
+      Ordinary days, held onto.
+    </h2>
+  </div>
+
+  <div
+    class="mx-auto mt-14 grid w-full max-w-landing grid-cols-1 gap-6 px-container-x sm:grid-cols-6 sm:gap-8 sm:px-8 xl:px-14"
+  >
+    {
+      galleryImages.map((image: UnsplashImage, index: number) => (
+        <figure
+          class:list={[
+            "m-0 flex flex-col",
+            index === 0 && "sm:col-span-4",
+            index === 1 && "sm:col-span-2 sm:mt-16",
+            index === 2 && "sm:col-span-3",
+          ]}
+          data-gallery-item
+        >
+          <div
+            class="relative w-full overflow-hidden aspect-4/3"
+            data-gallery-wrap
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              title={`Photo by ${image.author} on Unsplash`}
+              width={image.width}
+              height={image.height}
+              loading="lazy"
+              decoding="async"
+              class="absolute inset-0 h-full w-full object-cover photo-tone"
+              data-gallery-image
+            />
+          </div>
+          <figcaption class="mt-2">
+            <PhotoCredit image={image} />
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  import "../scripts/galleryReveal"
+</script>

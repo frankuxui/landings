@@ -2,18 +2,11 @@
 const year = new Date().getFullYear()
 ---
 
-<footer class="footer">
-  <p>
-    &copy; {year} Landing Pages Gallery. Colección de Landing Pages construidas con
-    Astro.
-  </p>
+<footer class="w-full border-t border-border py-10 text-sm text-muted">
+  <div class="container">
+    <p>
+      &copy; {year} Galería de landing pages. Colección de Landing Pages construidas
+      con Astro.
+    </p>
+  </div>
 </footer>
-
-<style>
-  .footer {
-    padding: 2rem clamp(1rem, 4vw, 2.5rem);
-    border-top: 1px solid var(--platform-border);
-    color: var(--platform-text-muted);
-    font-size: 0.85rem;
-  }
-</style>

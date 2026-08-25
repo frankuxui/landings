@@ -1,4 +1,4 @@
-// Folio — GSAP active-topic tracking for the "Dispatch" sticky section.
+// Editorial Journal — GSAP active-topic tracking for the "Dispatch" sticky section.
 //
 // Baseline (works with zero JS): the sticky left column shows a plain list
 // of topic links next to a normally-scrolling right column of dispatch

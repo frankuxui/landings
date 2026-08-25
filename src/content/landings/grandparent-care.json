@@ -1,0 +1,56 @@
+{
+  "name": "Grandparent Care",
+  "title": "Grandparent Care — Accompaniment for families",
+  "description": "Grandparent Care gives talks on aging with dignity, provides personal accompaniment for older adults, and guides families through the conversations that matter, so no grandparent grows old alone.",
+  "subtitle": "Talks, accompaniment, and guidance for aging with dignity",
+  "category": "business",
+  "tags": [
+    "elderly care",
+    "family accompaniment",
+    "aging with dignity",
+    "community workshops",
+    "loneliness awareness"
+  ],
+  "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
+  "thumbnail": "https://images.unsplash.com/photo-1593100126453-19b562a800c1?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Z3JhbmRtb3RoZXIlMjBncmFuZGNoaWxkJTIwaHVnJTIwd2FybSUyMHN1bmxpZ2h0fGVufDF8MHx8fDE3ODc2ODE3MzZ8MA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
+  "thumbnailAlt": "A grandmother laughing as she hugs her grandchild close, cheek to cheek",
+  "thumbnailWidth": 3872,
+  "thumbnailHeight": 2592,
+  "thumbnailCredit": {
+    "id": "L4nwL3195U0",
+    "author": "Ekaterina Shakharova",
+    "authorUrl": "https://unsplash.com/@minigirl?utm_source=astro_landings_gallery&utm_medium=referral",
+    "sourceUrl": "https://unsplash.com/photos/elderly-woman-hugging-young-child-L4nwL3195U0?utm_source=astro_landings_gallery&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+    "downloadLocation": "https://api.unsplash.com/photos/L4nwL3195U0/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Z3JhbmRtb3RoZXIlMjBncmFuZGNoaWxkJTIwaHVnJTIwd2FybSUyMHN1bmxpZ2h0fGVufDF8MHx8fDE3ODc2ODE3MzZ8MA"
+  },
+  "palettes": [
+    {
+      "id": "grayscale",
+      "name": "Grayscale",
+      "colors": {
+        "primary": "#171717",
+        "secondary": "#404040",
+        "tertiary": "#737373",
+        "accent": "#a3a3a3",
+        "light": "#f5f5f5"
+      }
+    },
+    {
+      "id": "warmth",
+      "name": "Warmth",
+      "colors": {
+        "primary": "#6b3a2c",
+        "secondary": "#b56b5c",
+        "tertiary": "#4a4030",
+        "accent": "#8a9a72",
+        "light": "#f6efe4"
+      }
+    }
+  ],
+  "createdAt": "2026-08-25",
+  "author": "frankuxui",
+  "themes": ["light", "dark"],
+  "featured": false,
+  "status": "published"
+}

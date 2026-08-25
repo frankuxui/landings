@@ -1,5 +1,5 @@
 ---
-// Folio - root document for this landing.
+// Editorial Journal - root document for this landing.
 // Fully self-contained: no platform Layout, no platform CSS/components.
 // Rendered in isolation by src/pages/landings/[slug]/render.astro.
 import "./styles/tailwind.css"
@@ -18,10 +18,12 @@ import EditorsPicks from "./sections/EditorsPicks.astro"
 import Newsletter from "./sections/Newsletter.astro"
 import CTAFinal from "./sections/CTAFinal.astro"
 import Footer from "./sections/Footer.astro"
+import BackToTop from "./components/BackToTop.astro"
 
-const pageTitle = "Folio — A Journal of Design, Architecture & Ideas"
+const pageTitle =
+  "Editorial Journal — A Journal of Design, Architecture & Ideas"
 const pageDescription =
-  "Folio is a weekly journal covering design, architecture, culture, technology, ideas, and the people shaping them — feature reports, long-form essays, interviews, and a running dispatch of shorter notes."
+  "Editorial Journal is a weekly journal covering design, architecture, culture, technology, ideas, and the people shaping them — feature reports, long-form essays, interviews, and a running dispatch of shorter notes."
 const canonicalUrl = "/landings/editorial-journal"
 const thumbnailUrl =
   "https://images.unsplash.com/photo-1754783591383-17e596af9e74?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Nnx8bWFnYXppbmUlMjBlZGl0b3JpYWwlMjBsYXlvdXQlMjB0eXBvZ3JhcGh5JTIwZGVza3xlbnwxfDB8fHwxNzg3NDc1NzQ2fDA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80"
@@ -37,6 +39,18 @@ const thumbnailUrl =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
+
+    <!-- Restore the persisted theme choice before first paint, so this
+    landing's own toggle survives a reload when viewed standalone (outside
+    the platform preview shell). -->
+    <script is:inline>
+      ;(function () {
+        const saved = localStorage.getItem("editorial-journal:theme")
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved)
+        }
+      })()
+    </script>
 
     <!-- Shared Landing Pages typeface — Wix Madefor Text (Google Fonts).
     Every landing loads the exact same weights/styles here; never via
@@ -60,12 +74,26 @@ const thumbnailUrl =
     <meta property="og:description" content={pageDescription} />
     <meta property="og:image" content={thumbnailUrl} />
     <meta property="og:url" content={canonicalUrl} />
+
+    <!-- Synchronous, no-flash restore of a previously chosen color palette
+    (see scripts/palette.ts and "Per-landing color palette" in the
+    astro-landing-pages Skill) — must run before first paint, so it lives
+    inline in <head> rather than the deferred module script at the end of
+    <body>. Grayscale (no attribute / the CSS default) applies when nothing
+    is stored. -->
+    <script is:inline>
+      try {
+        var storedPalette = localStorage.getItem("editorial-journal:palette")
+        if (storedPalette)
+          document.documentElement.dataset.palette = storedPalette
+      } catch (error) {}
+    </script>
   </head>
   <body
     class="min-h-full overflow-x-clip bg-background text-base leading-relaxed text-foreground antialiased font-sans"
   >
     <a
-      class="absolute -top-full left-4 z-1000 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-md px-5 py-3 text-base font-semibold no-underline transition duration-200 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border border-0 bg-primary text-primary-foreground hover:bg-emphasis active:bg-emphasis focus-visible:top-4"
+      class="absolute -top-full left-4 z-1000 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-md px-5 py-3 text-base font-semibold no-underline transition duration-200 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border border-0 bg-(--color-primary) text-(--color-light) hover:opacity-90 active:opacity-90 focus-visible:top-4"
       href="#main-content"
     >
       Skip to main content
@@ -90,11 +118,15 @@ const thumbnailUrl =
 
     <Footer />
 
+    <BackToTop />
+
     <script>
       import "./scripts/theme"
+      import "./scripts/palette"
       import "./scripts/reveal"
       import "./scripts/navIndicator"
       import "./scripts/parallax"
+      import "./scripts/backToTop"
     </script>
   </body>
 </html>

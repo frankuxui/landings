@@ -1,12 +1,13 @@
-// Folio — subtle GSAP parallax for the 1–2 large protagonist placeholders
-// flagged with `data-parallax` (see ImagePlaceholder.astro's `parallax`
-// prop): the Hero cover image and the Long-form article's wide image.
+// Editorial Journal — subtle GSAP parallax for the 1–2 large protagonist
+// photographs flagged with `data-parallax` (see components/Photo.astro's
+// `parallax` prop): the Hero cover image and the Long-form article's wide
+// image.
 //
 // Each drifts a few percent slower/faster than the page scroll, scrubbed to
 // scroll position for a restrained editorial depth effect. Baseline:
 // without this script, or with `prefers-reduced-motion: reduce`, every
 // target renders fully static — the effect is a pure enhancement, and each
-// target is pre-scaled (see ImagePlaceholder.astro) so the drift never
+// target is pre-scaled (see Photo.astro's `scale-115`) so the drift never
 // exposes an edge.
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"

@@ -1,6 +1,7 @@
 ---
-import ImagePlaceholder from "../components/ImagePlaceholder.astro"
+import Photo from "../components/Photo.astro"
 import { interviewIntro, interviewExchanges } from "../data/interview"
+import { interviewImage } from "../data/media"
 import type { InterviewExchange } from "../types"
 ---
 
@@ -25,9 +26,10 @@ import type { InterviewExchange } from "../types"
         In conversation: a type designer on slowness.
       </h2>
 
-      <ImagePlaceholder
-        label="Portrait — type designer"
+      <Photo
+        image={interviewImage}
         ratio="3 / 4"
+        sizes="(min-width: 64rem) 20rem, 80vw"
         class="mt-8 max-w-xs"
       />
 

@@ -1,4 +1,58 @@
-import type { Story } from "../types"
+import type { Story, UnsplashImage } from "../types"
+
+const architectureImage: UnsplashImage = {
+  id: "GQaro7fRn4w",
+  src: "https://images.unsplash.com/photo-1759311889280-c0612de9b10d?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NHx8bW9kZXJuJTIwc3RhaXJjYXNlJTIwYXJjaGl0ZWN0dXJlJTIwaW50ZXJpb3J8ZW58MHwwfHx8MTc4NzY4MTg4Mnww&ixlib=rb-4.1.0",
+  alt: "A black-and-white spiral staircase, the modest municipal-library stair this story is about",
+  width: 6000,
+  height: 4000,
+  color: "#262626",
+  author: "Hassaan Tahir",
+  authorUrl:
+    "https://unsplash.com/@hassaan_tahir?utm_source=astro_landings_gallery&utm_medium=referral",
+  sourceUrl:
+    "https://unsplash.com/photos/a-black-and-white-shot-of-a-spiral-staircase-GQaro7fRn4w?utm_source=astro_landings_gallery&utm_medium=referral",
+  unsplashUrl:
+    "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+  downloadLocation:
+    "https://api.unsplash.com/photos/GQaro7fRn4w/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NHx8bW9kZXJuJTIwc3RhaXJjYXNlJTIwYXJjaGl0ZWN0dXJlJTIwaW50ZXJpb3J8ZW58MHwwfHx8MTc4NzY4MTg4Mnww",
+}
+
+const cultureImage: UnsplashImage = {
+  id: "8raw7IqO-Yk",
+  src: "https://images.unsplash.com/photo-1548763671-8777c887b95a?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8dmludGFnZSUyMG9mZmljZSUyMGNoYWlyJTIwZnVybml0dXJlfGVufDB8MHx8fDE3ODc2ODE4ODN8MA&ixlib=rb-4.1.0",
+  alt: "A retired wooden office chair standing alone in a room",
+  width: 6000,
+  height: 4000,
+  color: "#260c0c",
+  author: "Adrian Holmes",
+  authorUrl:
+    "https://unsplash.com/@awinhayden?utm_source=astro_landings_gallery&utm_medium=referral",
+  sourceUrl:
+    "https://unsplash.com/photos/brown-wooden-armless-chair-inside-room-8raw7IqO-Yk?utm_source=astro_landings_gallery&utm_medium=referral",
+  unsplashUrl:
+    "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+  downloadLocation:
+    "https://api.unsplash.com/photos/8raw7IqO-Yk/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8dmludGFnZSUyMG9mZmljZSUyMGNoYWlyJTIwZnVybml0dXJlfGVufDB8MHx8fDE3ODc2ODE4ODN8MA",
+}
+
+const peopleImage: UnsplashImage = {
+  id: "505eectW54k",
+  src: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8d3JpdGVyJTIwdHlwaW5nJTIwbm90ZWJvb2slMjBkZXNrfGVufDB8MHx8fDE3ODc2ODE4ODN8MA&ixlib=rb-4.1.0",
+  alt: "A correspondent's hand writing longhand notes in a notebook",
+  width: 6000,
+  height: 4000,
+  color: "#734026",
+  author: "Thought Catalog",
+  authorUrl:
+    "https://unsplash.com/@thoughtcatalog?utm_source=astro_landings_gallery&utm_medium=referral",
+  sourceUrl:
+    "https://unsplash.com/photos/person-holding-ballpoint-pen-writing-on-notebook-505eectW54k?utm_source=astro_landings_gallery&utm_medium=referral",
+  unsplashUrl:
+    "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+  downloadLocation:
+    "https://api.unsplash.com/photos/505eectW54k/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8d3JpdGVyJTIwdHlwaW5nJTIwbm90ZWJvb2slMjBkZXNrfGVufDB8MHx8fDE3ODc2ODE4ODN8MA",
+}
 
 export const stories: Story[] = [
   {
@@ -10,7 +64,7 @@ export const stories: Story[] = [
     date: "August 19, 2026",
     isoDate: "2026-08-19",
     readTime: "7 min read",
-    thumbnail: "Architecture story image",
+    image: architectureImage,
   },
   {
     category: "Technology",
@@ -31,7 +85,7 @@ export const stories: Story[] = [
     date: "August 14, 2026",
     isoDate: "2026-08-14",
     readTime: "6 min read",
-    thumbnail: "Culture story image",
+    image: cultureImage,
   },
   {
     category: "Design",
@@ -62,6 +116,6 @@ export const stories: Story[] = [
     date: "August 4, 2026",
     isoDate: "2026-08-04",
     readTime: "6 min read",
-    thumbnail: "People story image",
+    image: peopleImage,
   },
 ]

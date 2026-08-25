@@ -4,18 +4,16 @@
   --foreground: #070707;
   --background: #ffffff;
   --muted: #565656;
+  --border: #e2e2e7;
 
   --primary: #4338ca;
   --primary-foreground: #ffffff;
 
-  --platform-bg: #ffffff;
-
-  --platform-surface: #f5f5f7;
+  --surface: #f5f5f7;
   --platform-border: #e2e2e7;
   --platform-text: #14141a;
   --platform-text-muted: #5c5c66;
-  --platform-accent: #4338ca;
-  --platform-accent-contrast: #ffffff;
+
   --platform-radius: 12px;
 
   --font: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -23,9 +21,11 @@
 @theme {
   --color-foreground: var(--foreground);
   --color-background: var(--background);
+  --color-border: var(--border);
   --color-muted: var(--muted);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-surface: var(--surface);
 }
 
 @layer components {
@@ -36,8 +36,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --platform-bg: #0d0d12;
-    --platform-surface: #17171e;
+    --background: #0d0d12;
+    --surface: #17171e;
     --platform-border: #2a2a33;
     --platform-text: #f2f2f5;
     --platform-text-muted: #a3a3ad;

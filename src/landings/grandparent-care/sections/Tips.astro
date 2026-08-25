@@ -1,0 +1,32 @@
+---
+import TipCard from "../components/TipCard.astro"
+import { tips } from "../data/tips"
+import type { Tip } from "../types"
+---
+
+<section class="bg-background py-section" aria-labelledby="tips-heading">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div>
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        Practical care
+      </p>
+      <h2
+        id="tips-heading"
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        data-split-reveal
+      >
+        Small habits that keep a grandparent close.
+      </h2>
+    </div>
+
+    <div class="mt-14 grid grid-cols-1 gap-4 cards:grid-cols-2 lg:grid-cols-3">
+      {
+        tips.map((tip: Tip, index: number) => (
+          <TipCard tip={tip} index={index} />
+        ))
+      }
+    </div>
+  </div>
+</section>

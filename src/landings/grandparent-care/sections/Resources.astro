@@ -1,0 +1,36 @@
+---
+import ResourceCard from "../components/ResourceCard.astro"
+import { resources } from "../data/resources"
+import type { Resource } from "../types"
+---
+
+<section
+  class="bg-background-alt py-section"
+  id="resources"
+  aria-labelledby="resources-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div>
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        Resources and support
+      </p>
+      <h2
+        id="resources-heading"
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        data-split-reveal
+      >
+        Free guides for the conversations ahead.
+      </h2>
+    </div>
+
+    <div class="mt-14 grid grid-cols-1 gap-6 cards:grid-cols-2 lg:grid-cols-3">
+      {
+        resources.map((resource: Resource, index: number) => (
+          <ResourceCard resource={resource} index={index} />
+        ))
+      }
+    </div>
+  </div>
+</section>

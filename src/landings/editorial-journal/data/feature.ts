@@ -1,6 +1,9 @@
 // The single "This Week's Report" featured article shown in the Feature
 // section. Kept as its own small typed record — not an array — since only
 // one feature runs at a time, unlike the repeated Story/DispatchItem shapes.
+import { featureImage } from "./media"
+import type { UnsplashImage } from "../types"
+
 export interface FeatureArticle {
   category: string
   title: string
@@ -9,7 +12,7 @@ export interface FeatureArticle {
   date: string
   isoDate: string
   readTime: string
-  imageLabel: string
+  image: UnsplashImage
 }
 
 export const featureArticle: FeatureArticle = {
@@ -21,5 +24,5 @@ export const featureArticle: FeatureArticle = {
   date: "August 21, 2026",
   isoDate: "2026-08-21",
   readTime: "12 min read",
-  imageLabel: "Featured report image",
+  image: featureImage,
 }

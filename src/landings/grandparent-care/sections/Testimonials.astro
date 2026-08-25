@@ -1,0 +1,35 @@
+---
+// Family testimonials — text-only quote cards, deliberately distinct from
+// the photographic "Stories" carousel above.
+import TestimonialCard from "../components/TestimonialCard.astro"
+import { testimonials } from "../data/testimonials"
+import type { Testimonial } from "../types"
+---
+
+<section
+  class="bg-background py-section"
+  aria-labelledby="testimonials-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+    >
+      What families say
+    </p>
+    <h2
+      id="testimonials-heading"
+      class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      data-split-reveal
+    >
+      Their words, not ours.
+    </h2>
+
+    <div class="mt-14 grid grid-cols-1 gap-6 cards:grid-cols-2">
+      {
+        testimonials.map((testimonial: Testimonial, index: number) => (
+          <TestimonialCard testimonial={testimonial} index={index} />
+        ))
+      }
+    </div>
+  </div>
+</section>

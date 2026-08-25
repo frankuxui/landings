@@ -1,0 +1,48 @@
+---
+// "Signs to watch for" — informative, gentle in tone, never a diagnostic
+// checklist. Paired with a quiet, thoughtful portrait rather than anything
+// clinical.
+import Photo from "../components/Photo.astro"
+import SignItem from "../components/SignItem.astro"
+import { signs } from "../data/signs"
+import { signsImage } from "../data/images"
+import type { Sign } from "../types"
+---
+
+<section class="bg-background-alt py-section" aria-labelledby="signs-heading">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+      <div>
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          Something worth noticing
+        </p>
+        <h2
+          id="signs-heading"
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+          data-split-reveal
+        >
+          Quiet signs a grandparent may need more support.
+        </h2>
+        <p class="mt-6 max-w-copy text-muted">
+          None of these are cause for alarm on their own. They're worth a gentle
+          conversation — not an intervention — and a closer look at how someone
+          is really doing.
+        </p>
+
+        <ul class="mt-10">
+          {
+            signs.map((sign: Sign, index: number) => (
+              <SignItem sign={sign} index={index} />
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <Photo image={signsImage} ratio="3 / 4" class="max-w-md lg:ml-auto" />
+      </div>
+    </div>
+  </div>
+</section>

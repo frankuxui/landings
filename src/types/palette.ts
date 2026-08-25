@@ -1,17 +1,22 @@
 /**
- * A landing's optional color-palette system. Every landing defaults to the
- * grayscale palette (the platform's monochrome baseline); a landing may
- * additionally define one or more chromatic palettes the visitor can switch
- * between via the preview toolbar's palette selector. See "Optional
- * per-landing color palettes" in the astro-landing-pages Skill.
+ * Every landing owns a chromatic palette rooted in its theme and color
+ * psychology; the visitor still lands on the grayscale palette first (the
+ * platform's monochrome baseline) and switches via the preview toolbar's
+ * palette selector. See "Per-landing color palette" in the
+ * astro-landing-pages Skill.
  */
 
-/** The 5 shared CSS custom properties every landing palette must define. */
+/**
+ * The shared CSS custom properties a landing palette may define — up to 6.
+ * `primary` and `light` are the only two every palette must set; the rest
+ * are used only as far as the landing's own concept calls for them.
+ */
 export interface PaletteColors {
   primary: string
-  secondary: string
-  tertiary: string
-  accent: string
+  secondary?: string
+  tertiary?: string
+  accent?: string
+  support?: string
   light: string
 }
 

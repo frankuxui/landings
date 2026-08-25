@@ -31,11 +31,18 @@ const { palettes } = Astro.props
         aria-pressed={palette.id === DEFAULT_PALETTE_ID}
       >
         <span class="palette-swatch" aria-hidden="true">
-          <span style={`background:${palette.colors.primary}`} />
-          <span style={`background:${palette.colors.secondary}`} />
-          <span style={`background:${palette.colors.tertiary}`} />
-          <span style={`background:${palette.colors.accent}`} />
-          <span style={`background:${palette.colors.light}`} />
+          {
+            [
+              palette.colors.primary,
+              palette.colors.secondary,
+              palette.colors.tertiary,
+              palette.colors.accent,
+              palette.colors.support,
+              palette.colors.light,
+            ]
+              .filter((color: string | undefined): color is string => Boolean(color))
+              .map((color: string) => <span style={`background:${color}`} />)
+          }
         </span>
         <span class="palette-card-footer">
           <span class="palette-name">{palette.name}</span>
@@ -160,7 +167,7 @@ const { palettes } = Astro.props
 
   .palette-card[data-state="active"] {
     background: var(--platform-border);
-    box-shadow: inset 0 0 0 1.5px var(--platform-accent);
+    box-shadow: inset 0 0 0 1.5px var(--primary);
   }
 
   .palette-swatch {

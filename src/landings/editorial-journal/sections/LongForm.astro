@@ -1,5 +1,6 @@
 ---
-import ImagePlaceholder from "../components/ImagePlaceholder.astro"
+import Photo from "../components/Photo.astro"
+import { longFormImage } from "../data/media"
 ---
 
 <section
@@ -60,12 +61,7 @@ import ImagePlaceholder from "../components/ImagePlaceholder.astro"
           </p>
         </blockquote>
 
-        <ImagePlaceholder
-          label="Long-form article image"
-          ratio="16 / 9"
-          parallax
-          class="my-2"
-        />
+        <Photo image={longFormImage} ratio="16 / 9" parallax class="my-2" />
 
         <p>
           None of the twelve services abandoned their digital forms — they run

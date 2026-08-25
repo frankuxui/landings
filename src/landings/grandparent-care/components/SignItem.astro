@@ -1,0 +1,33 @@
+---
+// One observation in the "Signs to watch for" list — framed gently, as
+// something worth a closer conversation rather than an alarming checklist
+// item (see data/signs.ts for the editorial tone this follows).
+import { CircleDot } from "@lucide/astro"
+import type { Sign } from "../types"
+
+export interface Props {
+  sign: Sign
+  index: number
+}
+
+const { sign, index } = Astro.props
+---
+
+<li
+  class="reveal flex gap-4 border-b border-border py-6 first:pt-0 last:border-b-0"
+  style={`transition-delay: ${index * 60}ms`}
+>
+  <CircleDot
+    class="mt-1 size-4 shrink-0 text-muted"
+    aria-hidden="true"
+    stroke-width="1.5"
+  />
+  <div>
+    <h3 class="text-base font-semibold text-foreground sm:text-lg">
+      {sign.title}
+    </h3>
+    <p class="mt-2 max-w-copy text-sm text-muted sm:text-base">
+      {sign.description}
+    </p>
+  </div>
+</li>

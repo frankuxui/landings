@@ -1,0 +1,43 @@
+---
+// Shared, real structural reuse: every photograph in this landing renders
+// the exact same "Photo: [author] · Unsplash" caption markup, in the exact
+// same place (below the photo, in normal document flow — never overlaid on
+// top of it). Extracted once instead of duplicated across Photo.astro,
+// Gallery.astro, StorySlide.astro, and CTAFinal.astro. See the
+// `unsplash-images` Skill §9.
+import type { UnsplashImage } from "../types"
+
+export interface Props {
+  image: UnsplashImage
+  /** `muted` for light surfaces, `inverted` for dark surfaces
+   * (Stories/CTAFinal). */
+  tone?: "muted" | "inverted"
+  class?: string
+}
+
+const { image, tone = "muted", class: className } = Astro.props
+---
+
+<p
+  class:list={[
+    "font-mono text-[0.65rem] tracking-wide uppercase",
+    tone === "muted" && "text-muted",
+    tone === "inverted" && "text-inverted-foreground/60",
+    className,
+  ]}
+>
+  Photo:{" "}
+  <a
+    href={image.authorUrl}
+    rel="noopener"
+    target="_blank"
+    class="underline underline-offset-2">{image.author}</a
+  >
+  ·
+  <a
+    href={image.unsplashUrl}
+    rel="noopener"
+    target="_blank"
+    class="underline underline-offset-2">Unsplash</a
+  >
+</p>

@@ -1,0 +1,42 @@
+---
+// One entry in the "Resources and support" grid.
+import { ArrowUpRight } from "@lucide/astro"
+import type { Resource } from "../types"
+
+export interface Props {
+  resource: Resource
+  index: number
+}
+
+const { resource, index } = Astro.props
+---
+
+<article
+  class="reveal group flex h-full flex-col gap-4 border border-border p-6"
+  style={`transition-delay: ${index * 60}ms`}
+>
+  <span
+    class="w-fit bg-control px-2.5 py-1 font-mono text-[0.65rem] font-semibold tracking-widest text-foreground uppercase"
+  >
+    {resource.tag}
+  </span>
+  <h3 class="text-lg leading-snug font-semibold text-foreground">
+    {resource.title}
+  </h3>
+  <p class="flex-1 text-sm text-muted">
+    {resource.description}
+  </p>
+  <a
+    href="#contact"
+    class="inline-flex min-h-11 w-fit cursor-pointer items-center gap-1.5 text-sm font-semibold text-foreground no-underline underline-offset-4 transition duration-200 ease-landing hover:underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+  >
+    Request this resource
+    <ArrowUpRight
+      class="transition-transform duration-200 ease-landing group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+      aria-hidden="true"
+      width="16"
+      height="16"
+      stroke-width="1.5"
+    />
+  </a>
+</article>

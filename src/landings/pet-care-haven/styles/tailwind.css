@@ -159,6 +159,26 @@
   }
 }
 
+/* Photography stays grayscale (the mandatory default) but recovers its
+   original color the moment a color palette is active — tied to the same
+   `data-palette` attribute the "Optional per-landing color palettes" system
+   uses (see the astro-landing-pages Skill). This landing doesn't currently
+   ship a palette picker, so `data-palette` is never set and photos stay
+   grayscale; the moment one is added (same mechanism as `chocolate-factory`,
+   the reference implementation), photography responds automatically — no
+   further change needed here. The `[data-palette]` qualifier on the
+   override matters: without it, `:not([data-palette="grayscale"])` would
+   also match when the attribute is simply absent (today's actual default),
+   showing color instead of grayscale. */
+@utility photo-tone {
+  filter: grayscale(100%);
+  transition: filter 400ms var(--ease-landing);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    filter: none;
+  }
+}
+
 /* Swiper Core ("Stories worth telling" and "What families say") exposes
    its own theming through CSS custom properties rather
    than Tailwind-generated classes — Tailwind has no utility for them, so

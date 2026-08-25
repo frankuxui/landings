@@ -1,0 +1,29 @@
+---
+// One quote card in the family "Testimonials" section — deliberately
+// text-only (no portrait), keeping this section distinct from the
+// photographic "Stories" carousel and avoiding any implication that a real
+// person's photo is attached to a fictional quote.
+import { Quote } from "@lucide/astro"
+import type { Testimonial } from "../types"
+
+export interface Props {
+  testimonial: Testimonial
+  index: number
+}
+
+const { testimonial, index } = Astro.props
+---
+
+<figure
+  class="reveal flex h-full flex-col gap-6 bg-surface p-7 sm:p-8"
+  style={`transition-delay: ${index * 70}ms`}
+>
+  <Quote class="size-6 text-muted" aria-hidden="true" stroke-width="1.5" />
+  <blockquote class="flex-1 text-balance text-base text-foreground sm:text-lg">
+    “{testimonial.quote}”
+  </blockquote>
+  <figcaption class="text-sm text-muted">
+    <span class="font-semibold text-foreground">{testimonial.name}</span>
+    · {testimonial.relation}
+  </figcaption>
+</figure>

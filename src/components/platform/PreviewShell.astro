@@ -237,7 +237,7 @@ const renderUrl = `/landings/${slug}/render`
     height: 2.5rem;
     border: 1px solid var(--platform-border);
     border-radius: 8px;
-    background: var(--platform-surface);
+    background: var(--surface);
     color: var(--platform-text);
     cursor: pointer;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
@@ -252,7 +252,7 @@ const renderUrl = `/landings/${slug}/render`
 
   .toolbar-reveal:hover,
   .toolbar-reveal:focus-visible {
-    border-color: var(--platform-accent);
+    border-color: var(--primary);
   }
 
   .toolbar-reveal :global(svg) {
@@ -269,7 +269,7 @@ const renderUrl = `/landings/${slug}/render`
     padding: calc(var(--toolbar-height, 4.5rem) + 2rem) clamp(1rem, 4vw, 2rem)
       2rem;
     transition: padding-top 0.25s ease;
-    background: var(--platform-bg);
+    background: var(--background);
   }
 
   .preview-shell[data-toolbar-hidden="true"] .stage {

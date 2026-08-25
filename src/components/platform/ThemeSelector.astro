@@ -6,88 +6,227 @@ import { Sun, Moon } from "@lucide/astro"
 ---
 
 <div class="theme-selector" role="group" aria-label="Seleccionar tema">
-  <button type="button" data-theme="light" aria-pressed="true">
+  <span class="theme-indicator" aria-hidden="true"></span>
+
+  <button
+    type="button"
+    data-theme="light"
+    aria-label="Activar tema claro"
+    aria-pressed="true"
+  >
     <Sun aria-hidden="true" />
-    <span class="label">Light</span>
   </button>
-  <button type="button" data-theme="dark" aria-pressed="false">
+
+  <button
+    type="button"
+    data-theme="dark"
+    aria-label="Activar tema oscuro"
+    aria-pressed="false"
+  >
     <Moon aria-hidden="true" />
-    <span class="label">Dark</span>
   </button>
 </div>
 
 <script>
+  import { gsap } from "gsap"
   import { isTheme } from "../../types/theme"
 
-  const buttons = document.querySelectorAll<HTMLButtonElement>(
-    ".theme-selector button",
-  )
+  const selectors = document.querySelectorAll<HTMLElement>(".theme-selector")
 
-  buttons.forEach((button: HTMLButtonElement) => {
-    button.addEventListener("click", () => {
-      const theme = button.dataset.theme
-      if (!isTheme(theme)) return
+  selectors.forEach((selector) => {
+    const indicator = selector.querySelector<HTMLElement>(".theme-indicator")
 
-      buttons.forEach((b: HTMLButtonElement) =>
-        b.setAttribute("aria-pressed", "false"),
+    const buttons = Array.from(
+      selector.querySelectorAll<HTMLButtonElement>("button"),
+    )
+
+    if (!indicator || buttons.length === 0) return
+
+    let activeTheme = "light"
+
+    const moveIndicator = (
+      activeButton: HTMLButtonElement,
+      immediate = false,
+    ) => {
+      const icon = activeButton.querySelector<SVGElement>("svg")
+
+      const duration = immediate ? 0 : 0.55
+
+      const timeline = gsap.timeline({
+        defaults: {
+          overwrite: "auto",
+        },
+      })
+
+      timeline.to(indicator, {
+        x: activeButton.offsetLeft,
+        y: activeButton.offsetTop,
+        width: activeButton.offsetWidth,
+        height: activeButton.offsetHeight,
+        duration,
+        ease: "back.out(1.35)",
+      })
+
+      if (!immediate && icon) {
+        timeline.fromTo(
+          icon,
+          {
+            rotate: activeTheme === "dark" ? -90 : 90,
+            scale: 0.35,
+            opacity: 0,
+          },
+          {
+            rotate: 0,
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: "back.out(2.5)",
+          },
+          "-=0.35",
+        )
+      }
+
+      if (!immediate) {
+        timeline.fromTo(
+          selector,
+          {
+            scale: 0.96,
+          },
+          {
+            scale: 1,
+            duration: 0.45,
+            ease: "elastic.out(1, 0.55)",
+          },
+          0,
+        )
+      }
+    }
+
+    const updateTheme = (
+      theme: string,
+      activeButton: HTMLButtonElement,
+      immediate = false,
+    ) => {
+      if (theme === activeTheme && !immediate) return
+
+      activeTheme = theme
+
+      buttons.forEach((button) => {
+        button.setAttribute(
+          "aria-pressed",
+          button === activeButton ? "true" : "false",
+        )
+      })
+
+      moveIndicator(activeButton, immediate)
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const theme = button.dataset.theme
+        if (!isTheme(theme)) return
+
+        updateTheme(theme, button)
+
+        document.dispatchEvent(
+          new CustomEvent("preview:theme", {
+            detail: { theme },
+          }),
+        )
+      })
+    })
+
+    const resizeObserver = new ResizeObserver(() => {
+      const activeButton = buttons.find(
+        (button) => button.dataset.theme === activeTheme,
       )
-      button.setAttribute("aria-pressed", "true")
 
-      document.dispatchEvent(
-        new CustomEvent("preview:theme", { detail: { theme } }),
+      if (activeButton) {
+        moveIndicator(activeButton, true)
+      }
+    })
+
+    resizeObserver.observe(selector)
+
+    requestAnimationFrame(() => {
+      const initialButton = buttons.find(
+        (button) => button.getAttribute("aria-pressed") === "true",
       )
+
+      if (!initialButton) return
+
+      activeTheme = initialButton.dataset.theme ?? "light"
+      moveIndicator(initialButton, true)
     })
   })
 </script>
 
 <style>
   .theme-selector {
+    position: relative;
     display: inline-flex;
-    border: 1px solid var(--platform-border);
-    border-radius: 8px;
+    align-items: center;
     overflow: hidden;
+    background: var(--surface);
+    border-radius: 9999px;
+    isolation: isolate;
+  }
+
+  .theme-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    border-radius: 9999px;
+    background: var(--primary);
+    box-shadow:
+      0 4px 12px color-mix(in srgb, var(--primary) 28%, transparent),
+      inset 0 1px 0 rgb(255 255 255 / 18%);
+    pointer-events: none;
+    will-change: transform, width, height;
   }
 
   button {
+    position: relative;
+    z-index: 1;
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
     border: 0;
+    border-radius: 9999px;
     background: transparent;
     color: var(--platform-text-muted);
-    padding: 0.4rem 0.75rem;
-    font-size: 0.85rem;
     cursor: pointer;
+    transition: color 300ms ease;
   }
 
   button :global(svg) {
-    width: 16px;
-    height: 16px;
+    width: 17px;
+    height: 17px;
     flex-shrink: 0;
+    transform-origin: center;
+    will-change: transform, opacity;
   }
 
   button[aria-pressed="true"] {
-    background: var(--platform-accent);
-    color: var(--platform-accent-contrast);
+    color: var(--primary-foreground);
   }
 
-  @media (max-width: 640px) {
-    /* Visually hidden, not `display:none` — the label stays in the button's
-       accessible name even though only the icon renders. */
-    .label {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
+  button:not([aria-pressed="true"]):hover {
+    color: var(--platform-text);
+  }
 
+  button:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
     button {
-      padding: 0.5rem;
+      transition: none;
     }
   }
 </style>

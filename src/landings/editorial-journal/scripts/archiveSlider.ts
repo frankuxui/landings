@@ -1,4 +1,4 @@
-// Folio — manual "past issues" carousel (Swiper Core). No autoplay:
+// Editorial Journal — manual "past issues" carousel (Swiper Core). No autoplay:
 // navigation is drag/swipe, the prev/next <button>s, pagination, and the
 // keyboard. Prev/next reflect Swiper's own beginning/end state instead of
 // staying silently inert at the edges.

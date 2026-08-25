@@ -1,0 +1,89 @@
+---
+import { ChevronLeft, ChevronRight } from "@lucide/astro"
+import StorySlide from "../components/StorySlide.astro"
+import { stories } from "../data/stories"
+import type { Story } from "../types"
+---
+
+<section
+  class="bg-inverted-surface py-section"
+  id="stories"
+  aria-labelledby="stories-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div
+      class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <div>
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-inverted-foreground/60 uppercase"
+        >
+          Stories that move us
+        </p>
+        <h2
+          id="stories-heading"
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-inverted-foreground"
+          data-split-reveal
+        >
+          Every visit changes something.
+        </h2>
+      </div>
+
+      <div class="flex shrink-0 items-center gap-3">
+        <button
+          type="button"
+          class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-full border border-inverted-foreground/25 bg-transparent p-0 text-inverted-foreground transition duration-200 ease-landing hover:bg-inverted-foreground/10 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-inverted-foreground active:bg-inverted-foreground/15 disabled:cursor-not-allowed disabled:opacity-40"
+          data-stories-prev
+          aria-label="Previous story"
+        >
+          <ChevronLeft
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </button>
+        <button
+          type="button"
+          class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-full border border-inverted-foreground/25 bg-transparent p-0 text-inverted-foreground transition duration-200 ease-landing hover:bg-inverted-foreground/10 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-inverted-foreground active:bg-inverted-foreground/15 disabled:cursor-not-allowed disabled:opacity-40"
+          data-stories-next
+          aria-label="Next story"
+        >
+          <ChevronRight
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="stories-slider swiper mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14"
+    data-stories-slider
+    aria-label="Family stories carousel"
+    role="region"
+  >
+    <div class="swiper-wrapper">
+      {
+        stories.map((story: Story) => (
+          <div class="swiper-slide h-[26rem] sm:h-[30rem] lg:h-[34rem]">
+            <StorySlide story={story} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div
+    class="stories-slider-pagination mx-auto mt-8 flex w-full max-w-landing justify-center px-container-x sm:px-8 xl:px-14"
+    data-stories-pagination
+  >
+  </div>
+</section>
+
+<script>
+  import "../scripts/storiesSlider"
+</script>

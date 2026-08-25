@@ -48,7 +48,7 @@ import type { NavLink } from "../types"
       >
         <div class="relative" data-scroll-nav>
           <span
-            class="pointer-events-none absolute bottom-0 left-0 z-0 h-px w-0 -translate-x-0 bg-foreground opacity-0"
+            class="pointer-events-none absolute bottom-0 left-0 z-0 h-px w-0 translate-x-0 bg-foreground opacity-0"
             data-nav-indicator
             aria-hidden="true"></span>
           <ul class="relative z-10 flex items-center gap-0.5">
@@ -71,16 +71,10 @@ import type { NavLink } from "../types"
       </nav>
 
       <a
-        class="hidden min-h-11 cursor-pointer items-center gap-2 rounded-sm border-0 bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-[var(--color-light)] no-underline transition duration-200 ease-landing hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90 xl:inline-flex"
+        class="hidden cursor-pointer items-center gap-2 rounded-sm border-0 bg-(--color-primary) px-5 h-9 text-sm font-semibold text-(--color-light) no-underline transition duration-200 ease-landing hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90 xl:inline-flex"
         href="#products"
       >
         View collection
-        <ArrowRight
-          aria-hidden="true"
-          width="16"
-          height="16"
-          stroke-width="1.5"
-        />
       </a>
 
       <button
@@ -131,7 +125,7 @@ import type { NavLink } from "../types"
       </ol>
     </nav>
     <a
-      class="inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-sm border-0 bg-[var(--color-primary)] px-6 py-3 text-base font-semibold text-[var(--color-light)] no-underline transition duration-200 ease-landing hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90"
+      class="inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-sm border-0 bg-(--color-primary) px-6 py-3 text-base font-semibold text-(--color-light) no-underline transition duration-200 ease-landing hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90"
       href="#products"
       data-mobile-nav-link
     >

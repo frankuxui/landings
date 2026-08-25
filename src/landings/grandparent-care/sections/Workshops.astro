@@ -1,0 +1,49 @@
+---
+// "Talks and workshops" — editorial agenda layout with a sticky short
+// column beside the longer list, rather than a card grid (see the
+// astro-landing-pages Skill's sticky-columns pattern).
+import Photo from "../components/Photo.astro"
+import WorkshopCard from "../components/WorkshopCard.astro"
+import { workshops } from "../data/workshops"
+import { workshopsImage } from "../data/images"
+import type { Workshop } from "../types"
+---
+
+<section
+  class="bg-background-alt py-section"
+  id="workshops"
+  aria-labelledby="workshops-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          Talks and workshops
+        </p>
+        <h2
+          id="workshops-heading"
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+          data-split-reveal
+        >
+          Open sessions for families and communities.
+        </h2>
+        <p class="mt-6 max-w-copy text-muted">
+          Held in community centers, schools, and workplaces throughout the
+          year, and open to anyone with an older relative — or anyone who simply
+          wants to understand aging better.
+        </p>
+        <Photo image={workshopsImage} ratio="4 / 3" class="mt-10" />
+      </div>
+
+      <div>
+        {
+          workshops.map((workshop: Workshop, index: number) => (
+            <WorkshopCard workshop={workshop} index={index} />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

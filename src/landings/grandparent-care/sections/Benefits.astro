@@ -1,0 +1,43 @@
+---
+import BenefitStat from "../components/BenefitStat.astro"
+import { benefits } from "../data/benefits"
+import type { Benefit } from "../types"
+---
+
+<section
+  class="bg-background-alt py-section"
+  aria-labelledby="benefits-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+    >
+      What accompaniment changes
+    </p>
+    <h2
+      id="benefits-heading"
+      class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      data-split-reveal
+    >
+      Small, steady numbers behind a bigger change.
+    </h2>
+
+    <div
+      class="mt-14 grid grid-cols-1 gap-2 sm:grid-cols-2 stats:grid-cols-4"
+      data-stats-row
+    >
+      {
+        benefits.map((benefit: Benefit, index: number) => (
+          <BenefitStat
+            benefit={benefit}
+            isLast={index === benefits.length - 1}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/statsCounter"
+</script>

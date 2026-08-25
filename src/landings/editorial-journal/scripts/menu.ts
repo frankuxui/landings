@@ -1,4 +1,4 @@
-// Folio — accessible mobile navigation toggle.
+// Editorial Journal — accessible mobile navigation toggle.
 // A real <button> drives `aria-expanded`, closes on Escape, closes when a
 // nav link is activated, and returns focus to the trigger on close.
 //

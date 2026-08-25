@@ -1,0 +1,76 @@
+---
+// Real photography sourced from Unsplash via the `unsplash-images` Skill.
+// Renders the persisted, hotlinked `images.unsplash.com` URL with this
+// landing's monochrome `photo-tone` treatment (recovers full color the
+// instant a non-grayscale palette is active — see styles/tailwind.css).
+// Credit is a discreet caption below the photo, in normal document flow —
+// never overlaid on top of it — plus a `title` tooltip on the image itself.
+// Reused across every photographic section (Hero, Feature, LongForm,
+// Interview, StoryRow, ArchiveSlide) — real structural and semantic reuse,
+// not a Tailwind class-string wrapper.
+import PhotoCredit from "./PhotoCredit.astro"
+import type { UnsplashImage } from "../types"
+
+type PhotoRatio = "1 / 1" | "3 / 4" | "4 / 3" | "16 / 9"
+
+export interface Props {
+  image: UnsplashImage
+  ratio?: PhotoRatio
+  sizes?: string
+  /** When false, the credit is omitted from this figure's own figcaption —
+   * the consuming component must render <PhotoCredit> itself, still below
+   * the photo in normal flow (see StoryRow, ArchiveSlide). The credit is
+   * never simply dropped. */
+  caption?: boolean
+  /** Enables the subtle GSAP parallax enhancement in scripts/parallax.ts. */
+  parallax?: boolean
+  class?: string
+  imgClass?: string
+}
+
+const {
+  image,
+  ratio = "4 / 3",
+  sizes,
+  caption = true,
+  parallax = false,
+  class: className,
+  imgClass,
+} = Astro.props
+---
+
+<figure class:list={["m-0 flex w-full flex-col", className]}>
+  <div
+    class:list={[
+      "relative w-full overflow-hidden",
+      ratio === "1 / 1" && "aspect-square",
+      ratio === "3 / 4" && "aspect-3/4",
+      ratio === "4 / 3" && "aspect-4/3",
+      ratio === "16 / 9" && "aspect-video",
+    ]}
+  >
+    <img
+      src={`${image.src}&w=1400&auto=format&fit=crop&q=80`}
+      alt={image.alt}
+      title={`Photo by ${image.author} on Unsplash`}
+      width={image.width}
+      height={image.height}
+      sizes={sizes}
+      loading="lazy"
+      decoding="async"
+      data-parallax={parallax ? "true" : undefined}
+      class:list={[
+        "absolute inset-0 h-full w-full object-cover photo-tone",
+        parallax && "scale-115",
+        imgClass,
+      ]}
+    />
+  </div>
+  {
+    caption && (
+      <figcaption class="mt-2">
+        <PhotoCredit image={image} />
+      </figcaption>
+    )
+  }
+</figure>

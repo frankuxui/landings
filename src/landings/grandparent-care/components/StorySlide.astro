@@ -1,0 +1,46 @@
+---
+// One immersive slide in the "Stories that move us" carousel — a large
+// portrait photograph with the quote and name overlaid at the base, on a
+// scrim strong enough to keep text legible without darkening the credit
+// caption, which stays below the frame in normal flow.
+import Photo from "./Photo.astro"
+import PhotoCredit from "./PhotoCredit.astro"
+import type { Story } from "../types"
+
+export interface Props {
+  story: Story
+}
+
+const { story } = Astro.props
+---
+
+<figure class="m-0 flex h-full flex-col">
+  <Photo
+    image={story.image}
+    ratio="3 / 4"
+    sizes="(min-width: 1280px) 40vw, (min-width: 1024px) 48vw, (min-width: 640px) 70vw, 92vw"
+    caption={false}
+    class="flex-1"
+  >
+    <div
+      class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/85 via-black/10 to-transparent"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="absolute inset-x-0 bottom-0 flex flex-col gap-3 p-6 text-white sm:p-8"
+      data-story-content
+    >
+      <p class="text-balance text-lg leading-snug font-medium sm:text-xl">
+        “{story.quote}”
+      </p>
+      <div>
+        <p class="text-sm font-semibold">{story.name}</p>
+        <p class="text-xs text-white/70">{story.role}</p>
+      </div>
+    </div>
+  </Photo>
+  <figcaption class="mt-2">
+    <PhotoCredit image={story.image} tone="inverted" />
+  </figcaption>
+</figure>

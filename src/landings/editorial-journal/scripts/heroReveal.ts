@@ -1,4 +1,4 @@
-// Folio — GSAP entrance reveal for the Hero headline.
+// Editorial Journal — GSAP entrance reveal for the Hero headline.
 //
 // Baseline (zero JS, or `prefers-reduced-motion: reduce`): the headline
 // renders immediately, fully visible and readable — this script never hides

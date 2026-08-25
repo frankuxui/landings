@@ -1,0 +1,32 @@
+---
+// The photographer + Unsplash credit line, extracted so it can be composed
+// either inside Photo.astro's own figcaption (the default, simple case) or
+// inside a component's own below-photo footer strip — always sitting below
+// the photograph in normal document flow, never overlaid on top of it. Real
+// structural/accessibility reuse, not a Tailwind class-string wrapper.
+import type { UnsplashImage } from "../types"
+
+export interface Props {
+  image: UnsplashImage
+  class?: string
+}
+
+const { image, class: className } = Astro.props
+---
+
+<p class:list={["text-xs text-muted", className]}>
+  Photo:
+  <a
+    href={image.authorUrl}
+    rel="noopener"
+    target="_blank"
+    class="underline underline-offset-2">{image.author}</a
+  >
+  ·
+  <a
+    href={image.unsplashUrl}
+    rel="noopener"
+    target="_blank"
+    class="underline underline-offset-2">Unsplash</a
+  >
+</p>

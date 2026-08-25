@@ -1,0 +1,34 @@
+---
+// One highlighted figure in the "Benefits of accompaniment" section —
+// counts up via scripts/statsCounter.ts once it enters the viewport.
+import type { Benefit } from "../types"
+
+export interface Props {
+  benefit: Benefit
+  isLast?: boolean
+}
+
+const { benefit, isLast = false } = Astro.props
+---
+
+<div
+  class:list={[
+    "reveal relative flex flex-col gap-3 py-6 stats:py-0 stats:pl-8 stats:first:pl-0",
+    !isLast &&
+      "stats:after:absolute stats:after:top-0 stats:after:right-0 stats:after:h-full stats:after:w-px stats:after:bg-border stats:after:content-['']",
+  ]}
+  data-stat-item
+  data-stat-value={benefit.value}
+  data-stat-suffix={benefit.suffix}
+>
+  <p
+    class="font-mono text-figure leading-none text-foreground"
+    data-stat-display
+  >
+    0{benefit.suffix}
+  </p>
+  <div>
+    <p class="text-sm font-semibold text-foreground">{benefit.label}</p>
+    <p class="mt-1 text-sm text-muted">{benefit.description}</p>
+  </div>
+</div>

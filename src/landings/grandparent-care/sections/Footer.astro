@@ -1,0 +1,123 @@
+---
+import { navLinks } from "../data/nav"
+import { allImages } from "../data/images"
+import type { NavLink, UnsplashImage } from "../types"
+
+const year = new Date().getFullYear()
+---
+
+<footer class="bg-inverted-surface pt-16 pb-6 text-inverted-foreground">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <a
+      class="inline-block text-4xl leading-none font-bold tracking-tight text-inherit no-underline sm:text-6xl xl:text-7xl"
+      href="#home"
+    >
+      Grandparent Care
+    </a>
+    <p class="mt-4 max-w-copy text-current/75">
+      Talks, personal accompaniment, and family guidance so older adults grow
+      older seen, heard, and close — not alone.
+    </p>
+
+    <div class="mt-16 grid gap-10 footer:grid-cols-3 footer:gap-16">
+      <nav aria-label="Footer links">
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
+        >
+          Navigation
+        </p>
+        <ul class="flex flex-col gap-3">
+          {
+            navLinks.map((link: NavLink) => (
+              <li>
+                <a
+                  class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+                  href={link.href}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
+        >
+          Contact
+        </p>
+        <ul class="flex flex-col gap-3">
+          <li>
+            <a
+              class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+              href="mailto:hello@example.com">hello@example.com</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+              href="tel:+00000000000">+00 000 000 000</a
+            >
+          </li>
+          <li class="text-current/80">Example Address, City, Country</li>
+        </ul>
+      </div>
+
+      <div>
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
+        >
+          Example social links
+        </p>
+        <ul class="flex flex-col gap-3">
+          <li class="text-current/80">Instagram</li>
+          <li class="text-current/80">LinkedIn</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="mx-auto mt-16 w-full max-w-landing px-container-x sm:px-8 xl:px-14"
+  >
+    <div class="h-px w-full bg-current/12" aria-hidden="true"></div>
+    <p class="pt-6 text-sm text-current/60">
+      © {year} Grandparent Care. Fictional landing demo.
+    </p>
+  </div>
+
+  <div
+    class="mx-auto mt-6 w-full max-w-landing px-container-x pt-6 text-xs text-current/60 sm:px-8 xl:px-14"
+  >
+    <p class="font-semibold text-current/70">Photo credits</p>
+    <ul class="mt-2 flex flex-wrap gap-x-2 gap-y-1">
+      {
+        allImages.map((image: UnsplashImage, index: number) => (
+          <li>
+            Photo by{" "}
+            <a
+              href={image.authorUrl}
+              rel="noopener"
+              target="_blank"
+              class="underline underline-offset-2"
+            >
+              {image.author}
+            </a>{" "}
+            on{" "}
+            <a
+              href={image.unsplashUrl}
+              rel="noopener"
+              target="_blank"
+              class="underline underline-offset-2"
+            >
+              Unsplash
+            </a>
+            {index < allImages.length - 1 ? "," : ""}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

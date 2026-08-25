@@ -231,7 +231,7 @@
    but those compiled utilities bind directly to `--primary` (the shared
    monochrome token), not `--color-primary`, so this block never silently
    retints anything; a component only picks up a palette by explicitly
-   using `bg-[var(--color-primary)]`/`text-[var(--color-light)]`/etc.
+   using `bg-(--color-primary)`/`text-(--color-light)`/etc.
    Grayscale is the mandatory default (`:root` and the explicit
    `[data-palette="grayscale"]` resolve identically); `[data-palette="cocoa"]`
    is opt-in, applied only via the platform's palette selector
@@ -254,7 +254,8 @@ html[data-palette="grayscale"] {
 }
 
 html[data-palette="cocoa"] {
-  --color-primary: #6f1d1b;
+  --color-primary: #461615;
+  --color-primary-foreground: #ffe6a7;
   --color-secondary: #bb9457;
   --color-tertiary: #432818;
   --color-accent: #99582a;
@@ -276,4 +277,23 @@ html[data-theme="dark"][data-palette="cocoa"] {
   --color-tertiary: #432818;
   --color-accent: #bb9457;
   --color-light: #6f1d1b;
+}
+
+/* Photography stays grayscale (the mandatory default) but recovers its
+   original color the moment a color palette is active — tied to the same
+   `data-palette` attribute the palette tokens above already key off, so no
+   extra script/state is needed. Any future palette other than "grayscale"
+   automatically shows full color, nothing to enumerate here. The attribute
+   selector on the override (`[data-palette]:not(...)`) matters: without it,
+   `:not([data-palette="grayscale"])` also matches when the attribute is
+   simply absent (the actual default, before any palette is ever chosen —
+   see index.astro's synchronous restore script), which would show color by
+   default instead of grayscale. */
+@utility photo-tone {
+  filter: grayscale(100%) contrast(125%);
+  transition: filter 400ms var(--ease-landing);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    filter: none;
+  }
 }

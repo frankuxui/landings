@@ -1,0 +1,56 @@
+---
+// "The importance of grandparents" — narrative section pairing a sticky
+// close-up photograph with scroll-revealed editorial copy about
+// experience, unconditional love, family memory, and dignified aging.
+import Photo from "../components/Photo.astro"
+import { importanceImage } from "../data/images"
+---
+
+<section
+  class="bg-background-alt py-section"
+  id="purpose"
+  aria-labelledby="importance-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <Photo image={importanceImage} ratio="1 / 1" class="max-w-md" />
+      </div>
+
+      <div class="flex flex-col gap-10">
+        <div>
+          <p
+            class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+          >
+            Why this matters
+          </p>
+          <h2
+            id="importance-heading"
+            class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+            data-split-reveal
+          >
+            Grandparents carry what no book can teach.
+          </h2>
+        </div>
+
+        <p class="reveal max-w-copy text-lg text-muted">
+          A grandparent's experience isn't nostalgia — it's a working memory of
+          the family, held by someone who has already survived what the rest of
+          us are still learning. That knowledge disappears quietly when it goes
+          unheard.
+        </p>
+        <p class="reveal max-w-copy text-lg text-muted">
+          Their love tends to ask for very little in return. It is patient in a
+          way few relationships still are, and it gives children a sense of
+          belonging to something older than themselves — a family, a history, a
+          place they came from.
+        </p>
+        <p class="reveal max-w-copy text-lg text-muted">
+          Aging with dignity doesn't require heroics. It requires being seen,
+          consulted, and included — not managed from a distance. That is the
+          standard we work toward with every family we support.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

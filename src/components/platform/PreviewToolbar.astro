@@ -14,39 +14,72 @@ type Props = LandingPreviewProps
 const { name, slug } = Astro.props
 ---
 
-<div class="toolbar" id="preview-toolbar">
-  <div class="left">
-    <a class="back" href={`/landings/${slug}`} aria-label="Volver al catálogo"
-      >← Volver</a
-    >
-    <span class="name">{name}</span>
-  </div>
-  <div class="center">
-    <DeviceSelector />
-    <ThemeSelector />
-  </div>
-  <div class="right">
-    <button type="button" id="open-options-panel">
-      <SlidersHorizontal aria-hidden="true" />
-      Opciones
-    </button>
-    <button
-      type="button"
-      id="fullscreen-toggle"
-      aria-label="Ver a pantalla completa"
-      aria-pressed="false"
-      data-fullscreen="false"
-    >
-      <Maximize aria-hidden="true" class="icon-enter" />
-      <Minimize aria-hidden="true" class="icon-exit" />
-    </button>
-    <button
-      type="button"
-      id="hide-toolbar"
-      aria-label="Ocultar barra de herramientas"
-    >
-      <PanelTopClose aria-hidden="true" />
-    </button>
+<div
+  class="toolbar w-full fixed left-0 h-20 top-0 border-b border-border"
+  id="preview-toolbar"
+>
+  <div class="container h-full flex items-center justify-between gap-2">
+    <div class="w-full flex items-center justify-between h-full">
+      <div class="flex-none">
+        <a
+          class="inline-flex items-center gap-2 group"
+          href={`/landings/${slug}`}
+          aria-label="Volver al catálogo"
+        >
+          <span
+            class="rounded-full flex-none inline-flex items-center justify-center mt-0.5 size-10 transition-colors duration-300 group-hover:bg-foreground/10"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="26px"
+              height="26px"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path
+                fill="currentColor"
+                d="M11.03 8.53a.75.75 0 1 0-1.06-1.06l-4 4a.75.75 0 0 0 0 1.06l4 4a.75.75 0 1 0 1.06-1.06l-2.72-2.72H18a.75.75 0 0 0 0-1.5H8.31z"
+              ></path>
+            </svg>
+          </span>
+          <span class="font-semibold text-sm hidden sm:block">{name}</span>
+        </a>
+      </div>
+      <div
+        class="w-full flex-1 mx-auto flex items-center justify-center gap-1 sm:gap-2"
+      >
+        <DeviceSelector />
+        <ThemeSelector />
+      </div>
+      <div class="ml-auto flex items-center justify-end gap-1 sm:gap-2">
+        <button
+          type="button"
+          id="open-options-panel"
+          class="rounded-full size-10 inline-flex items-center justify-center bg-foreground/5 font-semibold text-sm transition-colors duration-300 hover:bg-foreground/10"
+        >
+          <SlidersHorizontal aria-hidden="true" size="18" />
+        </button>
+        <button
+          type="button"
+          id="fullscreen-toggle"
+          aria-label="Ver a pantalla completa"
+          aria-pressed="false"
+          data-fullscreen="false"
+          class="rounded-full size-10 inline-flex items-center justify-center bg-foreground/5 font-semibold text-sm transition-colors duration-300 hover:bg-foreground/10"
+        >
+          <Maximize aria-hidden="true" class="icon-enter" size="18" />
+          <Minimize aria-hidden="true" class="icon-exit" size="18" />
+        </button>
+        <button
+          type="button"
+          id="hide-toolbar"
+          aria-label="Ocultar barra de herramientas"
+          class="rounded-full size-10 inline-flex items-center justify-center bg-foreground/5 font-semibold text-sm transition-colors duration-300 hover:bg-foreground/10"
+        >
+          <PanelTopClose aria-hidden="true" size="18" />
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -112,73 +145,12 @@ const { name, slug } = Astro.props
 </script>
 
 <style>
-  .toolbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 50;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem clamp(1rem, 4vw, 2rem);
-    border-bottom: 1px solid var(--platform-border);
-    background: var(--platform-surface);
-    transform: translateY(0);
-    visibility: visible;
-    transition:
-      transform 0.25s ease,
-      visibility 0s linear 0s;
-  }
-
   .toolbar[data-hidden="true"] {
     transform: translateY(-100%);
     visibility: hidden;
     transition:
       transform 0.25s ease,
       visibility 0s linear 0.25s;
-  }
-
-  .left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    min-width: 0;
-    justify-self: start;
-  }
-
-  /* The device/theme selectors sit in the toolbar's true center column,
-     independent of how wide `.left`/`.right` end up — not just "grouped
-     toward the middle" via flex spacing. */
-  .center {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    justify-self: center;
-  }
-
-  .right {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    justify-self: end;
-  }
-
-  .back {
-    text-decoration: none;
-    color: var(--platform-text-muted);
-    font-size: 0.85rem;
-    white-space: nowrap;
-  }
-
-  .name {
-    font-weight: 600;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   @media (max-width: 720px) {
@@ -199,46 +171,6 @@ const { name, slug } = Astro.props
       justify-self: stretch;
       justify-content: flex-end;
     }
-  }
-
-  #open-options-panel,
-  #fullscreen-toggle,
-  #hide-toolbar {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    border: 1px solid var(--platform-border);
-    border-radius: 8px;
-    background: transparent;
-    color: var(--platform-text);
-    padding: 0.4rem 0.9rem;
-    font-size: 0.85rem;
-    cursor: pointer;
-  }
-
-  #open-options-panel:hover,
-  #open-options-panel:focus-visible,
-  #fullscreen-toggle:hover,
-  #fullscreen-toggle:focus-visible,
-  #hide-toolbar:hover,
-  #hide-toolbar:focus-visible {
-    border-color: var(--platform-accent);
-  }
-
-  #fullscreen-toggle,
-  #hide-toolbar {
-    padding: 0.4rem;
-  }
-
-  #open-options-panel :global(svg) {
-    width: 16px;
-    height: 16px;
-  }
-
-  #fullscreen-toggle :global(svg),
-  #hide-toolbar :global(svg) {
-    width: 18px;
-    height: 18px;
   }
 
   #fullscreen-toggle :global(.icon-exit) {

@@ -204,3 +204,100 @@
   outline: 3px solid var(--border);
   outline-offset: 3px;
 }
+
+/* Per-landing color palette system — see "Per-landing color palette" in the
+   astro-landing-pages Skill. `--color-primary` also happens to be the name
+   the shared design system's `@theme inline` block registers to generate
+   Tailwind's `bg-primary`/`text-primary` utilities — but those compiled
+   utilities bind directly to `--primary` (the shared monochrome token), not
+   `--color-primary`, so this block never silently retints anything; a
+   component only picks up a palette by explicitly using
+   `bg-(--color-primary)`/`text-(--color-light)`/etc.
+   Grayscale is the mandatory default (`:root` and the explicit
+   `[data-palette="grayscale"]` resolve identically). Two opt-in palettes,
+   both grounded in this journal's own print/editorial identity:
+   - "broadsheet" — sepia ink on aged newsprint: warm bistre/tobacco/ochre
+     tones evoking trust, permanence, and print heritage (the paper this
+     journal is descended from).
+   - "proof-blue" — the deep cobalt of a blueprint or an editor's proofing
+     pencil: intellectual rigor and precision, tying together this journal's
+     coverage of architecture (blueprints) and editing (blue-pencil marks).
+   Each is applied only via the platform's palette selector (scripts/palette.ts)
+   or a downloaded copy's own persisted choice — never automatically. Each
+   palette also defines a `[data-theme="dark"]` variant, mirroring how the
+   shared `--primary`/`--primary-foreground` tokens invert between Light and
+   Dark: `primary` and `light` swap roles, `secondary` and `accent` swap
+   roles, `tertiary` stays the same mid-tone — so `--color-*` stays
+   high-contrast and legible in both themes, exactly like the rest of this
+   landing's token system. Currently consumed by every official
+   `primary`-variant button/link: the skip link, Header's mobile "Subscribe"
+   CTA, Hero's "Read the feature" CTA, Feature's "Continue reading" CTA,
+   CTAFinal's "Explore the archive" CTA, and the Newsletter's submit
+   button. */
+:root,
+html[data-palette="grayscale"] {
+  --color-primary: #171717;
+  --color-secondary: #404040;
+  --color-tertiary: #737373;
+  --color-accent: #a3a3a3;
+  --color-light: #f5f5f5;
+}
+
+html[data-palette="broadsheet"] {
+  --color-primary: #2b1c12;
+  --color-secondary: #7a5233;
+  --color-tertiary: #b08c5e;
+  --color-accent: #a8461f;
+  --color-light: #f3e6cc;
+}
+
+html[data-palette="proof-blue"] {
+  --color-primary: #16233b;
+  --color-secondary: #2f4d7a;
+  --color-tertiary: #6b86a6;
+  --color-accent: #3f6fb0;
+  --color-light: #e8edf3;
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"][data-palette="grayscale"] {
+  --color-primary: #f5f5f5;
+  --color-secondary: #a3a3a3;
+  --color-tertiary: #737373;
+  --color-accent: #404040;
+  --color-light: #171717;
+}
+
+html[data-theme="dark"][data-palette="broadsheet"] {
+  --color-primary: #f3e6cc;
+  --color-secondary: #a8461f;
+  --color-tertiary: #b08c5e;
+  --color-accent: #7a5233;
+  --color-light: #2b1c12;
+}
+
+html[data-theme="dark"][data-palette="proof-blue"] {
+  --color-primary: #e8edf3;
+  --color-secondary: #3f6fb0;
+  --color-tertiary: #6b86a6;
+  --color-accent: #2f4d7a;
+  --color-light: #16233b;
+}
+
+/* Photography stays grayscale (the mandatory default) but recovers its
+   original color the moment a color palette is active — tied to the same
+   `data-palette` attribute the palette tokens above already key off, so no
+   extra script/state is needed. The attribute selector on the override
+   (`[data-palette]:not(...)`) matters: without it, `:not([data-palette="grayscale"])`
+   also matches when the attribute is simply absent (the actual default,
+   before any palette is ever chosen — see index.astro's synchronous
+   restore script), which would show color by default instead of
+   grayscale. */
+@utility photo-tone {
+  filter: grayscale(100%) contrast(110%);
+  transition: filter 400ms var(--ease-landing);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    filter: none;
+  }
+}

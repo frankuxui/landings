@@ -1,0 +1,135 @@
+---
+// Grandparent Care - root document for this landing.
+// Fully self-contained: no platform Layout, no platform CSS/components.
+// Rendered in isolation by src/pages/landings/[slug]/render.astro.
+import "./styles/tailwind.css"
+
+import Header from "./sections/Header.astro"
+import Hero from "./sections/Hero.astro"
+import Importance from "./sections/Importance.astro"
+import Services from "./sections/Services.astro"
+import Stories from "./sections/Stories.astro"
+import Signs from "./sections/Signs.astro"
+import Tips from "./sections/Tips.astro"
+import Workshops from "./sections/Workshops.astro"
+import Gallery from "./sections/Gallery.astro"
+import Benefits from "./sections/Benefits.astro"
+import Testimonials from "./sections/Testimonials.astro"
+import Quote from "./sections/Quote.astro"
+import Resources from "./sections/Resources.astro"
+import FAQ from "./sections/FAQ.astro"
+import CTAFinal from "./sections/CTAFinal.astro"
+import Footer from "./sections/Footer.astro"
+import BackToTop from "./components/BackToTop.astro"
+
+const pageTitle = "Grandparent Care - Accompaniment for families"
+const pageDescription =
+  "Grandparent Care gives talks on aging with dignity, provides personal accompaniment for older adults, and guides families through the conversations that matter, so no grandparent grows old alone."
+const canonicalUrl = "/landings/grandparent-care"
+const thumbnailUrl =
+  "https://images.unsplash.com/photo-1593100126453-19b562a800c1?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Z3JhbmRtb3RoZXIlMjBncmFuZGNoaWxkJTIwaHVnJTIwd2FybSUyMHN1bmxpZ2h0fGVufDF8MHx8fDE3ODc2ODE3MzZ8MA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80"
+---
+
+<!doctype html>
+<html
+  lang="en"
+  class="scroll-smooth overflow-x-clip scheme-light motion-reduce:scroll-auto dark:scheme-dark font-sans"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+
+    <!-- Restore the persisted theme choice before first paint, so this
+    landing's own toggle survives a reload when viewed standalone (outside
+    the platform preview shell). -->
+    <script is:inline>
+      ;(function () {
+        const saved = localStorage.getItem("grandparent-care:theme")
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved)
+        }
+      })()
+    </script>
+
+    <!-- Shared Landing Pages typeface — Wix Madefor Text (Google Fonts).
+    Every landing loads the exact same weights/styles here; never via
+    @import in CSS, and never a different family. See "Shared typography"
+    in the astro-landing-pages Skill. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- This document is only ever embedded as the preview iframe's render
+    target (/landings/grandparent-care/render). The indexable, canonical
+    page for this landing is the platform's own detail page. -->
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content="noindex" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={thumbnailUrl} />
+    <meta property="og:url" content={canonicalUrl} />
+
+    <!-- Synchronous, no-flash restore of a previously chosen color palette
+    (see scripts/palette.ts and "Per-landing color palette" in the
+    astro-landing-pages Skill) — must run before first paint, so it lives
+    inline in <head> rather than the deferred module script at the end of
+    <body>. Grayscale (no attribute / the CSS default) applies when nothing
+    is stored. -->
+    <script is:inline>
+      try {
+        var storedPalette = localStorage.getItem("grandparent-care:palette")
+        if (storedPalette)
+          document.documentElement.dataset.palette = storedPalette
+      } catch (error) {}
+    </script>
+  </head>
+  <body
+    class="min-h-full overflow-x-clip bg-background text-base leading-relaxed text-foreground antialiased font-sans"
+  >
+    <a
+      class="absolute -top-full left-4 z-1000 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full border-0 bg-(--color-primary) px-5 py-3 text-base font-semibold text-(--color-light) no-underline transition duration-200 ease-landing hover:opacity-90 focus-visible:top-4 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90"
+      href="#main-content"
+    >
+      Skip to main content
+    </a>
+
+    <Header />
+
+    <main id="main-content">
+      <Hero />
+      <Importance />
+      <Services />
+      <Stories />
+      <Signs />
+      <Tips />
+      <Workshops />
+      <Gallery />
+      <Benefits />
+      <Testimonials />
+      <Quote />
+      <Resources />
+      <FAQ />
+      <CTAFinal />
+    </main>
+
+    <Footer />
+
+    <BackToTop />
+
+    <script>
+      import "./scripts/theme"
+      import "./scripts/palette"
+      import "./scripts/reveal"
+      import "./scripts/textReveal"
+      import "./scripts/navIndicator"
+      import "./scripts/backToTop"
+    </script>
+  </body>
+</html>

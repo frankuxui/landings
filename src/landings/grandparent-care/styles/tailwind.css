@@ -1,0 +1,275 @@
+@import "tailwindcss";
+
+/* This landing's own complete design-token contract — colors, Light/Dark,
+   fluid heading scale, and base structural tokens. Declared locally so this
+   landing is fully self-contained and never depends on another file inside
+   or outside the repo (see the astro-landing-pages Skill: "Design tokens:
+   same names everywhere, independent values per landing"). Token NAMES are
+   shared vocabulary across the gallery; the VALUES below belong only to
+   this landing. */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --background: var(--color-neutral-50);
+  --background-alt: var(--color-neutral-100);
+  --foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-white);
+  --surface-strong: var(--color-neutral-100);
+  --control: var(--color-neutral-200);
+  --control-hover: var(--color-neutral-300);
+  --ring: var(--color-neutral-900);
+
+  --primary: var(--color-neutral-900);
+  --primary-foreground: var(--color-white);
+  --emphasis: var(--color-black);
+
+  --disabled: var(--color-neutral-300);
+  --disabled-foreground: var(--color-neutral-500);
+
+  --inverted: var(--color-neutral-950);
+  --inverted-foreground: var(--color-white);
+  --inverted-surface: var(--color-neutral-900);
+
+  --placeholder: var(--color-neutral-900);
+  --placeholder-foreground: var(--color-white);
+  --placeholder-inverse: rgb(255 255 255 / 0.72);
+}
+
+[data-theme="dark"] {
+  --background: var(--color-neutral-950);
+  --background-alt: var(--color-neutral-900);
+  --foreground: var(--color-neutral-100);
+  --muted: var(--color-neutral-300);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-neutral-900);
+  --surface-strong: var(--color-neutral-800);
+  --control: var(--color-neutral-800);
+  --control-hover: var(--color-neutral-700);
+  --ring: var(--color-neutral-300);
+
+  --primary: var(--color-neutral-100);
+  --primary-foreground: var(--color-neutral-950);
+  --emphasis: var(--color-white);
+
+  --disabled: var(--color-neutral-700);
+  --disabled-foreground: var(--color-neutral-400);
+
+  --inverted: var(--color-neutral-100);
+  --inverted-foreground: var(--color-neutral-950);
+  --inverted-surface: var(--color-neutral-200);
+
+  --placeholder: var(--color-neutral-300);
+  --placeholder-foreground: var(--color-neutral-900);
+  --placeholder-inverse: rgb(10 10 10 / 0.65);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-emphasis: var(--emphasis);
+
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
+  --color-inverted-surface: var(--inverted-surface);
+
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-placeholder-inverse: var(--placeholder-inverse);
+}
+
+@theme {
+  /* Gallery default typeface — Wix Madefor Text — loaded via Google Fonts
+     <link> tags in this landing's own <head>, never via @import here. */
+  --font-base: "Wix Madefor Text", sans-serif;
+  --font-sans: var(--font-base);
+  --font-display: "Wix Madefor Text", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Structural breakpoints beyond Tailwind's native sm/md/lg/xl/2xl, named
+     by the generic layout concern they solve. Canonical gallery values —
+     never tuned per landing (see astro-landing-pages Skill §8). */
+  --breakpoint-footer: 45rem;
+  --breakpoint-cards: 47.5rem;
+  --breakpoint-nav: 56.25rem;
+  --breakpoint-stats: 67.5rem;
+  --breakpoint-display: 87.5rem;
+
+  --spacing-section: 7rem;
+  --spacing-container-x: 1.5rem;
+
+  --container-landing: 100rem;
+  --container-copy: 62ch;
+  --container-heading: 26ch;
+  --container-hero-heading: 20ch;
+
+  /* Signature motion curve for this landing's transitions and reveals. */
+  --ease-landing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Fluid heading scale, sized for a quiet editorial voice — warm and
+     confident without the oversized, scanned-in-three-seconds register of a
+     SaaS hero. --text-figure is a distinct role (a large standalone
+     statistic), not a heading. */
+  --text-headline-1: clamp(2.5rem, 1.9rem + 2.4vw, 4.25rem);
+  --text-headline-2: clamp(1.75rem, 1.5rem + 1vw, 2.5rem);
+  --text-headline-3: clamp(1.2rem, 1.1rem + 0.4vw, 1.45rem);
+  --text-figure: clamp(2.25rem, 1.8rem + 1.6vw, 3rem);
+}
+
+/* Shared scroll-reveal utility — coordinates progressive enhancement with
+   this landing's own IntersectionObserver script (scripts/reveal.ts). */
+@utility reveal {
+  transform: translateY(0);
+  opacity: 1;
+
+  .js-reveal-ready & {
+    transform: translateY(calc(var(--spacing) * 6));
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 700ms;
+    transition-timing-function: var(--ease-landing);
+  }
+
+  .js-reveal-ready &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @variant motion-reduce {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transition-property: none !important;
+  }
+}
+
+/* Hides the native scrollbar on the mobile/tablet horizontal rails (Signs,
+   Workshops) while keeping them fully scrollable/swipeable and keyboard
+   reachable — Tailwind has no utility for scrollbar-width/-webkit-scrollbar,
+   so this is the minimal, documented, landing-local exception. */
+.horizontal-rail {
+  scrollbar-width: none;
+}
+
+.horizontal-rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* Swiper Core (Stories) exposes its own theming through CSS custom
+   properties rather than Tailwind-generated classes — Tailwind has no
+   utility for them, so this is the minimal, official, landing-local way to
+   keep the pagination on the monochrome token system instead of Swiper's
+   default color. */
+.stories-slider {
+  --swiper-pagination-color: var(--inverted-foreground);
+  --swiper-pagination-bullet-inactive-color: var(--inverted-foreground);
+  --swiper-pagination-bullet-inactive-opacity: 0.35;
+  --swiper-pagination-bullet-size: 0.4rem;
+  --swiper-pagination-bullet-horizontal-gap: 0.375rem;
+}
+
+.stories-slider-pagination .swiper-pagination-bullet {
+  cursor: pointer;
+  border-radius: 9999px;
+}
+
+.stories-slider-pagination .swiper-pagination-bullet:focus-visible {
+  outline: 3px solid var(--border);
+  outline-offset: 3px;
+}
+
+/* Per-landing color palette — see "Per-landing color palette" in the
+   astro-landing-pages Skill. `--color-primary` also happens to be the name
+   the shared design system's `@theme inline` block registers to generate
+   Tailwind's `bg-primary`/`text-primary` utilities — but those compiled
+   utilities bind directly to `--primary` (the shared monochrome token), not
+   `--color-primary`, so this block never silently retints anything; a
+   component only picks up a palette by explicitly using
+   `bg-(--color-primary)`/`text-(--color-light)`/etc.
+   Grayscale is the mandatory default (`:root` and the explicit
+   `[data-palette="grayscale"]` resolve identically); `[data-palette="warmth"]`
+   is opt-in, applied only via the platform's palette selector
+   (scripts/palette.ts) or a downloaded copy's own persisted choice — never
+   automatically.
+
+   "Warmth" is built from color psychology around home, comfort, and
+   groundedness rather than a literal skin/hair-tone palette: a grounded
+   terracotta-brown (trust, warmth, stability) as primary, a dusty rose
+   (tenderness, care) as secondary, a deep olive-brown (heritage,
+   permanence) as tertiary, a muted sage (calm, renewal) as a restrained
+   accent, and a warm ivory (comfort, home) as light. Each palette also
+   defines a `[data-theme="dark"]` variant, mirroring how the shared
+   `--primary`/`--primary-foreground` tokens invert between Light and Dark:
+   `primary` and `light` swap roles, `secondary` and `accent` swap roles,
+   `tertiary` stays the same grounded mid-tone. Currently consumed by every
+   official `primary`-variant button/link: the skip link, Header's "Get in
+   touch" CTA, Hero's primary CTA, and the CTA Final section's button. */
+:root,
+html[data-palette="grayscale"] {
+  --color-primary: #171717;
+  --color-secondary: #404040;
+  --color-tertiary: #737373;
+  --color-accent: #a3a3a3;
+  --color-light: #f5f5f5;
+}
+
+html[data-palette="warmth"] {
+  --color-primary: #6b3a2c;
+  --color-secondary: #b56b5c;
+  --color-tertiary: #4a4030;
+  --color-accent: #8a9a72;
+  --color-light: #f6efe4;
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"][data-palette="grayscale"] {
+  --color-primary: #f5f5f5;
+  --color-secondary: #a3a3a3;
+  --color-tertiary: #737373;
+  --color-accent: #404040;
+  --color-light: #171717;
+}
+
+html[data-theme="dark"][data-palette="warmth"] {
+  --color-primary: #f6efe4;
+  --color-secondary: #8a9a72;
+  --color-tertiary: #4a4030;
+  --color-accent: #b56b5c;
+  --color-light: #6b3a2c;
+}
+
+/* Photography stays grayscale (the mandatory default) but recovers its
+   original color the moment a color palette is active — tied to the same
+   `data-palette` attribute the palette tokens above already key off, so no
+   extra script/state is needed. The attribute selector on the override
+   (`[data-palette]:not(...)`) matters: without it, `:not([data-palette="grayscale"])`
+   also matches when the attribute is simply absent (the actual default,
+   before any palette is ever chosen — see index.astro's synchronous
+   restore script), which would show color by default instead of
+   grayscale. */
+@utility photo-tone {
+  filter: grayscale(100%) contrast(105%);
+  transition: filter 400ms var(--ease-landing);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    filter: none;
+  }
+}

@@ -230,7 +230,27 @@ Pick real numbers (a `clamp(min, preferred, max)` per role, same shape as before
 
 ### `max-w-heading` goes on the heading element itself
 
-`max-w-heading` (28ch) must be applied directly to the element carrying the fluid heading font-size (`text-headline-1/2/3`) — never to a wrapper `<div>` around the heading. `ch` is relative to the font-size of the element it's declared on: on a wrapper with the ordinary body font-size, 28ch resolves to a much narrower pixel width than on the actual `text-headline-2` element, so the heading's longest word overflows past its own container. This exact bug was found and fixed in `solar-energy/sections/Technology.astro` — audit every `max-w-heading` usage in a landing you touch and confirm it sits on the same tag as `text-headline-*`, not a containing `<div>`.
+`max-w-heading` (28ch) and `max-w-hero-heading` must be applied directly to the element carrying the fluid heading font-size (`text-headline-1/2/3`) — never to a wrapper `<div>` around the heading. `ch` is relative to the font-size of the element it's declared on: on a wrapper with the ordinary body font-size, 28ch resolves to a much narrower pixel width than on the actual `text-headline-2` element, so the heading's longest word overflows past its own container. This is the single most common bug across landing creation in this repo — it has recurred in `solar-energy/sections/Technology.astro` and in a freshly generated landing (`grandparent-care`'s `Tips.astro`, `Resources.astro`, `CTAFinal.astro`), always the same shape: an "eyebrow" label + heading (and sometimes a trailing paragraph) grouped inside one `<div>` for spacing convenience, with the `max-w-*` class landing on that grouping `<div>` instead of the heading.
+
+**Wrong** — the class sits on the wrapper, so `28ch`/`20ch` is computed against the wrapper's inherited body-size font, not the heading's large fluid size:
+
+```astro
+<div class="max-w-heading">
+  <p class="mb-4 text-xs uppercase">Eyebrow label</p>
+  <h2 class="text-headline-2 font-semibold">A heading that will overflow.</h2>
+</div>
+```
+
+**Right** — the class moves to the heading itself; the wrapper carries no width constraint of its own:
+
+```astro
+<div>
+  <p class="mb-4 text-xs uppercase">Eyebrow label</p>
+  <h2 class="max-w-heading text-headline-2 font-semibold">A heading with the correct width.</h2>
+</div>
+```
+
+Apply this rule the moment you write a heading block, not only as a later audit step: whenever a `<h1>`/`<h2>` sits inside any wrapper `<div>` (eyebrow + heading, heading + supporting paragraph, icon + heading, etc.), the `max-w-heading`/`max-w-hero-heading` class goes on the heading tag alone. Before finishing any task that touches a landing, run `grep -n "max-w-heading\|max-w-hero-heading" src/landings/[slug]/**/*.astro` and confirm every match's `class` attribute also contains `text-headline-1/2/3` (or another font-size utility already on that same tag) — a match without one is this bug.
 
 **A landing cannot deviate from the Design System contract to achieve its own personality.** Personality comes from: composition, layouts, grids, relative sizes, spacing, rhythm, hierarchy, sections, photography, animations, sticky, Swiper, GSAP. Same ingredients, different designs.
 
@@ -252,11 +272,30 @@ Name by intent, not value. Prefer `bg-background`, `text-foreground`, `bg-surfac
 
 ## 9. Monochrome
 
-All landings use exclusively white, black, and grayscale. No chromatic colors — regardless of the landing's theme. A coffee landing does not use brown. A solar landing does not use green or yellow.
+Every landing loads on white, black, and grayscale — no chromatic colors in the default, first-seen state. A visitor who never touches the palette selector sees a strictly monochrome landing.
 
-This applies to every component without exception: buttons, links, icons, forms, badges, cards, navigation, states, CTAs, decorative graphics, and placeholders. Differentiate interactive states through contrast, surface, opacity, weight, underline, scale, or motion — never color.
+This applies to every component without exception: buttons, links, icons, forms, badges, cards, navigation, states, CTAs, decorative graphics, and placeholders. Differentiate interactive states through contrast, surface, opacity, weight, underline, scale, or motion — never color, in the grayscale state.
 
-**One exception:** the opt-in color palette system (see §Optional palettes below).
+**The exception:** every landing also owns its own thematic color palette, switchable via the preview toolbar's palette selector (see §Per-landing color palette below). Grayscale is the default and the baseline every visitor sees first; the palette is what they get to when they choose to see the landing in color.
+
+### Photography: `photo-tone`, not raw `grayscale`/`contrast-*`
+
+Every `<img>` rendering a real photograph applies a single `@utility photo-tone` (declared in that landing's own `tailwind.css`, next to its other `@utility` blocks) instead of the raw `grayscale`/`contrast-*` Tailwind utilities directly in markup:
+
+```css
+@utility photo-tone {
+  filter: grayscale(100%) contrast(125%); /* or just grayscale(100%) — match whatever contrast treatment the landing already used */
+  transition: filter 400ms var(--ease-landing);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    filter: none;
+  }
+}
+```
+
+This keeps photography grayscale by default (as §9 requires) while automatically recovering full color the instant a landing's optional color palette (see "Optional per-landing color palettes" below) is anything other than grayscale — tied to the same `data-palette` attribute the palette tokens already key off, no extra script or state needed. A landing without a palette picker yet simply never sets `data-palette`, so `photo-tone` behaves exactly like plain `grayscale`/`contrast-*` did — inert until a palette system is added, at which point photography responds automatically with zero further change.
+
+The `[data-palette]` presence check in the override matters and must not be dropped: `:not([data-palette="grayscale"])` alone also matches when the attribute is simply *absent* (today's actual default before any palette is ever chosen), which would show color instead of grayscale by default — exactly backwards. Always require the attribute to be present via `[data-palette]:not(...)`.
 
 ## 10. Light / Dark
 
@@ -389,7 +428,8 @@ Additionally verify:
 - [ ] Typography mechanism: `@theme` remaps `--font-sans: var(--font-base)`; `--font-base`/`--font-sans`/`--font-display`/`--font-mono` all present; `<html>`/`<body>` use `scheme-light`/`dark:scheme-dark` + `font-sans` utilities; `:root`/`[data-theme="dark"]` contain no `color-scheme` or `font-family`, and there is no native `html, body { ... }` rule duplicating them; font loaded only via `<link>` in `index.astro`, never via CSS `@import url(...)`
 - [ ] Canonical breakpoints: `--breakpoint-footer/cards/nav/stats/display` match the exact values in §8 "Canonical values" byte-for-byte — no landing-tuned variants
 - [ ] Typography scale: `--text-headline-1/2/3`/`--text-figure` are present with the right token names, sized intentionally for this landing's category/content/composition (§8 "Typography scale is per-landing") — not copy-pasted from another landing, not an arbitrary one-off size in markup
-- [ ] Monochrome: no chromatic colors outside opt-in palettes
+- [ ] Monochrome: the default grayscale state has no chromatic colors outside the landing's own palette; every photograph uses the `photo-tone` utility (not raw `grayscale`/`contrast-*` in markup) — see §9 "Photography: `photo-tone`, not raw `grayscale`/`contrast-*`"
+- [ ] Palette: the landing defines its own thematic, color-psychology-grounded palette (§Per-landing color palette) — not `palettes: []`; token values are relevant to the landing's theme, harmonize with each other, hold correct contrast against the grayscale base in both Light and Dark, and never exceed the 6-token vocabulary
 - [ ] Light/Dark: both themes render correctly; the landing has its own visible toggle button in `Header.astro` (not just a `postMessage` listener) that persists to `localStorage` and restores synchronously before first paint
 - [ ] Typography: a single intentional typeface (Wix Madefor Text by default, or another Google Font the landing has deliberately chosen), loaded only via `<link>`, never `@import`
 - [ ] Heading containers: every `max-w-heading` sits on the same element as `text-headline-*`, never on a wrapper `<div>`
@@ -450,21 +490,38 @@ Prioritize native Astro capabilities. No island hydration unless a section genui
 
 When a landing has `src/landings/[slug]/assets/cover.png`: copy to `public/landings/[slug]/cover.png`, point `thumbnail`/`previewImage` in the metadata JSON and `og:image` at that path. Without a curated cover, source the thumbnail via the `unsplash-images` Skill.
 
-## Optional per-landing color palettes
+## Per-landing color palette
 
-The one documented exception to the monochrome rule. Add only when explicitly requested. Grayscale remains the default every visitor sees first.
+The one documented exception to the monochrome rule, and it is **mandatory** — not an add-on to build only when asked. Every landing must define its own chromatic palette, directly tied to its theme and grounded in color psychology, switchable via the preview toolbar's palette selector. Grayscale stays the default every visitor sees first (§9); the palette is a deliberate, considered second state, not an afterthought.
 
-### 5-token contract
+**Known debt:** landings built before this rule (or without one yet) ship with `palettes: []`. That is debt to fix, not a valid pattern to copy — when work touches such a landing, design and add its palette rather than leaving it grayscale-only, the same way the canonical-breakpoints debt in §8 gets corrected opportunistically.
+
+### The palette must earn its colors
+
+A palette is not decoration bolted onto the grayscale design — it is a considered design decision with three requirements:
+
+1. **Thematic relevance.** The colors must connect directly to what the landing is about — its category, product, and content — not be picked for being "nice." A chocolate landing reaching for warm cocoa browns and reds is obvious; the goal is a palette a visitor could plausibly trace back to the landing's subject even with the labels hidden.
+2. **Color psychology.** Pick hues for the emotional register and values the landing should communicate, not by default habit. A few starting associations (not an exhaustive or mandatory list — reason about the actual concept):
+   - Warm reds/oranges/browns → comfort, appetite, indulgence, warmth (food, hospitality, confectionery)
+   - Blues → trust, calm, precision, technology (SaaS, finance, professional services)
+   - Greens → growth, sustainability, health, renewal (energy, wellness, eco-conscious brands)
+   - Deep purples/plums → craft, premium, creativity (portfolio, luxury goods, editorial)
+   - Ochres/terracottas/earth tones → heritage, groundedness, craftsmanship (artisanal, agricultural, print/photography)
+   - Muted, desaturated versions of any of the above → restraint, quiet confidence (editorial, minimal SaaS) — full saturation everywhere reads as loud, not premium
+3. **Harmony and contrast.** The colors in one palette must read as a coherent family — related by hue (analogous), or a deliberate limited contrast (one accent against a muted base) — never a grab-bag of unrelated hues. Every token must also hold correct contrast against this landing's grayscale base (`--foreground`/`--background`/`--border`) wherever it's used for text or interactive states, in both Light and Dark — verify with the same WCAG bar the Skill's accessibility rules already require elsewhere (§16). A palette that looks good but fails contrast on a real background is incomplete.
+
+### Up to 6 tokens
 
 ```css
 --color-primary
 --color-secondary
 --color-tertiary
 --color-accent
+--color-support
 --color-light
 ```
 
-Never rename, add, or remove these 5 tokens. They are a separate namespace from the Design System tokens.
+This is the full, fixed vocabulary — never rename it, never add a 7th token, never invent a landing-branded synonym. It is a separate namespace from the Design System tokens (§8). `--color-primary` and `--color-light` are the only two every palette must define; declare the rest only as far as this landing's concept actually calls for distinct colors — a simple concept might need just `primary`, `accent`, and `light` (3 colors), a richer one can use all 6. Never exceed 6 distinct colors in one palette, and never define a token whose value merely repeats grayscale — every token declared must carry real color.
 
 ### Structure
 
@@ -486,11 +543,11 @@ html[data-palette="cocoa"] {
 }
 ```
 
-Every palette must have a `[data-theme="dark"]` variant (swap `primary`↔`light`, `secondary`↔`accent`, `tertiary` stays). A palette without a Dark variant is incomplete.
+Every palette must have a `[data-theme="dark"]` variant (swap `primary`↔`light`, `secondary`↔`accent`, `tertiary`/`support` stay). A palette without a Dark variant is incomplete.
 
 ### Metadata
 
-Declare in `src/content/landings/[slug].json` under `palettes`. Values must exactly match the CSS. Landings without palettes keep `palettes: []`.
+Declare in `src/content/landings/[slug].json` under `palettes`. Values must exactly match the CSS. A landing without a palette yet (see "Known debt" above) keeps `palettes: []` only until that debt is addressed — it is not an accepted end state for new or freshly audited work.
 
 ### Mechanism
 
@@ -517,4 +574,4 @@ Mirrors the Light/Dark bridge: `PaletteOptions` dispatches `preview:palette` →
 
 ## Design quality
 
-Do not default to Hero → three cards → logos → testimonials → pricing → CTA. Each landing should have distinct composition, rhythm, and hierarchy suited to its category. Personality comes from structure and composition, not color.
+Do not default to Hero → three cards → logos → testimonials → pricing → CTA. Each landing should have distinct composition, rhythm, and hierarchy suited to its category. In the grayscale state that every visitor sees first, personality comes from structure and composition, not color — the landing's own thematic palette (§Per-landing color palette) is a separate, deliberate layer on top, not a substitute for that structural design work.

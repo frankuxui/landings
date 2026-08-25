@@ -1,0 +1,49 @@
+---
+// Native <details>/<summary> accordion — fully functional without
+// JavaScript, keyboard-operable by default, and the chevron rotation is
+// driven entirely by Tailwind's `open:` variant (no script required).
+import { ChevronDown } from "@lucide/astro"
+import { faqItems } from "../data/faq"
+import type { FaqItem } from "../types"
+---
+
+<section class="bg-background py-section" aria-labelledby="faq-heading">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div>
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          Questions
+        </p>
+        <h2
+          id="faq-heading"
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+          data-split-reveal
+        >
+          Frequently asked questions.
+        </h2>
+      </div>
+
+      <div>
+        {
+          faqItems.map((item: FaqItem) => (
+            <details class="reveal group border-b border-border py-6 first:border-t">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-foreground marker:content-none focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border sm:text-lg [&::-webkit-details-marker]:hidden">
+                {item.question}
+                <ChevronDown
+                  class="size-5 shrink-0 text-muted transition-transform duration-200 ease-landing group-open:rotate-180"
+                  aria-hidden="true"
+                  stroke-width="1.5"
+                />
+              </summary>
+              <p class="mt-4 max-w-copy text-sm text-muted sm:text-base">
+                {item.answer}
+              </p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
