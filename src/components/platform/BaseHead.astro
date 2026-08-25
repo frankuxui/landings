@@ -13,6 +13,11 @@ const DEFAULT_DESCRIPTION =
   "Explora, visualiza y consulta una colección de Landing Pages construidas con Astro, agrupadas por categoría."
 const DEFAULT_IMAGE = "/opengraph.png"
 const LOCALE = "es_ES"
+// Bump this whenever the favicon/icon files change — browsers cache favicons
+// by URL far more aggressively than normal assets and often ignore reloads,
+// so the query string is what actually forces them to refetch.
+const ICON_VERSION = "2"
+const iconHref = (path: string): string => `${withBase(path)}?v=${ICON_VERSION}`
 
 const {
   title = DEFAULT_TITLE,
@@ -73,51 +78,51 @@ const webPageJsonLd = {
   media="(prefers-color-scheme: dark)"
 />
 
-<link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
-<link rel="icon" type="image/x-icon" href={withBase("/favicon.ico")} />
+<link rel="icon" type="image/svg+xml" href={iconHref("/favicon.svg")} />
+<link rel="icon" type="image/x-icon" href={iconHref("/favicon.ico")} />
 <link
   rel="icon"
   type="image/png"
   sizes="16x16"
-  href={withBase("/favicon-16x16.png")}
+  href={iconHref("/favicon-16x16.png")}
 />
 <link
   rel="icon"
   type="image/png"
   sizes="32x32"
-  href={withBase("/favicon-32x32.png")}
+  href={iconHref("/favicon-32x32.png")}
 />
 <link
   rel="apple-touch-icon"
   sizes="57x57"
-  href={withBase("/apple-touch-icon-57x57.png")}
+  href={iconHref("/apple-touch-icon-57x57.png")}
 />
 <link
   rel="apple-touch-icon"
   sizes="72x72"
-  href={withBase("/apple-touch-icon-72x72.png")}
+  href={iconHref("/apple-touch-icon-72x72.png")}
 />
 <link
   rel="apple-touch-icon"
   sizes="76x76"
-  href={withBase("/apple-touch-icon-76x76.png")}
+  href={iconHref("/apple-touch-icon-76x76.png")}
 />
 <link
   rel="apple-touch-icon"
   sizes="114x114"
-  href={withBase("/apple-touch-icon-114x114.png")}
+  href={iconHref("/apple-touch-icon-114x114.png")}
 />
 <link
   rel="apple-touch-icon"
   sizes="120x120"
-  href={withBase("/apple-touch-icon-120x120.png")}
+  href={iconHref("/apple-touch-icon-120x120.png")}
 />
 <link
   rel="apple-touch-icon"
   sizes="144x144"
-  href={withBase("/apple-touch-icon-144x144.png")}
+  href={iconHref("/apple-touch-icon-144x144.png")}
 />
-<link rel="apple-touch-icon" href={withBase("/apple-touch-icon.png")} />
+<link rel="apple-touch-icon" href={iconHref("/apple-touch-icon.png")} />
 <link rel="manifest" href={withBase("/site.webmanifest")} />
 
 <!-- Open Graph -->
