@@ -1,107 +1,121 @@
-# Fundición Ónix - Chocolate de precisión (business)
+# Chocolate Factory - Precision chocolate (business)
 
-Landing de una marca ficticia de chocolate de fábrica (**Fundición Ónix**),
-ubicada en una región de montaña ficticia (Vado de Ceniza). Selecciona cacao
-en grano, y lo transforma en fábrica propia hasta la tableta. Dirigida a
-consumidores, tiendas especializadas, restauración, hoteles y distribuidores.
+Landing page for a fictional factory-made chocolate brand (**Chocolate
+Factory**), based in a fictional mountain region (Ashford Crossing). It
+selects cacao beans and turns them into chocolate bars in its own factory.
+Aimed at consumers, specialty shops, restaurants, hotels, and distributors.
 
-## Estructura
+## Structure
 
-- `index.astro` - documento raíz autocontenido (`<html>` completo), sin
-  dependencias del layout de la plataforma.
-- `sections/` - una sección por bloque de la página (Header, Hero, Origen,
-  Fábrica, Proceso, Productos, Editorial, Distribución, CTAFinal, Contacto,
-  Footer).
-- `components/` - piezas reutilizadas por estructura, contenido o semántica
-  real: placeholder de imagen, paso de proceso, slide de producto, cifra de
-  producción, fila de segmento B2B y artículo editorial.
-- `data/` - contenido tipado de la landing (navegación, proceso, productos,
-  cifras de producción, segmentos de distribución, piezas editoriales).
-- `styles/tailwind.css` - sistema visual local de Tailwind CSS v4, **completo
-  y autocontenido**: tokens semánticos (`:root` / `[data-theme="dark"]` /
-  `@theme inline`), tipografía fluida, breakpoints y contenedores propios,
-  easing y la utility `reveal` (`@utility`). No importa ningún fichero fuera
-  de esta carpeta — en particular, no depende de
-  `src/styles/landing-design-system.css` ni de ningún otro fichero
-  compartido de la plataforma o de otra landing.
-- `scripts/` - `theme.ts` (escucha el `postMessage` de tema del shell de
-  previsualización y lo aplica solo al propio documento), `reveal.ts`
-  (reveals al hacer scroll vía `IntersectionObserver`), `menu.ts` (panel de
-  navegación móvil a pantalla completa, accesible), `navIndicator.ts`
-  (subrayado GSAP que sigue al enlace activo en escritorio),
-  `processScroll.ts` (scroll horizontal anclado con GSAP/ScrollTrigger para
-  la sección "Proceso" en Laptop/Desktop), `productsSlider.ts` (carrusel de
-  productos con Swiper Core) y `statsCounter.ts` (contador GSAP de las
-  cifras de producción en fila).
-- `types.ts` - tipos locales del contenido de esta landing (no se comparten
-  con la plataforma).
+- `index.astro` - self-contained root document (a full `<html>`), with no
+  dependency on the platform's layout.
+- `sections/` - one section per page block (Header, Hero, Origin, Factory,
+  Process, Products, Editorial, Distribution, CTAFinal, Contact, Footer).
+- `components/` - pieces reused for real structure, content, or semantics:
+  photograph renderer, process step card, product slide, production figure,
+  B2B segment row, editorial article, and the floating back-to-top control.
+- `data/` - this landing's typed content (navigation, process, products,
+  production figures, distribution segments, editorial pieces, Unsplash
+  image metadata).
+- `styles/tailwind.css` - this landing's local, **complete and
+  self-contained** Tailwind CSS v4 visual system: semantic tokens (`:root` /
+  `[data-theme="dark"]` / `@theme inline`), fluid typography, its own
+  breakpoints/containers, easing, and the `reveal` utility (`@utility`). It
+  imports no file from outside this folder — no dependency on the platform
+  or on any other landing.
+- `scripts/` - `theme.ts` (the header's Light/Dark toggle, persisted to
+  `localStorage`, plus the preview shell's `postMessage` bridge, both
+  applied only to this document), `palette.ts` (equivalent bridge for the
+  optional color palette selector), `reveal.ts` (scroll reveals via
+  `IntersectionObserver`), `menu.ts` (accessible full-screen mobile
+  navigation panel), `navIndicator.ts` (GSAP underline that follows the
+  active link on desktop), `processScroll.ts` (GSAP/ScrollTrigger pinned
+  horizontal scroll for the "Process" section on Laptop/Desktop),
+  `productsSlider.ts` (Swiper Core product carousel), `statsCounter.ts`
+  (GSAP count-up for the production figures row), and `backToTop.ts` (the
+  floating "back to top" control's scroll-triggered visibility and smooth
+  scroll behavior).
+- `types.ts` - this landing's own local content types (not shared with the
+  platform).
 
-## Sistema de estilos
+## Styling system
 
-Tailwind CSS v4 es el sistema de diseño y composición visual de la landing.
-El archivo `styles/tailwind.css` centraliza los tokens semánticos con
-`@theme`/`@theme inline` y las capacidades especiales con `@utility`
-(`reveal`). No existe `@layer components`: todos los estilos de botones,
-formularios y secciones se aplican como utilities directamente en el markup
-Astro de cada componente/sección.
+Tailwind CSS v4 is this landing's design and composition system.
+`styles/tailwind.css` centralizes the semantic tokens via
+`@theme`/`@theme inline` and any specialized capability via `@utility`
+(`reveal`). There is no `@layer components`: every button, form, and
+section style is applied as utilities directly in each Astro
+component/section's markup.
 
-Criterio aplicado:
+Applied criteria:
 
 - Design token -> `@theme` / `@theme inline`.
-- Utility especializada -> `@utility` (`reveal`).
-- Estilo específico -> utilities directamente en `class`.
-- Estructura, contenido, lógica o semántica reutilizable -> componente Astro.
+- Specialized utility -> `@utility` (`reveal`).
+- Specific styling -> utilities directly in `class`.
+- Reusable structure, content, logic, or semantics -> Astro component.
 
-No hay `ui.ts`, `styles.ts`, `classes.ts` ni objetos TypeScript de variantes
-visuales. Cada botón/enlace-botón usa exactamente una de las cuatro variantes
-oficiales (`primary`, `secondary`, `ghost`, `tertiary`); solo `tertiary`
-(los controles del carrusel de productos) usa borde. Badges, labels y cards
-se diferencian mediante superficies, contraste, spacing y jerarquía, nunca
-con borde.
+There is no `ui.ts`, `styles.ts`, `classes.ts`, or TypeScript object storing
+visual variants. Every button/button-like link uses exactly one of the four
+official variants (`primary`, `secondary`, `ghost`, `tertiary`); only
+`tertiary` (the product carousel controls) uses a border. Badges, labels,
+and cards are differentiated through surface, contrast, spacing, and
+hierarchy — never a border.
 
-### Excepciones de CSS nativo documentadas
+### Documented native-CSS exceptions
 
-- `.process-rail` oculta la barra de scroll nativa del riel horizontal de
-  "Proceso" en Mobile/Tablet (`scrollbar-width`, `::-webkit-scrollbar`) —
-  Tailwind no expone utilities para estas propiedades.
-- `.products-slider` / `.products-slider-pagination` fijan las variables CSS
-  propias de Swiper Core (`--swiper-pagination-*`) sobre los tokens
-  monocromos de la landing, en lugar de dejar el azul por defecto de Swiper.
+- `.process-rail` hides the native scrollbar of the "Process" section's
+  horizontal rail on Mobile/Tablet (`scrollbar-width`,
+  `::-webkit-scrollbar`) — Tailwind has no utility for these properties.
+- `.products-slider` / `.products-slider-pagination` set Swiper Core's own
+  CSS custom properties (`--swiper-pagination-*`) to this landing's
+  monochrome tokens, instead of leaving Swiper's default blue.
 
-## Diferenciación frente a otras landings de la galería
+## Differentiation from the rest of the gallery
 
-Comparte la misma filosofía técnica y monocromática que el resto de la
-galería, pero con arquitectura y composición propias: Hero editorial
-asimétrico (no simétrico a dos columnas), menú móvil a pantalla completa
-(no un panel lateral), indicador de navegación en forma de subrayado (no de
-píldora), sección "Proceso" con scroll horizontal anclado por GSAP en
-Laptop/Desktop en lugar de una lista vertical, cifras de producción en fila
-con divisores en lugar de una cuadrícula de tarjetas, tarjetas y bloques con
-radios casi rectos ("de molde") en lugar de muy redondeados, y un pie de
-página con wordmark grande y columnas separadas por una línea divisoria.
+Shares the same technical philosophy and monochrome system as the rest of
+the gallery, but with its own architecture and composition: an asymmetric
+editorial Hero (not a symmetric two-column layout), a full-screen mobile
+menu (not a side panel), an underline-style nav indicator (not a pill),
+a "Process" section with a GSAP-pinned horizontal scroll on Laptop/Desktop
+instead of a vertical list, production figures laid out in a single row
+with dividers instead of a card grid, cards and blocks with near-square
+("mold-cast") radii instead of heavily rounded corners, and a footer with a
+large wordmark and columns separated by a divider line.
 
-## Datos ficticios y privacidad
+## Fictional data and privacy
 
-Esta landing es una demo de diseño. No incluye JSON-LD de `Organization` ni
-simula una empresa real con datos registrales, URLs sociales o contacto
-plausible. Las secciones de contacto utilizan placeholders claramente
-ficticios: `correo@ejemplo.com`, `+00 000 000 000`, `Dirección de ejemplo`,
-`Ciudad, País`, `Instagram` y `LinkedIn`.
+This landing is a design demo. It does not include `Organization` JSON-LD
+or simulate a real company with registration data, social URLs, or
+plausible contact information. Contact sections use clearly fictional
+placeholders: `email@example.com`, `+00 000 000 000`, `Example Address`,
+`City, Country`, `Instagram`, and `LinkedIn`.
 
-## Notas
+## Notes
 
-- La imagen de `thumbnail` usada por la tarjeta del catálogo y la página de
-  detalle es una fotografía de Unsplash hotlinkeada (`images.unsplash.com`),
-  con su crédito (`thumbnailCredit`) persistido en
-  `src/content/landings/chocolate-factory.json`. No se aloja ninguna copia en
+- Every content photograph is a real Unsplash photo, hotlinked
+  (`images.unsplash.com`), rendered through `components/Photo.astro` with a
+  visible, keyboard-reachable credit shown as a discreet caption below the
+  photo (never overlaid on top of it). A consolidated "Photo credits" list,
+  built from the `allImages` array in `data/images.ts`, sits below the
+  footer's own content as a second, page-level point of attribution.
+- The `thumbnail` image used by the catalog card and the detail page is
+  also a hotlinked Unsplash photograph, with its credit
+  (`thumbnailCredit`) persisted in
+  `src/content/landings/chocolate-factory.json`. No copy is stored in
   `public/`.
-- Todas las imágenes de contenido son placeholders (`bg-placeholder` /
-  `bg-placeholder-inverse`) con proporción real, listos para sustituirse por
-  `<img>`/`Image`/`Picture` sin rediseñar nada.
-- Soporta tema claro y oscuro, ambos diseñados de forma independiente.
-- La sección "Proceso" funciona por completo sin JavaScript ni con
-  `prefers-reduced-motion` activado: el riel es un contenedor con scroll
-  horizontal nativo y `scroll-snap`; el anclado GSAP es una mejora
-  progresiva exclusiva de Laptop/Desktop con movimiento permitido.
-- La landing es estrictamente monocromática: blanco, negro y escala de
-  grises.
+- Supports Light and Dark themes, each designed with its own intention. The
+  header carries its own visible toggle button (`data-theme-toggle`),
+  persisted to `localStorage` and restored synchronously before first paint
+  so a standalone reload never flashes the wrong theme; it also mirrors the
+  platform preview shell's `postMessage` bridge.
+- The "Process" section works fully without JavaScript and with
+  `prefers-reduced-motion` enabled: the rail is a native horizontally
+  scrollable container with `scroll-snap`; the GSAP pin is a progressive
+  enhancement exclusive to Laptop/Desktop with motion allowed.
+- The floating "back to top" button appears once the reader scrolls past
+  one viewport height, fades/scales in on this landing's `--ease-landing`
+  curve, is a real `<button>`, and is removed from the tab order while
+  hidden.
+- This landing is strictly monochrome: white, black, and grayscale, with an
+  optional opt-in "Cocoa" color palette available through the platform's
+  palette selector (never applied by default).

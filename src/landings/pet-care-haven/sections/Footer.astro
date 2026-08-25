@@ -1,0 +1,130 @@
+---
+import { navLinks } from "../data/nav"
+import { allImages } from "../data/images"
+import type { NavLink, UnsplashImage } from "../types"
+
+const year = new Date().getFullYear()
+---
+
+<footer class="bg-inverted pt-16 pb-6 text-inverted-foreground">
+  <div
+    class="mx-auto grid w-full max-w-landing gap-10 px-container-x footer:grid-cols-[1.6fr_1fr_1fr] sm:px-8 xl:gap-16 xl:px-14"
+  >
+    <div>
+      <a class="text-inherit no-underline" href="#home">
+        <span class="text-xl sm:text-2xl">Pet Care Haven</span>
+      </a>
+      <p class="mt-4 max-w-copy text-current/75">
+        Walks, day care, bathing, boarding, and wellbeing follow-up for dogs and
+        cats, with a care plan built around each family.
+      </p>
+    </div>
+
+    <nav aria-label="Footer links">
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
+      >
+        Navigation
+      </p>
+      <ul class="flex flex-col gap-3">
+        {
+          navLinks.map((link: NavLink) => (
+            <li>
+              <a
+                class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+                href={link.href}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div>
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
+      >
+        Contact
+      </p>
+      <ul class="flex flex-col gap-3">
+        <li>
+          <a
+            class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+            href="mailto:email@example.com">email@example.com</a
+          >
+        </li>
+        <li>
+          <a
+            class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+            href="tel:+00000000000">+00 000 000 000</a
+          >
+        </li>
+        <li class="text-current/80">City, Country</li>
+        <li class="text-current/80">Monday to Sunday, example hours</li>
+      </ul>
+      <p
+        class="mt-6 mb-3 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
+      >
+        Social
+      </p>
+      <ul class="flex flex-col gap-3">
+        <li>
+          <a
+            class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+            href="#">Instagram</a
+          >
+        </li>
+        <li>
+          <a
+            class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+            href="#">LinkedIn</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div
+    class="mx-auto mt-16 w-full max-w-landing px-container-x sm:px-8 xl:px-14"
+  >
+    <div class="h-px w-full bg-current/12" aria-hidden="true"></div>
+    <p class="pt-6 text-sm text-current/60">
+      © {year} Pet Care Haven. Fictional landing demo.
+    </p>
+  </div>
+
+  <div
+    class="mx-auto mt-6 w-full max-w-landing px-container-x pt-6 text-xs text-current/60 sm:px-8 xl:px-14"
+  >
+    <p class="font-semibold text-current/70">Photo credits</p>
+    <ul class="mt-2 flex flex-wrap gap-x-2 gap-y-1">
+      {
+        allImages.map((image: UnsplashImage, index: number) => (
+          <li>
+            Photo by{" "}
+            <a
+              href={image.authorUrl}
+              rel="noopener"
+              target="_blank"
+              class="underline underline-offset-2"
+            >
+              {image.author}
+            </a>{" "}
+            on{" "}
+            <a
+              href={image.unsplashUrl}
+              rel="noopener"
+              target="_blank"
+              class="underline underline-offset-2"
+            >
+              Unsplash
+            </a>
+            {index < allImages.length - 1 ? "," : ""}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

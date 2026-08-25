@@ -1,0 +1,105 @@
+---
+import { ArrowDown } from "@lucide/astro"
+import { heroImage } from "../data/images"
+---
+
+<section
+  id="home"
+  class="relative isolate min-h-dvh w-full overflow-hidden bg-background"
+>
+  <div class="grid min-h-dvh w-full lg:grid-cols-[1.05fr_1fr]">
+    <div
+      class="relative flex flex-col justify-between gap-10 px-container-x pt-28 pb-12 sm:px-8 xl:pt-32 xl:pl-14"
+    >
+      <div>
+        <p
+          class="flex flex-wrap items-center gap-x-2 text-xs font-semibold tracking-wide text-muted uppercase"
+          data-hero-meta-item
+        >
+          Independent journalist &middot; Field reporter
+        </p>
+        <h1
+          class="mt-4 max-w-hero-heading text-headline-1 leading-[0.95] font-semibold tracking-tight text-foreground"
+          data-hero-name
+        >
+          Journalist Dispatch
+        </h1>
+      </div>
+
+      <div class="max-w-copy" data-hero-meta>
+        <p class="text-lg text-muted" data-hero-meta-item>
+          Reportage, investigations, and field notes from where the story is
+          still unfolding — filed from newsrooms, border crossings, and
+          everywhere in between.
+        </p>
+        <p
+          class="mt-4 text-sm font-semibold tracking-wide text-foreground uppercase"
+          data-hero-meta-item
+        >
+          Currently reporting: Southern border crossing
+        </p>
+        <p class="mt-8 text-xs text-muted" data-hero-meta-item>
+          Photo:{" "}
+          <a
+            href={heroImage.authorUrl}
+            rel="noopener"
+            target="_blank"
+            class="focus-underline underline underline-offset-2"
+          >
+            {heroImage.author}
+          </a>{" "}
+          ·{" "}
+          <a
+            href={heroImage.unsplashUrl}
+            rel="noopener"
+            target="_blank"
+            class="focus-underline underline underline-offset-2"
+          >
+            Unsplash
+          </a>
+        </p>
+      </div>
+
+      <a
+        href="#dispatch"
+        class="group inline-flex items-center gap-3 self-start text-sm font-semibold text-foreground no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        data-hero-scroll-indicator
+      >
+        <span
+          class="flex size-11 items-center justify-center rounded-full border border-border transition-colors duration-300 ease-landing group-hover:bg-control"
+        >
+          <ArrowDown
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+            class="animate-bounce motion-reduce:animate-none"
+          />
+        </span>
+        Read the latest dispatch
+      </a>
+    </div>
+
+    <div
+      class="relative order-first h-[48vh] overflow-hidden lg:order-last lg:h-auto"
+      data-hero-image-wrap
+    >
+      <img
+        src={heroImage.src}
+        alt={heroImage.alt}
+        title={`Photo by ${heroImage.author} on Unsplash`}
+        width={heroImage.width}
+        height={heroImage.height}
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+        class="h-full w-full object-cover grayscale contrast-125"
+        data-hero-parallax
+      />
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/heroReveal"
+</script>

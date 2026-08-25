@@ -28,10 +28,19 @@ Correct: `Hero.astro`, `Header.astro`, `About.astro`, `Products.astro`, `Testimo
 Never: `HeroSection.astro`, `MainHero.astro`, `CoffeeHero.astro`, `TestimonialsSection.astro`
 
 Rules:
+
 - PascalCase for `.astro` components
 - camelCase for functions, variables, and TS modules
 - Names exclusively in English
 - Semantic names not tied to the landing's theme when they represent common concepts
+
+### The landing's displayed name matches its slug
+
+The brand/site name shown on the page — `Header.astro`'s logo text, `Footer.astro`'s logo/copyright, `<title>`/`og:title`, and `src/content/landings/[slug].json`'s `name`/`title` — is the Title Case form of the landing's own slug, not an invented fictional brand. `coffee-producer` → "Coffee Producer", `solar-energy` → "Solar Energy", `silver-print` → "Silver Print". This keeps the gallery's identity (the slug) and the landing's on-page identity (what a visitor reads) always in sync, so a landing is instantly recognizable from either its URL or its own header — a fictional brand name (e.g. "Terraltura" for `coffee-producer`) is a mismatch to fix, not a stylistic choice to keep. Fictional place names, product names, or other flavor content used *inside* the landing's copy (e.g. a coffee origin's regional name) are unaffected by this rule — it governs only the landing's own displayed identity.
+
+### No logo marks — the wordmark is the logo
+
+Landings never get a designed logo icon/glyph/mark (a monogram badge, an abstract symbol, an icon standing in for the brand). The "logo" in `Header.astro` (and `Footer.astro`) is the landing's name as plain text — styled with weight/tracking/size like any other piece of type, never paired with a circular initial badge, an `@lucide/astro` icon, or any decorative mark next to it. This is deliberate: designing a bespoke mark per landing is real design work this gallery doesn't need, and an icon badge is exactly the kind of element that breaks first when a header is squeezed at a narrow width (fixed-size circle + wordmark + nav competing for the same row). A landing with an icon/badge next to its name is out of contract — remove the mark, keep the text.
 
 ## 3. Folder structure
 
@@ -60,14 +69,15 @@ Each landing is an independent island. Sharing between landings is completely pr
 A landing never imports from `src/landings/other-landing/...`. No landing depends on another to function. This is fundamental — each landing must be downloadable independently.
 
 A landing may depend on:
-- The shared Design System file (`src/styles/landing-design-system.css`) — the one allowed platform-level dependency
+
 - Platform types from `src/types/` when genuinely shared
 
 A landing never depends on:
+
 - Another landing's folder, for any reason
+- Any file inside `src/styles/` — including `global.css` and any shared CSS
 - Platform catalog pages (`src/pages/`)
 - Platform components (`src/components/platform/`)
-- Platform styles (`src/styles/global.css`)
 
 ## 5. Tailwind CSS
 
@@ -81,20 +91,65 @@ Use Tailwind v4 CSS-first architecture: `@tailwindcss/vite` under `vite.plugins`
 
 ```css
 @import "tailwindcss";
-@import "../../../styles/landing-design-system.css";
 ```
 
+Followed immediately by the landing's own complete design-system contract. No import of any shared CSS file — the design system lives entirely inside the landing's own `styles/tailwind.css`.
+
 Do not introduce legacy `@astrojs/tailwind`, `tailwind.config.js`, PostCSS/autoprefixer, or v3 directives.
+
+### Mandatory block order in `styles/tailwind.css`
+
+Every landing's `styles/tailwind.css` uses this exact top-level block order — not a per-landing preference, part of the shared contract:
+
+```css
+@import "tailwindcss";
+
+/* explanatory header comment — self-containment, token names vs. values */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  /* semantic Light tokens */
+}
+
+[data-theme="dark"] {
+  /* semantic Dark tokens */
+}
+
+@theme inline {
+  /* bridges :root/[data-theme="dark"] tokens into Tailwind-generated utilities */
+}
+
+@theme {
+  /* --font-base, --font-sans, --font-display, --font-mono */
+  /* --breakpoint-* */
+  /* --spacing-*, --container-* */
+  /* --ease-landing */
+  /* --text-headline-*, --text-figure */
+}
+
+@utility reveal {
+  /* scroll-reveal utility */
+}
+
+/* other landing-local @utility blocks, @keyframes, and documented
+   native-CSS exceptions (e.g. Swiper pagination theming) */
+```
+
+`:root` always comes before `@theme` — the semantic Light tokens are independent of this landing's own `@theme` primitives (they consume Tailwind's built-in color palette, e.g. `--color-neutral-50`), so they read first as the baseline, followed by Dark, then the bridge, then this landing's raw design primitives. A landing whose file deviates from this order is out of contract and must be reordered — this is a structural rule, not a stylistic choice left to each landing.
+
+`:root` and `[data-theme="dark"]` hold only the semantic color tokens — never `color-scheme`, never `font-family`, never a paired `html, body { ... }` rule. Both concerns are already covered by Tailwind utilities on `<html>`/`<body>` in `index.astro` (see "Shared typography" and the folder-structure `<html>`/`<body>` classes below) — a native CSS rule duplicating them is redundant and drifts out of sync.
 
 ### Styling rules
 
 - Utilities directly in Astro `class` attributes as the primary approach
-- Design tokens → `@theme` (declared in the shared Design System, not per-landing)
+- Design tokens → `@theme` (declared locally in the landing's own `styles/tailwind.css`)
 - Specialized reusable behavior → `@utility`
 - One-off styling → utilities in `class`
 - Reusable structure/content/logic/behavior → Astro component
 
 **Prohibited:**
+
 - `@layer components` for button/form/UI classes — all styling via utilities in markup
 - Files like `ui.ts`, `styles.ts`, `classes.ts` storing Tailwind class strings
 - Components created solely to encapsulate Tailwind classes
@@ -113,7 +168,7 @@ Prohibited:
 bg-[#000000]  text-[#333333]  text-[10px]  p-[17px]  rounded-[13px]  min-[1400px]:text-lg
 ```
 
-Use tokens, the Tailwind scale, official breakpoints, `@theme`, and existing utilities. If a genuinely new reusable value is needed, incorporate it into the shared Design System — never hardcode it in markup.
+Use tokens, the Tailwind scale, official breakpoints, `@theme`, and existing utilities. If a genuinely new reusable value is needed, add it to the landing's local `@theme` block in `styles/tailwind.css` (and apply the same addition manually to every other landing if it belongs to the gallery contract) — never hardcode it in markup.
 
 Do not declare landing-local `--radius-*` or `--shadow-*` tokens. Tailwind's built-in scales (`rounded-*`, `shadow-*`) are the shared ingredient set. A landing gets its look by picking different steps from these scales directly in markup.
 
@@ -125,24 +180,61 @@ Use Container Queries (`@container`) when layout depends on the component's avai
 
 Mobile, Tablet, Laptop, and Desktop have equal importance. Design from Mobile upward — unprefixed utilities are the Mobile state.
 
-Custom breakpoints, when genuinely needed, go in `@theme` via `--breakpoint-*` in `rem`. The shared Design System already provides: `--breakpoint-footer`, `--breakpoint-cards`, `--breakpoint-nav`, `--breakpoint-stats`, `--breakpoint-display`.
+Custom breakpoints, when genuinely needed, go in `@theme` via `--breakpoint-*` in `rem`. The landing's own design-system contract already provides: `--breakpoint-footer`, `--breakpoint-cards`, `--breakpoint-nav`, `--breakpoint-stats`, `--breakpoint-display`.
 
 ## 8. Design System
 
-All landings import and use the shared Design System at `src/styles/landing-design-system.css`. This file is the single source of truth — no landing modifies, extends, removes, or renames any token declared in it.
+Every landing owns a complete, self-contained copy of the design-system contract inside its own `styles/tailwind.css`. There is no shared CSS file — no landing imports from `src/styles/` or from any other landing. The duplication is intentional: a landing must remain fully functional when its folder is extracted in isolation.
 
-What the Design System provides (identical across every landing):
-- Semantic color palette (`:root` and `[data-theme="dark"]`)
+The contract is identical across every landing:
+
+- `@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *))`
+- Semantic color palette in `:root` (Light) and `[data-theme="dark"]` (Dark) — colors only, never `color-scheme` or `font-family`
 - `@theme inline` mapping (generates `bg-background`, `text-foreground`, `bg-surface`, etc.)
-- `@custom-variant dark`
-- Font family (`--font-sans`, `--font-display`, `--font-mono`)
-- Fluid heading scale (`--text-headline-1/2/3`, `--text-figure`)
-- Structural tokens (`--spacing-section`, `--container-landing`, `--container-copy`, etc.)
-- Named breakpoints (`--breakpoint-footer/cards/nav/stats/display`)
-- Easing (`--ease-landing`)
-- `reveal` scroll utility
+- Font family in `@theme` (`--font-base`, `--font-sans: var(--font-base)`, `--font-display`, `--font-mono`)
+- Fluid heading scale in `@theme` (`--text-headline-1/2/3`, `--text-figure`) — token **names** shared, values chosen per landing (see "Typography scale is per-landing" below)
+- Structural tokens in `@theme` (`--spacing-section`, `--container-landing`, `--container-copy`, etc.)
+- Named breakpoints in `@theme` (`--breakpoint-footer/cards/nav/stats/display`)
+- Easing in `@theme` (`--ease-landing`)
+- `@utility reveal` scroll utility
 
-**A landing cannot modify the Design System to achieve its own personality.** Personality comes from: composition, layouts, grids, relative sizes, spacing, rhythm, hierarchy, sections, photography, animations, sticky, Swiper, GSAP. Same ingredients, different designs.
+Every landing declares all of the above, in the block order given in §5 "Mandatory block order". A landing that is missing any of these blocks, or whose blocks are out of order, is incomplete. A landing that alters a token **name**, or the **value** of anything other than the typography scale, relative to the shared contract is in violation — those names and values are fixed for the entire gallery.
+
+### Canonical values — breakpoints
+
+These exact values are the gallery contract for every landing. Not a starting point, not a per-landing default — a locked value. A landing never changes them, never adds its own variant scale, and never tunes them "to fit" a particular composition.
+
+```css
+--breakpoint-footer: 45rem;
+--breakpoint-cards: 47.5rem;
+--breakpoint-nav: 56.25rem;
+--breakpoint-stats: 67.5rem;
+--breakpoint-display: 87.5rem;
+```
+
+If a landing genuinely needs a breakpoint step this set doesn't cover, that is a proposal to extend the gallery contract (apply it to all 7 landings at once, document it here first) — never a reason to give one landing its own numbers.
+
+**Known debt:** `aperture-editions` and `silver-print` currently ship with different breakpoint values than the ones above. This is a contract violation to fix, not an alternate pattern to extend elsewhere — when work touches either landing, bring its values back in line with this table rather than treating its numbers as valid prior art.
+
+### Typography scale is per-landing
+
+`--text-headline-1/2/3` and `--text-figure` keep the same **names** everywhere (so markup — `class="text-headline-2"` — reads identically across landings), but their **clamp values are chosen per landing**, not copied from a shared table. Decide the scale the same way you'd decide any other design choice for that landing: what does its category, content density, and composition actually call for?
+
+- An editorial/blog landing with long-form reading and a quiet, restrained voice wants smaller, tighter headline sizes than a bold SaaS hero built to be scanned in three seconds.
+- A landing with a dense grid of cards (pricing tiers, product cards, stat blocks) needs a `text-headline-3`/body scale that stays legible at small card widths — oversized card headings are a common failure mode, watch for it specifically.
+- A landing whose header logo, nav, and CTA all have to fit on one line at the `nav:` breakpoint needs its logotype and nav type sized with that constraint in mind — a large logo wordmark plus a full-size nav plus a CTA button is exactly how a header breaks first, before any content section does.
+
+Pick real numbers (a `clamp(min, preferred, max)` per role, same shape as before) that fit the landing being designed, and treat them as fixed for *that* landing once chosen — still no arbitrary one-off `text-[32px]` in markup, still driven entirely through the `@theme` tokens. Differentiation between landings now comes from both composition *and* the typographic scale itself, not composition alone.
+
+**`--font-sans` must be remapped to `--font-base`.** Every landing's `<html>`/`<body>` already carries the `font-sans` Tailwind utility (see folder-structure markup below) — without `--font-sans: var(--font-base)` in `@theme`, that utility silently falls back to Tailwind's default system sans-serif and Wix Madefor Text never actually renders in an isolated build. Do not "fix" this by adding a native `html, body { font-family: var(--font-base) }` rule instead — remap the token so the existing utility resolves correctly.
+
+### `max-w-heading` goes on the heading element itself
+
+`max-w-heading` (28ch) must be applied directly to the element carrying the fluid heading font-size (`text-headline-1/2/3`) — never to a wrapper `<div>` around the heading. `ch` is relative to the font-size of the element it's declared on: on a wrapper with the ordinary body font-size, 28ch resolves to a much narrower pixel width than on the actual `text-headline-2` element, so the heading's longest word overflows past its own container. This exact bug was found and fixed in `solar-energy/sections/Technology.astro` — audit every `max-w-heading` usage in a landing you touch and confirm it sits on the same tag as `text-headline-*`, not a containing `<div>`.
+
+**A landing cannot deviate from the Design System contract to achieve its own personality.** Personality comes from: composition, layouts, grids, relative sizes, spacing, rhythm, hierarchy, sections, photography, animations, sticky, Swiper, GSAP. Same ingredients, different designs.
+
+> **AUTONOMÍA > DRY.** Never extract the shared contract into a common file to avoid repeating it. The intentional duplication is what keeps every landing independently downloadable.
 
 ### Token vocabulary
 
@@ -170,15 +262,20 @@ This applies to every component without exception: buttons, links, icons, forms,
 
 Every landing must support `data-theme="light"` and `data-theme="dark"` via the semantic token system. The markup stays identical between themes — only CSS variable values change.
 
-Each landing must contain its own functional Light/Dark selector, independent of the platform's preview toolbar. The landing listens for `postMessage({ type: 'preview:theme', theme })` and toggles `data-theme` on its own `document.documentElement` only — never `window.top`.
+Each landing must contain its own functional Light/Dark selector, independent of the platform's preview toolbar. Concretely, this means two things, both required — one is not a substitute for the other:
+
+1. **A visible toggle button in the landing's own `Header.astro`** (e.g. a Moon/Sun icon button with `data-theme-toggle`), so the theme can be switched when the landing is viewed completely standalone — outside the platform preview iframe, or downloaded and opened on its own. A landing whose only theme-switching mechanism is listening for the platform's `postMessage` is incomplete: opened alone, it has no way to change theme at all.
+2. **The `postMessage` bridge**, so the platform's own preview toolbar still works. The landing listens for `postMessage({ type: 'preview:theme', theme })` and toggles `data-theme` on its own `document.documentElement` only — never `window.top`.
+
+The toggle button persists the choice to `localStorage` (a landing-local key, e.g. `[slug]-theme`) and restores it synchronously in `index.astro`'s `<head>` — inline, before first paint — so a standalone reload doesn't flash the wrong theme. Both the button's click handler and the `postMessage` listener should write to the same `localStorage` key, so either source of a theme change stays in sync with the other.
 
 Both themes stay strictly monochrome. Dark is not just an inverted Light — design it with its own intention.
 
 ## 11. Typography
 
-All landings use exclusively **Wix Madefor Text** (weights 400–800 + italic). No other font families.
+**Wix Madefor Text** (weights 400–800 + italic) is the gallery's default typeface, used unless a landing has a stated reason to differ. A landing may choose its own Google Font instead when its category/design calls for a different voice (e.g. `chocolate-factory` uses **Poppins** for a rounder, more confectionery-shop feel) — this is the same kind of per-landing design choice as the typography scale (§8 "Typography scale is per-landing"), not a contract violation. Within a single landing there is still only **one** typeface family for body/heading text (a `--font-display` distinct from `--font-base` is allowed for deliberate display/heading contrast, but both must be intentional, named choices — never an accidental second font).
 
-Every landing's `index.astro` loads it via these `<link>` tags in `<head>`:
+Every landing's `index.astro` loads its chosen typeface via `<link>` tags in `<head>`, the same mechanism regardless of which font is chosen (shown here for the default):
 
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -189,7 +286,17 @@ Every landing's `index.astro` loads it via these `<link>` tags in `<head>`:
 />
 ```
 
-Never via CSS `@import url(...)`. Never a second font family. The font tokens `--font-sans`/`--font-display` are declared in the shared Design System.
+Never via CSS `@import url(...)`. Never more than one font family loaded per landing. The font tokens `--font-base`/`--font-sans`/`--font-display`/`--font-mono` are declared in each landing's own `styles/tailwind.css` (see §5 "Mandatory block order") — whatever family a landing picks, it flows through these same token names, never a landing-invented token name.
+
+`<html>` and `<body>` in `index.astro` apply the font and color-scheme entirely through Tailwind utilities — never through a native CSS rule:
+
+```html
+<html lang="en" class="scroll-smooth overflow-x-clip scheme-light motion-reduce:scroll-auto dark:scheme-dark font-sans">
+  ...
+  <body class="min-h-full overflow-x-clip bg-background text-base leading-relaxed text-foreground antialiased font-sans">
+```
+
+`scheme-light`/`dark:scheme-dark` replace a native `color-scheme` declaration; `font-sans` (resolving to `--font-base` via the `--font-sans` remap in `@theme`) replaces a native `font-family` declaration. A landing that instead declares `color-scheme` or `font-family` inside `:root`/`html, body {}` in its `tailwind.css` is duplicating what the markup already does correctly — remove the CSS rule, don't add a second mechanism.
 
 ## 12. Images
 
@@ -198,6 +305,7 @@ Finished landings use real Unsplash photographs when the design requires photogr
 Read and follow that Skill before selecting any image. Do not replicate its rules here.
 
 Key integration points:
+
 - Persist metadata inside the landing's own `data/` (isolation)
 - Render hotlinked `images.unsplash.com` URLs with explicit `width`/`height`
 - Apply monochrome treatment via Tailwind (`grayscale`, contrast)
@@ -270,17 +378,23 @@ npm run build
 ```
 
 Additionally verify:
+
 - [ ] Language: 100% English
 - [ ] Naming: consistent with conventions
 - [ ] Folder structure: no empty folders, no renamed base folders
 - [ ] Isolation: no cross-landing imports
 - [ ] Tailwind: no `@layer components`, no class-string files, no arbitrary colors
 - [ ] Arbitrary values: no hardcoded Design System values in markup
-- [ ] Design System: imports `landing-design-system.css`, no local overrides of shared tokens
+- [ ] Design System: complete local contract present in `styles/tailwind.css`, in the exact block order from §5 (`@import "tailwindcss"` → header comment → `@custom-variant dark` → `:root` → `[data-theme="dark"]` → `@theme inline` → `@theme` → `@utility reveal`); no import of any shared or external CSS file; token names and values match the gallery contract
+- [ ] Typography mechanism: `@theme` remaps `--font-sans: var(--font-base)`; `--font-base`/`--font-sans`/`--font-display`/`--font-mono` all present; `<html>`/`<body>` use `scheme-light`/`dark:scheme-dark` + `font-sans` utilities; `:root`/`[data-theme="dark"]` contain no `color-scheme` or `font-family`, and there is no native `html, body { ... }` rule duplicating them; font loaded only via `<link>` in `index.astro`, never via CSS `@import url(...)`
+- [ ] Canonical breakpoints: `--breakpoint-footer/cards/nav/stats/display` match the exact values in §8 "Canonical values" byte-for-byte — no landing-tuned variants
+- [ ] Typography scale: `--text-headline-1/2/3`/`--text-figure` are present with the right token names, sized intentionally for this landing's category/content/composition (§8 "Typography scale is per-landing") — not copy-pasted from another landing, not an arbitrary one-off size in markup
 - [ ] Monochrome: no chromatic colors outside opt-in palettes
-- [ ] Light/Dark: both themes render correctly, own selector functional
-- [ ] Typography: Wix Madefor Text only, loaded via `<link>`
-- [ ] Images: real Unsplash photos with attribution (or justified placeholder)
+- [ ] Light/Dark: both themes render correctly; the landing has its own visible toggle button in `Header.astro` (not just a `postMessage` listener) that persists to `localStorage` and restores synchronously before first paint
+- [ ] Typography: a single intentional typeface (Wix Madefor Text by default, or another Google Font the landing has deliberately chosen), loaded only via `<link>`, never `@import`
+- [ ] Heading containers: every `max-w-heading` sits on the same element as `text-headline-*`, never on a wrapper `<div>`
+- [ ] Brand identity: the landing's displayed name (Header, Footer, `<title>`, metadata JSON `name`/`title`) is the Title Case form of its slug, not an invented fictional brand — and it's a text-only wordmark, no icon/badge/mark next to it
+- [ ] Images: real Unsplash photos with attribution below the photo (never overlaid on top of it) plus a page-level "Photo credits" list under the footer — see the `unsplash-images` Skill §9
 - [ ] Icons: `@lucide/astro` only, correct accessibility
 - [ ] Typing: clean `tsc`, no `any`, explicit callback types
 - [ ] Privacy: no plausible fictional data
@@ -289,6 +403,7 @@ Additionally verify:
 - [ ] Sticky columns: applied to every short-header/long-content pattern at `lg:`
 - [ ] Console: no errors or warnings
 - [ ] README: present and current
+- [ ] Back to top: floating button present, hidden until the scroll threshold, real `<button>`, accessible, `prefers-reduced-motion`-aware (see "Back to top button")
 
 ---
 
@@ -300,12 +415,12 @@ Borders are not the default visual separator. Never use a border on badges, labe
 
 No additional variants, aliases, or one-off styles.
 
-| Variant | Hierarchy | Border | Light | Dark |
-|-----------|-----------|--------|-------------------------------|-------------------------------|
-| `primary` | Highest | Never | Dark surface, light content | Light surface, dark content |
-| `secondary` | Lower | Never | Grayscale surface | Grayscale surface |
-| `ghost` | Low | Never | Transparent/near-transparent | Transparent/near-transparent |
-| `tertiary` | Lightest | Allowed | Monochrome border | Monochrome border |
+| Variant     | Hierarchy | Border  | Light                        | Dark                         |
+| ----------- | --------- | ------- | ---------------------------- | ---------------------------- |
+| `primary`   | Highest   | Never   | Dark surface, light content  | Light surface, dark content  |
+| `secondary` | Lower     | Never   | Grayscale surface            | Grayscale surface            |
+| `ghost`     | Low       | Never   | Transparent/near-transparent | Transparent/near-transparent |
+| `tertiary`  | Lightest  | Allowed | Monochrome border            | Monochrome border            |
 
 Every button must implement: `default`, `hover`, `focus-visible`, `active`, and `disabled` states in both themes. Motion respects `prefers-reduced-motion`.
 
@@ -314,6 +429,18 @@ Every button must implement: `default`, `hover`, `focus-visible`, `active`, and 
 When a section has a short column (heading, description, counter) beside a considerably longer column (list, steps, cards, testimonials), the short column must be `sticky` on desktop.
 
 Always use `lg:` (1024px) — the platform's Desktop threshold. Never `xl:`. Pair the grid split and sticky on the same breakpoint. Never force sticky on Mobile/Tablet. Never apply when both columns have comparable height.
+
+## Back to top button
+
+Every landing must have a floating "back to top" control, shared behavior across the gallery:
+
+- **Hidden by default**, appears only after the user has scrolled past a threshold (e.g. one viewport height, or a fixed px distance — pick what suits the landing's page length; don't invent a per-landing token for it, a plain constant in the landing's own script is fine).
+- **Fixed position**, floating above content (a corner, typically bottom-right), never part of normal document flow, never overlapping the footer's own content when it's visible near the bottom of the page.
+- **Fade/scale in and out** on the same `--ease-landing` curve the rest of the landing uses for motion — appearing and disappearing is a transition, not a hard `display` toggle, except as the `motion-reduce` fallback.
+- **A real `<button>`**, not a link, since it doesn't navigate to a URL — scrolls the viewport via `scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" })` (or `window.scrollTo` equivalent), respecting `prefers-reduced-motion`.
+- **Accessible**: `aria-label="Back to top"` (or equivalent in the landing's content language), visible focus ring, reachable by keyboard, and — since it appears/disappears — either `inert`/`aria-hidden` while hidden or simply removed from the tab order via the same visibility mechanism (don't leave a focusable-but-invisible button in the tab order).
+- **Monochrome**, styled with the landing's own token system like every other control — an icon button (e.g. an up-chevron/arrow from `@lucide/astro`) using the `secondary`/`tertiary`/`ghost` button treatment from "Borders and button system", never a new one-off style.
+- Implemented as its own small script (e.g. `scripts/backToTop.ts`) using a scroll listener (`passive: true`) toggling a class or `data-*` state — consistent with how this landing already handles other scroll-driven behavior (reveal, nav indicator), not a separate ad-hoc pattern.
 
 ## Astro-first
 
@@ -371,13 +498,13 @@ Mirrors the Light/Dark bridge: `PaletteOptions` dispatches `preview:palette` →
 
 ## Category guidance
 
-| Category | UX priorities |
-|---|---|
-| E-commerce | Product clarity, trust, price/CTA prominence, fast purchase path |
-| Portfolio | Visual craft, case studies, restrained chrome, clear contact |
-| SaaS | Value prop first screen, feature clarity, social proof, low-friction CTA |
-| Blog/Editorial | Readability, typography hierarchy, content density, minimal chrome |
-| Business/Services | Trust, credibility, clear service description, easy contact |
+| Category          | UX priorities                                                            |
+| ----------------- | ------------------------------------------------------------------------ |
+| E-commerce        | Product clarity, trust, price/CTA prominence, fast purchase path         |
+| Portfolio         | Visual craft, case studies, restrained chrome, clear contact             |
+| SaaS              | Value prop first screen, feature clarity, social proof, low-friction CTA |
+| Blog/Editorial    | Readability, typography hierarchy, content density, minimal chrome       |
+| Business/Services | Trust, credibility, clear service description, easy contact              |
 
 ## Before touching code
 

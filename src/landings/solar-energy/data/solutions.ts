@@ -1,39 +1,40 @@
+import { solutionImages } from "./images"
 import type { Solution } from "../types"
 
 export const solutions: Solution[] = [
   {
     number: "01",
-    title: "Autoconsumo residencial",
+    title: "Residential self-consumption",
     description:
-      "Instalaciones dimensionadas al consumo real de cada vivienda, pensadas para reducir la factura desde el primer mes de funcionamiento.",
-    imageLabel: "Residential rooftop solar panels",
+      "Systems sized to each home's actual consumption, designed to lower the bill from the very first month of operation.",
+    image: solutionImages.residential,
   },
   {
     number: "02",
-    title: "Instalaciones comerciales",
+    title: "Commercial installations",
     description:
-      "Cubiertas de comercios y oficinas convertidas en superficie de generación, sin interferir en la actividad diaria del negocio.",
-    imageLabel: "Commercial building solar installation",
+      "Shop and office roofs turned into generation surfaces, without disrupting the business's daily activity.",
+    image: solutionImages.commercial,
   },
   {
     number: "03",
-    title: "Instalaciones industriales",
+    title: "Industrial installations",
     description:
-      "Proyectos de gran superficie para naves y plantas de producción, con estudios de retorno adaptados a procesos industriales.",
-    imageLabel: "Industrial rooftop solar panels",
+      "Large-surface projects for warehouses and production plants, with payback studies tailored to industrial processes.",
+    image: solutionImages.industrial,
   },
   {
     number: "04",
-    title: "Comunidades energéticas",
+    title: "Energy communities",
     description:
-      "Generación compartida entre varios edificios o vecinos, con reparto de energía y ahorro configurado según el consumo de cada parte.",
-    imageLabel: "Shared rooftop solar community installation",
+      "Shared generation across several buildings or neighbors, with energy distribution and savings configured to each party's consumption.",
+    image: solutionImages.community,
   },
   {
     number: "05",
-    title: "Monitorización y optimización",
+    title: "Monitoring and optimization",
     description:
-      "Seguimiento posterior a la instalación para mantener el rendimiento en el tiempo y anticipar el mantenimiento antes de que sea necesario.",
-    imageLabel: "Solar monitoring dashboard on site",
+      "Post-installation follow-up to sustain performance over time and anticipate maintenance before it becomes necessary.",
+    image: solutionImages.monitoring,
   },
 ]

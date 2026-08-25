@@ -1,4 +1,4 @@
-// Fundición Ónix — accessible full-screen mobile navigation toggle.
+// Chocolate Factory — accessible full-screen mobile navigation toggle.
 // A real <button> drives `aria-expanded`, closes on Escape, closes when a
 // nav link is activated, and returns focus to the trigger on close.
 //
@@ -29,14 +29,14 @@ const setBackgroundInert = (isInert: boolean): void => {
 if (toggle && panel) {
   const closeMenu = (): void => {
     toggle.setAttribute("aria-expanded", "false")
-    toggle.setAttribute("aria-label", "Abrir menú de navegación")
+    toggle.setAttribute("aria-label", "Open navigation menu")
     panel.setAttribute("aria-hidden", "true")
     setBackgroundInert(false)
   }
 
   const openMenu = (): void => {
     toggle.setAttribute("aria-expanded", "true")
-    toggle.setAttribute("aria-label", "Cerrar menú de navegación")
+    toggle.setAttribute("aria-label", "Close navigation menu")
     panel.setAttribute("aria-hidden", "false")
     setBackgroundInert(true)
   }

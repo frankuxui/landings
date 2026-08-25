@@ -1,8 +1,10 @@
 ---
 // Real photography sourced from Unsplash via the `unsplash-images` Skill.
 // Renders the persisted, hotlinked `images.unsplash.com` URL with the
-// landing's monochrome treatment and a visible, keyboard-reachable credit —
-// see src/landings/chocolate-factory/data/images.ts for the source metadata.
+// landing's monochrome treatment. Credit is a discreet caption below the
+// photo (never overlaid on top of it) plus a `title` tooltip on the image
+// itself — see src/landings/chocolate-factory/data/images.ts for the source
+// metadata, and the consolidated "Photo credits" list in Footer.astro.
 import type { UnsplashImage } from "../types"
 
 type PhotoRatio = "1 / 1" | "3 / 4" | "4 / 3" | "16 / 10" | "9 / 16"
@@ -10,36 +12,44 @@ type PhotoRatio = "1 / 1" | "3 / 4" | "4 / 3" | "16 / 10" | "9 / 16"
 export interface Props {
   image: UnsplashImage
   ratio?: PhotoRatio
+  /** Applied to the outer <figure> — layout/position (e.g. `reveal`, `sticky`, width). */
   class?: string
+  /** Whether the image itself keeps this landing's near-square `rounded-xs`
+   * corner treatment. Set to `false` for cards whose own container is
+   * already square-edged, so the photo doesn't visually mismatch it. */
+  rounded?: boolean
 }
 
-const { image, ratio = "4 / 3", class: className } = Astro.props
+const { image, ratio = "4 / 3", class: className, rounded = true } = Astro.props
 ---
 
-<figure
-  class:list={[
-    "relative m-0 w-full overflow-hidden rounded-xs",
-    ratio === "1 / 1" && "aspect-square",
-    ratio === "3 / 4" && "aspect-3/4",
-    ratio === "4 / 3" && "aspect-4/3",
-    ratio === "16 / 10" && "aspect-16/10",
-    ratio === "9 / 16" && "aspect-9/16",
-    className,
-  ]}
->
-  <img
-    src={image.src}
-    alt={image.alt}
-    width={image.width}
-    height={image.height}
-    loading="lazy"
-    decoding="async"
-    class="absolute inset-0 h-full w-full object-cover grayscale contrast-125"
-  />
-  <figcaption
-    class="absolute inset-x-0 bottom-0 flex items-center gap-1 bg-gradient-to-t from-black/60 to-transparent px-3 py-2 font-mono text-[0.65rem] tracking-wide text-white uppercase"
+<figure class:list={["m-0 w-full", className]}>
+  <div
+    class:list={[
+      "w-full overflow-hidden",
+      rounded && "rounded-xs",
+      ratio === "1 / 1" && "aspect-square",
+      ratio === "3 / 4" && "aspect-3/4",
+      ratio === "4 / 3" && "aspect-4/3",
+      ratio === "16 / 10" && "aspect-16/10",
+      ratio === "9 / 16" && "aspect-9/16",
+    ]}
   >
-    Foto:
+    <img
+      src={image.src}
+      alt={image.alt}
+      title={`Photo by ${image.author} on Unsplash`}
+      width={image.width}
+      height={image.height}
+      loading="lazy"
+      decoding="async"
+      class="h-full w-full object-cover grayscale contrast-125"
+    />
+  </div>
+  <figcaption
+    class="mt-2 font-mono text-[0.65rem] tracking-wide text-muted uppercase"
+  >
+    Photo:
     <a
       href={image.authorUrl}
       rel="noopener"

@@ -18,14 +18,14 @@ export interface Props {
 const { step } = Astro.props
 
 const icons: Record<ProcessStepName, typeof ScanSearch> = {
-  Selección: ScanSearch,
-  Tostado: Flame,
-  Molienda: CircleDot,
-  Refinado: Layers,
-  Conchado: RefreshCw,
-  Templado: Thermometer,
-  Moldeado: Box,
-  Acabado: CheckCheck,
+  Selection: ScanSearch,
+  Roasting: Flame,
+  Grinding: CircleDot,
+  Refining: Layers,
+  Conching: RefreshCw,
+  Tempering: Thermometer,
+  Molding: Box,
+  Finishing: CheckCheck,
 }
 
 const Icon = icons[step.iconLabel]

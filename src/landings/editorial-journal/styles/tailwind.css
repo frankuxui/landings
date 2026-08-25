@@ -103,7 +103,8 @@
      Google Fonts <link> tags in this landing's own <head> (see "Shared
      typography" in the astro-landing-pages Skill) — never via @import
      here. */
-  --font-sans: "Wix Madefor Text", sans-serif;
+  --font-base: "Wix Madefor Text", sans-serif;
+  --font-sans: var(--font-base);
   --font-display: "Wix Madefor Text", sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 

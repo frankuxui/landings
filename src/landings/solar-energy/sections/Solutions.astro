@@ -6,25 +6,25 @@ import type { Solution } from "../types"
 
 <section
   class="bg-background py-section"
-  id="soluciones"
-  aria-labelledby="soluciones-heading"
+  id="solutions"
+  aria-labelledby="solutions-heading"
 >
   <div class="w-full px-container-x sm:px-8 xl:px-14">
     <div class="mb-6 max-w-5xl">
       <p
         class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
       >
-        Soluciones
+        Solutions
       </p>
       <h2
-        id="soluciones-heading"
+        id="solutions-heading"
         class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
       >
-        Un mismo sistema, cinco formas de aplicarlo.
+        One system, five ways to apply it.
       </h2>
     </div>
 
-    <ul aria-label="Soluciones fotovoltaicas de Heliogrid">
+    <ul aria-label="Solar Energy's photovoltaic solutions">
       {
         solutions.map((solution: Solution, index: number) => (
           <SolutionRow solution={solution} isFirst={index === 0} />

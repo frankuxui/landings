@@ -1,7 +1,8 @@
 ---
 import { Coffee } from "@lucide/astro"
 import { navLinks } from "../data/nav"
-import type { NavLink } from "../types"
+import { allImages } from "../data/images"
+import type { NavLink, UnsplashImage } from "../types"
 
 const year = new Date().getFullYear()
 ---
@@ -13,16 +14,16 @@ const year = new Date().getFullYear()
     <div>
       <a
         class="inline-flex items-center gap-2 text-xl text-inherit no-underline sm:text-2xl"
-        href="#inicio"
+        href="#home"
       >
         <Coffee aria-hidden="true" width="22" height="22" stroke-width="1.5" />
-        <span>Terraltura</span>
+        <span>Coffee Producer</span>
       </a>
       <p class="mt-4 max-w-[52ch] text-current/80">
-        Café de especialidad cultivado, seleccionado y tostado en una región de
-        montaña ficticia desde 1994.
+        Specialty coffee grown, selected, and roasted in a fictional mountain
+        region since 1994.
       </p>
-      <ul class="mt-6 flex gap-3" aria-label="Redes sociales de ejemplo">
+      <ul class="mt-6 flex gap-3" aria-label="Example social links">
         <li>
           <span
             class="inline-flex min-h-11 items-center rounded-full bg-current/10 px-4 py-2.5 text-sm font-semibold"
@@ -40,8 +41,8 @@ const year = new Date().getFullYear()
       </ul>
     </div>
 
-    <nav aria-label="Enlaces del pie de página">
-      <p class="mb-4 font-semibold text-current/85">Navegación</p>
+    <nav aria-label="Footer links">
+      <p class="mb-4 font-semibold text-current/85">Navigation</p>
       <ul class="flex flex-col gap-3">
         {
           navLinks.map((link: NavLink) => (
@@ -59,12 +60,12 @@ const year = new Date().getFullYear()
     </nav>
 
     <div>
-      <p class="mb-4 font-semibold text-current/85">Contacto</p>
+      <p class="mb-4 font-semibold text-current/85">Contact</p>
       <ul class="flex flex-col gap-3">
         <li>
           <a
             class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
-            href="mailto:correo@ejemplo.com">correo@ejemplo.com</a
+            href="mailto:email@example.com">email@example.com</a
           >
         </li>
         <li>
@@ -73,7 +74,7 @@ const year = new Date().getFullYear()
             href="tel:+00000000000">+00 000 000 000</a
           >
         </li>
-        <li>Ciudad, País</li>
+        <li>City, Country</li>
       </ul>
     </div>
   </div>
@@ -81,6 +82,39 @@ const year = new Date().getFullYear()
   <div
     class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14 mt-16 pt-6 text-sm text-current/70"
   >
-    <p>© {year} Terraltura. Demo de landing ficticia.</p>
+    <p>© {year} Coffee Producer. Fictional landing demo.</p>
+  </div>
+
+  <div
+    class="mx-auto mt-6 w-full max-w-landing px-container-x pt-6 text-xs text-current/60 sm:px-8 xl:px-14"
+  >
+    <p class="font-semibold text-current/70">Photo credits</p>
+    <ul class="mt-2 flex flex-wrap gap-x-2 gap-y-1">
+      {
+        allImages.map((image: UnsplashImage, index: number) => (
+          <li>
+            Photo by{" "}
+            <a
+              href={image.authorUrl}
+              rel="noopener"
+              target="_blank"
+              class="underline underline-offset-2"
+            >
+              {image.author}
+            </a>{" "}
+            on{" "}
+            <a
+              href={image.unsplashUrl}
+              rel="noopener"
+              target="_blank"
+              class="underline underline-offset-2"
+            >
+              Unsplash
+            </a>
+            {index < allImages.length - 1 ? "," : ""}
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </footer>

@@ -32,6 +32,7 @@ const renderUrl = `/landings/${slug}/render`
       <div class="viewport" id="preview-viewport" data-device="desktop">
         <iframe
           id="preview-frame"
+          class="preview-frame-content h-full w-full"
           src={renderUrl}
           title={`Vista previa de ${name}`}></iframe>
       </div>
@@ -108,6 +109,17 @@ const renderUrl = `/landings/${slug}/render`
     shell.dataset.toolbarHidden = visible ? "false" : "true"
     revealButton.hidden = visible
     if (!visible) revealButton.focus()
+  })
+
+  // --- Fullscreen: shows only the iframe's own device viewport, matching
+  // the real screen size, with none of the shell chrome around it. ---------
+  document.addEventListener("preview:fullscreen-toggle", () => {
+    if (!viewport) return
+    if (document.fullscreenElement) {
+      void document.exitFullscreen()
+      return
+    }
+    void viewport.requestFullscreen()
   })
 
   // --- Device presets (command) + width/breakpoint sync ---------------------
@@ -204,6 +216,9 @@ const renderUrl = `/landings/${slug}/render`
 </script>
 
 <style>
+  :root {
+    --min-height-margin: 10rem;
+  }
   .preview-shell {
     display: flex;
     flex-direction: column;
@@ -226,6 +241,13 @@ const renderUrl = `/landings/${slug}/render`
     color: var(--platform-text);
     cursor: pointer;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  }
+  .preview-frame-content {
+    min-height: calc(100vh - var(--min-height-margin));
+    width: 100% !important;
+    height: 100% !important;
+    border: 0;
+    display: block;
   }
 
   .toolbar-reveal:hover,
@@ -261,8 +283,9 @@ const renderUrl = `/landings/${slug}/render`
 
   .viewport {
     width: calc(100vw - clamp(2rem, 8vw, 8rem));
-    max-width: 1920px;
-    height: calc(100vh - 8rem);
+    max-width: 2048px;
+    height: 100%;
+    min-height: calc(100vh - var(--min-height-margin));
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid var(--platform-border);
@@ -273,12 +296,21 @@ const renderUrl = `/landings/${slug}/render`
     transition: none;
   }
 
+  .viewport:fullscreen {
+    width: 100vw;
+    max-width: none;
+    height: 100vh;
+    min-height: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
   .viewport[data-device="mobile"] {
-    height: 844px;
+    min-height: calc(100vh - var(--min-height-margin));
   }
 
   .viewport[data-device="tablet"] {
-    height: 1194px;
+    min-height: calc(100vh - var(--min-height-margin));
   }
 
   iframe {

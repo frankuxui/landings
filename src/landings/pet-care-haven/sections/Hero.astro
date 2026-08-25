@@ -1,0 +1,114 @@
+---
+import { ArrowRight, CirclePlay, Star } from "@lucide/astro"
+import PhotoCredit from "../components/PhotoCredit.astro"
+import { heroImage } from "../data/hero"
+---
+
+<section
+  class="relative overflow-hidden bg-background pt-28 pb-20 sm:pt-32 lg:pb-28"
+  id="home"
+>
+  <div
+    class="mx-auto grid w-full max-w-landing gap-14 px-container-x sm:px-8 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-12 xl:px-14"
+  >
+    <div>
+      <p
+        class="mb-5 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        Care for dogs and cats
+      </p>
+      <h1
+        class="max-w-hero-heading text-balance text-headline-1 leading-[0.98] font-semibold text-foreground"
+        data-hero-headline
+      >
+        Cared for like family.
+      </h1>
+      <p class="mt-6 max-w-copy text-lg text-muted" data-hero-subtitle>
+        Walks, day care, bathing, boarding, and wellbeing follow-up, with
+        certified caregivers and a plan built around your pet.
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-4" data-hero-actions>
+        <a
+          href="#contact"
+          class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full border-0 bg-primary px-7 py-3 text-base font-semibold text-primary-foreground no-underline transition duration-200 ease-landing hover:bg-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-emphasis"
+        >
+          Book a visit
+          <ArrowRight
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </a>
+        <a
+          href="#services"
+          class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full px-6 py-3 text-base font-semibold text-foreground no-underline transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+        >
+          <CirclePlay
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+          View services
+        </a>
+      </div>
+
+      <div
+        class="mt-12 flex flex-wrap gap-x-10 gap-y-6 border-t border-border pt-8"
+        data-hero-trust
+      >
+        <div>
+          <p
+            class="flex items-center gap-2 font-mono text-3xl font-semibold text-foreground"
+          >
+            4.9
+            <Star
+              class="fill-foreground text-foreground"
+              aria-hidden="true"
+              width="18"
+              height="18"
+              stroke-width="1.5"
+            />
+          </p>
+          <p class="mt-1 text-sm text-muted">Average family rating</p>
+        </div>
+        <div>
+          <p class="font-mono text-3xl font-semibold text-foreground">9</p>
+          <p class="mt-1 text-sm text-muted">Years of experience</p>
+        </div>
+        <div>
+          <p class="font-mono text-3xl font-semibold text-foreground">2,400+</p>
+          <p class="mt-1 text-sm text-muted">Pets cared for</p>
+        </div>
+      </div>
+    </div>
+
+    <figure class="m-0 flex flex-col">
+      <div
+        class="relative aspect-4/5 w-full overflow-hidden lg:aspect-auto lg:h-[36rem]"
+        data-hero-image-wrap
+      >
+        <img
+          src={heroImage.src}
+          alt={heroImage.alt}
+          title={`Photo by ${heroImage.author} on Unsplash`}
+          width={heroImage.width}
+          height={heroImage.height}
+          fetchpriority="high"
+          decoding="async"
+          class="absolute inset-0 h-full w-full object-cover grayscale"
+          data-hero-float
+        />
+      </div>
+      <figcaption class="mt-2">
+        <PhotoCredit image={heroImage} />
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<script>
+  import "../scripts/heroReveal"
+</script>

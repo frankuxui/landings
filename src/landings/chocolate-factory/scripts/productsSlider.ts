@@ -1,4 +1,4 @@
-// Fundición Ónix — manual product carousel (Swiper Core). No autoplay:
+// Chocolate Factory — manual product carousel (Swiper Core). No autoplay:
 // navigation is drag/swipe, the prev/next <button>s, pagination, and the
 // keyboard. Prev/next reflect Swiper's own beginning/end state instead of
 // staying silently inert at the edges. A numbered counter ("01 / 05")
@@ -39,9 +39,9 @@ if (root && prevButton && nextButton && paginationEl) {
       onlyInViewport: true,
     },
     a11y: {
-      prevSlideMessage: "Producto anterior",
-      nextSlideMessage: "Producto siguiente",
-      paginationBulletMessage: "Ir al producto {{index}}",
+      prevSlideMessage: "Previous product",
+      nextSlideMessage: "Next product",
+      paginationBulletMessage: "Go to product {{index}}",
     },
     pagination: {
       el: paginationEl,

@@ -1,13 +1,13 @@
 {
-  "name": "Fundición Ónix",
-  "title": "Fundición Ónix — Chocolate de precisión, de fábrica",
-  "description": "Chocolate de origen seleccionado, tostado, refinado, conchado y templado en una fábrica propia, desde el cacao en grano hasta la tableta de tiendas, restauración y distribución.",
-  "subtitle": "Chocolate de precisión, del grano a la tableta",
+  "name": "Chocolate Factory",
+  "title": "Chocolate Factory — Precision Chocolate, Made In-Factory",
+  "description": "Origin-selected chocolate, roasted, refined, conched, and tempered in its own factory, from cacao bean to bar for shops, restaurants, and distribution.",
+  "subtitle": "Precision chocolate, from bean to bar",
   "category": "business",
-  "tags": ["chocolate", "producción", "fábrica", "cacao", "obrador"],
+  "tags": ["chocolate", "production", "factory", "cacao", "workshop"],
   "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
   "thumbnail": "https://images.unsplash.com/photo-1733560175037-249f8954789b?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8bWVsdGVkJTIwY2hvY29sYXRlJTIwdGV4dHVyZSUyMGNsb3NlJTIwdXAlMjBkYXJrfGVufDF8MHx8fDE3ODc0NzU3MjJ8MA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
-  "thumbnailAlt": "Chocolate fundido formando remolinos brillantes",
+  "thumbnailAlt": "Melted chocolate swirling into glossy folds",
   "thumbnailWidth": 6000,
   "thumbnailHeight": 4000,
   "thumbnailCredit": {
@@ -21,7 +21,7 @@
   "palettes": [
     {
       "id": "grayscale",
-      "name": "Escala de grises",
+      "name": "Grayscale",
       "colors": {
         "primary": "#171717",
         "secondary": "#404040",
@@ -32,7 +32,7 @@
     },
     {
       "id": "cocoa",
-      "name": "Cacao",
+      "name": "Cocoa",
       "colors": {
         "primary": "#6f1d1b",
         "secondary": "#bb9457",

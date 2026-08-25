@@ -1,5 +1,5 @@
 ---
-import { Menu, X, ArrowRight } from "@lucide/astro"
+import { Menu, X, ArrowRight, Moon, Sun } from "@lucide/astro"
 import { navLinks } from "../data/nav"
 import type { NavLink } from "../types"
 ---
@@ -11,78 +11,98 @@ import type { NavLink } from "../types"
     class="mx-auto flex w-full max-w-landing items-center justify-between gap-4 px-container-x py-4 sm:px-8 xl:px-14"
   >
     <a
-      class="inline-flex items-baseline gap-2 text-foreground no-underline"
-      href="#inicio"
+      class="inline-flex shrink-0 items-baseline gap-2 text-foreground no-underline"
+      href="#home"
     >
-      <span class="text-lg font-semibold tracking-tight sm:text-xl">
-        Fundición Ónix
+      <span class="text-base font-semibold tracking-tight sm:text-lg">
+        Chocolate Factory
       </span>
       <span
-        class="hidden font-mono text-xs text-muted sm:inline"
-        aria-hidden="true">— Chocolate de precisión</span
+        class="hidden font-mono text-xs text-muted xl:inline"
+        aria-hidden="true">— Precision chocolate</span
       >
     </a>
 
-    <nav
-      class="hidden items-center gap-1 lg:flex"
-      aria-label="Navegación principal"
-    >
-      <div class="relative" data-scroll-nav>
-        <span
-          class="pointer-events-none absolute bottom-0 left-0 z-0 h-px w-0 -translate-x-0 bg-foreground opacity-0"
-          data-nav-indicator
-          aria-hidden="true"></span>
-        <ul class="relative z-10 flex items-center gap-1">
-          {
-            navLinks.map((link: NavLink, index: number) => (
-              <li>
-                <a
-                  class="relative flex min-h-11 items-center px-3 py-2 text-sm font-medium text-foreground no-underline hover:text-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
-                  href={link.href}
-                  data-nav-link
-                  aria-current={index === 0 ? "location" : undefined}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </nav>
+    <div class="flex items-center gap-2 lg:gap-3 xl:gap-4">
+      <button
+        type="button"
+        class="group inline-flex size-11 min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+        data-theme-toggle
+        aria-label="Toggle dark mode"
+      >
+        <Moon
+          class="size-5 dark:hidden"
+          aria-hidden="true"
+          stroke-width="1.5"
+        />
+        <Sun
+          class="hidden size-5 dark:block"
+          aria-hidden="true"
+          stroke-width="1.5"
+        />
+      </button>
 
-    <a
-      class="hidden min-h-11 cursor-pointer items-center gap-2 rounded-sm border-0 bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-[var(--color-light)] no-underline transition duration-200 ease-landing hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90 lg:inline-flex"
-      href="#productos"
-    >
-      Ver colección
-      <ArrowRight
-        aria-hidden="true"
-        width="16"
-        height="16"
-        stroke-width="1.5"
-      />
-    </a>
+      <nav
+        class="hidden items-center gap-0.5 lg:flex"
+        aria-label="Primary navigation"
+      >
+        <div class="relative" data-scroll-nav>
+          <span
+            class="pointer-events-none absolute bottom-0 left-0 z-0 h-px w-0 -translate-x-0 bg-foreground opacity-0"
+            data-nav-indicator
+            aria-hidden="true"></span>
+          <ul class="relative z-10 flex items-center gap-0.5">
+            {
+              navLinks.map((link: NavLink, index: number) => (
+                <li>
+                  <a
+                    class="relative flex min-h-11 items-center px-2.5 py-2 text-sm font-medium text-foreground no-underline hover:text-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border xl:px-3"
+                    href={link.href}
+                    data-nav-link
+                    aria-current={index === 0 ? "location" : undefined}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </nav>
 
-    <button
-      type="button"
-      class="group relative z-60 inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover aria-expanded:bg-control lg:hidden"
-      data-menu-toggle
-      aria-expanded="false"
-      aria-controls="primary-navigation-mobile"
-      aria-label="Abrir menú de navegación"
-    >
-      <Menu
-        class="size-5.5 group-aria-expanded:hidden"
-        aria-hidden="true"
-        stroke-width="1.5"
-      />
-      <X
-        class="hidden size-5.5 group-aria-expanded:block"
-        aria-hidden="true"
-        stroke-width="1.5"
-      />
-    </button>
+      <a
+        class="hidden min-h-11 cursor-pointer items-center gap-2 rounded-sm border-0 bg-[var(--color-primary)] px-5 py-2.5 text-sm font-semibold text-[var(--color-light)] no-underline transition duration-200 ease-landing hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90 xl:inline-flex"
+        href="#products"
+      >
+        View collection
+        <ArrowRight
+          aria-hidden="true"
+          width="16"
+          height="16"
+          stroke-width="1.5"
+        />
+      </a>
+
+      <button
+        type="button"
+        class="group relative z-60 inline-flex size-11 min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover aria-expanded:bg-control lg:hidden"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="primary-navigation-mobile"
+        aria-label="Open navigation menu"
+      >
+        <Menu
+          class="size-5.5 group-aria-expanded:hidden"
+          aria-hidden="true"
+          stroke-width="1.5"
+        />
+        <X
+          class="hidden size-5.5 group-aria-expanded:block"
+          aria-hidden="true"
+          stroke-width="1.5"
+        />
+      </button>
+    </div>
   </div>
 
   <div
@@ -90,7 +110,7 @@ import type { NavLink } from "../types"
     data-menu-panel
     aria-hidden="true"
   >
-    <nav id="primary-navigation-mobile" aria-label="Navegación principal">
+    <nav id="primary-navigation-mobile" aria-label="Primary navigation">
       <ol class="flex flex-col">
         {
           navLinks.map((link: NavLink, index: number) => (
@@ -112,10 +132,10 @@ import type { NavLink } from "../types"
     </nav>
     <a
       class="inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-sm border-0 bg-[var(--color-primary)] px-6 py-3 text-base font-semibold text-[var(--color-light)] no-underline transition duration-200 ease-landing hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90"
-      href="#productos"
+      href="#products"
       data-mobile-nav-link
     >
-      Ver colección
+      View collection
       <ArrowRight
         aria-hidden="true"
         width="18"

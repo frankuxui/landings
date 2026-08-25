@@ -3,44 +3,44 @@ import type { ProcessStep } from "../types"
 export const processSteps: ProcessStep[] = [
   {
     number: "01",
-    title: "Cultivo",
+    title: "Growing",
     description:
-      "En los Altos de Vientoclaro, a más de 1.700 metros de altitud, cultivamos variedades Typica, Bourbon y Caturra bajo sombra natural, respetando el ritmo propio de cada finca.",
-    iconLabel: "Cultivo",
+      "In the Altos de Vientoclaro, above 1,700 meters, we grow Typica, Bourbon, and Caturra varieties under natural shade, respecting the rhythm of each farm.",
+    iconLabel: "Growing",
   },
   {
     number: "02",
-    title: "Recolección",
+    title: "Harvest",
     description:
-      "Cada cereza se recoge a mano, una por una, seleccionando únicamente los frutos que han alcanzado su punto óptimo de maduración.",
-    iconLabel: "Recolección",
+      "Every cherry is picked by hand, one at a time, selecting only the fruit that has reached its peak ripeness.",
+    iconLabel: "Harvest",
   },
   {
     number: "03",
-    title: "Selección",
+    title: "Selection",
     description:
-      "Separamos manualmente los granos por tamaño, densidad y color para garantizar un lote homogéneo, limpio y libre de defectos.",
-    iconLabel: "Selección",
+      "We manually sort the beans by size, density, and color to guarantee a clean, uniform lot, free of defects.",
+    iconLabel: "Selection",
   },
   {
     number: "04",
-    title: "Secado",
+    title: "Drying",
     description:
-      "El café se seca lentamente al sol sobre camas africanas, controlando la humedad día a día hasta alcanzar el punto exacto de secado.",
-    iconLabel: "Secado",
+      "The coffee dries slowly in the sun on raised African beds, with moisture checked daily until it reaches the exact drying point.",
+    iconLabel: "Drying",
   },
   {
     number: "05",
-    title: "Tostado",
+    title: "Roasting",
     description:
-      "Tostamos en pequeños lotes en nuestro propio obrador, ajustando el perfil de tueste al carácter particular de cada variedad y origen.",
-    iconLabel: "Tostado",
+      "We roast in small batches at our own roastery, adjusting the roast profile to the particular character of each variety and origin.",
+    iconLabel: "Roasting",
   },
   {
     number: "06",
-    title: "Preparación",
+    title: "Brewing",
     description:
-      "El resultado es una taza que conserva el origen, el cuidado agrícola y el tiempo invertido en cada una de las etapas anteriores.",
-    iconLabel: "Preparación",
+      "The result is a cup that carries the origin, the care in the field, and the time invested in every stage before it.",
+    iconLabel: "Brewing",
   },
 ]

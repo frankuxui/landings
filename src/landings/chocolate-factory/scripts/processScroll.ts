@@ -1,4 +1,4 @@
-// Fundición Ónix — GSAP pinned horizontal scroll for the "Proceso" rail.
+// Chocolate Factory — GSAP pinned horizontal scroll for the "Process" rail.
 //
 // Baseline (works with zero JS): `.process-rail` is a native horizontally
 // scrollable, scroll-snapped row — fully usable by touch, drag, or keyboard

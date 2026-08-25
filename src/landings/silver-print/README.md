@@ -95,7 +95,7 @@ Mirrors the Light theme with inverted grayscale scales: `--background` → black
 
 | Token                            | Value                           |
 | -------------------------------- | ------------------------------- |
-| `--font-sans` / `--font-display` | Wix Madefor Text                |
+| `--font-base` / `--font-display` | Wix Madefor Text                |
 | `--breakpoint-nav`               | `64rem` (1024px)                |
 | `--spacing-section`              | `8rem`                          |
 | `--container-landing`            | `100rem`                        |

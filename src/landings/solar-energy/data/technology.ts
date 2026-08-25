@@ -3,26 +3,26 @@ import type { TechSpec } from "../types"
 export const techSpecs: TechSpec[] = [
   {
     number: "01",
-    title: "Paneles fotovoltaicos",
+    title: "Photovoltaic panels",
     description:
-      "Módulos de alta eficiencia orientados y dimensionados según la radiación real de cada cubierta, no según una plantilla genérica.",
+      "High-efficiency modules oriented and sized to each roof's actual solar irradiance, not a generic catalog template.",
   },
   {
     number: "02",
-    title: "Inversores",
+    title: "Inverters",
     description:
-      "Convierten la corriente continua generada en corriente alterna útil, con seguimiento del punto de máxima potencia en cada tramo del día.",
+      "Convert the direct current generated on-site into usable alternating current, tracking the maximum power point through every part of the day.",
   },
   {
     number: "03",
-    title: "Monitorización",
+    title: "Monitoring",
     description:
-      "Lectura continua de producción y consumo, visible desde cualquier dispositivo, para detectar desviaciones antes de que afecten al rendimiento.",
+      "Continuous readout of production and consumption, visible from any device, to catch deviations before they affect performance.",
   },
   {
     number: "04",
-    title: "Almacenamiento",
+    title: "Storage",
     description:
-      "Baterías dimensionadas para desplazar el consumo hacia las horas sin sol, cuando el perfil energético del proyecto lo justifica.",
+      "Batteries sized to shift consumption toward the hours without sun, whenever a project's energy profile justifies it.",
   },
 ]

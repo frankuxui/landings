@@ -1,0 +1,140 @@
+---
+import { ArrowRight } from "@lucide/astro"
+import { feature } from "../data/feature"
+import type { FeatureFrame } from "../types"
+---
+
+<section
+  id="dispatch"
+  class="border-t border-border bg-background px-container-x py-section sm:px-8 xl:px-14"
+  aria-labelledby="dispatch-heading"
+>
+  <div class="mx-auto grid w-full max-w-landing gap-12 lg:grid-cols-12">
+    <div class="lg:sticky lg:top-28 lg:col-span-5 lg:h-fit">
+      <p
+        class="flex flex-wrap items-center gap-x-2 text-xs font-semibold tracking-wide text-muted uppercase"
+      >
+        <span>Latest dispatch</span>
+        <span aria-hidden="true">·</span>
+        <span>{feature.category}</span>
+      </p>
+      <h2
+        id="dispatch-heading"
+        class="mt-4 max-w-heading text-headline-2 leading-[1.05] font-semibold text-foreground"
+      >
+        {feature.headline}
+      </h2>
+      <p class="mt-5 max-w-copy text-lg text-muted">{feature.standfirst}</p>
+
+      <dl
+        class="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-border pt-6 text-sm sm:grid-cols-4 lg:grid-cols-2"
+      >
+        <div>
+          <dt class="text-xs tracking-wide text-muted uppercase">Location</dt>
+          <dd class="mt-1 font-semibold text-foreground">{feature.location}</dd>
+        </div>
+        <div>
+          <dt class="text-xs tracking-wide text-muted uppercase">Filed</dt>
+          <dd class="mt-1 font-semibold text-foreground">{feature.date}</dd>
+        </div>
+        <div>
+          <dt class="text-xs tracking-wide text-muted uppercase">
+            Reading time
+          </dt>
+          <dd class="mt-1 font-semibold text-foreground">
+            {feature.readingTime}
+          </dd>
+        </div>
+        <div>
+          <dt class="text-xs tracking-wide text-muted uppercase">
+            Photographs
+          </dt>
+          <dd class="mt-1 font-semibold text-foreground">
+            {feature.photoCount}
+          </dd>
+        </div>
+      </dl>
+
+      <p
+        class="mt-8 border-t border-border pt-6 text-sm text-muted"
+        data-feature-running-caption
+        hidden
+      >
+      </p>
+
+      <a
+        href="#archive"
+        class="mt-8 inline-flex min-h-11 items-center gap-2 rounded-full border-0 bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground no-underline transition duration-200 ease-landing hover:bg-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-emphasis"
+      >
+        Read the full dispatch
+        <ArrowRight
+          aria-hidden="true"
+          width="16"
+          height="16"
+          stroke-width="2"
+        />
+      </a>
+    </div>
+
+    <div class="lg:col-span-7">
+      <p
+        class="mb-6 hidden font-mono text-sm text-muted lg:block"
+        data-feature-counter
+      >
+        01 / {String(feature.frames.length).padStart(2, "0")}
+      </p>
+      <div class="flex flex-col gap-10">
+        {
+          feature.frames.map((frame: FeatureFrame, index: number) => (
+            <figure
+              class="reveal m-0"
+              data-feature-frame
+              data-frame-index={index}
+              data-caption={frame.caption}
+            >
+              <div class="aspect-4/3 w-full overflow-hidden bg-placeholder">
+                <img
+                  src={frame.image.src}
+                  alt={frame.image.alt}
+                  title={`Photo by ${frame.image.author} on Unsplash`}
+                  width={frame.image.width}
+                  height={frame.image.height}
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full object-cover grayscale contrast-125"
+                />
+              </div>
+              <figcaption class="mt-3 text-sm text-muted">
+                {frame.caption}
+                <span class="mt-1 block text-xs">
+                  Photo:{" "}
+                  <a
+                    href={frame.image.authorUrl}
+                    rel="noopener"
+                    target="_blank"
+                    class="focus-underline underline underline-offset-2"
+                  >
+                    {frame.image.author}
+                  </a>{" "}
+                  ·{" "}
+                  <a
+                    href={frame.image.unsplashUrl}
+                    rel="noopener"
+                    target="_blank"
+                    class="focus-underline underline underline-offset-2"
+                  >
+                    Unsplash
+                  </a>
+                </span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/featureScroll"
+</script>

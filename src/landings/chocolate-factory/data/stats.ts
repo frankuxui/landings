@@ -1,8 +1,8 @@
 import type { ProductionStat } from "../types"
 
 export const productionStats: ProductionStat[] = [
-  { value: "18", label: "Toneladas producidas al mes" },
-  { value: "6", label: "Líneas de producción activas" },
-  { value: "40", label: "Catadores certificados en sala" },
-  { value: "99", label: "% de lotes con control de calidad" },
+  { value: "18", label: "Tons produced per month" },
+  { value: "6", label: "Active production lines" },
+  { value: "40", label: "Certified tasters on staff" },
+  { value: "99", label: "% of batches quality-checked" },
 ]

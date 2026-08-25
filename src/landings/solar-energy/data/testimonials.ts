@@ -5,27 +5,27 @@ import type { Testimonial } from "../types"
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "La instalación se dimensionó para nuestro consumo real, no para una media genérica. La factura bajó desde el primer ciclo de facturación.",
-    role: "Cliente residencial",
+      "The system was sized for our actual consumption, not a generic average. The bill dropped from the very first billing cycle.",
+    role: "Residential customer",
   },
   {
     quote:
-      "El seguimiento posterior a la puesta en marcha nos permite anticipar cualquier caída de rendimiento antes de que se note en la factura.",
-    role: "Responsable de operaciones",
+      "The follow-up after commissioning lets us catch any performance drop before it ever shows up on the bill.",
+    role: "Operations manager",
   },
   {
     quote:
-      "Pudimos cubrir buena parte del consumo diurno del local sin alterar el horario de apertura durante la obra.",
-    role: "Negocio local",
+      "We managed to cover a good part of the store's daytime consumption without changing opening hours during the work.",
+    role: "Local business",
   },
   {
     quote:
-      "El estudio inicial fue el más detallado que recibimos entre varias propuestas para la planta. Eso marcó la diferencia.",
-    role: "Proyecto industrial",
+      "The initial study was the most detailed we received among several proposals for the plant. That made the difference.",
+    role: "Industrial project",
   },
   {
     quote:
-      "Repartir la generación entre los distintos portales del edificio se resolvió con más claridad de la que esperábamos.",
-    role: "Comunidad energética",
+      "Splitting generation across the building's different entrances turned out clearer than we expected.",
+    role: "Energy community",
   },
 ]

@@ -1,5 +1,5 @@
 ---
-// Heliogrid - root document for this landing.
+// Solar Energy - root document for this landing.
 // Fully self-contained: no platform Layout, no platform CSS/components.
 // Rendered in isolation by src/pages/landings/[slug]/render.astro.
 import "./styles/tailwind.css"
@@ -18,10 +18,11 @@ import Trust from "./sections/Trust.astro"
 import CTAFinal from "./sections/CTAFinal.astro"
 import Contact from "./sections/Contact.astro"
 import Footer from "./sections/Footer.astro"
+import BackToTop from "./components/BackToTop.astro"
 
-const pageTitle = "Heliogrid - Energía solar fotovoltaica"
+const pageTitle = "Solar Energy - Photovoltaic solar power systems"
 const pageDescription =
-  "Heliogrid analiza, diseña, instala y monitoriza soluciones de energía solar fotovoltaica para hogares, empresas, industrias y organizaciones que quieren reducir su consumo de red y avanzar hacia la transición energética."
+  "Solar Energy analyzes, designs, installs, and monitors photovoltaic solar energy systems for homes, businesses, industries, and organizations that want to reduce their reliance on the grid and move toward the energy transition."
 const canonicalUrl = "/landings/solar-energy"
 const thumbnailUrl =
   "https://images.unsplash.com/photo-1629726797843-618688139f5a?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8c29sYXIlMjBwYW5lbHMlMjBmaWVsZCUyMGluc3RhbGxhdGlvbnxlbnwxfDB8fHwxNzg3NDc1NzM3fDA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80"
@@ -29,7 +30,7 @@ const thumbnailUrl =
 
 <!doctype html>
 <html
-  lang="es"
+  lang="en"
   class="scroll-smooth overflow-x-clip scheme-light motion-reduce:scroll-auto dark:scheme-dark font-sans"
 >
   <head>
@@ -37,6 +38,18 @@ const thumbnailUrl =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
+
+    <!-- Restore the persisted theme choice before first paint, so this
+    landing's own toggle survives a reload when viewed standalone (outside
+    the platform preview shell). -->
+    <script is:inline>
+      ;(function () {
+        const saved = localStorage.getItem("solar-energy:theme")
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved)
+        }
+      })()
+    </script>
 
     <!-- Shared Landing Pages typeface — Wix Madefor Text (Google Fonts).
     Every landing loads the exact same weights/styles here; never via
@@ -68,7 +81,7 @@ const thumbnailUrl =
       class="absolute -top-full left-4 z-1000 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-primary px-5 py-3 text-base font-semibold text-primary-foreground no-underline transition duration-200 ease-landing focus-visible:top-4 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border hover:bg-emphasis active:bg-emphasis"
       href="#main-content"
     >
-      Saltar al contenido principal
+      Skip to main content
     </a>
 
     <Header />
@@ -90,11 +103,14 @@ const thumbnailUrl =
 
     <Footer />
 
+    <BackToTop />
+
     <script>
       import "./scripts/theme"
       import "./scripts/reveal"
       import "./scripts/navIndicator"
       import "./scripts/parallax"
+      import "./scripts/backToTop"
     </script>
   </body>
 </html>

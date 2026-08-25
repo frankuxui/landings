@@ -1,19 +1,19 @@
 {
-  "name": "Heliogrid",
-  "title": "Heliogrid — Energía solar fotovoltaica",
-  "description": "Análisis, diseño, instalación y monitorización de energía solar fotovoltaica para hogares, empresas, industrias y organizaciones que quieren avanzar hacia la transición energética.",
-  "subtitle": "Energía solar fotovoltaica para hogares y empresas",
+  "name": "Solar Energy",
+  "title": "Solar Energy — Photovoltaic solar power",
+  "description": "Analysis, design, installation, and monitoring of photovoltaic solar energy for homes, businesses, industries, and organizations moving toward the energy transition.",
+  "subtitle": "Photovoltaic solar energy for homes and businesses",
   "category": "business",
   "tags": [
-    "energía solar",
-    "fotovoltaica",
-    "sostenibilidad",
-    "instalaciones",
-    "eficiencia energética"
+    "solar energy",
+    "photovoltaic",
+    "sustainability",
+    "installations",
+    "energy efficiency"
   ],
   "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
   "thumbnail": "https://images.unsplash.com/photo-1629726797843-618688139f5a?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8c29sYXIlMjBwYW5lbHMlMjBmaWVsZCUyMGluc3RhbGxhdGlvbnxlbnwxfDB8fHwxNzg3NDc1NzM3fDA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
-  "thumbnailAlt": "Paneles solares negros instalados sobre un campo verde",
+  "thumbnailAlt": "Black solar panels installed across a green field",
   "thumbnailWidth": 5464,
   "thumbnailHeight": 3640,
   "thumbnailCredit": {
@@ -24,6 +24,19 @@
     "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
     "downloadLocation": "https://api.unsplash.com/photos/IwY-27ceRCA/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8c29sYXIlMjBwYW5lbHMlMjBmaWVsZCUyMGluc3RhbGxhdGlvbnxlbnwxfDB8fHwxNzg3NDc1NzM3fDA"
   },
+  "palettes": [
+    {
+      "id": "grayscale",
+      "name": "Grayscale",
+      "colors": {
+        "primary": "#171717",
+        "secondary": "#404040",
+        "tertiary": "#737373",
+        "accent": "#a3a3a3",
+        "light": "#f5f5f5"
+      }
+    }
+  ],
   "createdAt": "2026-08-23",
   "author": "frankuxui",
   "themes": ["light", "dark"],

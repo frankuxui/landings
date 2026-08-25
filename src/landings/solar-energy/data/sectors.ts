@@ -1,7 +1,7 @@
 export const sectors: string[] = [
-  "Hogares",
-  "Empresas",
-  "Industria",
-  "Organizaciones",
-  "Comunidades energéticas",
+  "Homes",
+  "Businesses",
+  "Industry",
+  "Organizations",
+  "Energy communities",
 ]

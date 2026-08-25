@@ -1,0 +1,53 @@
+---
+// A rich mosaic instead of a flat grid — pieces of varying size in a dense
+// grid, each one revealing its companion's name, species, activity, and a
+// short caption on hover/focus (always visible on Mobile/Tablet, see
+// PetTile.astro).
+import PetTile from "../components/PetTile.astro"
+import { galleryPets } from "../data/gallery"
+import type { GalleryPet } from "../types"
+
+// One static span pattern per tile position — discrete, statically
+// detectable Tailwind classes (never dynamically constructed utility
+// names), producing the mosaic's varied rhythm on Laptop/Desktop.
+const spanPattern: string[] = [
+  "lg:col-span-2 lg:row-span-2",
+  "lg:col-span-1 lg:row-span-1",
+  "lg:col-span-1 lg:row-span-2",
+  "lg:col-span-1 lg:row-span-1",
+  "lg:col-span-2 lg:row-span-1",
+  "lg:col-span-1 lg:row-span-1",
+]
+---
+
+<section
+  class="bg-background-alt py-section"
+  id="gallery"
+  aria-labelledby="gallery-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div>
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        Gallery
+      </p>
+      <h2
+        id="gallery-heading"
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        Some of the companions we already care for.
+      </h2>
+    </div>
+
+    <div
+      class="mt-14 grid auto-rows-[11rem] grid-cols-2 gap-3 sm:auto-rows-[13rem] sm:grid-cols-3 lg:grid-flow-dense lg:auto-rows-[14rem] lg:grid-cols-4"
+    >
+      {
+        galleryPets.map((pet: GalleryPet, index: number) => (
+          <PetTile pet={pet} class={spanPattern[index % spanPattern.length]} />
+        ))
+      }
+    </div>
+  </div>
+</section>

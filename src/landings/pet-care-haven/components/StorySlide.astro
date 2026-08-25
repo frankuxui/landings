@@ -1,0 +1,50 @@
+---
+// One large-format slide of "Stories worth telling" — a full-bleed
+// photograph with the pet's name, a short headline, and a quote overlaid.
+// The Unsplash credit sits below the photo, in normal flow — never
+// overlaid on top of it.
+import Photo from "./Photo.astro"
+import PhotoCredit from "./PhotoCredit.astro"
+import type { Story } from "../types"
+
+export interface Props {
+  story: Story
+}
+
+const { story } = Astro.props
+---
+
+<article class="flex h-full flex-col bg-inverted-surface">
+  <Photo
+    image={story.image}
+    ratio="auto"
+    sizes="90vw"
+    caption={false}
+    imgClass="scale-105"
+  >
+    <div
+      class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div
+      class="absolute inset-x-0 bottom-0 flex flex-col gap-3 p-6 text-white sm:p-10"
+      data-story-content
+    >
+      <p class="text-xs font-semibold tracking-widest text-white/70 uppercase">
+        {story.petName}
+      </p>
+      <p class="max-w-copy text-xl leading-snug font-semibold sm:text-2xl">
+        {story.headline}
+      </p>
+      <blockquote class="m-0 max-w-copy text-sm text-white/85 sm:text-base">
+        “{story.quote}”
+      </blockquote>
+    </div>
+  </Photo>
+
+  <div class="bg-surface px-4 py-2 sm:px-6">
+    <PhotoCredit image={story.image} />
+  </div>
+</article>

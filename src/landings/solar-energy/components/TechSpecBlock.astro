@@ -9,10 +9,10 @@ export interface Props {
 const { spec } = Astro.props
 
 const icons: Record<TechSpecName, typeof SunMedium> = {
-  "Paneles fotovoltaicos": SunMedium,
-  Inversores: Cpu,
-  Monitorización: Activity,
-  Almacenamiento: BatteryCharging,
+  "Photovoltaic panels": SunMedium,
+  Inverters: Cpu,
+  Monitoring: Activity,
+  Storage: BatteryCharging,
 }
 
 const Icon = icons[spec.title]

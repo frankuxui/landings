@@ -1,12 +1,11 @@
-// Heliogrid — subtle GSAP parallax for large full-bleed placeholders.
+// Solar Energy — subtle GSAP parallax for large full-bleed photographs.
 //
-// Every element flagged with `data-parallax` (see ImagePlaceholder.astro's
-// `parallax` prop) drifts a few percent slower/faster than the page scroll,
-// scrubbed to scroll position for a restrained architectural depth effect.
-// Baseline: without this script, or with `prefers-reduced-motion: reduce`,
-// every target renders fully static — the effect is a pure enhancement, and
-// each target is pre-scaled (see ImagePlaceholder.astro) so the drift never
-// exposes an edge.
+// Every element flagged with `data-parallax` (see Photo.astro's `parallax`
+// prop) drifts a few percent slower/faster than the page scroll, scrubbed to
+// scroll position for a restrained architectural depth effect. Baseline:
+// without this script, or with `prefers-reduced-motion: reduce`, every
+// target renders fully static — the effect is a pure enhancement, and each
+// target is pre-scaled (see Photo.astro) so the drift never exposes an edge.
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 

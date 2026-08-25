@@ -1,0 +1,129 @@
+---
+import { navLinks } from "../data/nav"
+import { allImages } from "../data/images"
+import type { NavLink, UnsplashImage } from "../types"
+
+const year = new Date().getFullYear()
+---
+
+<footer class="bg-inverted pt-20 pb-8 text-inverted-foreground">
+  <div
+    class="mx-auto grid w-full max-w-landing gap-12 px-container-x sm:px-8 xl:px-14 footer:grid-cols-[1.8fr_1fr_1fr]"
+  >
+    <div>
+      <a
+        class="inline-flex items-center text-xl text-inherit no-underline sm:text-2xl"
+        href="#home"
+      >
+        Journalist Dispatch
+      </a>
+      <p class="mt-4 max-w-[46ch] text-current/80">
+        Independent reporting on migration, conflict, and the institutions that
+        decide what happens next. Based between assignments — currently a
+        regional capital, more often somewhere without a fixed address.
+      </p>
+      <ul class="mt-6 flex gap-3" aria-label="Example social links">
+        <li>
+          <span
+            class="inline-flex min-h-11 items-center rounded-full bg-current/10 px-4 py-2.5 text-sm font-semibold"
+          >
+            Instagram
+          </span>
+        </li>
+        <li>
+          <span
+            class="inline-flex min-h-11 items-center rounded-full bg-current/10 px-4 py-2.5 text-sm font-semibold"
+          >
+            LinkedIn
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <nav aria-label="Footer links">
+      <p class="mb-4 font-semibold text-current/85">Navigation</p>
+      <ul class="flex flex-col gap-3">
+        {
+          navLinks.map((link: NavLink) => (
+            <li>
+              <a
+                class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+                href={link.href}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div>
+      <p class="mb-4 font-semibold text-current/85">Contact</p>
+      <ul class="flex flex-col gap-3">
+        <li>
+          <a
+            class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+            href="mailto:desk@example.com">desk@example.com</a
+          >
+        </li>
+        <li>
+          <a
+            class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+            href="tel:+00000000000">+00 000 000 000</a
+          >
+        </li>
+        <li>City, Country</li>
+      </ul>
+    </div>
+  </div>
+
+  <div
+    class="mx-auto mt-16 w-full max-w-landing px-container-x sm:px-8 xl:px-14"
+  >
+    <p
+      class="text-headline-1 leading-none font-semibold tracking-tight text-current/95 uppercase"
+    >
+      Reporting
+    </p>
+  </div>
+
+  <div
+    class="mx-auto mt-10 w-full max-w-landing px-container-x pt-6 text-sm text-current/70 sm:px-8 xl:px-14"
+  >
+    <p>© {year} Journalist Dispatch. Fictional landing demo.</p>
+  </div>
+
+  <div
+    class="mx-auto mt-6 w-full max-w-landing px-container-x pt-6 text-xs text-current/60 sm:px-8 xl:px-14"
+  >
+    <p class="font-semibold text-current/70">Photo credits</p>
+    <ul class="mt-2 flex flex-wrap gap-x-2 gap-y-1">
+      {
+        allImages.map((image: UnsplashImage, index: number) => (
+          <li>
+            Photo by{" "}
+            <a
+              href={image.authorUrl}
+              rel="noopener"
+              target="_blank"
+              class="underline underline-offset-2"
+            >
+              {image.author}
+            </a>{" "}
+            on{" "}
+            <a
+              href={image.unsplashUrl}
+              rel="noopener"
+              target="_blank"
+              class="underline underline-offset-2"
+            >
+              Unsplash
+            </a>
+            {index < allImages.length - 1 ? "," : ""}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

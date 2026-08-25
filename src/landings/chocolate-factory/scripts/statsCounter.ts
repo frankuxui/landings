@@ -1,5 +1,5 @@
-// Fundición Ónix — GSAP count-up for the single-row production figures in
-// "Fábrica". Unlike a card-grid counter, this animates a flat, dash-divided
+// Chocolate Factory — GSAP count-up for the single-row production figures in
+// "Factory". Unlike a card-grid counter, this animates a flat, dash-divided
 // row of numbers; each figure counts up once it enters the viewport and
 // respects prefers-reduced-motion (both at load and on live preference
 // change, e.g. toggled in the platform preview shell's OS-level settings).

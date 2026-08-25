@@ -4,8 +4,20 @@
   "description": "Folio is a weekly journal covering design, architecture, culture, technology, ideas, and the people shaping them — feature reports, long-form essays, interviews, and a running dispatch of shorter notes.",
   "subtitle": "A journal of design, architecture, culture, technology and ideas",
   "category": "blog",
-  "tags": ["editorial", "magazine", "journal", "culture", "design"],
-  "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
+  "tags": [
+    "editorial",
+    "magazine",
+    "journal",
+    "culture",
+    "design"
+  ],
+  "technologies": [
+    "Astro",
+    "Tailwind CSS",
+    "GSAP",
+    "Swiper",
+    "@lucide/astro"
+  ],
   "thumbnail": "https://images.unsplash.com/photo-1754783591383-17e596af9e74?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Nnx8bWFnYXppbmUlMjBlZGl0b3JpYWwlMjBsYXlvdXQlMjB0eXBvZ3JhcGh5JTIwZGVza3xlbnwxfDB8fHwxNzg3NDc1NzQ2fDA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
   "thumbnailAlt": "Open magazine spread with editorial articles and imagery",
   "thumbnailWidth": 5712,
@@ -18,9 +30,25 @@
     "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
     "downloadLocation": "https://api.unsplash.com/photos/yU8EgnnSU3c/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Nnx8bWFnYXppbmUlMjBlZGl0b3JpYWwlMjBsYXlvdXQlMjB0eXBvZ3JhcGh5JTIwZGVza3xlbnwxfDB8fHwxNzg3NDc1NzQ2fDA"
   },
+  "palettes": [
+    {
+      "id": "grayscale",
+      "name": "Grayscale",
+      "colors": {
+        "primary": "#171717",
+        "secondary": "#404040",
+        "tertiary": "#737373",
+        "accent": "#a3a3a3",
+        "light": "#f5f5f5"
+      }
+    }
+  ],
   "createdAt": "2026-08-23",
   "author": "frankuxui",
-  "themes": ["light", "dark"],
+  "themes": [
+    "light",
+    "dark"
+  ],
   "featured": false,
   "status": "published"
 }

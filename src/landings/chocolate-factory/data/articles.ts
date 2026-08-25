@@ -3,39 +3,39 @@ import { articleImages } from "./images"
 
 export const editorialPieces: EditorialPiece[] = [
   {
-    eyebrow: "Del grano a la tableta",
-    title: "Del cacao al chocolate",
+    eyebrow: "From bean to bar",
+    title: "From cacao to chocolate",
     excerpt:
-      "Un mismo grano puede convertirse en decenas de chocolates distintos. La diferencia está en cada decisión tomada entre la selección y el moldeado.",
+      "The same bean can become dozens of different chocolates. The difference lies in every decision made between selection and molding.",
     image: articleImages.cacaoPods,
     featured: true,
   },
   {
-    eyebrow: "Precisión térmica",
-    title: "El arte del templado",
+    eyebrow: "Thermal precision",
+    title: "The art of tempering",
     excerpt:
-      "Tres curvas de temperatura separan un chocolate brillante y quebradizo de uno opaco y blando.",
+      "Three temperature curves separate a glossy, snappy chocolate from one that's dull and soft.",
     image: articleImages.temperingMachine,
   },
   {
-    eyebrow: "Textura y aroma",
-    title: "Qué ocurre durante el conchado",
+    eyebrow: "Texture and aroma",
+    title: "What happens during conching",
     excerpt:
-      "Horas de fricción continua eliminan la acidez residual y redondean el aroma final del chocolate.",
+      "Hours of continuous friction remove residual acidity and round out the chocolate's final aroma.",
     image: articleImages.conchingDrum,
   },
   {
-    eyebrow: "El número que más se pregunta",
-    title: "Cómo se define el porcentaje de cacao",
+    eyebrow: "The question we hear most",
+    title: "How the cacao percentage is defined",
     excerpt:
-      "El porcentaje indica cuánto del producto procede del cacao, no su calidad ni su intensidad de sabor.",
+      "The percentage indicates how much of the product comes from cacao — not its quality or flavor intensity.",
     image: articleImages.cacaoPercentage,
   },
   {
-    eyebrow: "El último control",
-    title: "Textura, aroma y acabado",
+    eyebrow: "The final check",
+    title: "Texture, aroma, and finish",
     excerpt:
-      "Antes de salir de fábrica, cada lote se cata para verificar snap, brillo, fusión en boca y persistencia aromática.",
+      "Before leaving the factory, every batch is tasted to verify snap, gloss, mouthfeel, and lingering aroma.",
     image: articleImages.qualityControl,
   },
 ]

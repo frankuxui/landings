@@ -1,0 +1,49 @@
+---
+import Photo from "../components/Photo.astro"
+import { fieldNotes } from "../data/fieldNotes"
+import type { FieldNote } from "../types"
+---
+
+<section
+  id="field-notes"
+  class="border-t border-border bg-background px-container-x py-section sm:px-8 xl:px-14"
+  aria-labelledby="field-notes-heading"
+>
+  <div class="mx-auto grid w-full max-w-landing gap-12 lg:grid-cols-12">
+    <div class="reveal lg:sticky lg:top-28 lg:col-span-4 lg:h-fit">
+      <p class="text-xs font-semibold tracking-wide text-muted uppercase">
+        Field notes
+      </p>
+      <h2
+        id="field-notes-heading"
+        class="mt-3 max-w-heading text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        Notebook, not newsroom
+      </h2>
+      <p class="mt-5 max-w-copy text-muted">
+        Short observations filed on the road — before edits, before an editor,
+        sometimes before I've fully understood what I'm looking at.
+      </p>
+    </div>
+
+    <ol class="flex flex-col gap-10 lg:col-span-8">
+      {
+        fieldNotes.map((note: FieldNote) => (
+          <li class="reveal border-t border-border pt-6">
+            <div class="flex flex-wrap items-baseline gap-x-3">
+              <p class="font-mono text-sm text-foreground">{note.date}</p>
+              <p class="text-sm text-muted">{note.city}</p>
+              <p class="text-xs text-muted">{note.country}</p>
+            </div>
+            <p class="mt-3 max-w-copy text-lg leading-snug text-foreground italic">
+              &ldquo;{note.note}&rdquo;
+            </p>
+            {note.image && (
+              <Photo image={note.image} ratio="3 / 2" class="mt-5 max-w-sm" />
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

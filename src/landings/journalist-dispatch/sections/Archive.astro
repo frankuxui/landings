@@ -1,0 +1,82 @@
+---
+import { archiveCategories, archiveEntries } from "../data/archive"
+import type { ArchiveEntry } from "../types"
+---
+
+<section
+  id="archive"
+  class="border-t border-border bg-background px-container-x py-section sm:px-8 xl:px-14"
+  aria-labelledby="archive-heading"
+>
+  <div class="mx-auto w-full max-w-landing">
+    <div class="reveal flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-heading">
+        <p class="text-xs font-semibold tracking-wide text-muted uppercase">
+          Archive
+        </p>
+        <h2
+          id="archive-heading"
+          class="mt-3 text-headline-2 leading-tight font-semibold text-foreground"
+        >
+          Every reportage, browsable
+        </h2>
+      </div>
+      <p class="text-sm text-muted" role="status" data-archive-count>
+        {archiveEntries.length} stories
+      </p>
+    </div>
+
+    <div
+      class="mt-10 flex flex-wrap gap-2"
+      role="group"
+      aria-label="Filter the archive by category"
+    >
+      <button
+        type="button"
+        class="min-h-11 cursor-pointer rounded-full border border-border px-4 py-2 text-sm font-semibold text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border aria-pressed:bg-primary aria-pressed:text-primary-foreground aria-pressed:border-primary"
+        data-archive-filter="all"
+        aria-pressed="true"
+      >
+        All
+      </button>
+      {
+        archiveCategories.map((category: ArchiveEntry["category"]) => (
+          <button
+            type="button"
+            class="min-h-11 cursor-pointer rounded-full border border-border px-4 py-2 text-sm font-semibold text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border aria-pressed:bg-primary aria-pressed:text-primary-foreground aria-pressed:border-primary"
+            data-archive-filter={category}
+            aria-pressed="false"
+          >
+            {category}
+          </button>
+        ))
+      }
+    </div>
+
+    <ol class="mt-10 flex flex-col">
+      {
+        archiveEntries.map((entry: ArchiveEntry) => (
+          <li
+            class="grid grid-cols-1 gap-1 border-t border-border py-5 footer:grid-cols-[1fr_10rem_10rem_5rem] footer:items-center footer:gap-4"
+            data-archive-row
+            data-category={entry.category}
+          >
+            <a
+              href="#contact"
+              class="text-lg font-semibold text-foreground no-underline focus-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+            >
+              {entry.title}
+            </a>
+            <p class="text-sm text-muted">{entry.category}</p>
+            <p class="text-sm text-muted">{entry.location}</p>
+            <p class="font-mono text-sm text-muted">{entry.year}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<script>
+  import "../scripts/archiveFilter"
+</script>

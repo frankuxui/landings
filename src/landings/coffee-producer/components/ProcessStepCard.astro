@@ -16,12 +16,12 @@ export interface Props {
 const { step } = Astro.props
 
 const icons: Record<ProcessStepName, typeof Sprout> = {
-  Cultivo: Sprout,
-  Recolección: Hand,
-  Selección: ScanSearch,
-  Secado: SunMedium,
-  Tostado: Flame,
-  Preparación: Coffee,
+  Growing: Sprout,
+  Harvest: Hand,
+  Selection: ScanSearch,
+  Drying: SunMedium,
+  Roasting: Flame,
+  Brewing: Coffee,
 }
 
 const Icon = icons[step.iconLabel]

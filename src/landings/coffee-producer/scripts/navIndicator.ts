@@ -1,4 +1,4 @@
-// Terraltura — GSAP scroll-aware navigation indicator.
+// Coffee Producer — GSAP scroll-aware navigation indicator.
 //
 // A single shared pill moves behind the currently active in-page nav link
 // as the user scrolls or clicks. Links stay real <a href="#section">

@@ -1,4 +1,4 @@
-// Fundición Ónix — minimal scroll-reveal enhancement.
+// Chocolate Factory — minimal scroll-reveal enhancement.
 // Adds `.is-visible` to `.reveal` elements as they enter the viewport using
 // IntersectionObserver. Content is fully visible without this script (CSS
 // only hides `.reveal` once `.js-reveal-ready` is present), and the whole

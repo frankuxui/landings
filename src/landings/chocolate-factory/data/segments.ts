@@ -3,26 +3,26 @@ import type { Segment } from "../types"
 export const segments: Segment[] = [
   {
     number: "01",
-    title: "Tiendas especializadas",
+    title: "Specialty shops",
     description:
-      "Formatos de tableta y estuche listos para lineal, con ficha técnica y trazabilidad de origen por lote.",
+      "Bar and box formats ready for shelf, with a technical sheet and origin traceability per batch.",
   },
   {
     number: "02",
-    title: "Restauración y pastelería",
+    title: "Restaurants and pastry",
     description:
-      "Cacao de origen y coberturas a granel, con perfiles de fusión y templado pensados para cocina profesional.",
+      "Single-origin cacao and bulk couverture, with melting and tempering profiles built for professional kitchens.",
   },
   {
     number: "03",
-    title: "Hoteles",
+    title: "Hotels",
     description:
-      "Piezas de bienvenida y amenities personalizables en volumen, con plazos de producción planificados.",
+      "Welcome pieces and customizable amenities at volume, with production timelines planned in advance.",
   },
   {
     number: "04",
-    title: "Distribuidores",
+    title: "Distributors",
     description:
-      "Condiciones logísticas y de suministro adaptadas a pedido recurrente, con stock de fábrica dedicado.",
+      "Logistics and supply terms adapted to recurring orders, with dedicated factory stock.",
   },
 ]

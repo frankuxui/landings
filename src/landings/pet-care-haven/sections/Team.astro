@@ -1,0 +1,35 @@
+---
+import CaregiverCard from "../components/CaregiverCard.astro"
+import { caregivers } from "../data/team"
+import type { Caregiver } from "../types"
+---
+
+<section
+  class="bg-background py-section"
+  id="team"
+  aria-labelledby="team-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div>
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        Team
+      </p>
+      <h2
+        id="team-heading"
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        The people behind every act of care.
+      </h2>
+    </div>
+
+    <div class="mt-14 grid grid-cols-1 gap-10 cards:grid-cols-2">
+      {
+        caregivers.map((caregiver: Caregiver) => (
+          <CaregiverCard caregiver={caregiver} />
+        ))
+      }
+    </div>
+  </div>
+</section>

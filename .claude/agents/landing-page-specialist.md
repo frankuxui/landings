@@ -38,6 +38,20 @@ Each landing is a self-contained module at `src/landings/[slug]/` with its own c
 
 **After making changes:** follow the Skill's §20 Validation checklist in full. Run `npx astro check`, `npx tsc --noEmit`, `npx prettier --check .`, and `npm run build`. Verify responsive behavior, Light/Dark, accessibility, monochrome compliance, and isolation. Report files changed and notable decisions.
 
+**Any time you touch a landing's `styles/tailwind.css`** (new landing, redesign, token change, or unrelated section work that happens to open the file): verify it matches the Skill's §5 "Mandatory block order" exactly — same top-level block sequence, `--font-sans: var(--font-base)` present, no `color-scheme`/`font-family` inside `:root`/`[data-theme="dark"]`, no native `html, body {}` rule, no CSS `@import url(...)` for fonts. This is a strict structural requirement shared by every landing, not a per-landing style choice — fix silently if you find a deviation, even outside the task's original scope.
+
+**Breakpoints are locked, byte-for-byte, across every landing** — see the Skill's §8 "Canonical values". `--breakpoint-footer/cards/nav/stats/display` are never tuned per landing. `aperture-editions` and `silver-print` currently deviate from this table (documented as known debt in the Skill) — when a task touches either, correct their values back to the canonical ones rather than treating the deviation as intentional.
+
+**Typography scale (`--text-headline-1/2/3`, `--text-figure`) is chosen per landing** — see the Skill's §8 "Typography scale is per-landing". Same token names everywhere, but pick the actual clamp values to fit this landing's category, content density, and composition — a quiet editorial landing and a bold SaaS hero shouldn't share the same headline scale. Watch specifically for oversized type in dense card grids and headers that don't fit their own logo + nav + CTA at the `nav:` breakpoint — both are common failure modes when a scale is too large for what it has to sit inside.
+
+**Any time you touch a landing at all**, also silently verify and fix, even outside the task's stated scope:
+- Every `max-w-heading` usage sits on the same element as `text-headline-*`, never a wrapper `<div>` (§8 "`max-w-heading` goes on the heading element itself") — a narrow, overflowing heading is this exact bug.
+- The landing has its own visible Light/Dark toggle button in `Header.astro`, not just a `postMessage` listener (§10).
+- The landing's displayed brand name (Header, Footer, `<title>`, metadata JSON) is the Title Case form of its slug, not an invented fictional brand (§2 "The landing's displayed name matches its slug").
+- No logo icon/mark next to the name — the wordmark is plain text, nothing else (§2 "No logo marks — the wordmark is the logo"). Remove any icon badge you find next to a landing's name.
+- Unsplash photo credits sit below each photo (never overlaid on it) and a consolidated "Photo credits" list exists under the footer — see the `unsplash-images` Skill §9.
+- The landing has a floating "back to top" button (hidden until scroll passes a threshold, real `<button>`, accessible, reduced-motion-aware) — see the Skill's "Back to top button".
+
 ## Images — `unsplash-images` Skill
 
 When a section needs a photograph, invoke the `unsplash-images` Skill before selecting anything. Follow it completely. A finished landing does not ship with permanent placeholder boxes for photography.

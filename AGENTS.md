@@ -58,9 +58,17 @@ Manage the background server with `astro dev stop`, `astro dev status`, and `ast
 
 Each landing is an independent module. A change to one landing must never leak into another landing, the catalog, or platform-global styles/components. See the `astro-landing-pages` Skill for the full detail.
 
-### The other core rule: one shared design system, many different designs
+### The other core rule: identical design-system contract, independently owned by every landing
 
-All Landing Pages belong to the same visual system. They must use exactly the same semantic tokens, color variables, Light/Dark values, grayscale scale, typography scale, breakpoints, and fundamental Tailwind rules — declared once in `src/styles/landing-design-system.css` and imported unchanged by every landing. A new Landing Page must never introduce, remove, rename, or modify a global design-system token; any change to that contract is a global decision applied to every landing at once, never a per-landing choice. Differentiation between landings comes from composition, architecture, hierarchy, layout, spacing, content, interaction, and motion — never from inventing a separate color identity or an independent typography scale. **MISMO DESIGN SYSTEM, DISTINTO DISEÑO.** Full detail, the exact locked token contract, and the audit checklist live in the `astro-landing-pages` Skill.
+All Landing Pages belong to the same visual system and must implement exactly the same contract: the same semantic token names, the same Light and Dark values, the same grayscale scale, the same typography scale, the same fluid heading scale, the same breakpoints, the same structural tokens, and the same Tailwind conventions. **But every landing declares that contract entirely inside its own `styles/tailwind.css` — there is no shared file, no common import, and no inheritance between landings.**
+
+The duplication is deliberate: a landing must work as a completely autonomous unit. Pulling `src/landings/[slug]/` out of the repository must leave a fully functional implementation with zero dangling dependencies inside the landing system. A shared CSS file would violate that guarantee the moment one landing imports it.
+
+A new Landing Page must never introduce, remove, rename, or alter any token value from the gallery contract; any change to that contract is a conceptual decision that must be applied manually to every landing at once, never a per-landing deviation. Differentiation between landings comes from composition, architecture, hierarchy, layout, spacing, content, interaction, and motion — never from inventing a separate color identity or an independent typography scale. **MISMO DESIGN SYSTEM. DISTINTO DISEÑO. CERO DEPENDENCIAS ENTRE LANDINGS.**
+
+> **AUTONOMÍA > DRY.** The controlled duplication of the design-system contract across landings is an intentional architectural decision. Never abstract it into a shared file to avoid repetition.
+
+Full detail, the exact locked token contract, and the audit checklist live in the `astro-landing-pages` Skill.
 
 ### Where things live
 
@@ -85,8 +93,7 @@ src/
 │           ├── preview.astro       # /landings/[slug]/preview — toolbar + iframe demo
 │           └── render.astro        # /landings/[slug]/render — isolated raw render (iframe target only)
 └── styles/
-    ├── global.css                  # platform-only tokens/reset — a landing never imports this
-    └── landing-design-system.css   # shared Landing Pages design-system contract (colors, Light/Dark, fluid type scale, base structural tokens) — every landing imports this, none redefines it; see the astro-landing-pages Skill
+    └── global.css                  # platform-only tokens/reset — a landing never imports this
 ```
 
 **Metadata vs. implementation split:** `src/content/landings/[slug].json` (queryable via `getCollection('landings')`) holds catalog metadata (category, tags, thumbnail, featured, status, dates...). `src/landings/[slug]/` holds the actual buildable page and is intentionally decoupled from the platform so it stays copyable/downloadable.

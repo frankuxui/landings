@@ -348,6 +348,8 @@ The attribution can be styled discreetly, but it must be:
 - **Legible** — not smaller than the smallest body-text size the landing uses for meaningful text.
 - **Focusable and keyboard-accessible** — both links reachable with `Tab`.
 - **Semantic** — inside a `<figcaption>` when the image is inside a `<figure>`, otherwise inside a caption block or a credits block adjacent to the image.
+- **Below the photo, in normal flow** — never a caption/scrim overlaid on top of the image itself (`absolute`/`fixed` positioned over the photo). An overlay banner darkens the photo, fights the project's monochrome/high-contrast treatment, and is visually noisier than a small caption sitting under the image. Always lay the caption out below the `<img>`, in the page's normal document flow.
+- **Never `title`-only.** A `title` attribute on the `<img>` is a welcome bonus (a hover tooltip for sighted mouse users) but never a substitute for the visible caption — `title` is unreliable with screen readers and completely inaccessible on touch (no hover). Add it in addition to the caption below, not instead of it.
 
 Do not hide the attribution with `display: none`, `visibility: hidden`, `opacity: 0`, `aria-hidden="true"`, `hidden`, a `sr-only` utility, off-screen positioning, or CSS that visually removes it. Every one of those is a violation.
 
@@ -355,23 +357,32 @@ Do not hide the attribution with `display: none`, `visibility: hidden`, `opacity
 
 ```astro
 <figure>
-  <img
-    src={image.src}
-    alt={image.alt}
-    width={image.width}
-    height={image.height}
-    loading="lazy"
-    decoding="async"
-  />
-  <figcaption>
+  <div class="overflow-hidden rounded-2xl">
+    <img
+      src={image.src}
+      alt={image.alt}
+      title={`Photo by ${image.author} on Unsplash`}
+      width={image.width}
+      height={image.height}
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <figcaption class="mt-2 text-xs text-muted">
     Photo by <a href={image.authorUrl} rel="noopener">{image.author}</a>
     on <a href={image.unsplashUrl} rel="noopener">Unsplash</a>
   </figcaption>
 </figure>
 ```
 
-- `<figure>` + `<figcaption>` is the default. A page-level credits block is acceptable when the design genuinely calls for it, provided each photo is still individually credited to the right photographer.
+- `<figure>` wraps a separately-rounded/clipped image container plus a `<figcaption>` that sits below it in normal flow — the caption is never inside the clipped/positioned image box, so it can never end up overlaid on the photo.
 - `rel="noopener"` on external links is required by [`semantic-accessibility-seo`](../semantic-accessibility-seo/SKILL.md).
+
+### 9.5 Page-level "Photo credits" list (required, in addition to the per-photo caption)
+
+Every landing that uses Unsplash photography must also render a consolidated "Photo credits" list directly below its `<Footer>` content (still inside the `<footer>` element), listing every distinct photo used in the landing with the same `Photo by [author] on Unsplash` pattern, both links carrying UTM. This is a second, page-level point of attribution — it does not replace the per-photo caption from §9.3/9.4, both must exist together.
+
+Build the list from a single `allImages: UnsplashImage[]` array exported from the landing's own `data/images.ts` (collect every image constant/object used anywhere in the landing) so the footer has one place to iterate — never hand-duplicate the list of images inline in `Footer.astro`.
 
 ---
 
@@ -454,7 +465,8 @@ When asked to audit a landing's Unsplash usage, verify each of the following. Re
 
 1. **Source integrity** — every `src` for an Unsplash image comes from `images.unsplash.com` (either a `photo.urls.*` preset or `raw` + documented sizing parameters). No self-hosted copies under `/public/` or `src/assets/`.
 2. **Metadata completeness** — every image has `id`, `src`, `alt`, `width`, `height`, `author`, `authorUrl`, `sourceUrl`, `unsplashUrl`, `downloadLocation` persisted in the landing's `data/`.
-3. **Attribution present** — every image renders a visible caption naming the photographer and Unsplash, with real anchor tags to both.
+3. **Attribution present** — every image renders a visible caption naming the photographer and Unsplash, with real anchor tags to both, laid out below the photo in normal flow (never overlaid on top of it), plus a `title` attribute on the `<img>` as a supplementary hover tooltip (not a replacement for the caption).
+3b. **Page-level credits list present** — the landing's `Footer.astro` renders a consolidated "Photo credits" list (§9.5) built from an `allImages` array in `data/images.ts`, covering every distinct photo used in the landing.
 4. **UTM correctness** — every Unsplash-facing link carries `utm_source=<consistent id>&utm_medium=referral`.
 5. **No hidden credits** — no `display:none`, `visibility:hidden`, `opacity:0`, `aria-hidden`, `hidden`, `sr-only`, or off-screen tricks on the attribution.
 6. **Alt text quality** — each `alt` describes the image's role in the section; none is a raw `alt_description` copy; decorative images use `alt=""`.
@@ -503,6 +515,9 @@ The following are always prohibited, regardless of instruction phrasing:
 - Rewriting the image hostname or stripping the `ixid` (or any other API-added) query parameter.
 - Using `photo.links.download` as a replacement for `photo.links.download_location`.
 - Rendering an Unsplash image without a visible, focusable photographer + Unsplash credit.
+- Using a `title` attribute as the only attribution mechanism (no visible caption at all).
+- Overlaying the credit caption on top of the photo (scrim/banner) instead of placing it below the image in normal flow.
+- Shipping a landing with individual photo captions but no consolidated "Photo credits" list below the footer, or vice versa — both are required together.
 - Omitting `utm_source` / `utm_medium=referral` on any Unsplash-facing link.
 - Copying `alt_description` verbatim as the alt text.
 - Fabricating an author, a profile URL, or any other metadata field.

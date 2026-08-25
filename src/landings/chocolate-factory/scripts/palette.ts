@@ -1,4 +1,4 @@
-// Fundición Ónix — palette bridge.
+// Chocolate Factory — palette bridge.
 //
 // Mirrors scripts/theme.ts: listens for the platform preview shell's
 // cross-document postMessage and toggles `data-palette` on THIS document's

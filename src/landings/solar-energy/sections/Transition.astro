@@ -1,5 +1,6 @@
 ---
-import ImagePlaceholder from "../components/ImagePlaceholder.astro"
+import Photo from "../components/Photo.astro"
+import { transitionImage } from "../data/images"
 
 interface Statement {
   title: string
@@ -8,60 +9,78 @@ interface Statement {
 
 const statements: Statement[] = [
   {
-    title: "Menor dependencia de la red",
+    title: "Less dependence on the grid",
     description:
-      "Cada instalación reduce la parte del consumo que depende exclusivamente del suministro externo.",
+      "Every installation reduces the share of consumption that relies exclusively on external supply.",
   },
   {
-    title: "Generación en el mismo lugar",
+    title: "Generation where it's used",
     description:
-      "La electricidad se produce donde se consume, sin las pérdidas asociadas al transporte a larga distancia.",
+      "Electricity is produced where it's consumed, without the losses that come with long-distance transport.",
   },
   {
-    title: "Decisiones medibles",
+    title: "Measurable decisions",
     description:
-      "Cada proyecto se acompaña de datos de producción reales, no de una estimación genérica de catálogo.",
+      "Every project comes with real production data, not a generic catalog estimate.",
   },
 ]
 ---
 
 <section
   class="bg-inverted text-inverted-foreground"
-  aria-labelledby="transicion-heading"
+  aria-labelledby="transition-heading"
 >
   <div class="w-full px-container-x pt-section pb-16 sm:px-8 xl:px-14">
     <p
       class="mb-6 font-mono text-xs font-semibold tracking-widest text-current/70 uppercase"
     >
-      Transición energética
+      Energy transition
     </p>
     <h2
-      id="transicion-heading"
+      id="transition-heading"
       class="max-w-hero-heading text-balance text-headline-1 leading-[0.98] font-bold text-current"
     >
-      Reducir la dependencia de los combustibles fósiles empieza en el tejado.
+      Cutting dependence on fossil fuels starts on the roof.
     </h2>
     <p class="mt-8 max-w-copy text-lg text-current/80 sm:text-xl">
-      Cada instalación fotovoltaica que ponemos en marcha es una decisión
-      concreta: menos consumo asociado a la red convencional, más generación
-      distribuida y un uso de la energía diseñado a la escala real de cada
-      proyecto, ya sea una vivienda, una nave industrial o una comunidad entera
-      de vecinos.
+      Every photovoltaic system we bring online is a concrete decision: less
+      consumption tied to the conventional grid, more distributed generation,
+      and an energy setup designed at the real scale of each project — whether
+      that's a home, an industrial warehouse, or an entire neighborhood
+      community.
     </p>
   </div>
 
-  <ImagePlaceholder
-    label="Solar farm at dusk, aerial view"
+  <Photo
+    image={transitionImage}
     ratio="16 / 10"
-    inverse
     parallax
+    caption={false}
     class="w-full"
   />
+  <p class="w-full px-container-x pt-2 sm:px-8 xl:px-14">
+    <span class="font-mono text-xs tracking-wide text-current/60 uppercase">
+      Photo by{" "}
+      <a
+        href={transitionImage.authorUrl}
+        rel="noopener"
+        target="_blank"
+        class="underline underline-offset-2">{transitionImage.author}</a
+      >{" "}
+      on{" "}
+      <a
+        href={transitionImage.unsplashUrl}
+        rel="noopener"
+        target="_blank"
+        class="underline underline-offset-2">Unsplash</a
+      >
+    </span>
+  </p>
 
   <div class="w-full px-container-x py-16 sm:px-8 xl:px-14">
     <ul
       class="grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-8"
-      aria-label="Compromisos de la transición energética"
+      aria-label="Energy transition commitments"
     >
       {
         statements.map((statement: Statement, index: number) => (

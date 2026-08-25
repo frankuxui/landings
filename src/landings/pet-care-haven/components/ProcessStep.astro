@@ -1,0 +1,28 @@
+---
+export interface Props {
+  index: string
+  title: string
+  description: string
+  isLast?: boolean
+}
+
+const { index, title, description, isLast = false } = Astro.props
+---
+
+<li
+  class:list={[
+    "reveal relative flex gap-6 pb-12 last:pb-0",
+    !isLast &&
+      "after:absolute after:top-14 after:bottom-0 after:left-[1.4rem] after:w-px after:bg-border after:content-['']",
+  ]}
+>
+  <span
+    class="relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full bg-primary font-mono text-sm font-semibold text-primary-foreground"
+  >
+    {index}
+  </span>
+  <div class="flex flex-col gap-2 pt-1.5">
+    <h3 class="text-lg font-semibold text-foreground">{title}</h3>
+    <p class="max-w-copy text-sm text-muted">{description}</p>
+  </div>
+</li>

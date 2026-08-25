@@ -1,0 +1,19 @@
+---
+// Chocolate Factory — floating "back to top" control (see
+// scripts/backToTop.ts). Hidden by default and removed from the tab order
+// until the reader scrolls past one viewport height, then fades/scales in
+// on this landing's own --ease-landing curve. A real <button> — it scrolls
+// the viewport rather than navigating to a URL.
+import { ArrowUp } from "@lucide/astro"
+---
+
+<button
+  type="button"
+  data-back-to-top
+  aria-label="Back to top"
+  aria-hidden="true"
+  tabindex="-1"
+  class="fixed right-5 bottom-5 z-40 inline-flex size-12 min-h-11 scale-90 cursor-pointer items-center justify-center rounded-sm border-0 bg-control p-0 text-foreground opacity-0 pointer-events-none transition-[opacity,transform] duration-300 ease-landing hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover motion-reduce:transition-none sm:right-8 xl:right-14 [&.is-visible]:pointer-events-auto [&.is-visible]:scale-100 [&.is-visible]:opacity-100"
+>
+  <ArrowUp aria-hidden="true" width="20" height="20" stroke-width="1.5" />
+</button>

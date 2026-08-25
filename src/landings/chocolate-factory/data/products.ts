@@ -3,48 +3,48 @@ import { productImages } from "./images"
 
 export const products: Product[] = [
   {
-    name: "Negro 85%",
+    name: "Dark 85%",
     cacaoContent: "85% cacao",
-    format: "Tableta 100 g",
+    format: "100 g bar",
     description:
-      "Origen único, tueste corto y conchado largo para un negro intenso sin amargor agresivo.",
-    notes: ["Cacao tostado", "Frutos secos", "Final seco"],
+      "Single origin, short roast, and long conching for an intense dark chocolate without harsh bitterness.",
+    notes: ["Roasted cacao", "Nuts", "Dry finish"],
     image: productImages.darkBar,
   },
   {
-    name: "Leche Ónix",
+    name: "House Milk",
     cacaoContent: "45% cacao",
-    format: "Tableta 100 g",
+    format: "100 g bar",
     description:
-      "Nuestro clásico de leche: cremoso, equilibrado, pensado para el consumo diario.",
-    notes: ["Caramelo", "Leche entera", "Vainilla"],
+      "Our milk chocolate classic: creamy, balanced, made for everyday enjoyment.",
+    notes: ["Caramel", "Whole milk", "Vanilla"],
     image: productImages.milkBar,
   },
   {
-    name: "Cacao de Origen",
+    name: "Single-Origin Cacao",
     cacaoContent: "100% cacao",
-    format: "Bolsa 200 g",
+    format: "200 g bag",
     description:
-      "Pasta de cacao pura de una sola finca, para repostería profesional y preparación en taza.",
-    notes: ["Sin aditivos", "Trazabilidad de finca", "Uso profesional"],
+      "Pure cacao paste from a single farm, for professional pastry work and hot chocolate.",
+    notes: ["No additives", "Farm traceability", "Professional use"],
     image: productImages.cacaoPaste,
   },
   {
-    name: "Tableta Especial",
+    name: "Special Edition Bar",
     cacaoContent: "70% cacao",
-    format: "Tableta 90 g",
+    format: "90 g bar",
     description:
-      "Micro-lote de temporada con inclusión de higo seco y una capa de templado más fina de lo habitual.",
-    notes: ["Higo seco", "Templado fino", "Tirada corta"],
+      "A seasonal micro-batch with dried fig inclusions and a finer temper than usual.",
+    notes: ["Dried fig", "Fine temper", "Short run"],
     image: productImages.specialEdition,
   },
   {
-    name: "Colección Limitada",
-    cacaoContent: "Selección de 4 piezas",
-    format: "Estuche 160 g",
+    name: "Limited Collection",
+    cacaoContent: "4-piece selection",
+    format: "160 g box",
     description:
-      "Cuatro orígenes distintos en formato bombón, presentados en un estuche de fábrica numerado.",
-    notes: ["Cuatro orígenes", "Estuche numerado", "Edición limitada"],
+      "Four distinct origins in bonbon form, presented in a numbered factory box.",
+    notes: ["Four origins", "Numbered box", "Limited edition"],
     image: productImages.limitedBox,
   },
 ]

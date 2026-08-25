@@ -1,0 +1,39 @@
+---
+// One stop on the horizontal "Coverage" timeline — the same photo,
+// year/location masthead, story line, outlet, and category badge repeat
+// for every stop, so this is a real structural component rather than
+// five copy-pasted blocks inside Timeline.astro.
+import Photo from "./Photo.astro"
+import type { TimelineStop } from "../types"
+
+export interface Props {
+  stop: TimelineStop
+  index: number
+}
+
+const { stop, index } = Astro.props
+---
+
+<article
+  class="w-[min(80vw,22rem)] shrink-0 snap-start nav:w-[26rem]"
+  data-timeline-stop
+>
+  <p class="font-mono text-xs text-muted">
+    {String(index + 1).padStart(2, "0")}
+  </p>
+  <Photo image={stop.image} ratio="3 / 4" />
+  <div class="mt-4">
+    <p class="text-headline-3 leading-none font-semibold text-foreground">
+      {stop.year}
+    </p>
+    <p class="mt-1 text-lg font-semibold text-foreground">{stop.location}</p>
+    <p class="mt-2 max-w-copy text-sm text-muted">{stop.story}</p>
+    <p
+      class="mt-3 flex flex-wrap items-center gap-x-2 text-xs font-semibold tracking-wide text-muted uppercase"
+    >
+      <span>{stop.category}</span>
+      <span aria-hidden="true">·</span>
+      <span>{stop.outlet}</span>
+    </p>
+  </div>
+</article>

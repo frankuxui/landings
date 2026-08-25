@@ -9,7 +9,7 @@ const UTM = "utm_source=astro_landings_gallery&utm_medium=referral"
 export const heroImage: UnsplashImage = {
   id: "XhWntGj2N98",
   src: "https://images.unsplash.com/photo-1551578657-a7e74acb0135?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8dGVtcGVyZWQlMjBjaG9jb2xhdGUlMjBibG9jayUyMGRhcmslMjBnbG9zc3l8ZW58MXwwfHx8MTc4NzQ3NjU3MHww&ixlib=rb-4.1.0&w=1400&h=1050&fit=crop&auto=format&q=80",
-  alt: "Bloque de chocolate negro atemperado, brillante, recién desmoldado",
+  alt: "Glossy block of freshly tempered dark chocolate just unmolded",
   width: 6000,
   height: 4000,
   author: "Kaffee Meister",
@@ -23,7 +23,7 @@ export const heroImage: UnsplashImage = {
 export const originImage: UnsplashImage = {
   id: "5VORokHbWEs",
   src: "https://images.unsplash.com/photo-1543840312-56c8bf2c350d?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Y2FjYW8lMjBwb2RzJTIwaGFydmVzdCUyMHNvcnRpbmclMjB0YWJsZXxlbnwxfDB8fHwxNzg3NDc2NTcxfDA&ixlib=rb-4.1.0&w=1000&h=1333&fit=crop&auto=format&q=80",
-  alt: "Cajón lleno de vainas de cacao maduras e inmaduras recién cosechadas",
+  alt: "Crate filled with ripe and unripe cacao pods, freshly harvested",
   width: 5677,
   height: 3677,
   author: "Tomáš Malík",
@@ -37,7 +37,7 @@ export const originImage: UnsplashImage = {
 export const factoryArtisanImage: UnsplashImage = {
   id: "TZ_cG3DXGyc",
   src: "https://images.unsplash.com/photo-1736788266037-9086fd28aee7?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Y2hvY29sYXRpZXIlMjBoYW5kcyUyMGNyYWZ0aW5nJTIwY2hvY29sYXRlJTIwd29ya3Nob3B8ZW58MXwwfHx8MTc4NzQ3NjU3Mnww&ixlib=rb-4.1.0&w=1000&h=750&fit=crop&auto=format&q=80",
-  alt: "Chocolatero cortando y terminando piezas de chocolate a mano en el obrador",
+  alt: "Chocolatier cutting and finishing chocolate pieces by hand in the workshop",
   width: 6240,
   height: 4160,
   author: "Cemrecan Yurtman",
@@ -51,7 +51,7 @@ export const factoryArtisanImage: UnsplashImage = {
 export const factoryIndustrialImage: UnsplashImage = {
   id: "oLS6IxceVNs",
   src: "https://images.unsplash.com/photo-1652211955967-99c892925469?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Zm9vZCUyMGZhY3RvcnklMjBwcm9kdWN0aW9uJTIwbGluZSUyMGNvbnZleW9yJTIwc3RhaW5sZXNzJTIwc3RlZWx8ZW58MXwwfHx8MTc4NzQ3NjU4OXww&ixlib=rb-4.1.0&w=1000&h=750&fit=crop&auto=format&q=80",
-  alt: "Interior de una línea de producción industrial de alimentos con maquinaria en acero inoxidable",
+  alt: "Interior of an industrial food production line with stainless steel machinery",
   width: 5922,
   height: 3948,
   author: "Arno Senoner",
@@ -66,7 +66,7 @@ export const articleImages: Record<string, UnsplashImage> = {
   cacaoPods: {
     id: "3XpYFyIzSLQ",
     src: "https://images.unsplash.com/photo-1612942601088-ab13681275ec?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NHx8Y2FjYW8lMjBwb2RzJTIwaGFydmVzdCUyMHNvcnRpbmclMjB0YWJsZXxlbnwxfDB8fHwxNzg3NDc2NTcxfDA&ixlib=rb-4.1.0&w=1200&h=750&fit=crop&auto=format&q=80",
-    alt: "Granos de cacao secos junto a semillas tostadas sobre mesa de madera",
+    alt: "Dried cacao beans next to roasted seeds on a wooden table",
     width: 3648,
     height: 2432,
     author: "Leonard Asuque",
@@ -79,7 +79,7 @@ export const articleImages: Record<string, UnsplashImage> = {
   temperingMachine: {
     id: "xD5SWy7hMbw",
     src: "https://images.unsplash.com/photo-1513828646384-e4d8ec30d2bb?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NHx8Zm9vZCUyMGZhY3RvcnklMjBwcm9kdWN0aW9uJTIwbGluZSUyMGNvbnZleW9yJTIwc3RhaW5sZXNzJTIwc3RlZWx8ZW58MXwwfHx8MTc4NzQ3NjU4OXww&ixlib=rb-4.1.0&w=1200&h=750&fit=crop&auto=format&q=80",
-    alt: "Detalle de maquinaria industrial de acero usada en el proceso de templado",
+    alt: "Detail of steel industrial machinery used in the tempering process",
     width: 5616,
     height: 3744,
     author: "Crystal Kwok",
@@ -92,7 +92,7 @@ export const articleImages: Record<string, UnsplashImage> = {
   conchingDrum: {
     id: "bCgsKqFzUcg",
     src: "https://images.unsplash.com/photo-1651525670114-2b8117390b28?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8Zm9vZCUyMGZhY3RvcnklMjBwcm9kdWN0aW9uJTIwbGluZSUyMGNvbnZleW9yJTIwc3RhaW5sZXNzJTIwc3RlZWx8ZW58MXwwfHx8MTc4NzQ3NjU4OXww&ixlib=rb-4.1.0&w=1200&h=750&fit=crop&auto=format&q=80",
-    alt: "Interior de fábrica con maquinaria de proceso continuo en funcionamiento",
+    alt: "Factory interior with continuous-process machinery running",
     width: 5919,
     height: 3946,
     author: "Arno Senoner",
@@ -105,7 +105,7 @@ export const articleImages: Record<string, UnsplashImage> = {
   cacaoPercentage: {
     id: "umtQ35YdAI4",
     src: "https://images.unsplash.com/photo-1646988073828-eabcf70d9e52?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8Y2FjYW8lMjBwZXJjZW50YWdlJTIwZGFyayUyMGNob2NvbGF0ZSUyMHNhbXBsZXMlMjBncmlkfGVufDF8MHx8fDE3ODc0NzY1OTF8MA&ixlib=rb-4.1.0&w=1200&h=750&fit=crop&auto=format&q=80",
-    alt: "Primer plano de una tableta de chocolate marcada con su porcentaje de cacao",
+    alt: "Close-up of a chocolate bar marked with its cacao percentage",
     width: 5184,
     height: 3888,
     author: "Brett Jordan",
@@ -118,7 +118,7 @@ export const articleImages: Record<string, UnsplashImage> = {
   qualityControl: {
     id: "R530_OH5Pk4",
     src: "https://images.unsplash.com/photo-1772986206858-a53535416178?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8ZGFyayUyMGNob2NvbGF0ZSUyMGJhcnMlMjBicm9rZW4lMjBwaWVjZXMlMjBwcm9kdWN0fGVufDF8MHx8fDE3ODc0NzY1OTB8MA&ixlib=rb-4.1.0&w=1200&h=750&fit=crop&auto=format&q=80",
-    alt: "Trozos de chocolate negro partidos, dispuestos para su cata y control de calidad",
+    alt: "Broken pieces of dark chocolate arranged for tasting and quality control",
     width: 5472,
     height: 3648,
     author: "Tamanna Rumee",
@@ -134,7 +134,7 @@ export const productImages: Record<string, UnsplashImage> = {
   darkBar: {
     id: "le9uZiYdsEQ",
     src: "https://images.unsplash.com/photo-1772986206364-581899b9118c?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8ZGFyayUyMGNob2NvbGF0ZSUyMGJhcnMlMjBicm9rZW4lMjBwaWVjZXMlMjBwcm9kdWN0fGVufDF8MHx8fDE3ODc0NzY1OTB8MA&ixlib=rb-4.1.0&w=900&h=1200&fit=crop&auto=format&q=80",
-    alt: "Trozos de tableta de chocolate negro 85% dispuestos sobre tela oscura",
+    alt: "Pieces of 85% dark chocolate bar arranged on dark fabric",
     width: 5472,
     height: 3648,
     author: "Tamanna Rumee",
@@ -147,7 +147,7 @@ export const productImages: Record<string, UnsplashImage> = {
   milkBar: {
     id: "T8bH5l-G7wQ",
     src: "https://images.unsplash.com/photo-1772986236859-df5e8cc48a45?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8ZGFyayUyMGNob2NvbGF0ZSUyMGJhcnMlMjBicm9rZW4lMjBwaWVjZXMlMjBwcm9kdWN0fGVufDF8MHx8fDE3ODc0NzY1OTB8MA&ixlib=rb-4.1.0&w=900&h=1200&fit=crop&auto=format&q=80",
-    alt: "Trozos de chocolate con leche partidos sobre tela oscura",
+    alt: "Pieces of milk chocolate broken apart on dark fabric",
     width: 5472,
     height: 3648,
     author: "Tamanna Rumee",
@@ -160,7 +160,7 @@ export const productImages: Record<string, UnsplashImage> = {
   cacaoPaste: {
     id: "_GGdi0ijd2g",
     src: "https://images.unsplash.com/photo-1772986258886-264bc0b4e530?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NHx8ZGFyayUyMGNob2NvbGF0ZSUyMGJhcnMlMjBicm9rZW4lMjBwaWVjZXMlMjBwcm9kdWN0fGVufDF8MHx8fDE3ODc0NzY1OTB8MA&ixlib=rb-4.1.0&w=900&h=1200&fit=crop&auto=format&q=80",
-    alt: "Trozos de cacao puro sin aditivos esparcidos sobre tela oscura",
+    alt: "Pieces of pure cacao paste with no additives scattered on dark fabric",
     width: 5472,
     height: 3648,
     author: "Tamanna Rumee",
@@ -173,7 +173,7 @@ export const productImages: Record<string, UnsplashImage> = {
   specialEdition: {
     id: "iT5sy8XOyJE",
     src: "https://images.unsplash.com/photo-1772986237447-65b8a172d75c?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NXx8ZGFyayUyMGNob2NvbGF0ZSUyMGJhcnMlMjBicm9rZW4lMjBwaWVjZXMlMjBwcm9kdWN0fGVufDF8MHx8fDE3ODc0NzY1OTB8MA&ixlib=rb-4.1.0&w=900&h=1200&fit=crop&auto=format&q=80",
-    alt: "Trozos de chocolate de edición especial con higo, sobre tela oscura",
+    alt: "Special-edition chocolate pieces with fig, on dark fabric",
     width: 5472,
     height: 3648,
     author: "Tamanna Rumee",
@@ -186,7 +186,7 @@ export const productImages: Record<string, UnsplashImage> = {
   limitedBox: {
     id: "ZrafmOhLPO4",
     src: "https://images.unsplash.com/photo-1772986206808-f293da379724?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Nnx8ZGFyayUyMGNob2NvbGF0ZSUyMGJhcnMlMjBicm9rZW4lMjBwaWVjZXMlMjBwcm9kdWN0fGVufDF8MHx8fDE3ODc0NzY1OTB8MA&ixlib=rb-4.1.0&w=900&h=1200&fit=crop&auto=format&q=80",
-    alt: "Selección de piezas de chocolate de colección limitada sobre tela oscura",
+    alt: "Selection of limited-collection chocolate pieces on dark fabric",
     width: 5472,
     height: 3648,
     author: "Tamanna Rumee",
@@ -197,3 +197,17 @@ export const productImages: Record<string, UnsplashImage> = {
       "https://api.unsplash.com/photos/ZrafmOhLPO4/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Nnx8ZGFyayUyMGNob2NvbGF0ZSUyMGJhcnMlMjBicm9rZW4lMjBwaWVjZXMlMjBwcm9kdWN0fGVufDF8MHx8fDE3ODc0NzY1OTB8MA",
   },
 }
+
+// Every Unsplash photograph rendered in this landing, for the consolidated
+// "Photo credits" list in Footer.astro (see the astro-landing-pages Skill:
+// "Back to top button" section's sibling rule, unsplash-images Skill §9.5
+// — each photo also carries its own discreet caption via components/Photo.astro;
+// this list is the required second, page-level point of attribution).
+export const allImages: UnsplashImage[] = [
+  heroImage,
+  originImage,
+  factoryArtisanImage,
+  factoryIndustrialImage,
+  ...Object.values(articleImages),
+  ...Object.values(productImages),
+]

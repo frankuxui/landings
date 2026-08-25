@@ -1,0 +1,50 @@
+---
+// One companion in the pet gallery mosaic. On Mobile/Tablet the caption
+// (name, species, activity) sits permanently over the photograph, since
+// hover is unreliable on touch. From `lg:` up, where hover is dependable,
+// it is revealed on hover/focus instead, for a quieter grid at rest. The
+// Unsplash credit sits below the photo, in normal flow — never overlaid.
+import Photo from "./Photo.astro"
+import PhotoCredit from "./PhotoCredit.astro"
+import type { GalleryPet } from "../types"
+
+export interface Props {
+  pet: GalleryPet
+  class?: string
+}
+
+const { pet, class: className } = Astro.props
+---
+
+<figure class:list={["group/tile reveal m-0 flex h-full flex-col", className]}>
+  <Photo
+    image={pet.image}
+    ratio="auto"
+    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+    caption={false}
+    imgClass="lg:group-hover/tile:scale-110 lg:group-focus-visible/tile:scale-110"
+  >
+    <div
+      class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/85 via-black/5 to-transparent lg:opacity-0 lg:transition-opacity lg:duration-500 lg:ease-landing lg:group-hover/tile:opacity-100 lg:group-focus-visible/tile:opacity-100"
+      aria-hidden="true"
+    >
+    </div>
+
+    <figcaption
+      class="absolute inset-x-0 bottom-0 flex flex-col gap-1 p-4 text-white lg:translate-y-4 lg:opacity-0 lg:transition-all lg:duration-500 lg:ease-landing lg:group-hover/tile:translate-y-0 lg:group-hover/tile:opacity-100 lg:group-focus-visible/tile:translate-y-0 lg:group-focus-visible/tile:opacity-100 motion-reduce:translate-y-0! motion-reduce:opacity-100!"
+    >
+      <p class="text-lg font-semibold">
+        {pet.name}
+        <span class="font-normal text-white/70">· {pet.species}</span>
+      </p>
+      <p class="text-xs tracking-wide text-white/70 uppercase">
+        {pet.activity}
+      </p>
+      <p class="mt-1 text-sm text-white/85">{pet.caption}</p>
+    </figcaption>
+  </Photo>
+
+  <div class="px-1 pt-2" tabindex="0">
+    <PhotoCredit image={pet.image} class="text-[11px]" />
+  </div>
+</figure>

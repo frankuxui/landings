@@ -1,102 +1,102 @@
-# Terraltura - Café de origen (business)
+# Coffee Producer - Single-Origin Coffee (business)
 
-Landing insignia de la galería: una marca ficticia de café de especialidad
-(**Terraltura**) que cultiva, selecciona y tuesta su propio café en una
-región de montaña ficticia (los Altos de Vientoclaro). Dirigida a
-consumidores de café, cafeterías, restaurantes y distribuidores.
+The gallery's flagship landing: a fictional specialty-coffee brand
+(**Coffee Producer**) that grows, selects, and roasts its own coffee in a
+fictional mountain region (the Altos de Vientoclaro). Aimed at coffee
+drinkers, cafés, restaurants, and distributors.
 
-## Estructura
+## Structure
 
-- `index.astro` - documento raíz autocontenido (`<html>` completo), sin
-  dependencias del layout de la plataforma.
-- `sections/` - una sección por bloque de la página (Header, Hero, About,
-  NuestroCafe, Proceso, Productos, Valores, Estadisticas, Testimonios,
-  CTAFinal, Contacto, Footer).
-- `components/` - piezas reutilizadas por estructura, contenido o semántica
-  real: tarjetas de producto, paso de proceso, valor, estadística,
-  testimonio, placeholder de imagen y campo de formulario.
-- `data/` - contenido tipado de la landing (navegación, proceso, productos,
-  valores, estadísticas, testimonios).
-- `styles/tailwind.css` - sistema visual local y autocontenido de Tailwind
-  CSS v4: declara sus propios tokens (`:root`/`[data-theme="dark"]`/`@theme
-inline`/`@theme`), breakpoints, contenedor, escala tipográfica fluida,
-  easing y la utility `reveal`, sin importar ningún fichero fuera de esta
-  carpeta. Los nombres de los tokens son el vocabulario compartido de la
-  galería; los valores pertenecen solo a esta landing.
-- `scripts/` - `theme.ts` (escucha el `postMessage` de tema del shell de
-  previsualización y lo aplica solo al propio documento), `reveal.ts`
-  (reveals al hacer scroll vía `IntersectionObserver`, respeta
-  `prefers-reduced-motion`) y `menu.ts` (menú móvil accesible).
-- `types.ts` - tipos locales del contenido de esta landing (no se comparten
-  con la plataforma).
+- `index.astro` - self-contained root document (full `<html>`), no
+  dependency on the platform layout.
+- `sections/` - one section per page block (Header, Hero, About, OurCoffee,
+  Process, Products, Values, Stats, Testimonials, CTAFinal, Contact,
+  Footer).
+- `components/` - pieces reused for real structure, content, or semantics:
+  product card, process step, value, stat, testimonial, image placeholder,
+  and form field.
+- `data/` - this landing's typed content (navigation, process, products,
+  values, stats, testimonials).
+- `styles/tailwind.css` - this landing's local, self-contained Tailwind
+  CSS v4 visual system: declares its own tokens (`:root`/
+  `[data-theme="dark"]`/`@theme inline`/`@theme`), breakpoints, container,
+  fluid typography scale, easing, and the `reveal` utility, without
+  importing any file outside this folder. Token names are the gallery's
+  shared vocabulary; the values belong to this landing only.
+- `scripts/` - `theme.ts` (listens for the preview shell's theme
+  `postMessage` and applies it only to this document), `reveal.ts`
+  (scroll reveals via `IntersectionObserver`, respects
+  `prefers-reduced-motion`), `navIndicator.ts` (GSAP scroll-aware active
+  nav pill), `productsSlider.ts` (Swiper Core product carousel, no
+  autoplay), `statsCounter.ts` (GSAP count-up for the stats grid), and
+  `menu.ts` (accessible mobile menu).
+- `types.ts` - this landing's local content types (not shared with the
+  platform).
 
-## Sistema de estilos
+## Styling system
 
-Tailwind CSS v4 es el sistema de diseño y composición visual de la landing.
-`styles/tailwind.css` es el único fichero de estilos de la landing y es
-totalmente autónomo: no importa `src/styles/landing-design-system.css` ni
-ningún otro fichero de la plataforma o de otra landing. Declara localmente
-los tokens con `:root`/`[data-theme="dark"]`/`@theme inline`/`@theme`
-(colores semánticos, tipografía, breakpoints, contenedor, spacing, easing,
-escala tipográfica fluida) y la utility `reveal` con `@utility`. Las
-capacidades especiales de Swiper (paginación de `Productos`) se resuelven con
-CSS local mínimo, ya que Tailwind no expone utilities para esas custom
-properties. Los estilos específicos que aparecen una sola vez permanecen como
-utilities directamente en el markup Astro.
+Tailwind CSS v4 is this landing's design and composition system.
+`styles/tailwind.css` is its only stylesheet and is fully self-contained:
+it imports no file from the platform or any other landing. It locally
+declares tokens with `:root`/`[data-theme="dark"]`/`@theme inline`/`@theme`
+(semantic colors, typography, breakpoints, container, spacing, easing,
+fluid heading scale) and the `reveal` utility with `@utility`. Swiper
+Core's own theming (Products pagination) is resolved with minimal local
+CSS, since Tailwind exposes no utilities for those custom properties.
+One-off styles remain as utilities directly in the Astro markup.
 
-Criterio aplicado:
+Criteria applied:
 
-- Design token -> `@theme` / `@theme inline` (local a esta landing).
-- Utility especializada -> `@utility`.
-- Estilo específico -> utilities directamente en `class`.
-- Estructura, contenido, lógica o semántica reutilizable -> componente Astro.
+- Design token -> `@theme` / `@theme inline` (local to this landing).
+- Specialized reusable behavior -> `@utility`.
+- One-off styling -> utilities directly in `class`.
+- Reusable structure, content, logic, or semantics -> Astro component.
 
-No hay `ui.ts`, `styles.ts`, `classes.ts`, objetos TypeScript de variantes
-visuales, `@layer components` ni componentes Astro creados solo para
-encapsular clases. Las variantes de botón oficiales (`primary`, `secondary`,
-`ghost`, `tertiary`) se aplican como utilities de Tailwind directamente en el
-markup; cada uso conserva su HTML semántico real (`<a>` para navegación,
-`<button>` para acciones).
+There are no `ui.ts`, `styles.ts`, `classes.ts`, visual-variant TypeScript
+objects, `@layer components`, or Astro components created solely to
+encapsulate classes. The official button variants (`primary`, `secondary`,
+`ghost`, `tertiary`) are applied as Tailwind utilities directly in the
+markup; each usage keeps its real semantic HTML (`<a>` for navigation,
+`<button>` for actions).
 
-## Variables CSS disponibles
+## Available CSS variables
 
-Declaradas localmente en `styles/tailwind.css` (mismos nombres que el resto
-de la galería, valores propios de esta landing): `--background`,
+Declared locally in `styles/tailwind.css` (same names as the rest of the
+gallery, values owned by this landing): `--background`,
 `--background-alt`, `--foreground`, `--muted`, `--border`, `--surface`,
 `--surface-strong`, `--control`, `--control-hover`, `--ring`, `--primary`,
 `--primary-foreground`, `--emphasis`, `--disabled`, `--disabled-foreground`,
 `--inverted`, `--inverted-foreground`, `--inverted-surface`, `--placeholder`,
-`--placeholder-foreground`, `--placeholder-inverse` (con overrides bajo
-`[data-theme="dark"]`), más `--font-sans`/`--font-display`/`--font-mono`,
+`--placeholder-foreground`, `--placeholder-inverse` (with overrides under
+`[data-theme="dark"]`), plus `--font-base`/`--font-display`/`--font-mono`,
 `--breakpoint-footer/cards/nav/stats/display`, `--spacing-section`,
 `--spacing-container-x`, `--container-landing/copy/heading/hero-heading`,
-`--ease-landing` y la escala `--text-headline-1/2/3`/`--text-figure`.
+`--ease-landing`, and the `--text-headline-1/2/3`/`--text-figure` scale.
 
-## Paletas de color
+## Color palettes
 
-Esta landing no define paletas de color opcionales: usa exclusivamente la
-paleta monocromática por defecto (`palettes: []` en su metadata).
+This landing does not define optional color palettes: it uses exclusively
+the default monochrome palette (`palettes: []` in its metadata).
 
-## Datos ficticios y privacidad
+## Fictional data and privacy
 
-Esta landing es una demo de diseño. No incluye JSON-LD de `Organization` ni
-simula una empresa real con datos registrales, URLs sociales o contacto
-plausible. Las secciones de contacto utilizan placeholders claramente
-ficticios: `correo@ejemplo.com`, `+00 000 000 000`, `Dirección de ejemplo`,
-`Ciudad, País`, `Instagram` y `LinkedIn`.
+This landing is a design demo. It does not include `Organization`
+JSON-LD or simulate a real company with registration data, social URLs, or
+plausible contact details. Contact sections use clearly fictional
+placeholders: `email@example.com`, `+00 000 000 000`, `Example Address`,
+`City, Country`, `Instagram`, and `LinkedIn`.
 
-## Notas
+## Notes
 
-- La imagen de `thumbnail` usada por la tarjeta del catálogo y la página de
-  detalle es una fotografía de Unsplash hotlinkeada (`images.unsplash.com`),
-  con su crédito (`thumbnailCredit`) persistido en
-  `src/content/landings/coffee-producer.json`. No se aloja ninguna copia en
+- The `thumbnail` image used by the catalog card and detail page is a
+  hotlinked Unsplash photograph (`images.unsplash.com`), with its credit
+  (`thumbnailCredit`) persisted in
+  `src/content/landings/coffee-producer.json`. No copy is hosted under
   `public/`.
-- Todas las imágenes de contenido son placeholders con proporción real,
-  listos para sustituirse por `<img>`/`Image`/`Picture` sin rediseñar nada.
-- Soporta tema claro y oscuro, ambos diseñados de forma independiente.
-- Utiliza únicamente las variantes oficiales de botón `primary`,
-  `secondary`, `ghost` y `tertiary`. Solo `tertiary` usa borde; cards,
-  badges y labels se diferencian mediante superficies, contraste, spacing y
-  jerarquía.
-- La landing es estrictamente monocromática: blanco, negro y escala de grises.
+- All content images are real, credited Unsplash photographs at their
+  real aspect ratio, rendered with the landing's monochrome treatment.
+- Supports Light and Dark themes, each designed independently.
+- Uses only the official button variants `primary`, `secondary`, `ghost`,
+  and `tertiary`. Only `tertiary` uses a border; cards, badges, and labels
+  are differentiated through surface, contrast, spacing, and hierarchy.
+- Strictly monochrome: white, black, and grayscale only.

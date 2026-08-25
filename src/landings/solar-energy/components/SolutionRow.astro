@@ -1,5 +1,5 @@
 ---
-import ImagePlaceholder from "./ImagePlaceholder.astro"
+import Photo from "./Photo.astro"
 import type { Solution } from "../types"
 
 export interface Props {
@@ -31,9 +31,7 @@ const { solution, isFirst = false } = Astro.props
       {solution.description}
     </p>
   </div>
-  <ImagePlaceholder
-    label={solution.imageLabel}
-    ratio="4 / 3"
-    class="hidden w-full lg:block"
-  />
+  <div class="hidden w-full lg:block">
+    <Photo image={solution.image} ratio="4 / 3" />
+  </div>
 </li>

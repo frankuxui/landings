@@ -7,8 +7,8 @@ import type { Product } from "../types"
 
 <section
   class="bg-background-alt py-section"
-  id="productos"
-  aria-labelledby="productos-heading"
+  id="products"
+  aria-labelledby="products-heading"
 >
   <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
     <div
@@ -18,27 +18,27 @@ import type { Product } from "../types"
         <p
           class="mb-4 inline-block font-sans text-sm font-semibold tracking-widest text-muted uppercase"
         >
-          Productos
+          Products
         </p>
         <h2
-          id="productos-heading"
+          id="products-heading"
           class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
         >
-          Cuatro cafés, cuatro formas de contar el origen.
+          Four coffees, four ways to tell the story of origin.
         </h2>
         <p class="mt-5 text-base text-muted sm:text-lg">
-          Nuestra gama se mantiene deliberadamente corta: cada referencia tiene
-          una razón de ser, desde el single origin de nuestras parcelas más
-          altas hasta el clásico que preparamos cada mañana en casa.
+          Our range stays deliberately short: every product has a reason to
+          exist, from the single origin grown on our highest plots to the
+          classic we brew every morning at home.
         </p>
       </div>
 
       <div class="flex shrink-0 items-center gap-3">
         <button
           type="button"
-          class="size-11 justify-center rounded-full p-0 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full px-6 py-3 text-base font-semibold no-underline transition duration-200 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border border-0 bg-control text-foreground hover:bg-control-hover active:bg-control-hover"
+          class="inline-flex size-11 min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-control p-0 text-foreground transition duration-200 ease-landing hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
           data-products-prev
-          aria-label="Producto anterior"
+          aria-label="Previous product"
         >
           <ChevronLeft
             aria-hidden="true"
@@ -49,9 +49,9 @@ import type { Product } from "../types"
         </button>
         <button
           type="button"
-          class="size-11 justify-center rounded-full p-0 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full px-6 py-3 text-base font-semibold no-underline transition duration-200 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border border-0 bg-control text-foreground hover:bg-control-hover active:bg-control-hover"
+          class="inline-flex size-11 min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-control p-0 text-foreground transition duration-200 ease-landing hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
           data-products-next
-          aria-label="Producto siguiente"
+          aria-label="Next product"
         >
           <ChevronRight
             aria-hidden="true"
@@ -66,7 +66,7 @@ import type { Product } from "../types"
     <div
       class="products-slider swiper"
       data-products-slider
-      aria-label="Carrusel de productos"
+      aria-label="Products carousel"
       role="region"
     >
       <div class="swiper-wrapper">

@@ -1,4 +1,4 @@
-// Local content shapes for the Terraltura landing. These types are specific
+// Local content shapes for the Coffee Producer landing. These types are specific
 // to this landing's own data (products, process steps, values, stats,
 // testimonials, navigation) and therefore live here rather than in the
 // platform's shared `src/types/` — nothing outside this landing needs them.
@@ -9,11 +9,11 @@ export interface NavLink {
   href: string
 }
 
-/** The six stages illustrated in the "Del cultivo a la taza" timeline. */
+/** The six stages illustrated in the "From crop to cup" timeline. */
 export type ProcessStepName =
-  "Cultivo" | "Recolección" | "Selección" | "Secado" | "Tostado" | "Preparación"
+  "Growing" | "Harvest" | "Selection" | "Drying" | "Roasting" | "Brewing"
 
-/** One step of the "Del cultivo a la taza" process timeline. */
+/** One step of the "From crop to cup" process timeline. */
 export interface ProcessStep {
   number: string
   title: ProcessStepName
@@ -21,7 +21,7 @@ export interface ProcessStep {
   iconLabel: ProcessStepName
 }
 
-/** A coffee variety presented in the "Productos" section. */
+/** A coffee variety presented in the "Products" section. */
 export interface Product {
   name: string
   origin: string
@@ -32,19 +32,19 @@ export interface Product {
   image: UnsplashImage
 }
 
-/** A brand value presented with a Lucide icon in the "Valores" section. */
+/** A brand value presented with a Lucide icon in the "Values" section. */
 export interface ValueItem {
   title: string
   description: string
 }
 
-/** A single highlighted figure in the "Estadísticas" section. */
+/** A single highlighted figure in the "Stats" section. */
 export interface Stat {
   value: string
   label: string
 }
 
-/** A customer/partner quote in the "Testimonios" section. */
+/** A customer/partner quote in the "Testimonials" section. */
 export interface Testimonial {
   quote: string
   author: string

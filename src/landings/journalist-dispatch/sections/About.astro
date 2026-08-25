@@ -1,0 +1,87 @@
+---
+import Photo from "../components/Photo.astro"
+import { aboutImage } from "../data/images"
+---
+
+<section
+  class="border-t border-border bg-background px-container-x py-section sm:px-8 xl:px-14"
+  aria-labelledby="about-heading"
+>
+  <div class="mx-auto grid w-full max-w-landing gap-12 lg:grid-cols-12">
+    <div class="reveal lg:sticky lg:top-28 lg:col-span-5 lg:h-fit">
+      <Photo image={aboutImage} ratio="4 / 5" class="max-w-sm" />
+    </div>
+
+    <div class="lg:col-span-7">
+      <p
+        class="reveal text-xs font-semibold tracking-wide text-muted uppercase"
+      >
+        About
+      </p>
+      <h2
+        id="about-heading"
+        class="reveal mt-3 max-w-heading text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        Reporting from the ground, not the wire
+      </h2>
+
+      <div class="mt-8 flex max-w-copy flex-col gap-6 text-lg text-muted">
+        <p class="reveal">
+          I've spent the better part of a decade filing stories that take longer
+          to report than most newsrooms have patience for — the kind that need a
+          second trip, a third source, and a translator who isn't in a hurry.
+        </p>
+        <p class="reveal">
+          My work sits between conflict, migration, and the slower institutional
+          stories that rarely make the front page but decide what happens to the
+          people on it. I work independently, on assignment, and occasionally on
+          stories no one commissioned yet.
+        </p>
+        <p class="reveal">
+          I file text and photographs together, and I credit every fixer,
+          translator, and stringer who made the reporting possible, even when
+          the byline only has room for one name.
+        </p>
+      </div>
+
+      <dl
+        class="mt-10 grid grid-cols-1 gap-8 border-t border-border pt-8 sm:grid-cols-2"
+      >
+        <div class="reveal">
+          <dt class="text-xs font-semibold tracking-wide text-muted uppercase">
+            Specialties
+          </dt>
+          <dd class="mt-2 text-foreground">
+            Migration, conflict, accountability reporting, photo essays
+          </dd>
+        </div>
+        <div class="reveal">
+          <dt class="text-xs font-semibold tracking-wide text-muted uppercase">
+            Countries worked in
+          </dt>
+          <dd class="mt-2 text-foreground">18, across four continents</dd>
+        </div>
+        <div class="reveal">
+          <dt class="text-xs font-semibold tracking-wide text-muted uppercase">
+            Languages
+          </dt>
+          <dd class="mt-2 text-foreground">
+            English (native), working proficiency in two others
+          </dd>
+        </div>
+        <div class="reveal">
+          <dt class="text-xs font-semibold tracking-wide text-muted uppercase">
+            Professional contact
+          </dt>
+          <dd class="mt-2 text-foreground">
+            <a
+              href="mailto:desk@example.com"
+              class="focus-underline underline underline-offset-2"
+              >desk@example.com</a
+            >
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>

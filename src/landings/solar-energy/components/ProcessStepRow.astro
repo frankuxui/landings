@@ -17,12 +17,12 @@ export interface Props {
 const { step, index } = Astro.props
 
 const icons: Record<ProcessStepName, typeof ScanSearch> = {
-  Análisis: ScanSearch,
-  Diseño: Compass,
-  Instalación: Wrench,
-  "Puesta en marcha": Zap,
-  Monitorización: Activity,
-  Optimización: SlidersHorizontal,
+  Analysis: ScanSearch,
+  Design: Compass,
+  Installation: Wrench,
+  Commissioning: Zap,
+  Monitoring: Activity,
+  Optimization: SlidersHorizontal,
 }
 
 const Icon = icons[step.title]

@@ -1,0 +1,43 @@
+---
+import ProcessStep from "../components/ProcessStep.astro"
+import { processSteps } from "../data/process"
+import type { ProcessStep as ProcessStepType } from "../types"
+---
+
+<section class="bg-background-alt py-section" aria-labelledby="process-heading">
+  <div
+    class="mx-auto grid w-full max-w-landing gap-14 px-container-x sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 xl:px-14"
+  >
+    <div class="lg:sticky lg:top-24 lg:self-start">
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        How it works
+      </p>
+      <h2
+        id="process-heading"
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        data-split-reveal
+      >
+        From booking to a happy homecoming.
+      </h2>
+      <p class="mt-6 max-w-copy text-muted">
+        The same journey for every pet, whether it's their first visit or their
+        fiftieth.
+      </p>
+    </div>
+
+    <ol class="flex flex-col">
+      {
+        processSteps.map((step: ProcessStepType, index: number) => (
+          <ProcessStep
+            index={step.index}
+            title={step.title}
+            description={step.description}
+            isLast={index === processSteps.length - 1}
+          />
+        ))
+      }
+    </ol>
+  </div>
+</section>

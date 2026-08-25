@@ -1,6 +1,7 @@
 ---
 import { navLinks } from "../data/nav"
-import type { NavLink } from "../types"
+import { allImages } from "../data/images"
+import type { NavLink, UnsplashImage } from "../types"
 
 const year = new Date().getFullYear()
 ---
@@ -9,21 +10,21 @@ const year = new Date().getFullYear()
   <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
     <a
       class="inline-block text-4xl leading-none font-bold tracking-tight text-inherit no-underline sm:text-6xl xl:text-7xl"
-      href="#inicio"
+      href="#home"
     >
-      Fundición Ónix
+      Chocolate Factory
     </a>
     <p class="mt-4 max-w-copy text-current/75">
-      Chocolate de origen seleccionado, tostado, refinado y templado en nuestra
-      propia fábrica de Vado de Ceniza, una región de montaña ficticia.
+      Origin-selected chocolate, roasted, refined, and tempered in our own
+      factory in Ashford Crossing, a fictional mountain region.
     </p>
 
     <div class="mt-16 grid gap-10 sm:grid-cols-3 xl:gap-16">
-      <nav aria-label="Enlaces del pie de página">
+      <nav aria-label="Footer links">
         <p
           class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
         >
-          Navegación
+          Navigation
         </p>
         <ul class="flex flex-col gap-3">
           {
@@ -45,13 +46,13 @@ const year = new Date().getFullYear()
         <p
           class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
         >
-          Contacto
+          Contact
         </p>
         <ul class="flex flex-col gap-3">
           <li>
             <a
               class="text-current/80 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
-              href="mailto:correo@ejemplo.com">correo@ejemplo.com</a
+              href="mailto:email@example.com">email@example.com</a
             >
           </li>
           <li>
@@ -60,7 +61,7 @@ const year = new Date().getFullYear()
               href="tel:+00000000000">+00 000 000 000</a
             >
           </li>
-          <li class="text-current/80">Ciudad, País</li>
+          <li class="text-current/80">City, Country</li>
         </ul>
       </div>
 
@@ -68,7 +69,7 @@ const year = new Date().getFullYear()
         <p
           class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/60 uppercase"
         >
-          Redes de ejemplo
+          Example social links
         </p>
         <ul class="flex flex-col gap-3">
           <li class="text-current/80">Instagram</li>
@@ -83,7 +84,40 @@ const year = new Date().getFullYear()
   >
     <div class="h-px w-full bg-current/12" aria-hidden="true"></div>
     <p class="pt-6 text-sm text-current/60">
-      © {year} Fundición Ónix. Demo de landing ficticia.
+      © {year} Chocolate Factory. Fictional landing demo.
     </p>
+  </div>
+
+  <div
+    class="mx-auto mt-6 w-full max-w-landing px-container-x pt-6 text-xs text-current/60 sm:px-8 xl:px-14"
+  >
+    <p class="font-semibold text-current/70">Photo credits</p>
+    <ul class="mt-2 flex flex-wrap gap-x-2 gap-y-1">
+      {
+        allImages.map((image: UnsplashImage, index: number) => (
+          <li>
+            Photo by{" "}
+            <a
+              href={image.authorUrl}
+              rel="noopener"
+              target="_blank"
+              class="underline underline-offset-2"
+            >
+              {image.author}
+            </a>{" "}
+            on{" "}
+            <a
+              href={image.unsplashUrl}
+              rel="noopener"
+              target="_blank"
+              class="underline underline-offset-2"
+            >
+              Unsplash
+            </a>
+            {index < allImages.length - 1 ? "," : ""}
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </footer>

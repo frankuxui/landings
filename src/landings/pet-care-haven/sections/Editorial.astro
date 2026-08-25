@@ -1,0 +1,56 @@
+---
+// The emotional pivot of the landing — a full-bleed photograph with a
+// dominant headline, marking a distinct beat between the catalog-like
+// sections above (Services, Gallery, Stories) and the process/team
+// sections below. The Unsplash credit sits in its own strip below the
+// full-bleed photo, in normal document flow — never overlaid on top of it.
+import PhotoCredit from "../components/PhotoCredit.astro"
+import { storytellingImage } from "../data/storytelling"
+---
+
+<section class="bg-inverted-surface">
+  <div class="relative isolate overflow-hidden">
+    <img
+      src={storytellingImage.src}
+      alt={storytellingImage.alt}
+      title={`Photo by ${storytellingImage.author} on Unsplash`}
+      width={storytellingImage.width}
+      height={storytellingImage.height}
+      loading="lazy"
+      decoding="async"
+      class="absolute inset-0 h-full w-full object-cover grayscale"
+    />
+    <div
+      class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/85 via-black/55 to-black/20"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div
+      class="relative mx-auto flex min-h-[34rem] w-full max-w-landing flex-col justify-center px-container-x py-section sm:px-8 xl:px-14"
+    >
+      <p
+        class="mb-6 font-mono text-xs font-semibold tracking-widest text-white/70 uppercase"
+      >
+        Why we do it
+      </p>
+      <p
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-white"
+        data-split-reveal
+      >
+        We don't just care for pets. We care for family members.
+      </p>
+      <p class="mt-8 max-w-copy text-lg text-white/80">
+        Every routine, every allergy, and every quirk gets written down because
+        we care, not because it's a protocol. We treat them the way we'd want
+        someone to treat ours.
+      </p>
+    </div>
+  </div>
+
+  <div
+    class="mx-auto w-full max-w-landing px-container-x py-3 sm:px-8 xl:px-14"
+  >
+    <PhotoCredit image={storytellingImage} tone="inverted" />
+  </div>
+</section>

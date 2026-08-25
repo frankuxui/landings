@@ -1,0 +1,85 @@
+---
+import { investigations } from "../data/investigations"
+import type { Investigation } from "../types"
+---
+
+<section
+  id="investigations"
+  class="bg-inverted px-container-x py-section text-inverted-foreground sm:px-8 xl:px-14"
+  aria-labelledby="investigations-heading"
+>
+  <div class="mx-auto w-full max-w-landing">
+    <div class="reveal max-w-heading">
+      <p class="text-xs font-semibold tracking-wide text-current/70 uppercase">
+        Investigations
+      </p>
+      <h2
+        id="investigations-heading"
+        class="mt-3 text-headline-2 leading-tight font-semibold text-current"
+      >
+        Long-form work, built over months, not headlines
+      </h2>
+    </div>
+
+    <div class="mt-14 grid gap-x-8 gap-y-14 stats:grid-cols-3">
+      {
+        investigations.map((investigation: Investigation) => (
+          <article class="reveal border-t border-current/20 pt-6">
+            <p class="flex flex-wrap items-center gap-x-2 text-xs font-semibold tracking-wide text-current/70 uppercase">
+              <span>{investigation.status}</span>
+              <span aria-hidden="true">·</span>
+              <span>{investigation.outlet}</span>
+            </p>
+            <h3 class="mt-3 text-lg leading-snug font-semibold text-current">
+              {investigation.title}
+            </h3>
+            <p class="mt-2 text-sm text-current/70">{investigation.region}</p>
+
+            <dl class="mt-8 grid grid-cols-2 gap-6">
+              <div>
+                <dt class="text-xs tracking-wide text-current/60 uppercase">
+                  Months on the ground
+                </dt>
+                <dd class="mt-1 text-figure leading-none font-semibold text-current">
+                  <span
+                    data-count-value={investigation.months}
+                    aria-hidden="true"
+                  >
+                    {investigation.months}
+                  </span>
+                  <span class="sr-only">{investigation.months} months</span>
+                </dd>
+              </div>
+              <div>
+                <dt class="text-xs tracking-wide text-current/60 uppercase">
+                  Interviews conducted
+                </dt>
+                <dd class="mt-1 text-figure leading-none font-semibold text-current">
+                  <span
+                    data-count-value={investigation.interviews}
+                    aria-hidden="true"
+                  >
+                    {investigation.interviews}
+                  </span>
+                  <span class="sr-only">
+                    {investigation.interviews} interviews
+                  </span>
+                </dd>
+              </div>
+            </dl>
+
+            <p class="mt-6 text-xs text-current/60">
+              {investigation.status === "Published"
+                ? `Published ${investigation.publishedOn}`
+                : "Publication pending"}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/investigationsCounter"
+</script>

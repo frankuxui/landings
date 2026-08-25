@@ -1,4 +1,4 @@
-// Terraltura - accessible mobile navigation toggle.
+// Coffee Producer - accessible mobile navigation toggle.
 // A real <button> drives `aria-expanded`, closes on Escape, closes when a
 // nav link is activated, and returns focus to the trigger on close.
 const toggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]")
@@ -23,7 +23,7 @@ const setBackgroundInert = (isInert: boolean): void => {
 if (toggle && nav) {
   const closeMenu = (): void => {
     toggle.setAttribute("aria-expanded", "false")
-    toggle.setAttribute("aria-label", "Abrir menú de navegación")
+    toggle.setAttribute("aria-label", "Open navigation menu")
     nav.setAttribute("aria-hidden", "true")
     backdrop?.setAttribute("aria-hidden", "true")
     setBackgroundInert(false)
@@ -31,7 +31,7 @@ if (toggle && nav) {
 
   const openMenu = (): void => {
     toggle.setAttribute("aria-expanded", "true")
-    toggle.setAttribute("aria-label", "Cerrar menú de navegación")
+    toggle.setAttribute("aria-label", "Close navigation menu")
     nav.setAttribute("aria-hidden", "false")
     backdrop?.setAttribute("aria-hidden", "false")
     setBackgroundInert(true)

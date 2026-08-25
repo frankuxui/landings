@@ -13,12 +13,12 @@ const position = String(index + 1).padStart(2, "0")
 
 <article class="reveal flex h-full flex-col bg-surface">
   <div class="relative">
-    <Photo image={product.image} ratio="3 / 4" class="rounded-none" />
+    <Photo image={product.image} ratio="3 / 4" rounded={false} />
     <span
       class="absolute top-3 left-3 bg-background-alt px-2 py-1 font-mono text-xs font-semibold text-foreground"
       aria-hidden="true"
     >
-      N.º {position}
+      No. {position}
     </span>
   </div>
   <div class="flex h-full flex-col gap-3 p-5 xl:p-6">
@@ -35,7 +35,7 @@ const position = String(index + 1).padStart(2, "0")
     <p class="text-sm text-muted xl:text-base">{product.description}</p>
     <ul
       class="mt-auto flex flex-wrap gap-2 pt-4"
-      aria-label={`Notas de ${product.name}`}
+      aria-label={`Notes for ${product.name}`}
     >
       {
         product.notes.map((note: string) => (

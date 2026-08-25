@@ -1,4 +1,4 @@
-// Heliogrid — manual testimonials carousel (Swiper Core). No autoplay:
+// Solar Energy — manual testimonials carousel (Swiper Core). No autoplay:
 // navigation is drag/swipe, the prev/next <button>s, pagination, and the
 // keyboard. Prev/next reflect Swiper's own beginning/end state instead of
 // staying silently inert at the edges.

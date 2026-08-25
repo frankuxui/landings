@@ -1,5 +1,5 @@
 ---
-import ImagePlaceholder from "./ImagePlaceholder.astro"
+import Photo from "./Photo.astro"
 import type { Installation } from "../types"
 
 export interface Props {
@@ -16,12 +16,35 @@ const { installation } = Astro.props
     installation.span === "medium" && "lg:col-span-2",
   ]}
 >
-  <ImagePlaceholder
-    label={installation.label}
+  <Photo
+    image={installation.image}
     ratio={installation.ratio}
     parallax={installation.span === "large"}
+    caption={false}
   />
-  <figcaption class="font-mono text-xs text-muted uppercase">
-    {installation.caption}
+  <figcaption class="flex flex-col gap-1">
+    <span class="font-mono text-xs text-muted uppercase">
+      {installation.caption}
+    </span>
+    <span class="font-mono text-xs tracking-wide text-muted uppercase">
+      Photo by{" "}
+      <a
+        href={installation.image.authorUrl}
+        rel="noopener"
+        target="_blank"
+        class="underline underline-offset-2"
+      >
+        {installation.image.author}
+      </a>{" "}
+      on{" "}
+      <a
+        href={installation.image.unsplashUrl}
+        rel="noopener"
+        target="_blank"
+        class="underline underline-offset-2"
+      >
+        Unsplash
+      </a>
+    </span>
   </figcaption>
 </figure>

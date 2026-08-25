@@ -2,33 +2,33 @@ import type { ValueItem } from "../types"
 
 export const values: ValueItem[] = [
   {
-    title: "Trazabilidad completa",
+    title: "Full traceability",
     description:
-      "Cada bolsa es trazable hasta la finca, el lote y la fecha de recolección de origen.",
+      "Every bag can be traced back to the farm, the lot, and the harvest date of origin.",
   },
   {
-    title: "Producción responsable",
+    title: "Responsible production",
     description:
-      "Cultivo bajo sombra natural, sin agroquímicos agresivos, cuidando el equilibrio del ecosistema cafetero.",
+      "Grown under natural shade, without aggressive agrochemicals, respecting the balance of the coffee ecosystem.",
   },
   {
-    title: "Calidad certificada",
+    title: "Certified quality",
     description:
-      "Cada lote se cata y puntúa en nuestra sala de catación antes de salir del obrador.",
+      "Every lot is cupped and scored in our tasting room before it leaves the roastery.",
   },
   {
-    title: "Selección meticulosa",
+    title: "Meticulous selection",
     description:
-      "Solo un porcentaje reducido de cada cosecha alcanza los estándares que llevan nuestro nombre.",
+      "Only a small share of each harvest meets the standards that carry our name.",
   },
   {
-    title: "Sostenibilidad",
+    title: "Sustainability",
     description:
-      "Envases reciclables y prácticas agrícolas pensadas para durar generaciones, no cosechas.",
+      "Recyclable packaging and farming practices built to last generations, not just harvests.",
   },
   {
-    title: "Alianza con productores",
+    title: "Partnership with growers",
     description:
-      "Pagamos precios justos y mantenemos relaciones directas y duraderas con cada finca asociada.",
+      "We pay fair prices and maintain direct, lasting relationships with every partner farm.",
   },
 ]

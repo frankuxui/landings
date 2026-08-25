@@ -1,0 +1,133 @@
+---
+// One entry in the asymmetric "Selected Stories" grid. All three layout
+// variants share the same semantic structure (category, title, location,
+// year, description) and, for the photo variants, the same hover behavior
+// (photo scale, darkening overlay, "Read the story" reveal) — real
+// structural and behavioral reuse, which is why this is a component rather
+// than three copy-pasted markup blocks inside Stories.astro.
+import { ArrowUpRight } from "@lucide/astro"
+import type { Story } from "../types"
+
+export interface Props {
+  story: Story
+}
+
+const { story } = Astro.props
+const isPhoto = story.layout !== "text" && story.image
+---
+
+{
+  isPhoto && story.image ? (
+    <article class="group reveal">
+      <a
+        href="#archive"
+        class="relative block overflow-hidden focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+      >
+        <div
+          class:list={[
+            "w-full overflow-hidden bg-placeholder",
+            story.layout === "wide" ? "aspect-3/2" : "aspect-3/4",
+          ]}
+        >
+          <img
+            src={story.image.src}
+            alt={story.image.alt}
+            title={`Photo by ${story.image.author} on Unsplash`}
+            width={story.image.width}
+            height={story.image.height}
+            loading="lazy"
+            decoding="async"
+            class="h-full w-full object-cover grayscale contrast-125 transition-transform duration-700 ease-landing group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          />
+        </div>
+        <div
+          class="absolute inset-0 bg-inverted/0 transition-colors duration-500 ease-landing group-hover:bg-inverted/25"
+          aria-hidden="true"
+        />
+        <span
+          class="absolute inset-x-4 bottom-4 flex translate-y-2 items-center gap-1.5 text-sm font-semibold text-inverted-foreground opacity-0 transition-[opacity,transform] duration-400 ease-landing group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:opacity-100 motion-reduce:translate-y-0"
+          aria-hidden="true"
+        >
+          Read the story
+          <ArrowUpRight
+            aria-hidden="true"
+            width="16"
+            height="16"
+            stroke-width="2"
+          />
+        </span>
+      </a>
+      <div class="mt-4">
+        <p class="flex flex-wrap items-center gap-x-2 text-xs font-semibold tracking-wide text-muted uppercase">
+          <span>{story.category}</span>
+          <span aria-hidden="true">·</span>
+          <span>{story.location}</span>
+          <span aria-hidden="true">·</span>
+          <span>{story.year}</span>
+        </p>
+        <h3 class="mt-2 text-headline-3 leading-tight font-semibold text-foreground">
+          <a
+            href="#archive"
+            class="focus-underline no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+          >
+            {story.title}
+          </a>
+        </h3>
+        <p class="mt-2 max-w-copy text-sm text-muted">{story.description}</p>
+        <p class="mt-3 text-xs text-muted">
+          Photo:{" "}
+          <a
+            href={story.image.authorUrl}
+            rel="noopener"
+            target="_blank"
+            class="focus-underline underline underline-offset-2"
+          >
+            {story.image.author}
+          </a>{" "}
+          ·{" "}
+          <a
+            href={story.image.unsplashUrl}
+            rel="noopener"
+            target="_blank"
+            class="focus-underline underline underline-offset-2"
+          >
+            Unsplash
+          </a>
+        </p>
+      </div>
+    </article>
+  ) : (
+    <article class="reveal flex flex-col justify-between border-t border-border pt-6">
+      <div>
+        <p class="flex flex-wrap items-center gap-x-2 text-xs font-semibold tracking-wide text-muted uppercase">
+          <span>{story.category}</span>
+          <span aria-hidden="true">·</span>
+          <span>{story.location}</span>
+          <span aria-hidden="true">·</span>
+          <span>{story.year}</span>
+        </p>
+        <h3 class="mt-3 text-headline-3 leading-tight font-semibold text-foreground">
+          <a
+            href="#archive"
+            class="focus-underline no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+          >
+            {story.title}
+          </a>
+        </h3>
+        <p class="mt-3 max-w-copy text-sm text-muted">{story.description}</p>
+      </div>
+      <a
+        href="#archive"
+        class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground no-underline focus-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+      >
+        Read the story
+        <ArrowUpRight
+          aria-hidden="true"
+          width="16"
+          height="16"
+          stroke-width="2"
+        />
+      </a>
+    </article>
+  )
+}

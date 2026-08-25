@@ -3,58 +3,58 @@ import type { ProcessStep } from "../types"
 export const processSteps: ProcessStep[] = [
   {
     number: "01",
-    title: "Selección",
+    title: "Selection",
     description:
-      "Cada saco de cacao en grano se revisa por lote: humedad, fermentación y tamaño antes de entrar a fábrica.",
-    iconLabel: "Selección",
+      "Every sack of cacao beans is checked lot by lot: moisture, fermentation, and size, before it ever enters the factory.",
+    iconLabel: "Selection",
   },
   {
     number: "02",
-    title: "Tostado",
+    title: "Roasting",
     description:
-      "Perfiles de tueste propios para cada origen, ajustados grano a grano para revelar aroma sin quemar el cacao.",
-    iconLabel: "Tostado",
+      "Our own roast profiles for each origin, adjusted bean by bean to reveal aroma without scorching the cacao.",
+    iconLabel: "Roasting",
   },
   {
     number: "03",
-    title: "Molienda",
+    title: "Grinding",
     description:
-      "El grano descascarillado se muele hasta convertirse en licor de cacao: la base líquida de todo chocolate.",
-    iconLabel: "Molienda",
+      "The shelled beans are ground down into cacao liquor: the liquid base of every chocolate.",
+    iconLabel: "Grinding",
   },
   {
     number: "04",
-    title: "Refinado",
+    title: "Refining",
     description:
-      "Rodillos de precisión reducen la textura hasta partículas imperceptibles al paladar, sin arenosidad.",
-    iconLabel: "Refinado",
+      "Precision rollers reduce the texture to particles imperceptible on the palate, with no graininess left behind.",
+    iconLabel: "Refining",
   },
   {
     number: "05",
-    title: "Conchado",
+    title: "Conching",
     description:
-      "Horas de mezcla continua a temperatura controlada que redondean sabor, aroma y textura final.",
-    iconLabel: "Conchado",
+      "Hours of continuous mixing at a controlled temperature that round out flavor, aroma, and final texture.",
+    iconLabel: "Conching",
   },
   {
     number: "06",
-    title: "Templado",
+    title: "Tempering",
     description:
-      "Curvas exactas de temperatura estabilizan la manteca de cacao para lograr brillo, dureza y un corte limpio.",
-    iconLabel: "Templado",
+      "Exact temperature curves stabilize the cocoa butter to achieve gloss, snap, and a clean break.",
+    iconLabel: "Tempering",
   },
   {
     number: "07",
-    title: "Moldeado",
+    title: "Molding",
     description:
-      "El chocolate templado se vierte en moldes propios, se vibra para eliminar aire y se enfría con control.",
-    iconLabel: "Moldeado",
+      "Tempered chocolate is poured into our own molds, vibrated to release air, and cooled under control.",
+    iconLabel: "Molding",
   },
   {
     number: "08",
-    title: "Acabado",
+    title: "Finishing",
     description:
-      "Desmoldado, control visual pieza a pieza, envasado y trazabilidad de lote antes de salir de fábrica.",
-    iconLabel: "Acabado",
+      "Unmolding, piece-by-piece visual inspection, packaging, and batch traceability before leaving the factory.",
+    iconLabel: "Finishing",
   },
 ]

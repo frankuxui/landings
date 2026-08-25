@@ -1,0 +1,60 @@
+---
+// Real photography sourced from Unsplash via the `unsplash-images` Skill.
+// Renders the persisted, hotlinked `images.unsplash.com` URL with this
+// landing's monochrome (grayscale) treatment. Credit is a discreet caption
+// below the photo, in normal document flow — never overlaid on top of it —
+// plus a `title` tooltip on the image itself. See
+// src/landings/journalist-dispatch/data/images.ts for the source metadata,
+// and the consolidated "Photo credits" list in Footer.astro.
+import type { UnsplashImage } from "../types"
+
+type PhotoRatio = "3 / 4" | "4 / 3" | "4 / 5" | "16 / 9" | "3 / 2"
+
+export interface Props {
+  image: UnsplashImage
+  ratio?: PhotoRatio
+  class?: string
+}
+
+const { image, ratio = "4 / 3", class: className } = Astro.props
+---
+
+<figure class:list={["m-0 w-full", className]}>
+  <div
+    class:list={[
+      "w-full overflow-hidden bg-placeholder",
+      ratio === "3 / 4" && "aspect-3/4",
+      ratio === "4 / 3" && "aspect-4/3",
+      ratio === "4 / 5" && "aspect-4/5",
+      ratio === "16 / 9" && "aspect-video",
+      ratio === "3 / 2" && "aspect-3/2",
+    ]}
+  >
+    <img
+      src={image.src}
+      alt={image.alt}
+      title={`Photo by ${image.author} on Unsplash`}
+      width={image.width}
+      height={image.height}
+      loading="lazy"
+      decoding="async"
+      class="h-full w-full object-cover grayscale contrast-125"
+    />
+  </div>
+  <figcaption class="mt-2 text-xs text-muted">
+    Photo:
+    <a
+      href={image.authorUrl}
+      rel="noopener"
+      target="_blank"
+      class="focus-underline underline underline-offset-2">{image.author}</a
+    >
+    ·
+    <a
+      href={image.unsplashUrl}
+      rel="noopener"
+      target="_blank"
+      class="focus-underline underline underline-offset-2">Unsplash</a
+    >
+  </figcaption>
+</figure>

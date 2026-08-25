@@ -6,26 +6,26 @@ import type { ProcessStep } from "../types"
 
 <section
   class="bg-background py-section"
-  id="proceso"
-  aria-labelledby="proceso-heading"
+  id="process"
+  aria-labelledby="process-heading"
 >
   <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
-    <div class="mb-12 flex flex-col gap-5 sm:mb-16 sm:max-w-heading">
+    <div class="mb-12 flex flex-col gap-5 sm:mb-16">
       <p
         class="font-mono text-xs font-semibold tracking-widest text-muted uppercase"
       >
-        Ocho etapas, un mismo obrador
+        Eight stages, one workshop
       </p>
       <h2
-        id="proceso-heading"
-        class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
+        id="process-heading"
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
       >
-        Del grano seleccionado a la pieza acabada.
+        From selected bean to finished piece.
       </h2>
-      <p class="text-base text-muted sm:text-lg">
-        En pantallas anchas, la sección se ancla mientras avanzas: desplázate
-        hacia abajo para recorrer las ocho etapas en horizontal. En Mobile y
-        Tablet, desliza la fila con el dedo.
+      <p class="max-w-copy text-base text-muted sm:text-lg">
+        On wide screens, the section pins in place as you scroll: keep scrolling
+        down to move through the eight stages horizontally. On Mobile and
+        Tablet, swipe the row with your finger.
       </p>
     </div>
   </div>
@@ -38,7 +38,7 @@ import type { ProcessStep } from "../types"
       <ol
         class="flex w-max snap-x snap-mandatory gap-4 xl:gap-6"
         data-process-list
-        aria-label="Etapas del proceso de producción"
+        aria-label="Production process stages"
       >
         {
           processSteps.map((step: ProcessStep) => (

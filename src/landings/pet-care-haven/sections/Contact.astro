@@ -1,0 +1,196 @@
+---
+import { MapPin, Phone, Mail, Clock } from "@lucide/astro"
+---
+
+<section
+  class="bg-background-alt py-section"
+  id="contact"
+  aria-labelledby="contact-heading"
+>
+  <div
+    class="mx-auto grid w-full max-w-landing gap-16 px-container-x sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start xl:gap-24 xl:px-14"
+  >
+    <div class="reveal">
+      <p
+        class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+      >
+        Contact
+      </p>
+      <h2
+        id="contact-heading"
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        Tell us about your pet.
+      </h2>
+      <p class="mt-5 text-base text-muted sm:text-lg">
+        Write to us with the service you need and your companion's personality.
+        We reply within 24 business hours.
+      </p>
+
+      <address class="mt-10 flex flex-col gap-5 not-italic">
+        <p class="flex items-center gap-3">
+          <MapPin
+            class="shrink-0"
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+          <span>Example Address, City, Country</span>
+        </p>
+        <p class="flex items-center gap-3">
+          <Phone
+            class="shrink-0"
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+          <a
+            class="underline underline-offset-3 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+            href="tel:+00000000000">+00 000 000 000</a
+          >
+        </p>
+        <p class="flex items-center gap-3">
+          <Mail
+            class="shrink-0"
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+          <a
+            class="underline underline-offset-3 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+            href="mailto:email@example.com">email@example.com</a
+          >
+        </p>
+        <p class="flex items-center gap-3">
+          <Clock
+            class="shrink-0"
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+          <span>Monday to Sunday, example hours</span>
+        </p>
+      </address>
+    </div>
+
+    <form
+      class="reveal flex flex-col gap-7 rounded-2xl bg-surface p-8 sm:p-10 xl:p-12"
+      action="mailto:email@example.com"
+      method="post"
+      enctype="text/plain"
+    >
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-semibold" for="contact-name">
+            Your name
+          </label>
+          <input
+            class="h-12 w-full min-w-0 rounded-lg border border-border bg-background px-4 py-3 text-base text-foreground outline-none placeholder:text-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-border disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-2 aria-invalid:border-foreground aria-invalid:ring-3 aria-invalid:ring-foreground/20"
+            type="text"
+            id="contact-name"
+            name="name"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-semibold" for="contact-email">
+            Email
+          </label>
+          <input
+            class="h-12 w-full min-w-0 rounded-lg border border-border bg-background px-4 py-3 text-base text-foreground outline-none placeholder:text-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-border disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-2 aria-invalid:border-foreground aria-invalid:ring-3 aria-invalid:ring-foreground/20"
+            type="email"
+            id="contact-email"
+            name="email"
+            autocomplete="email"
+            inputmode="email"
+            required
+          />
+        </div>
+      </div>
+
+      <fieldset class="flex flex-col gap-2.5 border-0 p-0 m-0">
+        <legend class="p-0 text-sm font-semibold">Companion type</legend>
+        <div class="flex flex-wrap gap-2">
+          <label class="group">
+            <input
+              type="radio"
+              name="pet-type"
+              value="dog"
+              class="peer sr-only"
+              checked
+            />
+            <span
+              class="inline-flex min-h-11 cursor-pointer items-center rounded-full border border-border px-5 py-2 text-sm font-semibold text-foreground transition duration-200 ease-landing peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-border hover:bg-control"
+            >
+              Dog
+            </span>
+          </label>
+          <label class="group">
+            <input
+              type="radio"
+              name="pet-type"
+              value="cat"
+              class="peer sr-only"
+            />
+            <span
+              class="inline-flex min-h-11 cursor-pointer items-center rounded-full border border-border px-5 py-2 text-sm font-semibold text-foreground transition duration-200 ease-landing peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-border hover:bg-control"
+            >
+              Cat
+            </span>
+          </label>
+          <label class="group">
+            <input
+              type="radio"
+              name="pet-type"
+              value="other"
+              class="peer sr-only"
+            />
+            <span
+              class="inline-flex min-h-11 cursor-pointer items-center rounded-full border border-border px-5 py-2 text-sm font-semibold text-foreground transition duration-200 ease-landing peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-border hover:bg-control"
+            >
+              Other
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-sm font-semibold" for="contact-pet">
+          Pet's name and breed
+        </label>
+        <input
+          class="h-12 w-full min-w-0 rounded-lg border border-border bg-background px-4 py-3 text-base text-foreground outline-none placeholder:text-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-border disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-2 aria-invalid:border-foreground aria-invalid:ring-3 aria-invalid:ring-foreground/20"
+          type="text"
+          id="contact-pet"
+          name="pet"
+          placeholder="For example: Toby, 4-year-old mixed breed"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-sm font-semibold" for="contact-message">
+          Message
+        </label>
+        <textarea
+          class="min-h-32 w-full min-w-0 resize-y rounded-lg border border-border bg-background px-4 py-3 text-base text-foreground outline-none placeholder:text-muted focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-border disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-2 aria-invalid:border-foreground aria-invalid:ring-3 aria-invalid:ring-foreground/20"
+          id="contact-message"
+          name="message"
+          rows="4"
+          required></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 self-start rounded-full border-0 bg-primary px-6 py-3 text-base font-semibold text-primary-foreground no-underline transition duration-200 ease-landing hover:bg-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-emphasis"
+      >
+        Send message
+      </button>
+    </form>
+  </div>
+</section>

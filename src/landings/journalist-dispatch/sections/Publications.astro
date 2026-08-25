@@ -1,0 +1,41 @@
+---
+import { publications } from "../data/publications"
+import type { Publication } from "../types"
+---
+
+<section
+  class="border-t border-border bg-background px-container-x py-section sm:px-8 xl:px-14"
+  aria-labelledby="publications-heading"
+>
+  <div class="mx-auto w-full max-w-landing">
+    <div class="reveal max-w-heading">
+      <p class="text-xs font-semibold tracking-wide text-muted uppercase">
+        Publications &amp; collaborations
+      </p>
+      <h2
+        id="publications-heading"
+        class="mt-3 text-headline-2 leading-tight font-semibold text-foreground"
+      >
+        Filed with, not just for
+      </h2>
+    </div>
+
+    <ul class="mt-14 flex flex-col">
+      {
+        publications.map((publication: Publication) => (
+          <li class="reveal grid gap-4 border-t border-border py-8 footer:grid-cols-[2fr_1fr_1fr_1.4fr] footer:items-center">
+            <p class="text-headline-3 leading-tight font-semibold text-foreground">
+              {publication.outlet}
+            </p>
+            <p class="text-sm text-muted">
+              <span class="text-foreground">{publication.pieces}</span>{" "}
+              reportages
+            </p>
+            <p class="text-sm text-muted">{publication.years}</p>
+            <p class="text-sm text-muted">{publication.themes}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

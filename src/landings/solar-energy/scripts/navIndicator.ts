@@ -1,4 +1,4 @@
-// Heliogrid — GSAP scroll-aware navigation indicator.
+// Solar Energy — GSAP scroll-aware navigation indicator.
 //
 // A single shared underline moves behind the currently active in-page nav
 // link as the user scrolls or clicks. Links stay real <a href="#section">

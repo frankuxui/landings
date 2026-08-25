@@ -8,43 +8,41 @@ import type { ProductionStat } from "../types"
 
 <section
   class="bg-inverted text-inverted-foreground"
-  id="fabrica"
-  aria-labelledby="fabrica-heading"
+  id="factory"
+  aria-labelledby="factory-heading"
 >
   <div
     class="mx-auto w-full max-w-landing px-container-x py-section sm:px-8 xl:px-14"
   >
-    <div class="mb-16 max-w-heading">
+    <div class="mb-16">
       <p
         class="mb-4 font-mono text-xs font-semibold tracking-widest text-current/70 uppercase"
       >
-        La fábrica
+        The factory
       </p>
       <h2
-        id="fabrica-heading"
-        class="text-balance text-headline-2 leading-tight font-semibold text-current"
+        id="factory-heading"
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-current"
       >
-        Artesanía a escala industrial.
+        Craftsmanship at industrial scale.
       </h2>
     </div>
 
     <div class="grid gap-10 md:grid-cols-2 xl:gap-16">
       <div class="reveal flex flex-col gap-5">
         <Photo image={factoryArtisanImage} ratio="4 / 3" />
-        <h3 class="text-headline-3 font-semibold text-current">Lo artesanal</h3>
+        <h3 class="text-headline-3 font-semibold text-current">The craft</h3>
         <p class="text-current/75">
-          Catadores, control visual pieza a pieza y ajustes de receta que solo
-          un oficio con años de práctica puede hacer con criterio.
+          Tasters, piece-by-piece visual control, and recipe adjustments that
+          only years of practice can make with judgment.
         </p>
       </div>
       <div class="reveal flex flex-col gap-5">
         <Photo image={factoryIndustrialImage} ratio="4 / 3" />
-        <h3 class="text-headline-3 font-semibold text-current">
-          Lo industrial
-        </h3>
+        <h3 class="text-headline-3 font-semibold text-current">The industry</h3>
         <p class="text-current/75">
-          Líneas de refinado, conchado y moldeado con control de temperatura
-          constante, para que cada lote se repita sin perder carácter.
+          Refining, conching, and molding lines with constant temperature
+          control, so every batch repeats without losing character.
         </p>
       </div>
     </div>

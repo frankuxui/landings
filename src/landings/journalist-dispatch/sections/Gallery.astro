@@ -1,0 +1,132 @@
+---
+import { ChevronLeft, ChevronRight } from "@lucide/astro"
+import { gallerySlides } from "../data/gallery"
+import type { GallerySlide } from "../types"
+---
+
+<section
+  id="photojournalism"
+  class="border-t border-border bg-background py-section"
+  aria-labelledby="photojournalism-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="reveal flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-heading">
+        <p class="text-xs font-semibold tracking-wide text-muted uppercase">
+          Photojournalism
+        </p>
+        <h2
+          id="photojournalism-heading"
+          class="mt-3 text-headline-2 leading-tight font-semibold text-foreground"
+        >
+          A single exhibition, six frames
+        </h2>
+      </div>
+      <p class="font-mono text-lg text-muted" data-gallery-counter>
+        01 / {String(gallerySlides.length).padStart(2, "0")}
+      </p>
+    </div>
+  </div>
+
+  <div class="mt-10">
+    <div class="gallery-slider swiper w-full" data-gallery-slider>
+      <div class="swiper-wrapper">
+        {
+          gallerySlides.map((slide: GallerySlide) => (
+            <div class="swiper-slide">
+              <figure class="m-0">
+                <div class="h-[60vh] w-full overflow-hidden bg-inverted-surface sm:h-[72vh]">
+                  <img
+                    src={slide.image.src}
+                    alt={slide.image.alt}
+                    title={`Photo by ${slide.image.author} on Unsplash`}
+                    width={slide.image.width}
+                    height={slide.image.height}
+                    loading="lazy"
+                    decoding="async"
+                    class="h-full w-full object-cover grayscale contrast-125"
+                  />
+                </div>
+                <figcaption class="mx-auto mt-5 w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+                  <p class="text-headline-3 leading-tight font-semibold text-foreground">
+                    {slide.project}
+                  </p>
+                  <p class="mt-1 flex flex-wrap items-center gap-x-2 text-sm text-muted">
+                    <span>{slide.location}</span>
+                    <span aria-hidden="true">·</span>
+                    <span>{slide.year}</span>
+                  </p>
+                  <p class="mt-2 max-w-copy text-sm text-muted">
+                    {slide.caption}
+                  </p>
+                  <p class="mt-3 text-xs text-muted">
+                    Photo:{" "}
+                    <a
+                      href={slide.image.authorUrl}
+                      rel="noopener"
+                      target="_blank"
+                      class="focus-underline underline underline-offset-2"
+                    >
+                      {slide.image.author}
+                    </a>{" "}
+                    ·{" "}
+                    <a
+                      href={slide.image.unsplashUrl}
+                      rel="noopener"
+                      target="_blank"
+                      class="focus-underline underline underline-offset-2"
+                    >
+                      Unsplash
+                    </a>
+                  </p>
+                </figcaption>
+              </figure>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="mx-auto mt-8 flex w-full max-w-landing items-center justify-between gap-6 px-container-x sm:px-8 xl:px-14"
+    >
+      <div class="flex items-center gap-3">
+        <button
+          type="button"
+          class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-full border border-border bg-transparent text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border disabled:cursor-not-allowed disabled:opacity-40"
+          data-gallery-prev
+          aria-label="Previous photograph"
+        >
+          <ChevronLeft
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </button>
+        <button
+          type="button"
+          class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-full border border-border bg-transparent text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border disabled:cursor-not-allowed disabled:opacity-40"
+          data-gallery-next
+          aria-label="Next photograph"
+        >
+          <ChevronRight
+            aria-hidden="true"
+            width="18"
+            height="18"
+            stroke-width="1.5"
+          />
+        </button>
+      </div>
+      <div
+        class="gallery-slider-pagination flex items-center gap-2"
+        data-gallery-pagination
+      >
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/gallerySwiper"
+</script>

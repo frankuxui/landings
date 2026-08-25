@@ -1,0 +1,50 @@
+---
+// The photographer + Unsplash credit line, extracted so it can be composed
+// either inside Photo.astro's own figcaption (the default, simple case) or
+// inside a card's own below-photo footer strip (see ServiceCard, PetTile,
+// StorySlide, CaregiverCard) — always sitting below the photograph in
+// normal document flow, never overlaid on top of it. Real
+// structural/accessibility reuse, not a Tailwind class-string wrapper.
+import type { UnsplashImage } from "../types"
+
+export interface Props {
+  image: UnsplashImage
+  /** "muted" (default) uses this landing's semantic `text-muted` token, for
+   * a caption sitting on an ordinary surface (bg-surface, bg-background...).
+   * "inverted" uses `text-inverted-foreground`, for a caption sitting on a
+   * `bg-inverted`/`bg-inverted-surface` section (Editorial, CTAFinal,
+   * Stories). "light"/"dark" are literal on-photo tones reserved for the
+   * rare case a caption must sit directly on a still-visible slice of the
+   * photograph itself. */
+  tone?: "muted" | "inverted" | "light" | "dark"
+  class?: string
+}
+
+const { image, tone = "muted", class: className } = Astro.props
+---
+
+<p
+  class:list={[
+    "text-xs",
+    tone === "muted" && "text-muted",
+    tone === "inverted" && "text-inverted-foreground/70",
+    tone === "light" && "text-white/70",
+    tone === "dark" && "text-black/65",
+    className,
+  ]}
+>
+  Photo:
+  <a
+    href={image.authorUrl}
+    rel="noopener"
+    target="_blank"
+    class="underline underline-offset-2">{image.author}</a
+  >
+  ·
+  <a
+    href={image.unsplashUrl}
+    rel="noopener"
+    target="_blank"
+    class="underline underline-offset-2">Unsplash</a
+  >
+</p>

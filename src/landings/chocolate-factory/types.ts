@@ -1,4 +1,4 @@
-// Local content shapes for the Fundición Ónix landing. These types are
+// Local content shapes for the Chocolate Factory landing. These types are
 // specific to this landing's own data (process, products, stats, segments,
 // articles, navigation) and therefore live here rather than in the
 // platform's shared `src/types/` — nothing outside this landing needs them.
@@ -9,18 +9,18 @@ export interface NavLink {
   href: string
 }
 
-/** The eight stages illustrated in the horizontal "Proceso" rail. */
+/** The eight stages illustrated in the horizontal "Process" rail. */
 export type ProcessStepName =
-  | "Selección"
-  | "Tostado"
-  | "Molienda"
-  | "Refinado"
-  | "Conchado"
-  | "Templado"
-  | "Moldeado"
-  | "Acabado"
+  | "Selection"
+  | "Roasting"
+  | "Grinding"
+  | "Refining"
+  | "Conching"
+  | "Tempering"
+  | "Molding"
+  | "Finishing"
 
-/** One step of the "Proceso" horizontal scroll rail. */
+/** One step of the "Process" horizontal scroll rail. */
 export interface ProcessStep {
   number: string
   title: ProcessStepName
@@ -28,7 +28,7 @@ export interface ProcessStep {
   iconLabel: ProcessStepName
 }
 
-/** A chocolate reference presented in the "Productos" slider. */
+/** A chocolate reference presented in the "Products" slider. */
 export interface Product {
   name: string
   cacaoContent: string
@@ -38,13 +38,13 @@ export interface Product {
   image: UnsplashImage
 }
 
-/** A single highlighted production figure in the "Fábrica" section. */
+/** A single highlighted production figure in the "Factory" section. */
 export interface ProductionStat {
   value: string
   label: string
 }
 
-/** A professional audience segment presented in "Distribución". */
+/** A professional audience segment presented in "Distribution". */
 export interface Segment {
   number: string
   title: string

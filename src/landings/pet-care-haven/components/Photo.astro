@@ -1,0 +1,80 @@
+---
+// Real photography sourced from Unsplash via the `unsplash-images` Skill.
+// Renders the persisted, hotlinked `images.unsplash.com` URL with the
+// landing's monochrome treatment. Credit is a discreet caption below the
+// photo, in normal document flow — never overlaid on top of it — plus a
+// `title` tooltip on the image itself. Reused across every photographic
+// section (Hero-adjacent, scenes, services, gallery, stories, storytelling,
+// team) — real structural and semantic reuse, not a Tailwind class-string
+// wrapper.
+import PhotoCredit from "./PhotoCredit.astro"
+import type { UnsplashImage } from "../types"
+
+type PhotoRatio = "1 / 1" | "3 / 4" | "4 / 3" | "4 / 5" | "16 / 10" | "auto"
+
+export interface Props {
+  image: UnsplashImage
+  ratio?: PhotoRatio
+  sizes?: string
+  /** When false, the credit is omitted from this figure's own figcaption —
+   * the consuming component must render <PhotoCredit> itself, still below
+   * the photo in normal flow (see ServiceCard, PetTile, StorySlide,
+   * CaregiverCard). The credit is never simply dropped. */
+  caption?: boolean
+  class?: string
+  imgClass?: string
+}
+
+// The default slot renders inside the same `relative` ratio container as
+// the <img> — used by ServiceCard/PetTile/StorySlide to absolutely position
+// their own name/description overlay content directly on the photograph,
+// without duplicating this component's image markup. That overlay is
+// separate from photo *attribution*: the credit itself never lives in this
+// slot, it always renders below in the <figcaption>.
+
+const {
+  image,
+  ratio = "4 / 3",
+  sizes,
+  caption = true,
+  class: className,
+  imgClass,
+} = Astro.props
+---
+
+<figure class:list={["group/photo m-0 flex w-full flex-col", className]}>
+  <div
+    class:list={[
+      "relative w-full overflow-hidden",
+      ratio === "1 / 1" && "aspect-square",
+      ratio === "3 / 4" && "aspect-3/4",
+      ratio === "4 / 3" && "aspect-4/3",
+      ratio === "4 / 5" && "aspect-4/5",
+      ratio === "16 / 10" && "aspect-16/10",
+      ratio === "auto" && "h-full flex-1",
+    ]}
+  >
+    <img
+      src={image.src}
+      alt={image.alt}
+      title={`Photo by ${image.author} on Unsplash`}
+      width={image.width}
+      height={image.height}
+      sizes={sizes}
+      loading="lazy"
+      decoding="async"
+      class:list={[
+        "absolute inset-0 h-full w-full object-cover grayscale transition-transform duration-700 ease-landing group-hover/photo:scale-105",
+        imgClass,
+      ]}
+    />
+    <slot />
+  </div>
+  {
+    caption && (
+      <figcaption class="mt-2">
+        <PhotoCredit image={image} tone="muted" />
+      </figcaption>
+    )
+  }
+</figure>

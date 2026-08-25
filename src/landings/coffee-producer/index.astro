@@ -1,5 +1,5 @@
 ---
-// Terraltura - root document for this landing.
+// Coffee Producer - root document for this landing.
 // Fully self-contained: no platform Layout, no platform CSS/components.
 // Rendered in isolation by src/pages/landings/[slug]/render.astro.
 import "./styles/tailwind.css"
@@ -17,9 +17,10 @@ import CTAFinal from "./sections/CTAFinal.astro"
 import Contact from "./sections/Contact.astro"
 import Footer from "./sections/Footer.astro"
 
-const pageTitle = "Terraltura - Café de origen cultivado en altura"
+const pageTitle =
+  "Coffee Producer - Single-origin coffee, grown in the highlands"
 const pageDescription =
-  "Terraltura cultiva, selecciona y tuesta café de especialidad en los Altos de Vientoclaro. Descubre nuestras variedades y trabaja con nosotros como cafetería, restaurante o distribuidor."
+  "Coffee Producer grows, selects, and roasts specialty coffee in the Altos de Vientoclaro highlands. Discover our varieties and work with us as a café, restaurant, or distributor."
 const canonicalUrl = "/landings/coffee-producer"
 const thumbnailUrl =
   "https://images.unsplash.com/photo-1672851612794-6687bf0bf1a3?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8Y29mZmVlJTIwY2hlcnJpZXMlMjBicmFuY2glMjBwbGFudCUyMGNsb3NldXB8ZW58MXwwfHx8MTc4NzQ3NTcwNHww&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80"
@@ -27,7 +28,7 @@ const thumbnailUrl =
 
 <!doctype html>
 <html
-  lang="es"
+  lang="en"
   class="scroll-smooth overflow-x-clip scheme-light motion-reduce:scroll-auto dark:scheme-dark font-sans"
 >
   <head>
@@ -35,6 +36,18 @@ const thumbnailUrl =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
+
+    <!-- Restore the persisted theme choice before first paint, so this
+    landing's own toggle survives a reload when viewed standalone (outside
+    the platform preview shell). -->
+    <script is:inline>
+      ;(function () {
+        const saved = localStorage.getItem("coffee-producer-theme")
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved)
+        }
+      })()
+    </script>
 
     <!-- Shared Landing Pages typeface — Wix Madefor Text (Google Fonts).
     Every landing loads the exact same weights/styles here; never via
@@ -66,7 +79,7 @@ const thumbnailUrl =
       class="absolute -top-full left-4 z-1000 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-md px-5 py-3 text-base font-semibold no-underline transition duration-200 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border border-0 bg-primary text-primary-foreground hover:bg-emphasis active:bg-emphasis focus-visible:top-4"
       href="#main-content"
     >
-      Saltar al contenido principal
+      Skip to main content
     </a>
 
     <Header />

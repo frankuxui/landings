@@ -1,4 +1,4 @@
-// Heliogrid — GSAP vertical progress rail for the "Proceso" section.
+// Solar Energy — GSAP vertical progress rail for the "Process" section.
 //
 // Baseline (works with zero JS): the six steps render as a plain, fully
 // readable vertical list next to a sticky heading column — usable at every
@@ -8,7 +8,7 @@
 // Enhancement (Desktop, motion allowed only): a thin vertical line grows
 // alongside the list as the page scrolls (scrubbed to scroll position), the
 // step whose center crosses the viewport midpoint is marked active (heavier
-// contrast on its number/icon/title), and the sticky column's "Etapa n / 6"
+// contrast on its number/icon/title), and the sticky column's "Stage n / 6"
 // counter updates to match. Uses `gsap.matchMedia()` so the whole
 // enhancement only ever applies at `lg` and up — matching the breakpoint
 // where the left column actually becomes sticky (and the platform preview's

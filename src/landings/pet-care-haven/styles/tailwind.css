@@ -1,38 +1,10 @@
-/* ==========================================================================
-   Landing Pages — shared design-system contract (SINGLE SOURCE OF TRUTH)
-   ==========================================================================
-   MISMO DESIGN SYSTEM, DISTINTO DISEÑO.
+@import "tailwindcss";
 
-   Every Landing Page in this gallery shares one visual and technical
-   language — the same semantic color tokens, the same Light/Dark values,
-   the same grayscale scale, the same fluid heading scale, and the same
-   base structural tokens (spacing, easing, breakpoints, containers). What
-   differs between landings is never this contract — it's the composition,
-   architecture, hierarchy, layout, content, interaction, and motion built
-   on top of it.
-
-   A new or modified landing must NEVER introduce, remove, rename, or
-   redefine any token declared in this file. If a token genuinely needs to
-   change, that is a global decision made HERE, applied to every landing at
-   once — never a per-landing override.
-
-   Each landing imports this file from its own Tailwind entry:
-
-     src/landings/[slug]/styles/tailwind.css
-       @import "tailwindcss";
-       @import "../../../styles/landing-design-system.css";
-
-   This is a deliberate, singular, one-directional exception to landing
-   isolation: a landing may depend on this one shared platform-level token
-   file (and only this file) — never on another landing, never on platform
-   chrome/component code. Landing-specific `@utility`/native-CSS exceptions
-   (e.g. Swiper pagination theming, a scrollbar-hiding rule for a horizontal
-   rail) still belong locally in that landing's own tailwind.css, after this
-   import — design system shared, visual implementation isolated.
-
-   Strictly monochrome: white, black, grayscale, and transparencies of
-   those only. See the astro-landing-pages Skill for the full rule.
-   ========================================================================== */
+/* This landing's own complete design-token contract — colors, Light/Dark,
+   fluid heading scale, and base structural tokens. Declared locally so this
+   landing is fully self-contained and never depends on another file inside
+   or outside the repo (see the astro-landing-pages Skill: "Design tokens:
+   same names everywhere, same values across the gallery contract"). */
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
@@ -124,26 +96,18 @@
 }
 
 @theme {
-  /* Base reading typeface — identical across every landing. Wix Madefor Text
+  /* Base reading typeface — Wix Madefor Text
      (https://fonts.google.com/specimen/Wix+Madefor+Text), loaded once via
-     Google Fonts <link> tags in each landing's own <head> (see
-     "Shared typography" in the astro-landing-pages Skill) — never via
-     @import here, and never a different family per landing. A landing may
-     still choose whether/where to use the shared --font-mono accent
-     (e.g. for numbering, figures, technical labels); it must not declare
-     its own competing font-family token. */
-  --font-sans: "Wix Madefor Text", sans-serif;
+     Google Fonts <link> tags in this landing's own <head> (see "Shared
+     typography" in the astro-landing-pages Skill) — never via @import
+     here. */
+  --font-base: "Wix Madefor Text", sans-serif;
+  --font-sans: var(--font-base);
   --font-display: "Wix Madefor Text", sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
-  /* Reusable structural breakpoints beyond Tailwind's native sm/md/lg/xl/2xl.
-     Named by the generic layout concern they solve (a footer grid collapse
-     point, a card-grid collapse point, a nav collapse point, a stats-grid
-     collapse point, a "large display" enhancement point) so any landing
-     with an equivalent need reuses the same name instead of inventing a
-     synonymous one. A landing only reaches for one of these when its
-     component genuinely needs that exact threshold — using none of them is
-     just as valid as using all of them. */
+  /* Structural breakpoints beyond Tailwind's native sm/md/lg/xl/2xl, named
+     by the generic layout concern they solve. */
   --breakpoint-footer: 45rem;
   --breakpoint-cards: 47.5rem;
   --breakpoint-nav: 56.25rem;
@@ -158,15 +122,11 @@
   --container-heading: 28ch;
   --container-hero-heading: 18ch;
 
-  /* Single shared signature motion curve for every landing's transitions
-     and reveals. */
+  /* Signature motion curve for this landing's transitions and reveals. */
   --ease-landing: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Fluid heading scale — every landing composes with these same three
-     steps (e.g. one landing's Hero may use headline-1, another may use
-     headline-2 for the same role) rather than each inventing its own
-     clamp() values under the same or a new name. --text-figure is a
-     distinct role (a large standalone statistic/numeral), not a heading. */
+  /* Fluid heading scale. --text-figure is a distinct role (a large
+     standalone statistic/numeral), not a heading. */
   --text-headline-1: clamp(3rem, 1.9rem + 4.68vw, 6rem);
   --text-headline-2: clamp(1.875rem, 1.19rem + 2.93vw, 3.75rem);
   --text-headline-3: clamp(1.25rem, 1.02rem + 0.98vw, 1.875rem);
@@ -174,9 +134,7 @@
 }
 
 /* Shared scroll-reveal utility — coordinates progressive enhancement with
-   each landing's own IntersectionObserver script. Keeps the shared state
-   styling out of TypeScript class-string constants (see the Skill's
-   Tailwind rules) and off any single landing's local theme. */
+   this landing's own IntersectionObserver script (scripts/reveal.ts). */
 @utility reveal {
   transform: translateY(0);
   opacity: 1;
@@ -199,4 +157,47 @@
     opacity: 1 !important;
     transition-property: none !important;
   }
+}
+
+/* Swiper Core ("Stories worth telling" and "What families say") exposes
+   its own theming through CSS custom properties rather
+   than Tailwind-generated classes — Tailwind has no utility for them, so
+   this is the minimal, official, landing-local way to keep the pagination
+   and scrollbar on the monochrome token system instead of Swiper's default
+   blue. Each slider's viewport and its pagination render as sibling
+   elements (see Stories.astro/Testimonials.astro), not nested — a custom
+   property declared only on the viewport never cascades to the sibling
+   pagination container, so both selectors are scoped here explicitly. */
+.stories-slider,
+.stories-slider-pagination,
+.testimonials-slider,
+.testimonials-slider-pagination {
+  --swiper-pagination-color: var(--foreground);
+  --swiper-pagination-bullet-inactive-color: var(--muted);
+  --swiper-pagination-bullet-inactive-opacity: 0.5;
+  --swiper-pagination-bullet-size: 0.4rem;
+  --swiper-pagination-bullet-horizontal-gap: 0.375rem;
+}
+
+.stories-slider-pagination .swiper-pagination-bullet,
+.testimonials-slider-pagination .swiper-pagination-bullet {
+  cursor: pointer;
+  border-radius: 9999px;
+}
+
+.stories-slider-pagination .swiper-pagination-bullet:focus-visible,
+.testimonials-slider-pagination .swiper-pagination-bullet:focus-visible {
+  outline: 3px solid var(--border);
+  outline-offset: 3px;
+}
+
+/* "A day of care" pinned scene rail hides the native scrollbar on its
+   Mobile/Tablet horizontal fallback — Tailwind has no utility for
+   scrollbar-width/::-webkit-scrollbar. */
+.scene-rail {
+  scrollbar-width: none;
+}
+
+.scene-rail::-webkit-scrollbar {
+  display: none;
 }

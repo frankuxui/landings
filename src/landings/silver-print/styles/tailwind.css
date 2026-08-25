@@ -106,7 +106,8 @@
 }
 
 @theme {
-  --font-sans: "Wix Madefor Text", sans-serif;
+  --font-base: "Wix Madefor Text", sans-serif;
+  --font-sans: var(--font-base);
   --font-display: "Wix Madefor Text", sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 

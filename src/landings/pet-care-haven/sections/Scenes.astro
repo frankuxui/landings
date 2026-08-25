@@ -1,0 +1,105 @@
+---
+// "A day of care" — pinned storytelling section. Baseline (zero JS,
+// Mobile/Tablet, or Desktop with `prefers-reduced-motion: reduce`): the
+// heading sits above a horizontally scroll-snapped rail of scenes, each
+// already carrying its own complete caption under the photograph — nothing
+// here depends on the enhancement script. Enhancement (Laptop/Desktop,
+// motion allowed only, see scripts/scenesPin.ts): the left column becomes a
+// sticky detail panel that crossfades between each scene's title,
+// description, and benefit as its photograph scrolls through the center of
+// the viewport; the now-redundant inline captions are hidden only in that
+// branch.
+import Photo from "../components/Photo.astro"
+import { scenes } from "../data/scenes"
+import type { Scene } from "../types"
+---
+
+<section
+  class="bg-background-alt py-section"
+  id="a-day-of-care"
+  aria-labelledby="scenes-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-16">
+      <div class="lg:sticky lg:top-24 lg:self-start" data-scene-panel-wrap>
+        <p
+          class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+          data-split-reveal
+        >
+          A day of care
+        </p>
+        <h2
+          id="scenes-heading"
+          class="text-balance text-headline-2 leading-tight font-semibold text-foreground"
+          data-split-reveal
+        >
+          Six moments, the same level of attention.
+        </h2>
+        <p class="mt-6 max-w-copy text-muted">
+          From the first morning walk to the summary we send at the end of the
+          day, every stage is handled with the same care.
+        </p>
+
+        <div class="mt-10 hidden lg:block" data-scene-panel hidden>
+          <p
+            class="font-mono text-xs tracking-widest text-muted uppercase"
+            data-scene-panel-index
+          >
+          </p>
+          <h3
+            class="mt-3 text-2xl font-semibold text-foreground"
+            data-scene-panel-title
+          >
+          </h3>
+          <p class="mt-4 max-w-copy text-muted" data-scene-panel-description>
+          </p>
+          <p
+            class="mt-4 text-sm font-semibold text-foreground"
+            data-scene-panel-benefit
+          >
+          </p>
+        </div>
+      </div>
+
+      <ol
+        class="scene-rail -mx-container-x flex snap-x snap-mandatory gap-5 overflow-x-auto px-container-x pb-2 lg:mx-0 lg:block lg:snap-none lg:gap-24 lg:overflow-visible lg:px-0 lg:pb-0"
+        data-scene-list
+      >
+        {
+          scenes.map((scene: Scene) => (
+            <li
+              class="w-[82vw] shrink-0 snap-start sm:w-[26rem] lg:w-full lg:shrink lg:snap-align-none"
+              data-scene-item
+              data-scene-index={scene.index}
+              data-scene-title={scene.title}
+              data-scene-description={scene.description}
+              data-scene-benefit={scene.benefit}
+            >
+              <Photo
+                image={scene.image}
+                ratio="4 / 3"
+                sizes="(min-width: 1024px) 60vw, 82vw"
+              />
+              <div class="mt-5" data-scene-caption>
+                <p class="font-mono text-xs tracking-widest text-muted uppercase">
+                  {scene.index}
+                </p>
+                <h3 class="mt-2 text-xl font-semibold text-foreground">
+                  {scene.title}
+                </h3>
+                <p class="mt-3 max-w-copy text-muted">{scene.description}</p>
+                <p class="mt-3 text-sm font-semibold text-foreground">
+                  {scene.benefit}
+                </p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/scenesPin"
+</script>

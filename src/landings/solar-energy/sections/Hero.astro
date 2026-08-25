@@ -1,36 +1,38 @@
 ---
 import { ArrowRight, CirclePlay } from "@lucide/astro"
-import ImagePlaceholder from "../components/ImagePlaceholder.astro"
+import Photo from "../components/Photo.astro"
+import { heroImage } from "../data/images"
 ---
 
 <section
   class="bg-background pt-28 pb-16 sm:pt-36 sm:pb-24"
-  id="inicio"
-  aria-label="Presentación"
+  id="home"
+  aria-label="Introduction"
 >
   <div class="w-full px-container-x sm:px-8 xl:px-14">
     <p
       class="mb-6 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
     >
-      Heliogrid · Energía solar fotovoltaica
+      Solar Energy · Photovoltaic power systems
     </p>
     <h1
       class="max-w-hero-heading text-balance text-headline-1 leading-[0.95] font-bold text-foreground"
     >
-      La energía solar, diseñada como infraestructura.
+      Solar power, designed as infrastructure.
     </h1>
     <div class="mt-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
       <p class="max-w-copy text-lg text-muted sm:text-xl">
-        Heliogrid analiza, diseña, instala y monitoriza soluciones fotovoltaicas
-        para hogares, empresas, industrias y organizaciones que quieren reducir
-        su dependencia de la red y avanzar hacia un consumo energético propio.
+        Solar Energy analyzes, designs, installs, and monitors photovoltaic
+        systems for homes, businesses, industries, and organizations that want
+        to cut their dependence on the grid and move toward energy they generate
+        themselves.
       </p>
       <div class="flex flex-wrap gap-4 lg:justify-end">
         <a
           class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-primary px-6 py-3 text-base font-semibold text-primary-foreground no-underline transition duration-200 ease-landing hover:bg-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-emphasis"
-          href="#contacto"
+          href="#contact"
         >
-          Solicitar estudio energético
+          Request an energy assessment
           <ArrowRight
             aria-hidden="true"
             width="18"
@@ -40,9 +42,9 @@ import ImagePlaceholder from "../components/ImagePlaceholder.astro"
         </a>
         <a
           class="inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-transparent px-6 py-3 text-base font-semibold text-foreground no-underline transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
-          href="#proceso"
+          href="#process"
         >
-          Cómo funciona
+          How it works
           <CirclePlay
             aria-hidden="true"
             width="18"
@@ -55,37 +57,50 @@ import ImagePlaceholder from "../components/ImagePlaceholder.astro"
   </div>
 
   <div class="relative mt-14 w-full overflow-hidden sm:mt-20">
-    <ImagePlaceholder
-      label="Large solar farm aerial view"
-      ratio="16 / 10"
-      parallax
-      class="rounded-none"
-    />
+    <Photo image={heroImage} ratio="16 / 10" parallax caption={false} />
     <div
       class="absolute inset-x-0 bottom-0 bg-placeholder-inverse px-container-x py-5 backdrop-blur-sm sm:px-8 xl:px-14"
     >
       <dl class="grid grid-cols-3 gap-4 sm:max-w-2xl sm:gap-8">
         <div>
           <dt class="font-mono text-xs tracking-wide uppercase opacity-70">
-            Capacidad
+            Capacity
           </dt>
           <dd class="mt-1 font-mono text-lg font-semibold sm:text-xl">48 MW</dd>
         </div>
         <div>
           <dt class="font-mono text-xs tracking-wide uppercase opacity-70">
-            Instalaciones
+            Installations
           </dt>
           <dd class="mt-1 font-mono text-lg font-semibold sm:text-xl">
-            1.200+
+            1,200+
           </dd>
         </div>
         <div>
           <dt class="font-mono text-xs tracking-wide uppercase opacity-70">
-            Monitorización
+            Monitoring
           </dt>
           <dd class="mt-1 font-mono text-lg font-semibold sm:text-xl">24/7</dd>
         </div>
       </dl>
     </div>
   </div>
+  <p
+    class="mt-2 px-container-x font-mono text-xs tracking-wide text-muted uppercase sm:px-8 xl:px-14"
+  >
+    Photo by{" "}
+    <a
+      href={heroImage.authorUrl}
+      rel="noopener"
+      target="_blank"
+      class="underline underline-offset-2">{heroImage.author}</a
+    >{" "}
+    on{" "}
+    <a
+      href={heroImage.unsplashUrl}
+      rel="noopener"
+      target="_blank"
+      class="underline underline-offset-2">Unsplash</a
+    >
+  </p>
 </section>

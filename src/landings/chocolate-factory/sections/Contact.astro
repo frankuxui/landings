@@ -4,34 +4,32 @@ import { MapPin, Phone, Mail, Clock } from "@lucide/astro"
 
 <section
   class="bg-background py-section"
-  id="contacto"
-  aria-labelledby="contacto-heading"
+  id="contact"
+  aria-labelledby="contact-heading"
 >
   <div
     class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14 grid gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-start xl:gap-24"
   >
     <form
       class="reveal order-2 flex flex-col gap-6 bg-surface p-8 sm:p-10 lg:order-1 xl:p-12"
-      action="mailto:correo@ejemplo.com"
+      action="mailto:email@example.com"
       method="post"
       enctype="text/plain"
     >
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold" for="contact-name">Nombre</label>
+        <label class="text-sm font-semibold" for="contact-name">Name</label>
         <input
           class="h-11 w-full min-w-0 rounded-none border-2 border-border bg-transparent px-3 py-2 text-base outline-none placeholder:text-muted focus-cast disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-control/50 disabled:opacity-50 aria-invalid:border-foreground aria-invalid:ring-3 aria-invalid:ring-foreground/20"
           type="text"
           id="contact-name"
-          name="nombre"
+          name="name"
           autocomplete="name"
           required
         />
       </div>
 
       <div class="flex flex-col gap-1">
-        <label class="text-sm font-semibold" for="contact-email"
-          >Correo electrónico</label
-        >
+        <label class="text-sm font-semibold" for="contact-email">Email</label>
         <input
           class="h-11 w-full min-w-0 rounded-none border-2 border-border bg-transparent px-3 py-2 text-base outline-none placeholder:text-muted focus-cast disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-control/50 disabled:opacity-50 aria-invalid:border-foreground aria-invalid:ring-3 aria-invalid:ring-foreground/20"
           type="email"
@@ -45,25 +43,25 @@ import { MapPin, Phone, Mail, Clock } from "@lucide/astro"
 
       <div class="flex flex-col gap-1">
         <label class="text-sm font-semibold" for="contact-business"
-          >Tienda, restaurante, hotel o distribuidora (opcional)</label
+          >Shop, restaurant, hotel, or distributor (optional)</label
         >
         <input
           class="h-11 w-full min-w-0 rounded-none border-2 border-border bg-transparent px-3 py-2 text-base outline-none placeholder:text-muted focus-cast disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-control/50 disabled:opacity-50 aria-invalid:border-foreground aria-invalid:ring-3 aria-invalid:ring-foreground/20"
           type="text"
           id="contact-business"
-          name="negocio"
+          name="business"
           autocomplete="organization"
         />
       </div>
 
       <div class="flex flex-col gap-1">
         <label class="text-sm font-semibold" for="contact-message"
-          >Mensaje</label
+          >Message</label
         >
         <textarea
           class="min-h-32 w-full min-w-0 resize-y rounded-none border-2 border-border bg-transparent px-3 py-2 text-base outline-none placeholder:text-muted focus-cast disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-control/50 disabled:opacity-50 aria-invalid:border-foreground aria-invalid:ring-3 aria-invalid:ring-foreground/20"
           id="contact-message"
-          name="mensaje"
+          name="message"
           rows="4"
           required></textarea>
       </div>
@@ -72,7 +70,7 @@ import { MapPin, Phone, Mail, Clock } from "@lucide/astro"
         type="submit"
         class="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 self-start rounded-sm border-0 bg-[var(--color-primary)] px-6 py-3 text-base font-semibold text-[var(--color-light)] no-underline transition duration-200 ease-landing hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90"
       >
-        Enviar mensaje
+        Send message
       </button>
     </form>
 
@@ -80,17 +78,17 @@ import { MapPin, Phone, Mail, Clock } from "@lucide/astro"
       <p
         class="mb-4 font-mono text-xs font-semibold tracking-widest text-muted uppercase"
       >
-        Contacto
+        Contact
       </p>
       <h2
-        id="contacto-heading"
+        id="contact-heading"
         class="max-w-heading text-balance text-headline-2 leading-tight font-semibold text-foreground"
       >
-        Hablemos de tu pedido.
+        Let's talk about your order.
       </h2>
       <p class="mt-5 text-base text-muted sm:text-lg">
-        Ya representes una tienda especializada, un restaurante o una
-        distribuidora, respondemos en menos de 48 horas laborables.
+        Whether you represent a specialty shop, a restaurant, or a distributor,
+        we respond within 48 business hours.
       </p>
 
       <address class="mt-10 flex flex-col gap-5 not-italic">
@@ -102,7 +100,7 @@ import { MapPin, Phone, Mail, Clock } from "@lucide/astro"
             height="20"
             stroke-width="1.5"
           />
-          <span>Dirección de ejemplo, Ciudad, País</span>
+          <span>Example Address, City, Country</span>
         </p>
         <p class="flex items-center gap-3">
           <Phone
@@ -127,7 +125,7 @@ import { MapPin, Phone, Mail, Clock } from "@lucide/astro"
           />
           <a
             class="underline underline-offset-3 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
-            href="mailto:correo@ejemplo.com">correo@ejemplo.com</a
+            href="mailto:email@example.com">email@example.com</a
           >
         </p>
         <p class="flex items-center gap-3">
@@ -138,7 +136,7 @@ import { MapPin, Phone, Mail, Clock } from "@lucide/astro"
             height="20"
             stroke-width="1.5"
           />
-          <span>Horario de ejemplo</span>
+          <span>Example business hours</span>
         </p>
       </address>
     </div>

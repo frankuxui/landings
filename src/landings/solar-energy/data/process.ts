@@ -3,38 +3,38 @@ import type { ProcessStep } from "../types"
 export const processSteps: ProcessStep[] = [
   {
     number: "01",
-    title: "Análisis",
+    title: "Analysis",
     description:
-      "Estudiamos el consumo, la orientación y la superficie disponible para saber si el proyecto tiene sentido antes de proponer nada.",
+      "We study consumption, orientation, and available surface to know whether the project makes sense before proposing anything.",
   },
   {
     number: "02",
-    title: "Diseño",
+    title: "Design",
     description:
-      "Dimensionamos paneles, inversores y, si aplica, almacenamiento, con una simulación de producción y ahorro específica del proyecto.",
+      "We size panels, inverters, and, where it applies, storage, with a production and savings simulation specific to the project.",
   },
   {
     number: "03",
-    title: "Instalación",
+    title: "Installation",
     description:
-      "Montaje de estructura, módulos y cableado por equipo propio, con control de calidad en cada fase del proceso.",
+      "Structure, module, and wiring assembly by our own crew, with quality control at every stage of the process.",
   },
   {
     number: "04",
-    title: "Puesta en marcha",
+    title: "Commissioning",
     description:
-      "Conexión, pruebas de rendimiento y verificación de todos los parámetros antes de dejar la instalación en funcionamiento.",
+      "Connection, performance testing, and verification of every parameter before handing over a fully operational system.",
   },
   {
     number: "05",
-    title: "Monitorización",
+    title: "Monitoring",
     description:
-      "Seguimiento de la producción real frente a la estimada desde el primer día, con alertas ante cualquier desviación relevante.",
+      "Tracking actual production against the estimate from day one, with alerts for any significant deviation.",
   },
   {
     number: "06",
-    title: "Optimización",
+    title: "Optimization",
     description:
-      "Ajustes periódicos de configuración y mantenimiento preventivo para sostener el rendimiento durante toda la vida útil.",
+      "Periodic configuration adjustments and preventive maintenance to sustain performance across the system's full service life.",
   },
 ]

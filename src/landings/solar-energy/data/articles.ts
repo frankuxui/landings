@@ -2,21 +2,21 @@ import type { Article } from "../types"
 
 export const articles: Article[] = [
   {
-    eyebrow: "Autoconsumo",
-    title: "Qué significa realmente el autoconsumo solar",
+    eyebrow: "Self-consumption",
+    title: "What solar self-consumption actually means",
     excerpt:
-      "Generar parte de la electricidad que se consume, en el mismo lugar donde se consume, cambia la relación con la factura energética: deja de ser un coste fijo para convertirse en algo que se puede reducir con decisiones concretas de diseño y uso.",
+      "Generating part of the electricity you consume, in the same place you consume it, changes your relationship with the energy bill: it stops being a fixed cost and becomes something you can reduce through concrete design and usage decisions.",
   },
   {
-    eyebrow: "Tecnología",
-    title: "Cómo funciona una instalación fotovoltaica, paso a paso",
+    eyebrow: "Technology",
+    title: "How a photovoltaic system works, step by step",
     excerpt:
-      "De la luz solar a la electricidad utilizable hay varias conversiones: los paneles generan corriente continua, el inversor la transforma en corriente alterna y el sistema de monitorización confirma que cada etapa funciona como se diseñó.",
+      "Getting from sunlight to usable electricity takes several conversions: the panels generate direct current, the inverter turns it into alternating current, and the monitoring system confirms every stage is working as designed.",
   },
   {
-    eyebrow: "Eficiencia",
-    title: "Por qué la eficiencia energética importa tanto como la generación",
+    eyebrow: "Efficiency",
+    title: "Why energy efficiency matters as much as generation",
     excerpt:
-      "Una instalación bien dimensionada rinde más no solo por la calidad de sus componentes, sino por cómo se ajusta al consumo real del edificio: la eficiencia se diseña antes de instalar el primer panel, no se corrige después.",
+      "A well-sized system performs better not just because of the quality of its components, but because of how closely it matches the building's actual consumption: efficiency is designed in before the first panel goes up, not fixed afterward.",
   },
 ]

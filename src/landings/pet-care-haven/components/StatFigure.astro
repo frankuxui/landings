@@ -1,0 +1,28 @@
+---
+// Rendered on Trust.astro's `bg-inverted` dark surface — the figure and its
+// label use the inverted-* semantic tokens (never `text-foreground`/
+// `text-muted`, which are the light-surface tokens) so the numbers stay
+// legible on a dark surface in both Light and Dark theme.
+export interface Props {
+  value: number
+  suffix: string
+  label: string
+}
+
+const { value, suffix, label } = Astro.props
+---
+
+<div
+  class="reveal flex flex-col gap-2"
+  data-stat-item
+  data-stat-value={value}
+  data-stat-suffix={suffix}
+>
+  <p
+    class="font-mono text-figure leading-none text-inverted-foreground"
+    data-stat-display
+  >
+    0
+  </p>
+  <p class="text-sm tracking-wide text-inverted-foreground/70">{label}</p>
+</div>

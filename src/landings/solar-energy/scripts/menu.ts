@@ -1,4 +1,4 @@
-// Heliogrid — accessible mobile navigation toggle.
+// Solar Energy — accessible mobile navigation toggle.
 // A real <button> drives `aria-expanded`, closes on Escape, closes when a
 // nav link is activated, and returns focus to the trigger on close.
 //
@@ -29,14 +29,14 @@ const setBackgroundInert = (isInert: boolean): void => {
 if (toggle && nav) {
   const closeMenu = (): void => {
     toggle.setAttribute("aria-expanded", "false")
-    toggle.setAttribute("aria-label", "Abrir menú de navegación")
+    toggle.setAttribute("aria-label", "Open navigation menu")
     nav.setAttribute("aria-hidden", "true")
     setBackgroundInert(false)
   }
 
   const openMenu = (): void => {
     toggle.setAttribute("aria-expanded", "true")
-    toggle.setAttribute("aria-label", "Cerrar menú de navegación")
+    toggle.setAttribute("aria-label", "Close navigation menu")
     nav.setAttribute("aria-hidden", "false")
     setBackgroundInert(true)
   }

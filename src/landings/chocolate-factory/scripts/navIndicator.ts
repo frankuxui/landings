@@ -1,4 +1,4 @@
-// Fundición Ónix — GSAP scroll-aware navigation indicator.
+// Chocolate Factory — GSAP scroll-aware navigation indicator.
 //
 // A single shared underline moves beneath the currently active in-page nav
 // link as the user scrolls or clicks. Links stay real <a href="#section">

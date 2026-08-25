@@ -1,0 +1,33 @@
+---
+import StatFigure from "../components/StatFigure.astro"
+import { trustMetrics } from "../data/trust"
+import type { TrustMetric } from "../types"
+---
+
+<section
+  class="bg-inverted text-inverted-foreground"
+  aria-labelledby="trust-heading"
+>
+  <div
+    class="mx-auto w-full max-w-landing px-container-x py-section sm:px-8 xl:px-14"
+  >
+    <h2 id="trust-heading" class="sr-only">Pet Care Haven by the numbers</h2>
+    <div
+      class="grid grid-cols-2 gap-x-6 gap-y-10 stats:grid-cols-4 stats:gap-x-10"
+    >
+      {
+        trustMetrics.map((metric: TrustMetric) => (
+          <StatFigure
+            value={metric.value}
+            suffix={metric.suffix}
+            label={metric.label}
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/statsCounter"
+</script>

@@ -1,0 +1,112 @@
+---
+import { Menu, X, Moon, Sun } from "@lucide/astro"
+import { navLinks } from "../data/nav"
+import type { NavLink } from "../types"
+---
+
+<header
+  class="fixed top-0 z-40 w-full bg-background/90 shadow-[0_8px_22px_-22px_rgb(0_0_0/0.65)] backdrop-blur-md"
+>
+  <div
+    class="mx-auto flex w-full max-w-landing items-center justify-between gap-4 px-container-x py-4 sm:px-8 xl:px-14"
+  >
+    <a
+      class="inline-flex items-center gap-2 text-foreground no-underline"
+      href="#home"
+    >
+      <span class="text-lg font-semibold tracking-tight sm:text-xl">
+        Journalist Dispatch
+      </span>
+    </a>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        class="group inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-md border-0 bg-transparent p-0 text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+        data-theme-toggle
+        aria-label="Toggle dark mode"
+      >
+        <Moon
+          class="size-5 dark:hidden"
+          aria-hidden="true"
+          stroke-width="1.5"
+        />
+        <Sun
+          class="hidden size-5 dark:block"
+          aria-hidden="true"
+          stroke-width="1.5"
+        />
+      </button>
+
+      <button
+        type="button"
+        class="group relative z-60 inline-flex size-11 min-h-11 cursor-pointer items-center justify-center gap-2 rounded-md border-0 bg-transparent p-0 text-base font-semibold text-foreground no-underline transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover aria-expanded:bg-control nav:hidden"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+        aria-label="Open navigation menu"
+      >
+        <Menu
+          class="size-5.5 group-aria-expanded:hidden"
+          aria-hidden="true"
+          stroke-width="1.5"
+        />
+        <X
+          class="hidden size-5.5 group-aria-expanded:block"
+          aria-hidden="true"
+          stroke-width="1.5"
+        />
+      </button>
+    </div>
+
+    <div
+      class="fixed inset-0 z-40 bg-black/45 opacity-100 transition-[opacity,visibility] duration-200 aria-hidden:invisible aria-hidden:opacity-0 motion-reduce:transition-none nav:hidden"
+      data-menu-backdrop
+      aria-hidden="true"
+    >
+    </div>
+
+    <aside
+      class="visible fixed top-0 right-0 z-50 flex h-dvh w-[min(88vw,24rem)] translate-x-0 flex-col gap-10 bg-background px-6 pt-24 pb-8 text-foreground shadow-[-24px_0_48px_-32px_rgba(0,0,0,0.6)] transition-[transform,visibility] duration-300 ease-landing max-nav:aria-hidden:invisible max-nav:aria-hidden:translate-x-full motion-reduce:transition-none nav:static nav:h-auto nav:w-auto nav:translate-x-0 nav:flex-row nav:items-center nav:gap-8 nav:bg-transparent nav:p-0 nav:text-inherit nav:shadow-none"
+      data-menu-panel
+      aria-hidden="true"
+    >
+      <nav id="primary-navigation" aria-label="Primary navigation">
+        <div class="relative" data-scroll-nav>
+          <span
+            class="pointer-events-none absolute top-1/2 left-0 z-0 hidden h-9 -translate-y-1/2 rounded-full bg-control opacity-0 nav:block"
+            data-nav-indicator
+            aria-hidden="true"></span>
+          <ul
+            class="relative z-10 flex flex-col items-start gap-6 nav:flex-row nav:items-center nav:gap-1"
+          >
+            {
+              navLinks.map((link: NavLink, index: number) => (
+                <li>
+                  <a
+                    class="relative flex min-h-11 items-center rounded-full px-0 text-xl font-medium text-foreground no-underline hover:text-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border nav:min-h-0 nav:px-3 nav:py-2 nav:text-sm"
+                    href={link.href}
+                    data-nav-link
+                    aria-current={index === 0 ? "location" : undefined}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </nav>
+      <a
+        class="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full border-0 bg-primary px-4 py-2.5 text-base font-semibold whitespace-nowrap text-primary-foreground no-underline transition duration-200 ease-landing hover:bg-emphasis focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-emphasis"
+        href="#contact"
+      >
+        Pitch a story
+      </a>
+    </aside>
+  </div>
+</header>
+
+<script>
+  import "../scripts/menu"
+</script>

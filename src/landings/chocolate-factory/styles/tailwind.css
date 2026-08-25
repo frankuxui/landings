@@ -98,13 +98,15 @@
 }
 
 @theme {
-  /* Base reading typeface — Wix Madefor Text
-     (https://fonts.google.com/specimen/Wix+Madefor+Text), loaded once via
-     Google Fonts <link> tags in this landing's own <head> (see "Shared
-     typography" in the astro-landing-pages Skill) — never via @import
-     here. */
-  --font-sans: "Wix Madefor Text", sans-serif;
-  --font-display: "Wix Madefor Text", sans-serif;
+  /* Base reading typeface — Poppins
+     (https://fonts.google.com/specimen/Poppins), a rounder, more
+     confectionery-shop voice than the gallery default (Wix Madefor Text) —
+     a deliberate per-landing choice, see the astro-landing-pages Skill §11
+     "Typography". Loaded once via Google Fonts <link> tags in this
+     landing's own <head> — never via @import here. */
+  --font-base: "Poppins", sans-serif;
+  --font-sans: var(--font-base);
+  --font-display: "Poppins", sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
   /* Structural breakpoints beyond Tailwind's native sm/md/lg/xl/2xl, named
@@ -128,10 +130,10 @@
 
   /* Fluid heading scale. --text-figure is a distinct role (a large
      standalone statistic/numeral), not a heading. */
-  --text-headline-1: clamp(3rem, 1.9rem + 4.68vw, 6rem);
-  --text-headline-2: clamp(1.875rem, 1.19rem + 2.93vw, 3.75rem);
-  --text-headline-3: clamp(1.25rem, 1.02rem + 0.98vw, 1.875rem);
-  --text-figure: clamp(2.5rem, 1.6rem + 3.9vw, 4.5rem);
+  --text-headline-1: clamp(2.25rem, 1.75rem + 2.4vw, 3.75rem);
+  --text-headline-2: clamp(1.5rem, 1.3rem + 1vw, 2.25rem);
+  --text-headline-3: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+  --text-figure: clamp(2rem, 1.6rem + 1.8vw, 2.75rem);
 }
 
 /* Shared scroll-reveal utility — coordinates progressive enhancement with
@@ -161,7 +163,7 @@
 }
 
 /* Form field focus treatment tied to this landing's mold-cast identity
-   (see README "Diferenciación": straight, almost-rectangular radii). The
+   (see README "Differentiation": straight, almost-rectangular radii). The
    border snaps to full contrast and a hard-edged ring "sets" around the
    field in one motion, like metal settling into a mold, instead of a
    generic soft glow. */
@@ -240,7 +242,7 @@
    `accent` swap roles, `tertiary` stays the same mid-tone — so `--color-*`
    stays high-contrast and legible in both themes, exactly like the rest of
    this landing's token system. Currently consumed by every official
-   `primary`-variant button/link: the skip link, Header's "Ver colección"
+   `primary`-variant button/link: the skip link, Header's "View collection"
    CTA (desktop and mobile), Hero's CTA, and Contact's submit button. */
 :root,
 html[data-palette="grayscale"] {

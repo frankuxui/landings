@@ -1,10 +1,10 @@
 import type { Stat } from "../types"
 
 export const stats: Stat[] = [
-  { value: "30", label: "Años de experiencia" },
-  { value: "12", label: "Fincas asociadas" },
-  { value: "85 t", label: "Producción anual" },
-  { value: "6", label: "Variedades cultivadas" },
-  { value: "340+", label: "Clientes profesionales" },
-  { value: "14", label: "Países de exportación" },
+  { value: "30", label: "Years of experience" },
+  { value: "12", label: "Partner farms" },
+  { value: "85 t", label: "Annual production" },
+  { value: "6", label: "Varieties grown" },
+  { value: "340+", label: "Professional clients" },
+  { value: "14", label: "Export countries" },
 ]

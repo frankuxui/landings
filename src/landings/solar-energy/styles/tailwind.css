@@ -102,8 +102,10 @@
      (https://fonts.google.com/specimen/Wix+Madefor+Text), loaded once via
      Google Fonts <link> tags in this landing's own <head> (see "Shared
      typography" in the astro-landing-pages Skill) — never via @import
-     here. */
-  --font-sans: "Wix Madefor Text", sans-serif;
+     here. Remapping --font-sans makes the `font-sans` utility already used
+     on <html>/<body> resolve to this typeface without a native CSS rule. */
+  --font-base: "Wix Madefor Text", sans-serif;
+  --font-sans: var(--font-base);
   --font-display: "Wix Madefor Text", sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
@@ -134,8 +136,6 @@
   --text-figure: clamp(2.5rem, 1.6rem + 3.9vw, 4.5rem);
 }
 
-/* Shared scroll-reveal utility — coordinates progressive enhancement with
-   this landing's own IntersectionObserver script. */
 @utility reveal {
   transform: translateY(0);
   opacity: 1;
@@ -160,11 +160,6 @@
   }
 }
 
-/* Form field focus treatment matching this landing's technical/monitoring
-   identity (straight rounded-xs corners, mono technical labels, numbered
-   steps — see README "Dirección de arte"). A directional highlight sweeps
-   once across the field on focus, like a scan or reading pass, alongside
-   a tight hard-edged ring — instead of a static glow. */
 @utility focus-scan {
   transition: border-color 200ms var(--ease-landing);
 
@@ -189,6 +184,7 @@
   from {
     background-position: -120% 0;
   }
+
   to {
     background-position: 220% 0;
   }
@@ -198,20 +194,24 @@
   from {
     box-shadow: 0 0 0 0 color-mix(in srgb, var(--foreground) 0%, transparent);
   }
+
   60% {
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--foreground) 28%, transparent);
   }
+
   to {
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--foreground) 20%, transparent);
   }
 }
 
-/* Swiper Core (Testimonios) exposes its own theming through CSS custom
-   properties rather than Tailwind-generated classes — Tailwind has no
-   utility for them, so this is the minimal, official, landing-local way to
-   keep the pagination on the monochrome token system instead of Swiper's
-   default color. */
-.testimonials-slider {
+/* The slider viewport and its pagination live as sibling elements (see
+   Testimonials.astro), not nested — a custom property declared only on
+   `.testimonials-slider` never cascades to `.testimonials-slider-pagination`,
+   so Swiper's pagination module would otherwise fall back to its own default
+   `--swiper-theme-color` (blue). Scope the variables to both elements so the
+   bullets actually receive them and stay monochrome. */
+.testimonials-slider,
+.testimonials-slider-pagination {
   --swiper-pagination-color: var(--foreground);
   --swiper-pagination-bullet-inactive-color: var(--muted);
   --swiper-pagination-bullet-inactive-opacity: 0.5;
