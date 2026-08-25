@@ -69,7 +69,7 @@ const labelName = label.charAt(0).toUpperCase() + label.slice(1)
           href={withBase("/landings")}>Explorar landings</a
         >
       </header>
-      <div class="mt-6 grid grid-cols-12 w-full gap-x-4">
+      <div class="mt-6 grid lg:grid-cols-8 xl:grid-cols-12 w-full gap-x-4">
         {
           landings.map((landing: LandingEntry) => (
             <LandingCard landing={landing} />

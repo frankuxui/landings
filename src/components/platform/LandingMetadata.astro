@@ -44,6 +44,20 @@ const dateFormatter = new Intl.DateTimeFormat("es", { dateStyle: "medium" })
     </dt>
     <dd class="font-medium text-sm">{data.themes.join(", ")}</dd>
   </div>
+  <div class="flex flex-col gap-2">
+    <dt class="uppercase font-semibold text-xs text-muted/60">
+      Paletas de color
+    </dt>
+    <dd class="font-medium text-sm">
+      {
+        data.palettes.length === 0
+          ? "Escala de grises"
+          : data.palettes.length === 1
+            ? "1 paleta"
+            : `${data.palettes.length} paletas`
+      }
+    </dd>
+  </div>
   {
     data.technologies.length > 0 && (
       <div class="flex flex-col gap-2">

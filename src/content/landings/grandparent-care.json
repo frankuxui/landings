@@ -11,7 +11,13 @@
     "community workshops",
     "loneliness awareness"
   ],
-  "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
+  "technologies": [
+    "Astro",
+    "Tailwind CSS",
+    "GSAP",
+    "Swiper",
+    "@lucide/astro"
+  ],
   "thumbnail": "https://images.unsplash.com/photo-1593100126453-19b562a800c1?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Z3JhbmRtb3RoZXIlMjBncmFuZGNoaWxkJTIwaHVnJTIwd2FybSUyMHN1bmxpZ2h0fGVufDF8MHx8fDE3ODc2ODE3MzZ8MA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
   "thumbnailAlt": "A grandmother laughing as she hugs her grandchild close, cheek to cheek",
   "thumbnailWidth": 3872,
@@ -50,7 +56,10 @@
   ],
   "createdAt": "2026-08-25",
   "author": "frankuxui",
-  "themes": ["light", "dark"],
-  "featured": false,
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "featured": true,
   "status": "published"
 }

@@ -49,6 +49,6 @@
     "light",
     "dark"
   ],
-  "featured": false,
+  "featured": true,
   "status": "published"
 }
