@@ -1,0 +1,73 @@
+---
+import { ArrowRight } from "@lucide/astro"
+import { finaleImage } from "../data/images"
+---
+
+<section class="bg-background text-foreground" aria-labelledby="final-heading">
+  <figure class="m-0">
+    <div
+      class="relative flex min-h-screen items-center overflow-hidden px-container-x py-section sm:px-8 xl:px-14"
+    >
+      <img
+        src={finaleImage.src}
+        alt={finaleImage.alt}
+        title={`Photo by ${finaleImage.author} on Unsplash`}
+        width={finaleImage.width}
+        height={finaleImage.height}
+        loading="lazy"
+        decoding="async"
+        class="absolute inset-0 h-full w-full scale-105 object-cover opacity-65 photo-tone"
+        data-final-image
+      />
+      <div class="absolute inset-0 bg-background/70" aria-hidden="true"></div>
+      <div class="relative z-10 mx-auto w-full max-w-landing">
+        <p class="text-sm font-bold tracking-widest text-muted uppercase">
+          Next story
+        </p>
+        <h2
+          id="final-heading"
+          class="mt-4 max-w-hero-heading font-display text-headline-1 leading-none text-balance uppercase"
+        >
+          The next story is not in the garage yet.
+        </h2>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a
+            href="#collection"
+            class="inline-flex min-h-12 items-center justify-center gap-3 rounded-sm border-0 bg-(--color-primary) px-6 py-3 text-base font-bold tracking-widest text-(--color-control-foreground) uppercase no-underline transition duration-300 ease-landing hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90"
+          >
+            Follow the collection
+            <ArrowRight aria-hidden="true" width="18" height="18" />
+          </a>
+          <a
+            href="mailto:email@example.com"
+            class="inline-flex min-h-12 items-center justify-center rounded-sm border border-border/50 px-6 py-3 text-base font-bold tracking-widest text-foreground uppercase no-underline transition duration-300 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+          >
+            Contact
+          </a>
+        </div>
+      </div>
+    </div>
+    <figcaption
+      class="mx-auto w-full max-w-landing px-container-x py-4 text-xs font-semibold tracking-widest text-muted uppercase sm:px-8 xl:px-14"
+    >
+      Photo by
+      <a
+        href={finaleImage.authorUrl}
+        rel="noopener"
+        target="_blank"
+        class="underline underline-offset-4 hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+      >
+        {finaleImage.author}
+      </a>
+      on
+      <a
+        href={finaleImage.unsplashUrl}
+        rel="noopener"
+        target="_blank"
+        class="underline underline-offset-4 hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+      >
+        Unsplash
+      </a>
+    </figcaption>
+  </figure>
+</section>

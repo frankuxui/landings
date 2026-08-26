@@ -1,0 +1,71 @@
+---
+import Photo from "../components/Photo.astro"
+import {
+  dashboardImage,
+  finaleImage,
+  italianGarageImage,
+  mercedesArchiveImage,
+  roadImage,
+  steeringImage,
+  workshopImage,
+} from "../data/images"
+import type { UnsplashImage } from "../types"
+
+const galleryImages: UnsplashImage[] = [
+  italianGarageImage,
+  steeringImage,
+  roadImage,
+  dashboardImage,
+  workshopImage,
+  mercedesArchiveImage,
+  finaleImage,
+]
+---
+
+<section class="bg-background py-section" aria-labelledby="gallery-heading">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="mb-12 grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="text-sm font-bold tracking-widest text-muted uppercase">
+          Photo archive
+        </p>
+        <h2
+          id="gallery-heading"
+          class="mt-4 max-w-heading font-display text-headline-2 leading-none text-balance uppercase"
+        >
+          A gallery that refuses to stand in a straight line.
+        </h2>
+      </div>
+      <p class="max-w-copy text-xl leading-relaxed text-muted">
+        Wide roads, cropped gauges, workshop hands, museum corners. The rhythm
+        is closer to a magazine spread than a product grid.
+      </p>
+    </div>
+    <div class="grid gap-5 md:grid-cols-6">
+      {
+        galleryImages.map((image: UnsplashImage, index: number) => (
+          <div
+            class:list={[
+              "reveal",
+              index === 0 && "md:col-span-4",
+              index === 1 && "md:col-span-2",
+              index === 2 && "md:col-span-3",
+              index === 3 && "md:col-span-3",
+              index === 4 && "md:col-span-2",
+              index === 5 && "md:col-span-2",
+              index === 6 && "md:col-span-2",
+            ]}
+            data-parallax
+          >
+            <Photo
+              image={image}
+              ratio={
+                index === 0 ? "21 / 9" : index % 2 === 0 ? "4 / 3" : "3 / 4"
+              }
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

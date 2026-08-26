@@ -1,0 +1,74 @@
+---
+import { Menu, Moon, X } from "@lucide/astro"
+---
+
+<header
+  class="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-md"
+>
+  <div
+    class="mx-auto flex min-h-16 max-w-landing items-center justify-between gap-4 px-container-x"
+  >
+    <a href="#top" class="text-sm font-extrabold tracking-tight"
+      >Fishing Adventures</a
+    >
+    <nav aria-label="Primary navigation" class="hidden nav:block">
+      <ul class="flex items-center gap-7 text-sm font-medium">
+        <li><a href="#waters" class="hover:opacity-60">Waters</a></li><li>
+          <a href="#highlights" class="hover:opacity-60">Adventures</a>
+        </li><li>
+          <a href="#stories" class="hover:opacity-60">Stories</a>
+        </li><li>
+          <a href="#field-guide" class="hover:opacity-60">Field guide</a>
+        </li><li>
+          <a href="#collaborations" class="hover:opacity-60">Work together</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="flex items-center gap-2">
+      <button
+        data-theme-toggle
+        type="button"
+        aria-label="Switch color theme"
+        class="grid size-11 place-items-center rounded-full bg-control transition hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        ><Moon size={18} aria-hidden="true" /></button
+      >
+      <a
+        href="#collaborations"
+        class="hidden min-h-11 items-center rounded-full bg-(--color-primary) px-5 text-sm font-bold text-(--color-light) transition hover:opacity-85 nav:inline-flex"
+        >Join the logbook</a
+      >
+      <button
+        data-menu-toggle
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        class="grid size-11 place-items-center rounded-full bg-control nav:hidden"
+        ><Menu data-menu-open-icon size={20} aria-hidden="true" /><X
+          data-menu-close-icon
+          class="hidden"
+          size={20}
+          aria-hidden="true"
+        /></button
+      >
+    </div>
+  </div>
+  <nav
+    data-mobile-menu
+    aria-label="Mobile navigation"
+    class="hidden border-t border-border bg-background px-container-x py-5 nav:hidden"
+  >
+    <ul class="grid gap-1">
+      <li><a class="block min-h-11 py-3" href="#waters">Waters</a></li><li>
+        <a class="block min-h-11 py-3" href="#highlights">Adventures</a>
+      </li><li>
+        <a class="block min-h-11 py-3" href="#stories">Stories</a>
+      </li><li>
+        <a class="block min-h-11 py-3" href="#field-guide">Field guide</a>
+      </li><li>
+        <a class="block min-h-11 py-3" href="#community">Community</a>
+      </li><li>
+        <a class="block min-h-11 py-3" href="#collaborations">Work together</a>
+      </li>
+    </ul>
+  </nav>
+</header>

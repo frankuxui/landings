@@ -1,0 +1,36 @@
+---
+import { ArrowUpRight } from "@lucide/astro"
+import Photo from "../components/Photo.astro"
+import { closingImage } from "../data/images"
+---
+
+<section
+  class="relative bg-inverted palette-surface-primary px-container-x py-section text-inverted-foreground"
+>
+  <div
+    class="mx-auto grid max-w-landing gap-8 md:grid-cols-[1fr_0.8fr] md:items-end"
+  >
+    <div>
+      <p class="mb-5 text-xs font-bold tracking-widest uppercase">
+        Next trip: before sunrise
+      </p><h2
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold tracking-tight"
+      >
+        Come for the catch. Stay for everything the water teaches.
+      </h2><div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href="#top"
+          class="inline-flex min-h-12 items-center gap-2 rounded-full bg-(--color-light) px-6 font-bold text-(--color-primary) transition hover:opacity-85"
+          >Follow the adventures <ArrowUpRight
+            size={18}
+            aria-hidden="true"
+          /></a
+        ><a
+          href="mailto:email@example.com"
+          class="inline-flex min-h-12 items-center rounded-full bg-inverted-surface px-6 font-bold transition hover:opacity-85"
+          >Discuss a collaboration</a
+        >
+      </div>
+    </div><Photo image={closingImage} class="aspect-16/10 w-full" />
+  </div>
+</section>

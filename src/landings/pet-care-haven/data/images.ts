@@ -12,6 +12,7 @@ import { stories } from "./stories"
 import { storytellingImage } from "./storytelling"
 import { caregivers } from "./team"
 import { ctaImage } from "./ctaBackground"
+import { contactImage } from "./contact"
 import type {
   UnsplashImage,
   Scene,
@@ -30,6 +31,7 @@ const candidateImages: UnsplashImage[] = [
   storytellingImage,
   ...caregivers.map((caregiver: Caregiver) => caregiver.image),
   ctaImage,
+  contactImage,
 ]
 
 // Four services reuse the exact photograph already selected for the

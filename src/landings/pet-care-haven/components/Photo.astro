@@ -42,7 +42,18 @@ const {
 } = Astro.props
 ---
 
-<figure class:list={["group/photo m-0 flex w-full flex-col", className]}>
+<figure
+  class:list={[
+    "group/photo m-0 flex w-full flex-col",
+    // With ratio="auto" this figure is meant to stretch to fill whatever
+    // flex-col ancestor sizes it (PetTile's tile, StorySlide's article) —
+    // without min-h-0/flex-1 here, the inner "h-full flex-1" ratio wrapper
+    // has nothing to inherit a height from and collapses to 0, hiding the
+    // photograph entirely while the credit caption still renders below it.
+    ratio === "auto" && "min-h-0 flex-1",
+    className,
+  ]}
+>
   <div
     class:list={[
       "relative w-full overflow-hidden",

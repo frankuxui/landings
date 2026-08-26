@@ -1,0 +1,68 @@
+---
+import { ArrowDownRight, Play } from "@lucide/astro"
+import Photo from "../components/Photo.astro"
+import { heroImage, reelImage } from "../data/images"
+---
+
+<section id="top" class="relative px-container-x pt-12 pb-section md:pt-20">
+  <div class="mx-auto max-w-landing">
+    <p
+      class="mb-6 text-xs font-bold tracking-[0.18em] uppercase"
+      data-hero-item
+    >
+      Personal field journal · est. before sunrise
+    </p>
+    <h1
+      class="max-w-hero-heading text-balance text-headline-1 leading-[0.95] font-semibold tracking-tighter"
+      data-hero-headline
+    >
+      Life is measured in water, weather, and one more cast.
+    </h1>
+    <div class="mt-8 grid gap-8 md:grid-cols-[1fr_0.72fr] md:items-end">
+      <p class="max-w-copy text-lg text-muted" data-hero-item>
+        Mountain lakes, tidal edges, tackle experiments, and honest stories from
+        someone happily obsessed with what lives below the surface.
+      </p>
+      <div class="flex flex-wrap gap-3 md:justify-end" data-hero-item>
+        <a
+          href="#stories"
+          class="inline-flex min-h-12 items-center gap-2 rounded-full bg-(--color-primary) px-6 font-bold text-(--color-light) transition hover:opacity-85"
+          >Read the stories <ArrowDownRight size={18} aria-hidden="true" /></a
+        ><a
+          href="#waters"
+          class="inline-flex min-h-12 items-center gap-2 rounded-full bg-control px-6 font-bold transition hover:bg-control-hover"
+          ><Play size={17} aria-hidden="true" /> Explore the waters</a
+        >
+      </div>
+    </div>
+    <div class="mt-10 grid gap-3 lg:grid-cols-12 lg:items-stretch lg:gap-4">
+      <div class="lg:col-span-8">
+        <Photo
+          image={heroImage}
+          class="aspect-4/3 w-full lg:aspect-16/10"
+          eager
+        />
+      </div>
+      <div class="grid gap-3 lg:col-span-4 lg:gap-4">
+        <Photo
+          image={reelImage}
+          class="aspect-4/3 w-full lg:aspect-16/10"
+        /><div
+          class="flex min-h-56 flex-col justify-between bg-inverted p-6 text-inverted-foreground lg:min-h-64"
+        >
+          <span class="text-xs tracking-widest uppercase"
+            >Current conditions</span
+          ><strong class="my-5 text-figure leading-none">06:10</strong><span
+            class="text-sm opacity-70">Glass water · light westerly</span
+          >
+        </div>
+      </div>
+    </div>
+    <a
+      href="#about"
+      aria-label="Scroll to about the angler"
+      class="mt-8 inline-flex min-h-11 items-center gap-3 text-xs font-bold tracking-widest uppercase"
+      ><span class="h-px w-10 bg-foreground"></span>Follow the current</a
+    >
+  </div>
+</section>

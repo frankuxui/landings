@@ -1,0 +1,59 @@
+---
+import { ArrowUpRight } from "@lucide/astro"
+import { collaborations, type Collaboration } from "../data/content"
+---
+
+<section
+  id="collaborations"
+  class="bg-background-alt palette-surface-light px-container-x py-section"
+>
+  <div class="mx-auto grid max-w-landing gap-12 lg:grid-cols-12">
+    <header class="lg:sticky lg:top-28 lg:col-span-4 lg:self-start">
+      <p class="mb-4 text-xs font-bold tracking-widest uppercase">
+        Selected collaborations
+      </p><h2
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold tracking-tight"
+      >
+        Work built for credibility beyond the campaign window.
+      </h2><p class="mt-6 max-w-copy text-muted">
+        Every partnership starts with a useful editorial reason, clear
+        disclosure, and enough field time to form an honest view.
+      </p>
+    </header>
+    <div class="lg:col-span-8">
+      {
+        collaborations.map((item: Collaboration, index: number) => (
+          <article
+            class="grid gap-5 border-t border-border py-8 sm:grid-cols-[4rem_1fr]"
+            data-reveal
+          >
+            <>
+              <span class="font-mono text-sm text-muted">0{index + 1}</span>
+              <div>
+                <>
+                  <h3 class="text-headline-3 leading-tight font-semibold">
+                    {item.title}
+                  </h3>
+                  <p class="mt-4 max-w-copy text-lg text-muted">
+                    {item.description}
+                  </p>
+                  <p class="mt-5 text-xs font-bold tracking-widest uppercase">
+                    {item.deliverables}
+                  </p>
+                </>
+              </div>
+            </>
+          </article>
+        ))
+      }
+      <a
+        href="mailto:email@example.com"
+        class="mt-8 inline-flex min-h-12 items-center gap-2 rounded-full bg-(--color-primary) px-6 font-bold text-(--color-light) transition hover:opacity-85 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        >Discuss a considered project <ArrowUpRight
+          size={18}
+          aria-hidden="true"
+        /></a
+      >
+    </div>
+  </div>
+</section>

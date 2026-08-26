@@ -1,0 +1,34 @@
+---
+import Photo from "../components/Photo.astro"
+import { details } from "../data/content"
+import type { DetailNote } from "../types"
+---
+
+<section class="bg-background-alt py-section" aria-labelledby="details-heading">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="mx-auto max-w-copy text-center">
+      <p class="text-sm font-bold tracking-widest text-muted uppercase">
+        Details
+      </p>
+      <h2
+        id="details-heading"
+        class="mx-auto mt-4 max-w-heading font-display text-headline-2 leading-none text-balance uppercase"
+      >
+        Cars can be read in small type.
+      </h2>
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {
+        details.map((detail: DetailNote) => (
+          <article class="reveal">
+            <Photo image={detail.image} ratio="3 / 4" />
+            <p class="mt-5 text-sm font-bold tracking-widest text-muted uppercase">
+              {detail.label}
+            </p>
+            <h3 class="mt-2 text-2xl font-bold leading-tight">{detail.text}</h3>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

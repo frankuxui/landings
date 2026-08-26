@@ -1,0 +1,77 @@
+---
+import { allImages } from "../data/images"
+import type { UnsplashImage } from "../types"
+---
+
+<footer class="bg-background px-container-x py-12">
+  <div
+    id="visit"
+    class="mx-auto grid max-w-landing scroll-mt-24 gap-10 border-t border-border pt-10 footer:grid-cols-[1fr_auto_auto]"
+  >
+    <div>
+      <p class="font-extrabold">Casa Paca</p><p
+        class="mt-3 max-w-sm text-sm text-muted"
+      >
+        Bar de pueblo. Comida de siempre, mesas de toda la vida y sitio para una
+        silla más.
+      </p>
+    </div>
+    <div class="grid gap-1 text-sm">
+      <p class="mb-2 text-xs font-bold tracking-widest text-muted uppercase">
+        Cómo llegar
+      </p>
+      <p>Dirección de ejemplo</p>
+      <p>Ciudad, País</p>
+      <a href="tel:+00000000000">+00 000 000 000</a>
+      <a href="mailto:correo@ejemplo.com">correo@ejemplo.com</a>
+    </div>
+    <div class="grid gap-1 text-sm">
+      <p class="mb-2 text-xs font-bold tracking-widest text-muted uppercase">
+        Horario
+      </p>
+      <p>De martes a domingo</p>
+      <p>13:00 – 16:00</p>
+      <p class="mt-3">
+        <span>Instagram</span> · <span>Facebook</span>
+      </p>
+    </div>
+  </div>
+  <nav aria-label="Navegación del pie" class="mx-auto mt-8 max-w-landing">
+    <ul class="flex flex-wrap gap-x-8 gap-y-2 text-sm">
+      <li><a href="#menu">La carta</a></li>
+      <li><a href="#neighbors">La gente</a></li>
+      <li><a href="#stories">Historias</a></li>
+      <li><a href="#kitchen">La cocina</a></li>
+      <li><a href="#history">Desde 1978</a></li>
+      <li><a href="#rules">Normas de la casa</a></li>
+    </ul>
+  </nav>
+  <div class="mx-auto mt-10 max-w-landing">
+    <p class="font-display text-lg italic">Cerramos cuando terminamos.</p>
+    <p class="mt-1 text-xs text-muted">Normalmente a una hora razonable.</p>
+  </div>
+  <p class="mx-auto mt-10 max-w-landing text-xs text-muted">
+    © 2026 Casa Paca. Contenido de demostración.
+  </p>
+  <div class="mx-auto mt-8 max-w-landing border-t border-border pt-8">
+    <p class="text-xs font-bold tracking-widest uppercase">
+      Créditos de las fotografías
+    </p>
+    <ul class="mt-4 columns-1 gap-x-8 text-xs text-muted md:columns-2">
+      {
+        allImages.map((image: UnsplashImage) => (
+          <li class="mb-2 break-inside-avoid">
+            Foto de{" "}
+            <a class="underline" href={image.authorUrl} rel="noopener">
+              {image.author}
+            </a>{" "}
+            en{" "}
+            <a class="underline" href={image.unsplashUrl} rel="noopener">
+              Unsplash
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

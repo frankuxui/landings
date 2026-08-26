@@ -1,0 +1,44 @@
+---
+import Photo from "../components/Photo.astro"
+import { workshopImage } from "../data/images"
+---
+
+<section
+  id="about"
+  class="bg-background-alt py-section palette-surface-light"
+  aria-labelledby="about-heading"
+>
+  <div
+    class="mx-auto grid w-full max-w-landing gap-10 px-container-x sm:px-8 lg:grid-cols-2 lg:items-center xl:px-14"
+  >
+    <Photo image={workshopImage} ratio="3 / 4" class="reveal" />
+    <div class="reveal">
+      <p class="text-sm font-bold tracking-widest text-muted uppercase">
+        About the collector
+      </p>
+      <h2
+        id="about-heading"
+        class="mt-4 max-w-heading font-display text-headline-2 leading-none text-balance uppercase"
+      >
+        He did not need this many cars.
+      </h2>
+      <p
+        class="mt-4 font-display text-headline-3 leading-none text-foreground/70 uppercase"
+      >
+        That was never really the point.
+      </p>
+      <div class="mt-8 space-y-5 text-xl leading-relaxed text-muted">
+        <p>
+          The archive began with curiosity and became a way of preserving
+          mechanical culture: not as museum silence, but as maintenance,
+          community, road dust, and the occasional argument about carburetors.
+        </p>
+        <p>
+          Every car is documented, driven, repaired, photographed, and shared
+          with people who understand why an old engine starting cleanly can
+          change the whole day.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

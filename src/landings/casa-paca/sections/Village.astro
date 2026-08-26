@@ -1,0 +1,23 @@
+---
+import Photo from "../components/Photo.astro"
+import { villageImage } from "../data/images"
+---
+
+<section id="village" class="px-container-x py-section">
+  <div class="mx-auto max-w-landing">
+    <div class="grid gap-8 md:grid-cols-2 md:items-end md:gap-16">
+      <h2
+        class="max-w-heading text-balance font-display text-headline-2 leading-tight font-semibold tracking-tight"
+        data-reveal
+      >
+        No vengas solo por la comida.
+      </h2>
+      <p class="max-w-copy text-lg text-muted md:justify-self-end" data-reveal>
+        Da una vuelta. Aquí todavía se saluda por la calle.
+      </p>
+    </div>
+    <div class="mt-10 overflow-hidden" data-parallax="slow">
+      <Photo image={villageImage} class="aspect-video w-full md:aspect-21/9" />
+    </div>
+  </div>
+</section>

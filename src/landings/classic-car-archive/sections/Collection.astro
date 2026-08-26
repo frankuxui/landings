@@ -1,0 +1,77 @@
+---
+import Photo from "../components/Photo.astro"
+import { vehicles } from "../data/content"
+import type { Vehicle } from "../types"
+---
+
+<section id="collection" class="bg-background py-section">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <p class="text-sm font-bold tracking-widest text-muted uppercase">
+          The collection
+        </p>
+        <h2
+          class="mt-4 max-w-heading font-display text-headline-2 leading-none text-balance uppercase"
+        >
+          A garage full of stories.
+        </h2>
+        <p class="mt-6 max-w-copy text-lg text-muted">
+          The archive is arranged like an enthusiast would actually remember it:
+          by the sound of an engine, a difficult part, a first trip, and the
+          year printed large enough to stop you in the doorway.
+        </p>
+      </div>
+
+      <div class="space-y-16">
+        {
+          vehicles.map((vehicle: Vehicle, index: number) => (
+            <article
+              class:list={[
+                "reveal grid gap-6 border-t border-border/35 pt-6",
+                index % 2 === 0
+                  ? "md:grid-cols-[1.2fr_0.8fr]"
+                  : "md:grid-cols-[0.8fr_1.2fr]",
+              ]}
+            >
+              <div class:list={[index % 2 !== 0 && "md:order-2"]}>
+                <Photo image={vehicle.image} ratio="16 / 10" />
+              </div>
+              <div class="flex flex-col justify-between gap-8">
+                <div>
+                  <p class="font-display text-figure leading-none text-(--color-primary)">
+                    {vehicle.year}
+                  </p>
+                  <h3 class="mt-4 font-display text-headline-3 leading-none uppercase">
+                    {vehicle.marque} {vehicle.model}
+                  </h3>
+                  <p class="mt-4 text-xl text-foreground/85">
+                    "{vehicle.note}"
+                  </p>
+                </div>
+                <dl class="grid grid-cols-2 gap-x-6 gap-y-3 text-sm uppercase">
+                  <div>
+                    <dt class="text-muted">Country</dt>
+                    <dd class="font-bold">{vehicle.country}</dd>
+                  </div>
+                  <div>
+                    <dt class="text-muted">Displacement</dt>
+                    <dd class="font-bold">{vehicle.displacement}</dd>
+                  </div>
+                  <div>
+                    <dt class="text-muted">Power</dt>
+                    <dd class="font-bold">{vehicle.power}</dd>
+                  </div>
+                  <div>
+                    <dt class="text-muted">Acquired</dt>
+                    <dd class="font-bold">{vehicle.acquired}</dd>
+                  </div>
+                </dl>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

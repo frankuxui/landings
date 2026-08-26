@@ -28,6 +28,12 @@ if (statItems.length > 0) {
     })
   }
 
+  // Track only the ScrollTrigger instances this script creates, so toggling
+  // `prefers-reduced-motion` never kills triggers owned by other sections
+  // (e.g. Hero's parallax reveal, Scenes' pinning) that were already
+  // registered earlier in the page's DOM order.
+  let ownTriggers: ScrollTrigger[] = []
+
   const animateStats = (): void => {
     statItems.forEach((item: HTMLElement) => {
       const { display, value, suffix } = readStat(item)
@@ -35,7 +41,7 @@ if (statItems.length > 0) {
 
       const counter = { count: 0 }
 
-      gsap.to(counter, {
+      const tween = gsap.to(counter, {
         count: value,
         duration: 2,
         ease: "power2.out",
@@ -48,13 +54,17 @@ if (statItems.length > 0) {
           display.textContent = `${formatter.format(Math.floor(counter.count))}${suffix}`
         },
       })
+
+      const trigger = tween.scrollTrigger
+      if (trigger) ownTriggers.push(trigger)
     })
   }
 
   const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
 
   const applyMotionPreference = (prefersReducedMotion: boolean): void => {
-    ScrollTrigger.getAll().forEach((trigger: ScrollTrigger) => trigger.kill())
+    ownTriggers.forEach((trigger: ScrollTrigger) => trigger.kill())
+    ownTriggers = []
     setFinalValues()
     if (!prefersReducedMotion) animateStats()
   }

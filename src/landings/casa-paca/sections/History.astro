@@ -1,0 +1,41 @@
+---
+import { history, type HistoryEntry } from "../data/content"
+---
+
+<section
+  id="history"
+  class="palette-surface-light bg-background-alt px-container-x py-section"
+>
+  <div
+    class="mx-auto grid max-w-landing gap-12 lg:grid-cols-[0.85fr_1.4fr] lg:gap-16"
+  >
+    <div class="lg:sticky lg:top-24 lg:self-start">
+      <p class="mb-4 text-xs font-bold tracking-widest uppercase" data-reveal>
+        De dónde venimos
+      </p><h2
+        class="max-w-heading text-balance font-display text-headline-2 leading-tight font-semibold tracking-tight"
+        data-reveal
+      >
+        Casi cincuenta años sin movernos de sitio.
+      </h2><p class="mt-5 max-w-copy text-muted" data-reveal>
+        No hay gran historia que contar. Se abrió el bar, vino la gente, y aquí
+        seguimos.
+      </p>
+    </div>
+    <ol class="grid gap-0 border-t border-border" data-reveal-stagger>
+      {
+        history.map((entry: HistoryEntry) => (
+          <li
+            data-reveal-item
+            class="grid gap-2 border-b border-border py-8 sm:grid-cols-[9rem_1fr] sm:items-baseline sm:gap-8 lg:grid-cols-[11rem_1fr]"
+          >
+            <span class="font-display text-figure leading-none font-semibold tabular-nums">
+              {entry.year}
+            </span>
+            <p class="text-lg leading-relaxed">{entry.event}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

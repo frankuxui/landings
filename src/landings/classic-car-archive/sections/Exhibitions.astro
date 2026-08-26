@@ -1,0 +1,77 @@
+---
+import { ArrowLeft, ArrowRight } from "@lucide/astro"
+import Photo from "../components/Photo.astro"
+import { exhibitions } from "../data/content"
+import type { Exhibition } from "../types"
+---
+
+<section
+  id="exhibitions"
+  class="bg-background py-section"
+  aria-labelledby="exhibitions-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div
+      class="mb-8 flex flex-col justify-between gap-6 md:flex-row md:items-end"
+    >
+      <div>
+        <p class="text-sm font-bold tracking-widest text-muted uppercase">
+          Exhibitions
+        </p>
+        <h2
+          id="exhibitions-heading"
+          class="mt-4 max-w-heading font-display text-headline-2 leading-none text-balance uppercase"
+        >
+          From garage to museum.
+        </h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <button
+          type="button"
+          data-exhibition-prev
+          aria-label="Previous exhibition"
+          class="inline-flex size-12 min-h-11 cursor-pointer items-center justify-center rounded-sm border border-border/40 bg-transparent text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <ArrowLeft aria-hidden="true" width="20" height="20" />
+        </button>
+        <button
+          type="button"
+          data-exhibition-next
+          aria-label="Next exhibition"
+          class="inline-flex size-12 min-h-11 cursor-pointer items-center justify-center rounded-sm border border-border/40 bg-transparent text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <ArrowRight aria-hidden="true" width="20" height="20" />
+        </button>
+      </div>
+    </div>
+
+    <div class="swiper exhibition-slider" data-exhibition-slider>
+      <div class="swiper-wrapper">
+        {
+          exhibitions.map((exhibition: Exhibition) => (
+            <article class="swiper-slide w-full md:w-2/3 lg:w-1/2">
+              <div class="bg-surface p-5">
+                <Photo image={exhibition.image} ratio="4 / 3" />
+                <p class="mt-6 font-display text-figure leading-none text-(--color-primary)">
+                  {exhibition.year}
+                </p>
+                <h3 class="mt-3 font-display text-headline-3 leading-none uppercase">
+                  {exhibition.title}
+                </h3>
+                <p class="mt-4 text-lg text-muted">{exhibition.place}</p>
+                <p class="mt-3 text-sm font-bold tracking-widest text-muted uppercase">
+                  {exhibition.vehicles}
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <div
+        class="exhibition-slider-pagination mt-6 flex justify-center"
+        data-exhibition-pagination
+      >
+      </div>
+    </div>
+  </div>
+</section>

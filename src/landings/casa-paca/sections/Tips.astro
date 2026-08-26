@@ -1,0 +1,36 @@
+---
+import { tips, type Tip } from "../data/content"
+---
+
+<section id="tips" class="px-container-x py-section">
+  <div class="mx-auto max-w-landing">
+    <p class="mb-4 text-xs font-bold tracking-widest uppercase" data-reveal>
+      Consejos antes de venir
+    </p><h2
+      class="max-w-heading text-balance font-display text-headline-2 leading-tight font-semibold tracking-tight"
+      data-reveal
+    >
+      Para que la primera vez vaya bien.
+    </h2>
+    <ol class="mt-12 grid gap-0 border-t border-border" data-reveal-stagger>
+      {
+        tips.map((tip: Tip, index: number) => (
+          <li
+            data-reveal-item
+            class="grid gap-2 border-b border-border py-6 sm:grid-cols-[5rem_1fr] sm:items-baseline sm:gap-6"
+          >
+            <span class="font-display text-figure leading-none text-muted">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <h3 class="font-display text-headline-3 font-semibold">
+                {tip.title}
+              </h3>
+              <p class="mt-2 max-w-copy text-muted">{tip.guidance}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

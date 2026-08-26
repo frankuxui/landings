@@ -149,4 +149,100 @@ export const galleryPets: GalleryPet[] = [
         "https://api.unsplash.com/photos/0MwryWGio3I/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Nnx8Y2F0JTIwcG9ydHJhaXQlMjBuYXR1cmFsJTIwbGlnaHQlMjByZXN0aW5nfGVufDF8Mnx8fDE3ODc2NDY1NzN8MA",
     },
   },
+  {
+    id: "bella",
+    name: "Bella",
+    species: "Dog",
+    activity: "Chasing the frisbee",
+    caption: "Never brings it back on the first try — that's half the fun.",
+    image: {
+      id: "cdjxywKEeEY",
+      src: "https://images.unsplash.com/photo-1687959258030-171d9f95b6a7?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8ZG9nJTIwcGxheWluZyUyMHBhcmslMjBhY3Rpb24lMjBqdW1wfGVufDF8Mnx8fDE3ODc3MjgxNTJ8MA&ixlib=rb-4.1.0",
+      alt: "Dog running across the grass with a frisbee in its mouth",
+      width: 4808,
+      height: 5152,
+      color: "#595940",
+      author: "Doğan Alpaslan Demir",
+      authorUrl:
+        "https://unsplash.com/@izafi?utm_source=astro_landings_gallery&utm_medium=referral",
+      sourceUrl:
+        "https://unsplash.com/photos/a-dog-running-in-the-grass-with-a-frisbee-in-its-mouth-cdjxywKEeEY?utm_source=astro_landings_gallery&utm_medium=referral",
+      unsplashUrl:
+        "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+      downloadLocation:
+        "https://api.unsplash.com/photos/cdjxywKEeEY/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8ZG9nJTIwcGxheWluZyUyMHBhcmslMjBhY3Rpb24lMjBqdW1wfGVufDF8Mnx8fDE3ODc3MjgxNTJ8MA",
+    },
+  },
+  {
+    id: "duke",
+    name: "Duke",
+    species: "Dog",
+    activity: "Mid-air during play",
+    caption: "Convinced he can catch every leaf that falls.",
+    image: {
+      id: "5eAmYBA9eV0",
+      src: "https://images.unsplash.com/photo-1704895594363-c530eae9e7be?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8ZG9nJTIwcGxheWluZyUyMHBhcmslMjBhY3Rpb24lMjBqdW1wfGVufDF8Mnx8fDE3ODc3MjgxNTJ8MA&ixlib=rb-4.1.0",
+      alt: "White dog leaping joyfully in mid-air outdoors",
+      width: 3040,
+      height: 3040,
+      color: "#a6a6a6",
+      author: "Léa Journiac",
+      authorUrl:
+        "https://unsplash.com/@leajourniac?utm_source=astro_landings_gallery&utm_medium=referral",
+      sourceUrl:
+        "https://unsplash.com/photos/a-white-dog-is-jumping-in-the-air-5eAmYBA9eV0?utm_source=astro_landings_gallery&utm_medium=referral",
+      unsplashUrl:
+        "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+      downloadLocation:
+        "https://api.unsplash.com/photos/5eAmYBA9eV0/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8M3x8ZG9nJTIwcGxheWluZyUyMHBhcmslMjBhY3Rpb24lMjBqdW1wfGVufDF8Mnx8fDE3ODc3MjgxNTJ8MA",
+    },
+  },
+  {
+    id: "olive",
+    name: "Olive",
+    species: "Cat",
+    activity: "Hunting the feather toy",
+    caption: "Treats every playtime like a serious mission.",
+    image: {
+      id: "PQPVudn4nYo",
+      src: "https://images.unsplash.com/photo-1781030114295-aba2caaa9696?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Y2F0JTIwcGxheWluZyUyMHRveSUyMGluZG9vcnxlbnwxfDJ8fHwxNzg3NzI4MTUzfDA&ixlib=rb-4.1.0",
+      alt: "Tabby cat looking up intently at a feather toy",
+      width: 4040,
+      height: 3898,
+      color: "#404026",
+      author: "Vidak",
+      authorUrl:
+        "https://unsplash.com/@vidak?utm_source=astro_landings_gallery&utm_medium=referral",
+      sourceUrl:
+        "https://unsplash.com/photos/a-tabby-cat-looks-up-at-a-green-feather-toy-PQPVudn4nYo?utm_source=astro_landings_gallery&utm_medium=referral",
+      unsplashUrl:
+        "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+      downloadLocation:
+        "https://api.unsplash.com/photos/PQPVudn4nYo/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Y2F0JTIwcGxheWluZyUyMHRveSUyMGluZG9vcnxlbnwxfDJ8fHwxNzg3NzI4MTUzfDA",
+    },
+  },
+  {
+    id: "pepper",
+    name: "Pepper",
+    species: "Cat",
+    activity: "Batting a toy across the floor",
+    caption: "Plays fetch her own way — she bats it, we retrieve it.",
+    image: {
+      id: "ma3eJyJvDpo",
+      src: "https://images.unsplash.com/photo-1677936181615-9ec066472b99?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NHx8Y2F0JTIwcGxheWluZyUyMHRveSUyMGluZG9vcnxlbnwxfDJ8fHwxNzg3NzI4MTUzfDA&ixlib=rb-4.1.0",
+      alt: "Cat playing with a small toy on a wooden floor",
+      width: 2410,
+      height: 2349,
+      color: "#a6a6a6",
+      author: "Nika Benedictova",
+      authorUrl:
+        "https://unsplash.com/@nika_benedictova?utm_source=astro_landings_gallery&utm_medium=referral",
+      sourceUrl:
+        "https://unsplash.com/photos/a-cat-is-playing-with-a-toy-on-the-floor-ma3eJyJvDpo?utm_source=astro_landings_gallery&utm_medium=referral",
+      unsplashUrl:
+        "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+      downloadLocation:
+        "https://api.unsplash.com/photos/ma3eJyJvDpo/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NHx8Y2F0JTIwcGxheWluZyUyMHRveSUyMGluZG9vcnxlbnwxfDJ8fHwxNzg3NzI4MTUzfDA",
+    },
+  },
 ]

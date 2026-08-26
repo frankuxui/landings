@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+/* Classic Car Archive owns a complete local copy of the gallery design-token
+   contract. Token names stay shared across the platform; values below keep
+   the landing portable and independent when copied out of this repository. */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --background: var(--color-neutral-50);
+  --background-alt: var(--color-neutral-100);
+  --foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-white);
+  --surface-strong: var(--color-neutral-100);
+  --control: var(--color-neutral-200);
+  --control-hover: var(--color-neutral-300);
+  --ring: var(--color-neutral-900);
+
+  --primary: var(--color-neutral-900);
+  --primary-foreground: var(--color-white);
+  --emphasis: var(--color-black);
+
+  --disabled: var(--color-neutral-300);
+  --disabled-foreground: var(--color-neutral-500);
+
+  --inverted: var(--color-neutral-950);
+  --inverted-foreground: var(--color-white);
+  --inverted-surface: var(--color-neutral-900);
+
+  --placeholder: var(--color-neutral-900);
+  --placeholder-foreground: var(--color-white);
+  --placeholder-inverse: rgb(255 255 255 / 0.72);
+}
+
+[data-theme="dark"] {
+  --background: var(--color-neutral-950);
+  --background-alt: var(--color-neutral-900);
+  --foreground: var(--color-neutral-100);
+  --muted: var(--color-neutral-300);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-neutral-900);
+  --surface-strong: var(--color-neutral-800);
+  --control: var(--color-neutral-800);
+  --control-hover: var(--color-neutral-700);
+  --ring: var(--color-neutral-300);
+
+  --primary: var(--color-neutral-100);
+  --primary-foreground: var(--color-neutral-950);
+  --emphasis: var(--color-white);
+
+  --disabled: var(--color-neutral-700);
+  --disabled-foreground: var(--color-neutral-400);
+
+  --inverted: var(--color-neutral-100);
+  --inverted-foreground: var(--color-neutral-950);
+  --inverted-surface: var(--color-neutral-200);
+
+  --placeholder: var(--color-neutral-300);
+  --placeholder-foreground: var(--color-neutral-900);
+  --placeholder-inverse: rgb(10 10 10 / 0.65);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-emphasis: var(--emphasis);
+
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
+  --color-inverted-surface: var(--inverted-surface);
+
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-placeholder-inverse: var(--placeholder-inverse);
+}
+
+@theme {
+  --font-base: "IBM Plex Sans Condensed", sans-serif;
+  --font-sans: var(--font-base);
+  --font-display: "Bowlby One SC", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --breakpoint-footer: 45rem;
+  --breakpoint-cards: 47.5rem;
+  --breakpoint-nav: 56.25rem;
+  --breakpoint-stats: 67.5rem;
+  --breakpoint-display: 87.5rem;
+
+  --spacing-section: 7rem;
+  --spacing-container-x: 1.5rem;
+
+  --container-landing: 100rem;
+  --container-copy: 66ch;
+  --container-heading: 28ch;
+  --container-hero-heading: 19ch;
+
+  --ease-landing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --text-headline-1: clamp(3.25rem, 1.55rem + 7.25vw, 9rem);
+  --text-headline-2: clamp(2.25rem, 1.2rem + 4.5vw, 6rem);
+  --text-headline-3: clamp(1.45rem, 1.08rem + 1.58vw, 2.75rem);
+  --text-figure: clamp(3.5rem, 1.9rem + 6.8vw, 9.5rem);
+}
+
+@utility reveal {
+  transform: translateY(0);
+  opacity: 1;
+
+  .js-reveal-ready & {
+    transform: translateY(calc(var(--spacing) * 7));
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 760ms;
+    transition-timing-function: var(--ease-landing);
+  }
+
+  .js-reveal-ready &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @variant motion-reduce {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transition-property: none !important;
+  }
+}
+
+/* Native CSS exception: photographic grain and archive-line textures need
+   layered gradients that Tailwind cannot express semantically without
+   hiding values in class strings. The gradients use grayscale tokens only. */
+@utility archive-texture {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.025) 1px, transparent 1px);
+  background-size:
+    4rem 4rem,
+    4rem 4rem;
+}
+
+@utility metal-line {
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    currentcolor,
+    transparent
+  );
+}
+
+/* Native CSS exception: the mobile menu is deliberately a black glass panel
+   in both themes, matching the garage identity while preserving a blurred
+   view of the page behind it. */
+@utility menu-panel-surface {
+  background-color: rgb(10 10 10 / 0.96);
+  color: var(--color-white);
+}
+
+@utility photo-tone {
+  filter: grayscale(100%) contrast(124%);
+  transition:
+    filter 420ms var(--ease-landing),
+    transform 700ms var(--ease-landing);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    filter: none;
+  }
+}
+
+@utility palette-surface-primary {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-primary);
+  }
+}
+
+@utility palette-surface-light {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-light);
+  }
+}
+
+@utility palette-control {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-accent);
+    color: var(--color-control-foreground);
+  }
+
+  html[data-palette]:not([data-palette="grayscale"]) &:where(:hover, :active) {
+    background-color: var(--color-accent);
+    color: var(--color-control-foreground);
+    opacity: 0.9;
+  }
+}
+
+.featured-slider,
+.exhibition-slider {
+  --swiper-pagination-color: var(--foreground);
+  --swiper-pagination-bullet-inactive-color: var(--muted);
+  --swiper-pagination-bullet-inactive-opacity: 0.58;
+  --swiper-pagination-bullet-size: 0.5rem;
+  --swiper-pagination-bullet-horizontal-gap: 0.375rem;
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    --swiper-pagination-color: var(--color-primary);
+  }
+}
+
+.featured-slider-pagination .swiper-pagination-bullet,
+.exhibition-slider-pagination .swiper-pagination-bullet {
+  cursor: pointer;
+}
+
+.featured-slider-pagination .swiper-pagination-bullet:focus-visible,
+.exhibition-slider-pagination .swiper-pagination-bullet:focus-visible {
+  outline: 3px solid var(--border);
+  outline-offset: 3px;
+}
+
+:root,
+html[data-palette="grayscale"] {
+  --color-primary: #171717;
+  --color-secondary: #404040;
+  --color-tertiary: #737373;
+  --color-accent: #a3a3a3;
+  --color-support: #525252;
+  --color-light: #f5f5f5;
+  --color-control-foreground: #f5f5f5;
+}
+
+html[data-palette="garage-heritage"] {
+  --color-primary: #c53a32;
+  --color-secondary: #d2a23a;
+  --color-tertiary: #244c3a;
+  --color-accent: #315e70;
+  --color-support: #c56632;
+  --color-light: #e2d5b5;
+  --color-control-foreground: #ffffff;
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"][data-palette="grayscale"] {
+  --color-primary: #f5f5f5;
+  --color-secondary: #a3a3a3;
+  --color-tertiary: #737373;
+  --color-accent: #404040;
+  --color-support: #525252;
+  --color-light: #171717;
+  --color-control-foreground: #171717;
+}
+
+html[data-theme="dark"][data-palette="garage-heritage"] {
+  --color-primary: #e2d5b5;
+  --color-secondary: #315e70;
+  --color-tertiary: #244c3a;
+  --color-accent: #d2a23a;
+  --color-support: #c56632;
+  --color-light: #c53a32;
+  --color-control-foreground: #171717;
+}

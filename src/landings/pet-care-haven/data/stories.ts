@@ -100,4 +100,52 @@ export const stories: Story[] = [
         "https://api.unsplash.com/photos/9gz3wfHr65U/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8ZG9nJTIwYW5kJTIwY2F0JTIwdG9nZXRoZXIlMjBmcmllbmRzaGlwfGVufDF8MHx8fDE3ODc2NDY2MDd8MA",
     },
   },
+  {
+    id: "juniper",
+    petName: "Juniper",
+    headline: "The one who learned to rest",
+    quote:
+      "She used to pace the room for hours. Now she falls asleep on the first pillow she finds.",
+    image: {
+      id: "R0FrIEyOAmI",
+      src: "https://images.unsplash.com/photo-1765329096637-eb0af50c6d79?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NXx8cmVzY3VlJTIwZG9nJTIwcmVjb3ZlcnklMjBibGFua2V0JTIwY296eSUyMGhvbWV8ZW58MXwwfHx8MTc4NzcyODE5M3ww&ixlib=rb-4.1.0",
+      alt: "Dog resting its head on a pillow, completely at ease indoors",
+      width: 6000,
+      height: 4000,
+      color: "#c0c0a6",
+      author: "Daisy D",
+      authorUrl:
+        "https://unsplash.com/@ddddaisy?utm_source=astro_landings_gallery&utm_medium=referral",
+      sourceUrl:
+        "https://unsplash.com/photos/a-dog-rests-its-head-on-a-pillow-indoors-R0FrIEyOAmI?utm_source=astro_landings_gallery&utm_medium=referral",
+      unsplashUrl:
+        "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+      downloadLocation:
+        "https://api.unsplash.com/photos/R0FrIEyOAmI/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NXx8cmVzY3VlJTIwZG9nJTIwcmVjb3ZlcnklMjBibGFua2V0JTIwY296eSUyMGhvbWV8ZW58MXwwfHx8MTc4NzcyODE5M3ww",
+    },
+  },
+  {
+    id: "clementine",
+    petName: "Clementine",
+    headline: "The one who trusted hands again",
+    quote:
+      "She flinched at every touch when she arrived. Now she leans into every hand that reaches for her.",
+    image: {
+      id: "YdzqRIJ6oEA",
+      src: "https://images.unsplash.com/photo-1757487212389-175a647038c2?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NHx8c2VuaW9yJTIwY2F0JTIwYWRvcHRpb24lMjBjYWxtJTIwbGFwJTIwY29tZm9ydHxlbnwxfDB8fHwxNzg3NzI4MjAzfDA&ixlib=rb-4.1.0",
+      alt: "Relaxed cat resting calmly against a person's arm",
+      width: 6048,
+      height: 4024,
+      color: "#404040",
+      author: "Jeremy Mowery",
+      authorUrl:
+        "https://unsplash.com/@jermowery?utm_source=astro_landings_gallery&utm_medium=referral",
+      sourceUrl:
+        "https://unsplash.com/photos/a-relaxed-cat-rests-on-a-persons-arm-YdzqRIJ6oEA?utm_source=astro_landings_gallery&utm_medium=referral",
+      unsplashUrl:
+        "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+      downloadLocation:
+        "https://api.unsplash.com/photos/YdzqRIJ6oEA/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8NHx8c2VuaW9yJTIwY2F0JTIwYWRvcHRpb24lMjBjYWxtJTIwbGFwJTIwY29tZm9ydHxlbnwxfDB8fHwxNzg3NzI4MjAzfDA",
+    },
+  },
 ]

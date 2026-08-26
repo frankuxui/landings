@@ -1,0 +1,87 @@
+---
+import { BookOpen, Leaf, MessageCircle } from "@lucide/astro"
+---
+
+<section id="community" class="px-container-x py-section">
+  <div class="mx-auto max-w-landing">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <header class="lg:col-span-6">
+        <p class="mb-4 text-xs font-bold tracking-widest uppercase">
+          The waterline community
+        </p><h2
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold tracking-tight"
+        >
+          Share the knowledge. Keep the places wild.
+        </h2><p class="mt-6 max-w-copy text-lg text-muted">
+          Trip notes, technique breakdowns, and thoughtful conversations for
+          anglers who care as much about the water as the catch.
+        </p>
+      </header>
+      <dl class="grid grid-cols-2 gap-px bg-border lg:col-span-6">
+        <div class="bg-background p-7">
+          <dt class="text-sm text-muted">Logbook readers</dt><dd
+            class="mt-3 text-figure leading-none font-semibold"
+          >
+            48K
+          </dd><p class="mt-3 text-sm text-muted">
+            Monthly readers across field notes and guides.
+          </p>
+        </div>
+        <div class="bg-background p-7">
+          <dt class="text-sm text-muted">Field reports</dt><dd
+            class="mt-3 text-figure leading-none font-semibold"
+          >
+            126
+          </dd><p class="mt-3 text-sm text-muted">
+            Conditions, decisions, mistakes, and lessons logged.
+          </p>
+        </div>
+      </dl>
+    </div>
+    <div class="mt-14 grid gap-5 md:grid-cols-3">
+      <article class="bg-background-alt p-7">
+        <Leaf aria-hidden="true" /><p class="mt-10 text-lg font-semibold">
+          “The weather-first checklist changed how I plan every mountain
+          session.”
+        </p><p class="mt-5 text-sm text-muted">Community note · planning</p>
+      </article>
+      <article class="bg-background-alt p-7">
+        <BookOpen aria-hidden="true" /><p class="mt-10 text-lg font-semibold">
+          “Technical without turning the water into a spreadsheet.”
+        </p><p class="mt-5 text-sm text-muted">Community note · learning</p>
+      </article>
+      <article class="bg-background-alt p-7">
+        <MessageCircle aria-hidden="true" /><p
+          class="mt-10 text-lg font-semibold"
+        >
+          “Calm, honest storytelling—including the blank days.”
+        </p><p class="mt-5 text-sm text-muted">
+          Community note · field stories
+        </p>
+      </article>
+    </div>
+    <div class="mt-12 grid gap-8 border-t border-border pt-10 md:grid-cols-3">
+      <div>
+        <p class="text-xs font-bold tracking-widest uppercase text-muted">
+          01 · Learn
+        </p><p class="mt-3 font-semibold">
+          Monthly technique notes grounded in real conditions.
+        </p>
+      </div>
+      <div>
+        <p class="text-xs font-bold tracking-widest uppercase text-muted">
+          02 · Contribute
+        </p><p class="mt-3 font-semibold">
+          Reader observations become better questions for the next report.
+        </p>
+      </div>
+      <div>
+        <p class="text-xs font-bold tracking-widest uppercase text-muted">
+          03 · Protect
+        </p><p class="mt-3 font-semibold">
+          Locations stay general; care for habitat stays specific.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

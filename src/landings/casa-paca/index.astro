@@ -1,0 +1,80 @@
+---
+import "./styles/tailwind.css"
+import Header from "./sections/Header.astro"
+import Hero from "./sections/Hero.astro"
+import Menu from "./sections/Menu.astro"
+import Philosophy from "./sections/Philosophy.astro"
+import Neighbors from "./sections/Neighbors.astro"
+import Stories from "./sections/Stories.astro"
+import Kitchen from "./sections/Kitchen.astro"
+import Tips from "./sections/Tips.astro"
+import History from "./sections/History.astro"
+import Village from "./sections/Village.astro"
+import Gallery from "./sections/Gallery.astro"
+import Rules from "./sections/Rules.astro"
+import Testimonials from "./sections/Testimonials.astro"
+import CTAFinal from "./sections/CTAFinal.astro"
+import Footer from "./sections/Footer.astro"
+import BackToTop from "./components/BackToTop.astro"
+const pageTitle = "Casa Paca — Aquí se viene con hambre"
+const pageDescription =
+  "Bar de barrio en un pueblo pequeño. Comida casera, mesas de toda la vida y sitio para una silla más. Aquí se viene con hambre."
+---
+
+<!doctype html>
+<html
+  lang="es"
+  class="scroll-smooth overflow-x-clip scheme-light motion-reduce:scroll-auto dark:scheme-dark font-sans"
+>
+  <head
+    ><meta charset="utf-8" /><meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    /><title>{pageTitle}</title><meta
+      name="description"
+      content={pageDescription}
+    /><link rel="canonical" href="/landings/casa-paca" /><meta
+      name="robots"
+      content="noindex"
+    /><meta property="og:type" content="website" /><meta
+      property="og:title"
+      content={pageTitle}
+    /><meta property="og:description" content={pageDescription} />
+    <script is:inline>
+      try {
+        var t = localStorage.getItem("casa-paca:theme")
+        if (t === "light" || t === "dark")
+          document.documentElement.dataset.theme = t
+        var p = localStorage.getItem("casa-paca:palette")
+        if (p) document.documentElement.dataset.palette = p
+      } catch (e) {}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" /><link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    /><link
+      href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Source+Sans+3:ital,wght@0,400..800;1,400..800&display=swap"
+      rel="stylesheet"
+    /></head
+  >
+  <body
+    class="min-h-full overflow-x-clip bg-background text-base leading-relaxed text-foreground antialiased font-sans"
+    ><a
+      href="#main-content"
+      class="absolute -top-full left-4 z-50 bg-(--color-primary) px-5 py-3 font-bold text-(--color-light) focus-visible:top-4"
+      >Ir al contenido principal</a
+    ><Header /><main id="main-content">
+      <Hero /><Menu /><Philosophy /><Neighbors /><Stories /><Kitchen /><Tips
+      /><History /><Village /><Gallery /><Rules /><Testimonials /><CTAFinal />
+    </main><Footer /><BackToTop /><script>
+      import "./scripts/theme"
+      import "./scripts/palette"
+      import "./scripts/header"
+      import "./scripts/menu"
+      import "./scripts/backToTop"
+      import "./scripts/motion"
+      import "./scripts/storiesSlider"
+    </script></body
+  >
+</html>

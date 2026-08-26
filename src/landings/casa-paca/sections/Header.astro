@@ -1,0 +1,116 @@
+---
+import { Menu, Moon, X } from "@lucide/astro"
+
+const navLinks: { href: string; label: string }[] = [
+  { href: "#menu", label: "La carta" },
+  { href: "#neighbors", label: "La gente" },
+  { href: "#stories", label: "Historias" },
+  { href: "#kitchen", label: "La cocina" },
+  { href: "#history", label: "Desde 1978" },
+]
+---
+
+<header data-header class="sticky top-0 z-40 bg-neutral-950 text-neutral-50">
+  <div
+    class="mx-auto flex min-h-20 max-w-landing items-center justify-between gap-4 border-b border-neutral-50/15 px-container-x"
+  >
+    <a
+      href="#top"
+      data-nav-link
+      class="group relative font-display text-2xl tracking-tight sm:text-3xl"
+    >
+      <span class="relative z-10">Casa Paca</span>
+      <span
+        data-nav-underline
+        class="absolute -bottom-1 left-0 h-0.5 w-full origin-left scale-x-0 bg-neutral-50"
+        aria-hidden="true"></span>
+    </a>
+    <nav aria-label="Navegación principal" class="hidden nav:block">
+      <ul class="flex items-center gap-9 font-display text-base">
+        {
+          navLinks.map((link: { href: string; label: string }) => (
+            <li>
+              <a
+                href={link.href}
+                data-nav-link
+                class="group relative inline-block py-1"
+              >
+                <span class="relative z-10">{link.label}</span>
+                <span
+                  data-nav-underline
+                  class="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-neutral-50"
+                  aria-hidden="true"
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button
+        data-theme-toggle
+        type="button"
+        aria-label="Cambiar tema de color"
+        class="grid size-11 place-items-center rounded-full border border-neutral-50/25 bg-transparent text-neutral-50 transition hover:border-neutral-50 hover:bg-neutral-50 hover:text-neutral-950 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-neutral-50"
+        ><Moon size={18} aria-hidden="true" /></button
+      >
+      <a
+        href="#cta"
+        class="hidden min-h-11 items-center border-2 border-neutral-50 bg-neutral-50 px-6 font-display text-sm font-bold tracking-wide text-neutral-950 uppercase transition hover:scale-105 hover:bg-transparent hover:text-neutral-50 nav:inline-flex"
+        >Ven a comer</a
+      >
+      <button
+        data-menu-toggle
+        type="button"
+        aria-label="Abrir navegación"
+        aria-expanded="false"
+        class="grid size-11 place-items-center rounded-full border border-neutral-50/25 nav:hidden"
+        ><Menu data-menu-open-icon size={20} aria-hidden="true" /><X
+          data-menu-close-icon
+          class="hidden"
+          size={20}
+          aria-hidden="true"
+        /></button
+      >
+    </div>
+  </div>
+</header>
+
+<div
+  data-mobile-menu
+  class="fixed inset-0 z-50 hidden flex-col bg-neutral-950 px-container-x py-8 text-neutral-50 nav:hidden"
+>
+  <div class="flex items-center justify-between">
+    <p class="font-display text-2xl tracking-tight">Casa Paca</p>
+    <button
+      data-menu-toggle
+      type="button"
+      aria-label="Cerrar navegación"
+      class="grid size-11 place-items-center rounded-full border border-neutral-50/25"
+      ><X size={20} aria-hidden="true" /></button
+    >
+  </div>
+  <nav aria-label="Navegación móvil" class="mt-12 flex-1">
+    <ul class="grid gap-2">
+      {
+        [...navLinks, { href: "#cta", label: "Ven a comer" }].map(
+          (link: { href: string; label: string }) => (
+            <li>
+              <a
+                href={link.href}
+                data-mobile-link
+                class="block border-b border-neutral-50/15 py-4 font-display text-4xl leading-none tracking-tight"
+              >
+                {link.label}
+              </a>
+            </li>
+          ),
+        )
+      }
+    </ul>
+  </nav>
+  <p class="font-display text-sm text-neutral-400 italic">
+    Aquí no venimos a impresionar. Venimos a comer.
+  </p>
+</div>

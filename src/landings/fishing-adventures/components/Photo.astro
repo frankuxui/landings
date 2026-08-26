@@ -1,0 +1,43 @@
+---
+import type { UnsplashImage } from "../types"
+
+interface Props {
+  image: UnsplashImage
+  class?: string
+  eager?: boolean
+}
+
+const { image, class: className = "aspect-4/3", eager = false } = Astro.props
+const sized = (width: number): string =>
+  `${image.src}&w=${width}&auto=format&fit=crop&q=80`
+---
+
+<figure data-image-reveal>
+  <div class:list={["overflow-hidden bg-placeholder", className]}>
+    <img
+      src={sized(1200)}
+      srcset={`${sized(600)} 600w, ${sized(900)} 900w, ${sized(1200)} 1200w, ${sized(1800)} 1800w`}
+      sizes="(min-width: 1024px) 50vw, 100vw"
+      alt={image.alt}
+      title={`Photo by ${image.author} on Unsplash`}
+      width={image.width}
+      height={image.height}
+      loading={eager ? "eager" : "lazy"}
+      fetchpriority={eager ? "high" : "auto"}
+      decoding="async"
+      class="photo-tone size-full object-cover transition duration-700 ease-landing hover:scale-105"
+    />
+  </div>
+  <figcaption class="mt-2 text-xs text-muted">
+    Photo by <a
+      class="underline underline-offset-2"
+      href={image.authorUrl}
+      rel="noopener">{image.author}</a
+    >
+    on <a
+      class="underline underline-offset-2"
+      href={image.unsplashUrl}
+      rel="noopener">Unsplash</a
+    >
+  </figcaption>
+</figure>

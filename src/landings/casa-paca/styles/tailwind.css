@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+/* Casa Paca owns this complete token contract locally — no import from any
+   other landing or shared file. Token names follow the gallery contract;
+   the typographic scale is tuned for a warm, humble neighborhood-bar
+   composition with dense list content (menu, timeline, rules). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --background: var(--color-neutral-50);
+  --background-alt: var(--color-neutral-100);
+  --foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border: var(--color-neutral-500);
+  --surface: var(--color-white);
+  --surface-strong: var(--color-neutral-100);
+  --control: var(--color-neutral-200);
+  --control-hover: var(--color-neutral-300);
+  --ring: var(--color-neutral-900);
+  --primary: var(--color-neutral-900);
+  --primary-foreground: var(--color-white);
+  --emphasis: var(--color-black);
+  --disabled: var(--color-neutral-300);
+  --disabled-foreground: var(--color-neutral-500);
+  --inverted: var(--color-neutral-950);
+  --inverted-foreground: var(--color-white);
+  --inverted-surface: var(--color-neutral-900);
+  --placeholder: var(--color-neutral-900);
+  --placeholder-foreground: var(--color-white);
+  --placeholder-inverse: rgb(255 255 255 / 0.72);
+}
+
+[data-theme="dark"] {
+  --background: var(--color-neutral-950);
+  --background-alt: var(--color-neutral-900);
+  --foreground: var(--color-neutral-100);
+  --muted: var(--color-neutral-300);
+  --border: var(--color-neutral-500);
+  --surface: var(--color-neutral-900);
+  --surface-strong: var(--color-neutral-800);
+  --control: var(--color-neutral-800);
+  --control-hover: var(--color-neutral-700);
+  --ring: var(--color-neutral-300);
+  --primary: var(--color-neutral-100);
+  --primary-foreground: var(--color-neutral-950);
+  --emphasis: var(--color-white);
+  --disabled: var(--color-neutral-700);
+  --disabled-foreground: var(--color-neutral-400);
+  --inverted: var(--color-neutral-100);
+  --inverted-foreground: var(--color-neutral-950);
+  --inverted-surface: var(--color-neutral-200);
+  --placeholder: var(--color-neutral-300);
+  --placeholder-foreground: var(--color-neutral-900);
+  --placeholder-inverse: rgb(10 10 10 / 0.65);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-emphasis: var(--emphasis);
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
+  --color-inverted-surface: var(--inverted-surface);
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-placeholder-inverse: var(--placeholder-inverse);
+}
+
+@theme {
+  --font-base: "Source Sans 3", sans-serif;
+  --font-sans: var(--font-base);
+  --font-display: "Bree Serif", serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --breakpoint-footer: 45rem;
+  --breakpoint-cards: 47.5rem;
+  --breakpoint-nav: 56.25rem;
+  --breakpoint-stats: 67.5rem;
+  --breakpoint-display: 87.5rem;
+  --spacing-section: 6.5rem;
+  --spacing-container-x: 1.5rem;
+  --container-landing: 88rem;
+  --container-copy: 62ch;
+  --container-heading: 24ch;
+  --container-hero-heading: 16ch;
+  --ease-landing: cubic-bezier(0.22, 1, 0.36, 1);
+  --text-headline-1: clamp(2.75rem, 1.1rem + 7vw, 7.5rem);
+  --text-headline-2: clamp(2.1rem, 1.5rem + 2.4vw, 3.75rem);
+  --text-headline-3: clamp(1.3rem, 1.1rem + 0.8vw, 1.75rem);
+  --text-figure: clamp(2.25rem, 1.6rem + 1.8vw, 4rem);
+}
+
+@utility reveal {
+  opacity: 1;
+  transform: translateY(0);
+  .js-reveal-ready & {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  .js-reveal-ready &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 700ms var(--ease-landing),
+      transform 700ms var(--ease-landing);
+  }
+  @variant motion-reduce {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@utility photo-tone {
+  filter: grayscale(100%) contrast(112%);
+  transition: filter 400ms var(--ease-landing);
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    filter: none;
+  }
+}
+@utility palette-surface-primary {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-primary);
+  }
+}
+@utility palette-surface-light {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-light);
+  }
+}
+
+/* Optional per-landing palette — grayscale is the default every visitor
+   sees first. "Bar de pueblo" is grounded in the warm, worn materials of a
+   real village bar: house-wine red, sun-baked terracotta, toasted counter
+   wood, hand-painted azulejo blue, faded shutter green, aged cream walls. */
+:root,
+html[data-palette="grayscale"] {
+  --color-primary: #171717;
+  --color-secondary: #404040;
+  --color-tertiary: #737373;
+  --color-accent: #a3a3a3;
+  --color-support: #d4d4d4;
+  --color-light: #f5f5f5;
+}
+html[data-palette="bar-de-pueblo"] {
+  --color-primary: #7b2d26;
+  --color-secondary: #c2674f;
+  --color-tertiary: #6a4a3c;
+  --color-accent: #477998;
+  --color-support: #657153;
+  --color-light: #e8d8b8;
+}
+html[data-theme="dark"],
+html[data-theme="dark"][data-palette="grayscale"] {
+  --color-primary: #f5f5f5;
+  --color-secondary: #a3a3a3;
+  --color-tertiary: #737373;
+  --color-accent: #404040;
+  --color-support: #d4d4d4;
+  --color-light: #171717;
+}
+html[data-theme="dark"][data-palette="bar-de-pueblo"] {
+  --color-primary: #e8d8b8;
+  --color-secondary: #477998;
+  --color-tertiary: #6a4a3c;
+  --color-accent: #c2674f;
+  --color-support: #657153;
+  --color-light: #7b2d26;
+}
+
+.stories-slider {
+  --swiper-pagination-color: var(--foreground);
+  --swiper-pagination-bullet-inactive-color: var(--muted);
+  --swiper-pagination-bullet-inactive-opacity: 0.45;
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    --swiper-pagination-color: var(--color-primary);
+  }
+}
+.stories-slider .swiper-pagination-bullet:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 3px;
+}

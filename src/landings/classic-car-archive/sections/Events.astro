@@ -1,0 +1,52 @@
+---
+import Photo from "../components/Photo.astro"
+import { events } from "../data/content"
+import type { EventItem } from "../types"
+---
+
+<section
+  id="events"
+  class="bg-background-alt py-section palette-surface-light"
+  aria-labelledby="events-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <p class="text-sm font-bold tracking-widest text-muted uppercase">
+          Events
+        </p>
+        <h2
+          id="events-heading"
+          class="mt-4 max-w-heading font-display text-headline-2 leading-none text-balance uppercase"
+        >
+          See you on the road.
+        </h2>
+      </div>
+      <div class="divide-y divide-border/35">
+        {
+          events.map((event: EventItem) => (
+            <article class="group reveal grid gap-5 py-7 md:grid-cols-[0.55fr_1fr_0.75fr] md:items-center">
+              <p class="font-display text-4xl leading-none text-(--color-primary)">
+                {event.date}
+              </p>
+              <div>
+                <h3 class="font-display text-headline-3 leading-none uppercase">
+                  {event.title}
+                </h3>
+                <p class="mt-2 text-lg text-muted">{event.place}</p>
+                <p class="mt-3 text-sm font-bold tracking-widest text-muted uppercase">
+                  Vehicle: {event.vehicle}
+                </p>
+              </div>
+              <Photo
+                image={event.image}
+                ratio="4 / 3"
+                class="transition duration-500 ease-landing group-hover:translate-x-2"
+              />
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

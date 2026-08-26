@@ -1,0 +1,77 @@
+---
+import Photo from "../components/Photo.astro"
+import { neighbors, type Neighbor } from "../data/content"
+import { neighborImages } from "../data/images"
+
+const placement: string[] = [
+  "lg:col-start-1 lg:col-span-5",
+  "lg:col-start-8 lg:col-span-5 lg:mt-28",
+  "lg:col-start-3 lg:col-span-6 lg:mt-12",
+]
+const photoRotate: string[] = ["lg:-rotate-2", "lg:rotate-2", "lg:-rotate-1"]
+const cardRotate: string[] = ["-rotate-2", "rotate-1", "-rotate-1"]
+const cardOffset: string[] = [
+  "ml-6 -mt-10 sm:ml-10",
+  "mr-6 -mt-10 self-end sm:mr-10",
+  "ml-6 -mt-10 sm:ml-16",
+]
+---
+
+<section
+  id="neighbors"
+  class="relative overflow-hidden bg-background px-container-x py-section"
+>
+  <div class="mx-auto max-w-landing">
+    <div
+      class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
+    >
+      <p class="max-w-xs font-display text-xl text-muted italic" data-reveal>
+        El bar lo hacen los que vuelven.
+      </p><p class="max-w-copy text-muted sm:text-right" data-reveal>
+        No hay tarjeta de fidelidad. Solo caras que ya conocemos y mesas que
+        casi se reservan solas.
+      </p>
+    </div>
+  </div>
+
+  <h2
+    data-parallax-reverse
+    aria-label="La gente."
+    class="relative z-0 -mx-4 mt-4 leading-[0.8] font-display text-headline-1 font-semibold tracking-tighter text-foreground select-none sm:-mx-10 lg:-mx-16 lg:mt-0"
+  >
+    <span class="block">La</span><span class="block sm:ml-20 lg:ml-40 xl:ml-56"
+      >gente.</span
+    >
+  </h2>
+
+  <div
+    class="relative z-10 mx-auto mt-8 max-w-landing px-container-x lg:-mt-20 xl:-mt-32"
+  >
+    <div class="grid gap-16 lg:grid-cols-12 lg:gap-x-6">
+      {
+        neighbors.map((neighbor: Neighbor, index: number) => (
+          <article class={`relative ${placement[index % placement.length]}`}>
+            <div class={photoRotate[index % photoRotate.length]}>
+              <Photo
+                image={neighborImages[index]}
+                class="aspect-4/5 w-full"
+                eager={index === 0}
+              />
+            </div>
+            <div
+              class={`relative max-w-xs bg-surface p-5 shadow-lg ${cardOffset[index % cardOffset.length]} ${cardRotate[index % cardRotate.length]}`}
+            >
+              <h3 class="font-display text-headline-3 font-semibold">
+                {neighbor.name}
+              </h3>
+              <p class="mt-1 text-sm text-muted">{neighbor.detail}</p>
+              <p class="mt-3 font-display text-lg leading-snug italic">
+                {neighbor.story}
+              </p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

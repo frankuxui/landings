@@ -1,0 +1,75 @@
+---
+import { ArrowDownRight, CalendarClock } from "@lucide/astro"
+import Photo from "../components/Photo.astro"
+import { heroImage } from "../data/images"
+
+const headline = "Si tienes hambre, este es el sitio."
+const words: string[] = headline.split(" ")
+---
+
+<section
+  id="top"
+  class="relative overflow-hidden bg-neutral-950 px-container-x pt-14 pb-section text-neutral-50 md:pt-20"
+>
+  <div class="mx-auto max-w-landing">
+    <p
+      class="mb-6 text-xs font-bold tracking-[0.22em] text-neutral-400 uppercase"
+      data-hero-item
+    >
+      Bar de pueblo · comida de siempre · desde 1978
+    </p>
+    <h1
+      class="max-w-hero-heading text-balance font-display text-headline-1 leading-[0.92] font-semibold tracking-tight"
+    >
+      {
+        words.map((word: string, index: number) => (
+          <span class="inline-block overflow-hidden pb-1 align-bottom">
+            <span data-hero-word class="inline-block">
+              {word}
+              {index < words.length - 1 ? " " : ""}
+            </span>
+          </span>
+        ))
+      }
+    </h1>
+    <div class="mt-10 grid gap-10 md:grid-cols-[1fr_0.75fr] md:items-end">
+      <div data-hero-item>
+        <p class="max-w-copy font-display text-xl text-neutral-300 italic">
+          Aquí no servimos experiencias. Servimos comida.
+        </p>
+        <p class="mt-2 max-w-copy font-display text-xl text-neutral-300 italic">
+          Y pan. Mucho pan.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3 md:justify-end" data-hero-item>
+        <a
+          href="#menu"
+          class="inline-flex min-h-12 items-center gap-2 border-2 border-neutral-50 bg-neutral-50 px-6 font-display text-sm font-bold tracking-wide text-neutral-950 uppercase transition hover:scale-105 hover:bg-transparent hover:text-neutral-50"
+          >Ver lo que hay <ArrowDownRight size={18} aria-hidden="true" /></a
+        ><a
+          href="#visit"
+          class="inline-flex min-h-12 items-center gap-2 border-2 border-neutral-50/35 px-6 font-display text-sm font-bold tracking-wide text-neutral-50 uppercase transition hover:scale-105 hover:border-neutral-50"
+          ><CalendarClock size={17} aria-hidden="true" /> Reservar si te acuerdas</a
+        >
+      </div>
+    </div>
+    <div class="relative mt-12">
+      <Photo image={heroImage} class="aspect-4/3 w-full md:aspect-21/9" eager />
+      <span
+        data-hero-note
+        class="pointer-events-none absolute top-6 left-4 -rotate-3 rounded-sm bg-surface px-3 py-1.5 font-display text-sm text-foreground italic shadow-lg md:top-8 md:left-8"
+        >Pan sí tenemos.</span
+      >
+      <span
+        data-hero-note
+        class="pointer-events-none absolute right-4 bottom-24 rotate-2 rounded-sm bg-surface px-3 py-1.5 font-display text-sm text-foreground italic shadow-lg md:right-10 md:bottom-28"
+        >Reservar ayuda, pero tampoco hace milagros.</span
+      >
+      <span
+        data-hero-note
+        class="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 -rotate-1 rounded-sm bg-surface px-3 py-1.5 font-display text-sm text-foreground italic shadow-lg md:left-12 md:translate-x-0"
+        >Los domingos esto se llena.</span
+      >
+    </div>
+  </div>
+</section>

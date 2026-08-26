@@ -1,0 +1,78 @@
+---
+import { menu, type MenuGroup, type MenuItem } from "../data/content"
+
+const itemSizes: string[] = [
+  "text-2xl",
+  "text-xl",
+  "text-lg",
+  "text-2xl",
+  "text-lg",
+]
+---
+
+<section
+  id="menu"
+  class="relative overflow-hidden bg-neutral-950 px-container-x py-section text-neutral-50"
+>
+  <div class="mx-auto max-w-landing">
+    <header class="border-b-2 border-dashed border-neutral-50/25 pb-8">
+      <p
+        class="mb-4 text-xs font-bold tracking-widest text-neutral-400 uppercase"
+        data-reveal
+      >
+        Lo que hay
+      </p><h2
+        class="max-w-heading text-balance font-display text-headline-1 leading-[0.9] font-semibold tracking-tight"
+        data-reveal
+      >
+        Hoy hay esto.
+      </h2><p
+        class="mt-4 max-w-copy font-display text-lg text-neutral-400 italic"
+        data-reveal
+      >
+        Mañana, ya se verá. Y lo que no hay, no lo tenemos.
+      </p>
+    </header>
+    <div class="mt-14 grid gap-14 cards:grid-cols-3 cards:gap-10">
+      {
+        menu.map((group: MenuGroup, groupIndex: number) => (
+          <div
+            data-reveal-stagger
+            class={groupIndex === 1 ? "cards:mt-10" : ""}
+          >
+            <h3 class="border-b border-neutral-50/25 pb-3 font-display text-sm font-bold tracking-widest text-neutral-400 uppercase">
+              {group.category}
+            </h3>
+            <ul class="mt-6 grid gap-6">
+              {group.items.map((item: MenuItem, itemIndex: number) => (
+                <li
+                  data-reveal-item
+                  class="border-b border-neutral-50/10 pb-5 last:border-b-0"
+                >
+                  <div class="flex items-baseline justify-between gap-4">
+                    <span
+                      class:list={[
+                        "font-display font-semibold",
+                        itemSizes[itemIndex % itemSizes.length],
+                      ]}
+                    >
+                      {item.name}
+                    </span>
+                    <span class="shrink-0 font-display text-base font-bold tabular-nums text-neutral-300">
+                      {item.price}
+                    </span>
+                  </div>
+                  {item.note ? (
+                    <p class="mt-1.5 font-display text-sm text-neutral-400 italic">
+                      {item.note}
+                    </p>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

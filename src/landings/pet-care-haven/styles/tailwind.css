@@ -211,6 +211,36 @@
   outline-offset: 3px;
 }
 
+/* "Stories worth telling" gives each slide an explicit height per
+   breakpoint via Tailwind utilities on the .swiper-slide element in
+   Stories.astro (h-[26rem] sm:h-[30rem] lg:h-[34rem]) — but Swiper's own
+   stylesheet (swiper/css, imported at runtime by scripts/storiesSlider.ts)
+   ships `.swiper-slide { height: 100% }` at the exact same specificity, and
+   whichever rule's <style>/<link> happens to land later in the document
+   wins. That 100% then resolves against an indeterminate-height ancestor
+   chain and collapses every slide (and the photograph inside it) to the
+   height of its caption alone. Repeating the same three heights here, once,
+   scoped to this landing's own slider selector, gives Tailwind's intent a
+   higher-specificity rule so it always wins regardless of import order —
+   Tailwind has no utility for guaranteeing selector specificity, so this is
+   the minimal native-CSS way to keep the slide (and its photo) reliably
+   visible. */
+.stories-slider .swiper-slide {
+  height: 26rem;
+}
+
+@media (min-width: 40rem) {
+  .stories-slider .swiper-slide {
+    height: 30rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .stories-slider .swiper-slide {
+    height: 34rem;
+  }
+}
+
 /* "A day of care" pinned scene rail hides the native scrollbar on its
    Mobile/Tablet horizontal fallback — Tailwind has no utility for
    scrollbar-width/::-webkit-scrollbar. */

@@ -29,6 +29,7 @@ const paletteSchema = z.object({
     secondary: z.string(),
     tertiary: z.string(),
     accent: z.string(),
+    support: z.string().optional(),
     light: z.string(),
   }),
 })

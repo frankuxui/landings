@@ -1,0 +1,41 @@
+---
+import Photo from "../components/Photo.astro"
+import { journeys } from "../data/content"
+import type { Journey } from "../types"
+---
+
+<section
+  class="bg-inverted py-section text-inverted-foreground"
+  aria-labelledby="journeys-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="mb-12">
+      <p class="text-sm font-bold tracking-widest text-current/65 uppercase">
+        Miles with history
+      </p>
+      <h2
+        id="journeys-heading"
+        class="mt-4 max-w-heading font-display text-headline-2 leading-none text-balance uppercase"
+      >
+        The archive only makes sense when it leaves the garage.
+      </h2>
+    </div>
+    <div class="grid gap-6 md:grid-cols-3">
+      {
+        journeys.map((journey: Journey) => (
+          <article class="reveal">
+            <Photo image={journey.image} ratio="3 / 4" />
+            <p class="mt-5 font-display text-4xl leading-none">
+              {journey.distance}
+            </p>
+            <h3 class="mt-3 text-2xl font-bold">{journey.route}</h3>
+            <p class="mt-2 text-sm font-bold tracking-widest text-current/65 uppercase">
+              {journey.vehicle}
+            </p>
+            <p class="mt-4 text-lg text-current/75">"{journey.text}"</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

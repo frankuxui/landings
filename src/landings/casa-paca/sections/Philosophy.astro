@@ -1,0 +1,38 @@
+---
+const lines: string[] = [
+  "Tenemos poca comida, pero la poca que tenemos está sabrosa.",
+  "Preferimos hacer cinco cosas bien que veinte regular.",
+  "Si se acaba algo, se acabó.",
+  "Y mañana será otro día.",
+]
+---
+
+<section
+  id="philosophy"
+  data-philosophy-section
+  class="bg-neutral-950 px-container-x py-section text-neutral-50"
+>
+  <div class="mx-auto max-w-landing">
+    <p
+      class="mb-16 text-xs font-bold tracking-widest text-neutral-400 uppercase"
+      data-reveal
+    >
+      Nuestra filosofía
+    </p>
+    <div class="grid gap-10 md:gap-14">
+      {
+        lines.map((line: string, index: number) => (
+          <p
+            data-philosophy-line
+            class:list={[
+              "max-w-heading font-display text-headline-2 leading-tight font-medium tracking-tight",
+              index % 2 === 1 ? "md:ml-16" : "",
+            ]}
+          >
+            {line}
+          </p>
+        ))
+      }
+    </div>
+  </div>
+</section>

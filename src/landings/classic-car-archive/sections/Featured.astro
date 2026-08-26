@@ -1,0 +1,82 @@
+---
+import { ArrowLeft, ArrowRight } from "@lucide/astro"
+import Photo from "../components/Photo.astro"
+import { featuredVehicles } from "../data/content"
+import type { FeaturedVehicle } from "../types"
+---
+
+<section
+  class="bg-background-alt py-section palette-surface-light"
+  aria-labelledby="featured-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div
+      class="mb-8 flex flex-col justify-between gap-6 md:flex-row md:items-end"
+    >
+      <div>
+        <p class="text-sm font-bold tracking-widest text-muted uppercase">
+          Featured vehicles
+        </p>
+        <h2
+          id="featured-heading"
+          class="mt-4 max-w-heading font-display text-headline-2 leading-none text-balance uppercase"
+        >
+          Large slides, small mechanical truths.
+        </h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <button
+          type="button"
+          data-featured-prev
+          aria-label="Previous featured vehicle"
+          class="inline-flex size-12 min-h-11 cursor-pointer items-center justify-center rounded-sm border border-border/40 bg-transparent text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <ArrowLeft aria-hidden="true" width="20" height="20" />
+        </button>
+        <button
+          type="button"
+          data-featured-next
+          aria-label="Next featured vehicle"
+          class="inline-flex size-12 min-h-11 cursor-pointer items-center justify-center rounded-sm border border-border/40 bg-transparent text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <ArrowRight aria-hidden="true" width="20" height="20" />
+        </button>
+      </div>
+    </div>
+
+    <div class="swiper featured-slider" data-featured-slider>
+      <div class="swiper-wrapper">
+        {
+          featuredVehicles.map((vehicle: FeaturedVehicle) => (
+            <article class="swiper-slide w-full">
+              <div class="grid min-h-screen gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-center">
+                <Photo image={vehicle.image} ratio="16 / 10" />
+                <div class="reveal">
+                  <p class="text-sm font-bold tracking-widest text-muted uppercase">
+                    {vehicle.number} /{" "}
+                    {String(featuredVehicles.length).padStart(2, "0")}
+                  </p>
+                  <p class="mt-8 font-display text-figure leading-none text-(--color-primary)">
+                    {vehicle.year}
+                  </p>
+                  <h3 class="mt-4 font-display text-headline-3 leading-none uppercase">
+                    {vehicle.marque}
+                    <span class="block text-foreground/70">
+                      {vehicle.model}
+                    </span>
+                  </h3>
+                  <p class="mt-6 text-xl text-muted">{vehicle.highlight}</p>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <div
+        class="featured-slider-pagination mt-6 flex justify-center"
+        data-featured-pagination
+      >
+      </div>
+    </div>
+  </div>
+</section>

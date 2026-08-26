@@ -1,0 +1,54 @@
+---
+import { Play } from "@lucide/astro"
+import { engineSounds } from "../data/content"
+import type { EngineSound } from "../types"
+---
+
+<section class="bg-background py-section" aria-labelledby="sounds-heading">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <p class="text-sm font-bold tracking-widest text-muted uppercase">
+          Sounds
+        </p>
+        <h2
+          id="sounds-heading"
+          class="mt-4 max-w-heading font-display text-headline-2 leading-none text-balance uppercase"
+        >
+          Some memories are heard first.
+        </h2>
+      </div>
+      <div class="grid gap-4">
+        {
+          engineSounds.map((sound: EngineSound) => (
+            <article class="reveal grid gap-5 bg-surface p-5 md:grid-cols-[0.4fr_1fr] md:items-center">
+              <div>
+                <button
+                  type="button"
+                  aria-label={`Play sample for ${sound.vehicle}`}
+                  class="inline-flex size-12 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-control text-foreground transition duration-200 ease-landing hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+                >
+                  <Play aria-hidden="true" width="18" height="18" />
+                </button>
+                <p class="mt-4 font-display text-3xl leading-none uppercase">
+                  {sound.engine}
+                </p>
+                <p class="mt-2 text-sm font-bold tracking-widest text-muted uppercase">
+                  {sound.vehicle}
+                </p>
+              </div>
+              <div class="flex h-24 items-end gap-2" aria-hidden="true">
+                {sound.bars.map((bar: number) => (
+                  <span
+                    class="block flex-1 bg-foreground/80"
+                    style={`height: ${bar}%`}
+                  />
+                ))}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

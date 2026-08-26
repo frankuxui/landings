@@ -1,0 +1,55 @@
+---
+import { Camera, Map, Users, Wrench } from "@lucide/astro"
+---
+
+<section class="bg-background py-section" aria-labelledby="community-heading">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="mx-auto max-w-copy text-center">
+      <p class="text-sm font-bold tracking-widest text-muted uppercase">
+        Community
+      </p>
+      <h2
+        id="community-heading"
+        class="mx-auto mt-4 max-w-heading font-display text-headline-2 leading-none text-balance uppercase"
+      >
+        The cars are the excuse. The people are the point.
+      </h2>
+    </div>
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <article class="reveal bg-surface p-5">
+        <Users aria-hidden="true" width="26" height="26" stroke-width="1.5" />
+        <h3 class="mt-8 font-display text-3xl leading-none uppercase">Clubs</h3>
+        <p class="mt-3 text-muted">
+          Shared routes, spare parts, archive notes, and patient hands.
+        </p>
+      </article>
+      <article class="reveal bg-surface p-5">
+        <Wrench aria-hidden="true" width="26" height="26" stroke-width="1.5" />
+        <h3 class="mt-8 font-display text-3xl leading-none uppercase">
+          Mechanics
+        </h3>
+        <p class="mt-3 text-muted">
+          People who can hear a problem before the bonnet is open.
+        </p>
+      </article>
+      <article class="reveal bg-surface p-5">
+        <Camera aria-hidden="true" width="26" height="26" stroke-width="1.5" />
+        <h3 class="mt-8 font-display text-3xl leading-none uppercase">
+          Photographers
+        </h3>
+        <p class="mt-3 text-muted">
+          The ones who know chrome behaves better before noon.
+        </p>
+      </article>
+      <article class="reveal bg-surface p-5">
+        <Map aria-hidden="true" width="26" height="26" stroke-width="1.5" />
+        <h3 class="mt-8 font-display text-3xl leading-none uppercase">
+          Owners
+        </h3>
+        <p class="mt-3 text-muted">
+          Every meeting ends with one more route to try next month.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>

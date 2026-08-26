@@ -1,0 +1,66 @@
+---
+import Photo from "../components/Photo.astro"
+import { environmentImages } from "../data/images"
+import { environments, type Environment } from "../data/content"
+---
+
+<section id="waters" class="px-container-x py-section">
+  <div class="mx-auto max-w-landing">
+    <header class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+      <div>
+        <p class="mb-4 text-xs font-bold tracking-widest uppercase">
+          Four waters
+        </p>
+        <h2
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold tracking-tight"
+        >
+          Each landscape asks for a different pace.
+        </h2>
+      </div>
+      <p class="max-w-copy text-lg text-muted lg:justify-self-end">
+        A practical atlas of the environments that shape the journal—what
+        changes, what stays useful, and what each kind of water teaches.
+      </p>
+    </header>
+    <div class="mt-14 grid gap-x-6 gap-y-14 md:grid-cols-2">
+      {
+        environments.map((environment: Environment, index: number) => (
+          <article
+            data-reveal
+            class:list={["group", index % 2 === 1 && "md:mt-20"]}
+          >
+            <Photo image={environmentImages[index]} class="aspect-4/3 w-full" />
+            <div class="mt-5 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-start">
+              <div>
+                <p class="text-xs font-bold tracking-widest uppercase text-muted">
+                  {environment.code}
+                </p>
+                <h3 class="mt-2 text-headline-3 leading-tight font-semibold">
+                  {environment.name}
+                </h3>
+                <p class="mt-3 max-w-lg text-muted">{environment.note}</p>
+              </div>
+              <dl class="min-w-52 space-y-3 text-sm">
+                <div>
+                  <>
+                    <dt class="text-muted">Best window</dt>
+                    <dd class="font-semibold">{environment.season}</dd>
+                  </>
+                </div>
+                <div>
+                  <>
+                    <dt class="text-muted">Method</dt>
+                    <dd class="font-semibold">{environment.method}</dd>
+                  </>
+                </div>
+              </dl>
+            </div>
+            <p class="mt-5 border-t border-border pt-4 text-sm font-semibold">
+              {environment.principle}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

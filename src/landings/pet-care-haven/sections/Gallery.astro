@@ -9,13 +9,19 @@ import type { GalleryPet } from "../types"
 
 // One static span pattern per tile position — discrete, statically
 // detectable Tailwind classes (never dynamically constructed utility
-// names), producing the mosaic's varied rhythm on Laptop/Desktop.
+// names), producing the mosaic's varied rhythm on Laptop/Desktop. Ten
+// tiles now cycle through a longer, still-deliberate rhythm instead of
+// repeating the same six-tile beat twice.
 const spanPattern: string[] = [
   "lg:col-span-2 lg:row-span-2",
   "lg:col-span-1 lg:row-span-1",
   "lg:col-span-1 lg:row-span-2",
   "lg:col-span-1 lg:row-span-1",
   "lg:col-span-2 lg:row-span-1",
+  "lg:col-span-1 lg:row-span-1",
+  "lg:col-span-1 lg:row-span-1",
+  "lg:col-span-2 lg:row-span-2",
+  "lg:col-span-1 lg:row-span-1",
   "lg:col-span-1 lg:row-span-1",
 ]
 ---

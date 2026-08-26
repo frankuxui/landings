@@ -1,0 +1,90 @@
+---
+import { ArrowLeft, ArrowRight } from "@lucide/astro"
+import Photo from "../components/Photo.astro"
+import { storyImages } from "../data/images"
+import { stories, type Story } from "../data/content"
+---
+
+<section
+  id="stories"
+  class="stories-slider bg-background-alt px-container-x py-section"
+>
+  <div class="mx-auto max-w-landing">
+    <header
+      class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
+    >
+      <div>
+        <p class="mb-4 text-xs font-bold tracking-widest uppercase">
+          Fishing stories
+        </p><h2
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold tracking-tight"
+        >
+          Field notes from the days that stayed.
+        </h2>
+      </div>
+      <div class="flex gap-2">
+        <button
+          data-story-prev
+          type="button"
+          aria-label="Previous story"
+          class="grid size-12 place-items-center rounded-full bg-control transition hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:opacity-40"
+          ><ArrowLeft size={19} aria-hidden="true" /></button
+        >
+        <button
+          data-story-next
+          type="button"
+          aria-label="Next story"
+          class="grid size-12 place-items-center rounded-full bg-control transition hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:opacity-40"
+          ><ArrowRight size={19} aria-hidden="true" /></button
+        >
+      </div>
+    </header>
+    <div data-stories-slider class="swiper mt-12 overflow-visible">
+      <div class="swiper-wrapper">
+        {
+          stories.map((story: Story, index: number) => (
+            <article class="swiper-slide bg-surface">
+              <div class="grid lg:grid-cols-[1.08fr_0.92fr]">
+                <Photo
+                  image={storyImages[index]}
+                  class="aspect-4/3 w-full lg:h-full lg:aspect-auto"
+                />
+                <div class="flex flex-col p-7 md:p-10">
+                  <div class="flex justify-between gap-4 text-xs font-bold tracking-widest uppercase">
+                    <>
+                      <span>{story.tag}</span>
+                      <span>
+                        {String(index + 1).padStart(2, "0")} /{" "}
+                        {String(stories.length).padStart(2, "0")}
+                      </span>
+                    </>
+                  </div>
+                  <h3 class="mt-8 text-headline-3 leading-tight font-semibold">
+                    {story.title}
+                  </h3>
+                  <p class="mt-2 text-sm text-muted">{story.location}</p>
+                  <p class="mt-6 text-lg leading-relaxed">{story.text}</p>
+                  <dl class="mt-8 grid gap-5 border-t border-border pt-6 text-sm sm:grid-cols-2 lg:mt-auto">
+                    <div>
+                      <>
+                        <dt class="text-muted">Conditions</dt>
+                        <dd class="mt-1 font-semibold">{story.conditions}</dd>
+                      </>
+                    </div>
+                    <div>
+                      <>
+                        <dt class="text-muted">What stayed</dt>
+                        <dd class="mt-1 font-semibold">{story.lesson}</dd>
+                      </>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <div data-story-pagination class="mt-8 flex justify-center"></div>
+    </div>
+  </div>
+</section>

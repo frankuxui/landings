@@ -1,0 +1,59 @@
+---
+import Photo from "../components/Photo.astro"
+import { coastImage, heroImage, riverImage } from "../data/images"
+import { highlights, type Highlight } from "../data/content"
+const images = [heroImage, riverImage, coastImage]
+---
+
+<section
+  id="highlights"
+  class="bg-inverted palette-surface-primary px-container-x py-section text-inverted-foreground"
+>
+  <div class="mx-auto max-w-landing">
+    <header class="grid gap-6 lg:grid-cols-2 lg:items-end">
+      <div>
+        <p class="mb-4 text-xs font-bold tracking-widest uppercase">
+          Highlighted adventures
+        </p><h2
+          class="max-w-heading text-balance text-headline-2 leading-tight font-semibold tracking-tight"
+        >
+          The catch matters. The context makes the story.
+        </h2>
+      </div>
+      <p class="max-w-copy text-lg opacity-75 lg:justify-self-end">
+        Three entries where preparation, changing conditions, and restraint
+        mattered more than chasing a number.
+      </p>
+    </header>
+    <div class="mt-14 space-y-16">
+      {
+        highlights.map((item: Highlight, index: number) => (
+          <article
+            class="grid gap-8 lg:grid-cols-12 lg:items-center"
+            data-reveal
+          >
+            <div
+              class:list={["lg:col-span-7", index % 2 === 1 && "lg:order-2"]}
+            >
+              <Photo image={images[index]} class="aspect-16/10 w-full" />
+            </div>
+            <div class="lg:col-span-5">
+              <p class="text-xs font-bold tracking-widest uppercase opacity-65">
+                {item.label}
+              </p>
+              <h3 class="mt-4 text-headline-3 leading-tight font-semibold">
+                {item.title}
+              </h3>
+              <p class="mt-5 text-lg leading-relaxed opacity-80">
+                {item.summary}
+              </p>
+              <p class="mt-7 border-t border-current/30 pt-5 text-sm font-semibold">
+                {item.detail}
+              </p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,42 @@
+---
+import { ArrowRight } from "@lucide/astro"
+import Photo from "../components/Photo.astro"
+import { ctaGroupImage } from "../data/images"
+---
+
+<section
+  id="cta"
+  class="palette-surface-primary bg-inverted px-container-x py-section text-inverted-foreground"
+>
+  <div class="mx-auto max-w-landing">
+    <div class="overflow-hidden bg-surface p-3" data-parallax="slow">
+      <Photo image={ctaGroupImage} class="aspect-video w-full md:aspect-21/9" />
+    </div>
+    <div
+      class="mt-10 grid gap-8 md:grid-cols-[1fr_0.8fr] md:items-end"
+      data-reveal
+    >
+      <div>
+        <h2
+          class="max-w-heading text-balance font-display text-headline-1 leading-[0.95] font-semibold tracking-tight"
+        >
+          ¿Tienes hambre?
+        </h2>
+        <p class="mt-4 max-w-copy text-lg opacity-80">
+          Pues ya estamos tardando.
+        </p>
+      </div>
+      <div class="flex flex-col items-start gap-4 md:items-end">
+        <a
+          href="#visit"
+          class="inline-flex min-h-12 items-center gap-2 border-2 border-(--color-light) bg-(--color-light) px-7 font-display text-sm font-bold tracking-wide text-(--color-primary) uppercase transition hover:scale-105 hover:bg-transparent hover:text-(--color-light)"
+          >Ven a comer <ArrowRight size={18} aria-hidden="true" /></a
+        >
+        <p class="max-w-copy text-sm opacity-70 italic md:text-right">
+          Si somos muchos, llama antes. Si sois dos, ya veremos dónde os
+          metemos.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

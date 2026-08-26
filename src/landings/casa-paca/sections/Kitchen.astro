@@ -1,0 +1,49 @@
+---
+import Photo from "../components/Photo.astro"
+import { kitchenImage } from "../data/images"
+
+const facts: string[] = [
+  "Nunca mide la sal.",
+  "No sabe qué es un emplatado.",
+  "Se enfada si dejas comida en el plato.",
+  "Dice que todos estáis demasiado delgados.",
+]
+---
+
+<section
+  id="kitchen"
+  class="palette-surface-primary bg-inverted px-container-x py-section text-inverted-foreground"
+>
+  <div
+    class="mx-auto grid max-w-landing gap-12 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16"
+  >
+    <div>
+      <p
+        class="mb-4 text-xs font-bold tracking-widest uppercase opacity-70"
+        data-reveal
+      >
+        Aquí cocina alguien de verdad
+      </p><h2
+        class="max-w-heading text-balance font-display text-headline-2 leading-tight font-semibold tracking-tight"
+        data-reveal
+      >
+        Aquí no cocina un concepto. Cocina Paca.
+      </h2>
+      <ul class="mt-10 grid gap-4" data-reveal-stagger>
+        {
+          facts.map((fact: string) => (
+            <li
+              data-reveal-item
+              class="border-t border-inverted-foreground/20 pt-4 text-lg"
+            >
+              {fact}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="bg-surface p-3">
+      <Photo image={kitchenImage} class="aspect-4/5 w-full" />
+    </div>
+  </div>
+</section>

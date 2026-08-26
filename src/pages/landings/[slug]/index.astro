@@ -36,39 +36,41 @@ const { data } = landing
     <div class="container">
       <div class="flex flex-row items-center gap-8">
         <div class="flex items-start flex-col">
-          <figure class="preview-image">
-            <img
-              src={data.thumbnail}
-              alt={data.thumbnailAlt ?? ""}
-              width={data.thumbnailWidth}
-              height={data.thumbnailHeight}
-              loading="eager"
-              decoding="async"
-              class="rounded-2xl w-full max-w-3xl grayscale contrast-125"
-            />
-            {
-              data.thumbnailCredit && (
-                <figcaption class="text-xs text-muted mt-2">
-                  Foto:{" "}
-                  <a
-                    href={data.thumbnailCredit.authorUrl}
-                    rel="noopener"
-                    target="_blank"
-                  >
-                    {data.thumbnailCredit.author}
-                  </a>{" "}
-                  ·{" "}
-                  <a
-                    href={data.thumbnailCredit.unsplashUrl}
-                    rel="noopener"
-                    target="_blank"
-                  >
-                    Unsplash
-                  </a>
-                </figcaption>
-              )
-            }
-          </figure>
+          {
+            data.thumbnail && (
+              <figure class="preview-image">
+                <img
+                  src={data.thumbnail}
+                  alt={data.thumbnailAlt ?? ""}
+                  width={data.thumbnailWidth}
+                  height={data.thumbnailHeight}
+                  loading="eager"
+                  decoding="async"
+                  class="rounded-2xl w-full max-w-3xl grayscale contrast-125"
+                />
+                {data.thumbnailCredit && (
+                  <figcaption class="text-xs text-muted mt-2">
+                    Foto:{" "}
+                    <a
+                      href={data.thumbnailCredit.authorUrl}
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      {data.thumbnailCredit.author}
+                    </a>{" "}
+                    ·{" "}
+                    <a
+                      href={data.thumbnailCredit.unsplashUrl}
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      Unsplash
+                    </a>
+                  </figcaption>
+                )}
+              </figure>
+            )
+          }
           <header class="w-full mt-4 flex flex-col items-start gap-2">
             <h1 class="font-semibold text-3xl">{data.name}</h1>
             <p class="text-muted w-full max-w-2xl">{data.description}</p>

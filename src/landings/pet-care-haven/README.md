@@ -23,9 +23,10 @@ trustworthy caregiver for their pet.
   `CaregiverCard`, `BackToTop`.
 - `data/` — typed content for the landing: navigation, the day-of-care
   scenes, services, gallery pets, stories, testimonials, trust figures,
-  process steps, the caregiver team, and the Unsplash photograph metadata
-  used throughout the landing, plus a consolidated `images.ts` that
-  collects every distinct photo for the footer's "Photo credits" list.
+  process steps, the caregiver team, the Contact section's photograph, and
+  the Unsplash photograph metadata used throughout the landing, plus a
+  consolidated `images.ts` that collects every distinct photo for the
+  footer's "Photo credits" list.
 - `styles/tailwind.css` — this landing's local Tailwind CSS v4 visual
   system, complete and self-contained: semantic tokens (`:root` /
   `[data-theme="dark"]` / `@theme inline`), fluid typography, its own
@@ -40,8 +41,11 @@ trustworthy caregiver for their pet.
   `[data-split-reveal]` in Scenes, Services, Process, and Editorial),
   `scenesPin.ts` (the GSAP + ScrollTrigger detail panel for "A day of care"
   on Laptop/Desktop), `statsCounter.ts` (the GSAP count-up for the "Trust"
-  figures), `storiesSlider.ts` and `testimonialsSlider.ts` (Swiper Core
-  carousels), `backToTop.ts` (the floating "back to top" control).
+  figures — it tracks only the `ScrollTrigger` instances it creates and
+  kills only those on a `prefers-reduced-motion` change, so it never
+  interferes with `ScrollTrigger`s owned by Hero/Scenes), `storiesSlider.ts`
+  and `testimonialsSlider.ts` (Swiper Core carousels), `backToTop.ts` (the
+  floating "back to top" control).
 - `types.ts` — this landing's own content types (not shared with the
   platform or any other landing, aside from replicating the
   `unsplash-images` Skill's `UnsplashImage` shape).
@@ -115,6 +119,13 @@ Four service photographs reuse the exact same selection already made for
 the matching scene in "A day of care" (same `id`, same credit) instead of
 a new Unsplash search — it is the same photograph used in two contexts, not
 a different photograph.
+
+The pet gallery mosaic (`data/gallery.ts`) holds ten companions (five dogs,
+five cats, mixing portraits, resting, and playful action shots), and
+"Stories worth telling" (`data/stories.ts`) holds six stories — each set
+was widened from a thinner initial pass to read as a fuller, richer
+collection. The Contact section (`data/contact.ts`) also carries its own
+supporting photograph.
 
 ## Fictional data and privacy
 

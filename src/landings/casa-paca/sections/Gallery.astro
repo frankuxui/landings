@@ -1,0 +1,61 @@
+---
+import Photo from "../components/Photo.astro"
+import { galleryImages } from "../data/images"
+import type { UnsplashImage } from "../types"
+
+const offsets: string[] = [
+  "",
+  "md:mt-14",
+  "md:-mt-6",
+  "md:mt-8",
+  "",
+  "md:mt-10",
+  "md:-mt-4",
+]
+const spans: string[] = [
+  "sm:col-span-3",
+  "sm:col-span-3",
+  "sm:col-span-2",
+  "sm:col-span-4",
+  "sm:col-span-3",
+  "sm:col-span-3",
+  "sm:col-span-6",
+]
+const ratios: string[] = [
+  "aspect-4/5",
+  "aspect-square",
+  "aspect-4/3",
+  "aspect-video",
+  "aspect-3/4",
+  "aspect-4/3",
+  "aspect-21/9",
+]
+---
+
+<section id="gallery" class="bg-background-alt px-container-x py-section">
+  <div class="mx-auto max-w-landing">
+    <p class="mb-4 text-xs font-bold tracking-widest uppercase" data-reveal>
+      El álbum
+    </p><h2
+      class="max-w-heading text-balance font-display text-headline-2 leading-tight font-semibold tracking-tight"
+      data-reveal
+    >
+      Platos, manos, barra y pueblo.
+    </h2>
+    <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-6 sm:gap-6">
+      {
+        galleryImages.map((image: UnsplashImage, index: number) => (
+          <div
+            class={`${spans[index % spans.length]} ${offsets[index % offsets.length]}`}
+            data-parallax={index % 2 === 0 ? "slow" : "fast"}
+          >
+            <Photo
+              image={image}
+              class={`${ratios[index % ratios.length]} w-full`}
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

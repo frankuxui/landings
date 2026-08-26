@@ -1,0 +1,129 @@
+---
+import { navLinks } from "../data/nav"
+import { allImages } from "../data/images"
+import type { NavLink, UnsplashImage } from "../types"
+
+const year = new Date().getFullYear()
+---
+
+<footer class="overflow-hidden bg-inverted pt-16 pb-6 text-inverted-foreground">
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <a
+      href="#home"
+      class="font-display text-headline-3 leading-none text-inherit uppercase no-underline"
+    >
+      Classic Car Archive
+    </a>
+    <p class="mt-5 max-w-copy text-lg text-current/70">
+      A private, fictional landing demo for a classic-car collector's garage,
+      restoration notes, events, journeys, and photographic archive.
+    </p>
+
+    <div class="mt-14 grid gap-10 footer:grid-cols-3">
+      <nav aria-label="Footer navigation">
+        <p
+          class="mb-4 text-sm font-bold tracking-widest text-current/55 uppercase"
+        >
+          Collection
+        </p>
+        <ul class="flex flex-col gap-3">
+          {
+            navLinks.map((link: NavLink) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-current/75 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <p
+          class="mb-4 text-sm font-bold tracking-widest text-current/55 uppercase"
+        >
+          Events and archive
+        </p>
+        <ul class="flex flex-col gap-3 text-current/75">
+          <li>Private garage visits</li>
+          <li>Exhibition notes</li>
+          <li>Restoration logs</li>
+          <li>Photo archive</li>
+        </ul>
+      </div>
+
+      <div>
+        <p
+          class="mb-4 text-sm font-bold tracking-widest text-current/55 uppercase"
+        >
+          Contact
+        </p>
+        <ul class="flex flex-col gap-3">
+          <li>
+            <a
+              class="text-current/75 no-underline hover:text-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+              href="mailto:email@example.com">email@example.com</a
+            >
+          </li>
+          <li class="text-current/75">Instagram</li>
+          <li class="text-current/75">YouTube</li>
+        </ul>
+      </div>
+    </div>
+
+    <p
+      class="mt-16 -mb-5 font-display text-headline-1 leading-none text-current/15 uppercase"
+      aria-hidden="true"
+    >
+      Keep them running
+    </p>
+  </div>
+
+  <div
+    class="mx-auto mt-8 w-full max-w-landing px-container-x sm:px-8 xl:px-14"
+  >
+    <div class="h-px bg-current/15" aria-hidden="true"></div>
+    <p class="pt-6 text-sm text-current/60">
+      © {year} Classic Car Archive. Fictional landing demo.
+    </p>
+  </div>
+
+  <div
+    class="mx-auto mt-6 w-full max-w-landing px-container-x pt-6 text-xs text-current/60 sm:px-8 xl:px-14"
+  >
+    <p class="font-bold tracking-widest text-current/70 uppercase">
+      Photo credits
+    </p>
+    <ul class="mt-3 flex flex-wrap gap-x-2 gap-y-1">
+      {
+        allImages.map((image: UnsplashImage, index: number) => (
+          <li>
+            Photo by{" "}
+            <a
+              href={image.authorUrl}
+              rel="noopener"
+              target="_blank"
+              class="underline underline-offset-4"
+            >
+              {image.author}
+            </a>{" "}
+            on{" "}
+            <a
+              href={image.unsplashUrl}
+              rel="noopener"
+              target="_blank"
+              class="underline underline-offset-4"
+            >
+              Unsplash
+            </a>
+            {index < allImages.length - 1 ? "," : ""}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

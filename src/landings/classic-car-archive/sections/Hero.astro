@@ -1,0 +1,100 @@
+---
+import { ArrowRight } from "@lucide/astro"
+import { garageHeroImage } from "../data/images"
+---
+
+<section
+  id="home"
+  class="relative bg-background text-foreground archive-texture"
+>
+  <figure class="m-0">
+    <div
+      class="relative flex min-h-screen items-end overflow-hidden px-container-x pt-28 pb-12 sm:px-8 lg:items-center xl:px-14"
+    >
+      <img
+        src={garageHeroImage.src}
+        alt={garageHeroImage.alt}
+        title={`Photo by ${garageHeroImage.author} on Unsplash`}
+        width={garageHeroImage.width}
+        height={garageHeroImage.height}
+        loading="eager"
+        decoding="async"
+        class="absolute inset-0 h-full w-full scale-110 object-cover opacity-80 photo-tone"
+        data-hero-image
+      />
+      <div
+        class="absolute inset-0 bg-linear-to-t from-background via-background/70 to-background/10"
+        aria-hidden="true"
+      >
+      </div>
+      <div
+        class="absolute inset-y-0 left-0 hidden w-px bg-border/40 lg:block"
+        aria-hidden="true"
+      >
+      </div>
+      <div class="relative z-10 mx-auto w-full max-w-landing">
+        <div>
+          <p
+            class="mb-5 inline-flex items-center gap-3 text-sm font-bold tracking-widest text-muted uppercase"
+            data-hero-meta
+          >
+            <span class="h-px w-14 bg-current" aria-hidden="true"></span>
+            Private collection · since 1998
+          </p>
+          <h1
+            class="max-w-hero-heading font-display text-headline-1 leading-none text-balance uppercase"
+            data-hero-headline
+          >
+            Machines with history
+          </h1>
+          <p
+            class="mt-6 max-w-copy text-xl leading-relaxed text-foreground/85 sm:text-2xl"
+            data-hero-copy
+          >
+            I collect cars because some objects do not age. They gather stories.
+          </p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row" data-hero-actions>
+            <a
+              href="#collection"
+              class="inline-flex min-h-12 items-center justify-center gap-3 rounded-sm border-0 bg-(--color-primary) px-6 py-3 text-base font-bold tracking-widest text-(--color-control-foreground) uppercase no-underline transition duration-300 ease-landing hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90"
+            >
+              Explore collection
+              <ArrowRight
+                aria-hidden="true"
+                width="18"
+                height="18"
+                stroke-width="1.8"
+              />
+            </a>
+            <a
+              href="#events"
+              class="inline-flex min-h-12 items-center justify-center rounded-sm border border-border/50 px-6 py-3 text-base font-bold tracking-widest text-foreground uppercase no-underline transition duration-300 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+            >
+              Next exhibition
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <figcaption
+      class="mx-auto w-full max-w-landing px-container-x pb-4 text-xs font-semibold tracking-widest text-muted uppercase sm:px-8 xl:px-14"
+    >
+      Photo by
+      <a
+        href={garageHeroImage.authorUrl}
+        rel="noopener"
+        target="_blank"
+        class="underline underline-offset-4 hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        >{garageHeroImage.author}</a
+      >
+      on
+      <a
+        href={garageHeroImage.unsplashUrl}
+        rel="noopener"
+        target="_blank"
+        class="underline underline-offset-4 hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        >Unsplash</a
+      >
+    </figcaption>
+  </figure>
+</section>

@@ -1,0 +1,70 @@
+---
+import Photo from "../components/Photo.astro"
+import { portraitImage } from "../data/images"
+---
+
+<section
+  id="about"
+  class="bg-background-alt palette-surface-light px-container-x py-section"
+>
+  <div class="mx-auto grid max-w-landing gap-12 lg:grid-cols-12 lg:gap-16">
+    <header class="lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
+      <p class="mb-4 text-xs font-bold tracking-widest uppercase">
+        About the journal
+      </p>
+      <h2
+        class="max-w-heading text-balance text-headline-2 leading-tight font-semibold tracking-tight"
+      >
+        Fishing as a practice of attention, not a highlight reel.
+      </h2>
+      <p class="mt-6 max-w-copy text-lg leading-relaxed text-muted">
+        Fishing Adventures documents the decisions around a day on the water:
+        reading weather, preparing a route, choosing less gear, and knowing when
+        conditions ask you to leave.
+      </p>
+    </header>
+    <div class="grid gap-8 lg:col-span-7">
+      <Photo image={portraitImage} class="aspect-4/3 w-full" />
+      <div class="grid gap-8 md:grid-cols-2">
+        <p class="text-xl leading-relaxed">
+          What began with a hand-me-down rod became a long-running field study.
+          Every trip adds another page: observations, failed ideas, small
+          breakthroughs, and the places worth protecting.
+        </p>
+        <div>
+          <blockquote class="text-headline-3 leading-tight font-semibold">
+            “The catch is a moment. Learning the water is the life around it.”
+          </blockquote>
+          <dl
+            class="mt-8 grid grid-cols-2 gap-6 border-t border-border pt-6 text-sm"
+          >
+            <div>
+              <dt class="text-muted">Approach</dt><dd
+                class="mt-1 font-semibold"
+              >
+                Observe first
+              </dd>
+            </div>
+            <div>
+              <dt class="text-muted">Journal</dt><dd class="mt-1 font-semibold">
+                126 field reports
+              </dd>
+            </div>
+            <div>
+              <dt class="text-muted">Waters</dt><dd class="mt-1 font-semibold">
+                Fresh + salt
+              </dd>
+            </div>
+            <div>
+              <dt class="text-muted">Principle</dt><dd
+                class="mt-1 font-semibold"
+              >
+                Leave no trace
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

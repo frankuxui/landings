@@ -1,0 +1,52 @@
+{
+  "name": "Fishing Adventures",
+  "title": "Fishing Adventures — Life at the Waterline",
+  "description": "A visual personal-brand portfolio about fishing craft, wild water, field notes, trusted tackle, and a community built one cast at a time.",
+  "subtitle": "Mountain water, tidal stories, and the craft between",
+  "category": "portfolio",
+  "tags": ["fishing", "outdoor", "lifestyle", "personal brand", "adventure"],
+  "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
+  "thumbnail": "https://images.unsplash.com/photo-1493787039806-2edcbe808750?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Zmx5JTIwZmlzaGluZyUyMHJpdmVyJTIwYW5nbGVyJTIwb3V0ZG9vcnN8ZW58MXwwfHx8MTc4NzY5NzMwOXww&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
+  "thumbnailAlt": "Angler casting into a mountain river beneath a wide alpine landscape",
+  "thumbnailWidth": 5464,
+  "thumbnailHeight": 3643,
+  "thumbnailCredit": {
+    "id": "qr7tsSwDOg0",
+    "author": "Robson Hatsukami Morgan",
+    "authorUrl": "https://unsplash.com/@robsonhmorgan?utm_source=astro_landings_gallery&utm_medium=referral",
+    "sourceUrl": "https://unsplash.com/photos/landscape-photo-of-man-fishing-on-river-near-mountain-alps-qr7tsSwDOg0?utm_source=astro_landings_gallery&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+    "downloadLocation": "https://api.unsplash.com/photos/qr7tsSwDOg0/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8Zmx5JTIwZmlzaGluZyUyMHJpdmVyJTIwYW5nbGVyJTIwb3V0ZG9vcnN8ZW58MXwwfHx8MTc4NzY5NzMwOXww"
+  },
+  "palettes": [
+    {
+      "id": "grayscale",
+      "name": "Grayscale",
+      "colors": {
+        "primary": "#171717",
+        "secondary": "#404040",
+        "tertiary": "#737373",
+        "accent": "#a3a3a3",
+        "support": "#d4d4d4",
+        "light": "#f5f5f5"
+      }
+    },
+    {
+      "id": "lake-trail",
+      "name": "Lake Trail",
+      "colors": {
+        "primary": "#234E52",
+        "secondary": "#2F6F73",
+        "tertiary": "#5F7A4D",
+        "accent": "#C86B3C",
+        "support": "#B59B72",
+        "light": "#DCE7E4"
+      }
+    }
+  ],
+  "createdAt": "2026-08-26",
+  "author": "frankuxui",
+  "themes": ["light", "dark"],
+  "featured": false,
+  "status": "published"
+}

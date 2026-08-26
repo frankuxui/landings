@@ -1,0 +1,48 @@
+---
+import { allImages } from "../data/images"
+import type { UnsplashImage } from "../types"
+---
+
+<footer class="bg-background px-container-x py-12">
+  <div
+    class="mx-auto grid max-w-landing gap-10 border-t border-border pt-10 footer:grid-cols-[1fr_auto]"
+  >
+    <div>
+      <p class="font-extrabold">Fishing Adventures</p><p
+        class="mt-3 max-w-sm text-sm text-muted"
+      >
+        Keep the line light, the notes honest, and the water better than you
+        found it.
+      </p>
+    </div><div class="grid grid-cols-2 gap-x-12 gap-y-3 text-sm">
+      <a href="#waters">Waters</a><a href="#highlights">Adventures</a><a
+        href="#stories">Stories</a
+      ><a href="#field-guide">Field guide</a><a href="#collaborations"
+        >Collaborations</a
+      ><a href="mailto:email@example.com">email@example.com</a><span
+        >Instagram</span
+      ><span>YouTube</span>
+    </div>
+  </div><p class="mx-auto mt-10 max-w-landing text-xs text-muted">
+    © 2026 Fishing Adventures. Demonstration content.
+  </p>
+  <div class="mx-auto mt-8 max-w-landing border-t border-border pt-8">
+    <p class="text-xs font-bold tracking-widest uppercase">Photo credits</p>
+    <ul class="mt-4 columns-1 gap-x-8 text-xs text-muted md:columns-2">
+      {
+        allImages.map((image: UnsplashImage) => (
+          <li class="mb-2 break-inside-avoid">
+            Photo by{" "}
+            <a class="underline" href={image.authorUrl} rel="noopener">
+              {image.author}
+            </a>{" "}
+            on{" "}
+            <a class="underline" href={image.unsplashUrl} rel="noopener">
+              Unsplash
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

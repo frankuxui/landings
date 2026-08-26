@@ -1,0 +1,131 @@
+---
+import { Menu, Moon, Sun, X } from "@lucide/astro"
+import { navLinks } from "../data/nav"
+import { featuredVehicles } from "../data/content"
+import type { FeaturedVehicle, NavLink } from "../types"
+---
+
+<header
+  class="fixed inset-x-0 top-0 z-1000 border-b border-border/25 bg-background/80 backdrop-blur-md"
+>
+  <div
+    class="mx-auto flex min-h-16 w-full max-w-landing items-center justify-between gap-4 px-container-x sm:px-8 xl:px-14"
+  >
+    <a
+      href="#home"
+      class="font-display text-lg leading-none text-foreground no-underline uppercase sm:text-xl"
+    >
+      Classic Car Archive
+    </a>
+
+    <nav class="hidden items-center gap-6 nav:flex" aria-label="Primary">
+      {
+        navLinks.map((link: NavLink) => (
+          <a
+            class="text-sm font-semibold tracking-widest text-muted uppercase no-underline transition duration-200 ease-landing hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+            href={link.href}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        data-theme-toggle
+        aria-label="Switch to light theme"
+        class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border border-border/40 bg-transparent text-foreground transition duration-200 ease-landing hover:bg-control focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+      >
+        <Sun
+          data-theme-icon="light"
+          aria-hidden="true"
+          width="18"
+          height="18"
+          stroke-width="1.6"
+          class="hidden"
+        />
+        <Moon
+          data-theme-icon="dark"
+          aria-hidden="true"
+          width="18"
+          height="18"
+          stroke-width="1.6"
+        />
+      </button>
+
+      <button
+        type="button"
+        data-menu-toggle
+        aria-label="Open section navigation"
+        aria-expanded="false"
+        class="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-sm border-0 bg-primary px-4 py-2 text-sm font-bold tracking-widest text-primary-foreground uppercase transition duration-200 ease-landing hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:opacity-90 nav:hidden"
+      >
+        <Menu
+          data-menu-icon="open"
+          aria-hidden="true"
+          width="18"
+          height="18"
+          stroke-width="1.6"
+        />
+        <X
+          data-menu-icon="close"
+          aria-hidden="true"
+          width="18"
+          height="18"
+          stroke-width="1.6"
+          class="hidden"
+        />
+        Menu
+      </button>
+    </div>
+  </div>
+</header>
+
+<div
+  data-menu-panel
+  aria-hidden="true"
+  inert
+  class="fixed inset-0 z-90 h-dvh translate-y-4 menu-panel-surface overflow-y-auto px-container-x pt-24 pb-10 opacity-0 backdrop-blur-2xl pointer-events-none transition-[opacity,transform] duration-300 ease-landing nav:hidden [&.is-open]:translate-y-0 [&.is-open]:opacity-100 [&.is-open]:pointer-events-auto"
+>
+  <div class="mx-auto grid min-h-full max-w-landing gap-8 sm:px-8">
+    <div class="h-px w-full origin-left scale-x-0 bg-white/35" data-menu-line>
+    </div>
+    <nav aria-label="Mobile primary navigation">
+      <ul class="flex flex-col gap-3">
+        {
+          navLinks.map((link: NavLink, index: number) => (
+            <li class="overflow-hidden">
+              <a
+                class="group flex items-center gap-4 py-3 font-display text-headline-3 leading-none text-white uppercase no-underline outline-none transition duration-300 ease-landing hover:translate-x-2 focus-visible:translate-x-2 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-white"
+                href={link.href}
+                data-menu-link
+              >
+                <span class="text-sm font-sans tracking-widest text-white/55">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span>{link.label}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div
+      class="grid gap-3 border-t border-white/20 pt-5 sm:grid-cols-3"
+      aria-label="Collection preview"
+    >
+      {
+        featuredVehicles.map((vehicle: FeaturedVehicle) => (
+          <p class="text-sm text-white/65">
+            <span class="block font-display text-2xl text-white">
+              {vehicle.year}
+            </span>
+            {vehicle.marque} {vehicle.model}
+          </p>
+        ))
+      }
+    </div>
+  </div>
+</div>

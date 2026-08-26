@@ -1,0 +1,76 @@
+---
+import "./styles/tailwind.css"
+import Header from "./sections/Header.astro"
+import Hero from "./sections/Hero.astro"
+import About from "./sections/About.astro"
+import Waters from "./sections/Waters.astro"
+import Highlights from "./sections/Highlights.astro"
+import Stories from "./sections/Stories.astro"
+import FieldGuide from "./sections/FieldGuide.astro"
+import Gallery from "./sections/Gallery.astro"
+import Community from "./sections/Community.astro"
+import Collaborations from "./sections/Collaborations.astro"
+import CTAFinal from "./sections/CTAFinal.astro"
+import Footer from "./sections/Footer.astro"
+import BackToTop from "./components/BackToTop.astro"
+const pageTitle = "Fishing Adventures — Life at the Waterline"
+const pageDescription =
+  "A visual journal of fishing craft, wild water, field notes, trusted tackle, and a community built one cast at a time."
+---
+
+<!doctype html>
+<html
+  lang="en"
+  class="scroll-smooth overflow-x-clip scheme-light motion-reduce:scroll-auto dark:scheme-dark font-sans"
+>
+  <head
+    ><meta charset="utf-8" /><meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    /><title>{pageTitle}</title><meta
+      name="description"
+      content={pageDescription}
+    /><link rel="canonical" href="/landings/fishing-adventures" /><meta
+      name="robots"
+      content="noindex"
+    /><meta property="og:type" content="website" /><meta
+      property="og:title"
+      content={pageTitle}
+    /><meta property="og:description" content={pageDescription} />
+    <script is:inline>
+      try {
+        var t = localStorage.getItem("fishing-adventures:theme")
+        if (t === "light" || t === "dark")
+          document.documentElement.dataset.theme = t
+        var p = localStorage.getItem("fishing-adventures:palette")
+        if (p) document.documentElement.dataset.palette = p
+      } catch (e) {}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" /><link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    /><link
+      href="https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap"
+      rel="stylesheet"
+    /></head
+  >
+  <body
+    class="min-h-full overflow-x-clip bg-background text-base leading-relaxed text-foreground antialiased font-sans"
+    ><a
+      href="#main-content"
+      class="absolute -top-full left-4 z-50 bg-(--color-primary) px-5 py-3 font-bold text-(--color-light) focus-visible:top-4"
+      >Skip to main content</a
+    ><Header /><main id="main-content">
+      <Hero /><About /><Waters /><Highlights /><Stories /><FieldGuide /><Gallery
+      /><Community /><Collaborations /><CTAFinal />
+    </main><Footer /><BackToTop /><script>
+      import "./scripts/theme"
+      import "./scripts/palette"
+      import "./scripts/menu"
+      import "./scripts/backToTop"
+      import "./scripts/motion"
+      import "./scripts/storiesSlider"
+    </script></body
+  >
+</html>
