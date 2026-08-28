@@ -280,7 +280,7 @@ if (!prefersReducedMotion) {
           x: () => getScrollAmount(),
           ease: "none",
           scrollTrigger: {
-            trigger: godsContainer,
+            trigger: godsTrack,
             start: "top top",
             end: () => `+=${Math.abs(getScrollAmount())}`,
             pin: true,
@@ -300,7 +300,7 @@ if (!prefersReducedMotion) {
               scale: 1,
               ease: "none",
               scrollTrigger: {
-                trigger: godsContainer,
+                trigger: godsTrack,
                 start: "top top",
                 end: () => `+=${Math.abs(getScrollAmount())}`,
                 scrub: 1,

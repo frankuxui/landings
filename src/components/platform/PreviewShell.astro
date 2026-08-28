@@ -3,7 +3,7 @@
 // always-available control to bring it back), a resizable/device-preset
 // viewport, and the extensible Options aside. This is platform chrome —
 // never imported by a landing.
-import { PanelTopOpen, GripVertical } from "@lucide/astro"
+import { PanelTopOpen, GripVertical, Minimize2 } from "@lucide/astro"
 import PreviewToolbar from "./PreviewToolbar.astro"
 import OptionsPanel from "./OptionsPanel.astro"
 import { withBase } from "../../utils/url"
@@ -26,6 +26,16 @@ const renderUrl = withBase(`/landings/${slug}/render`)
     hidden
   >
     <PanelTopOpen aria-hidden="true" />
+  </button>
+
+  <button
+    type="button"
+    class="browser-fill-exit"
+    id="exit-browser-fill"
+    aria-label="Salir de vista a tamaño original"
+    hidden
+  >
+    <Minimize2 aria-hidden="true" />
   </button>
 
   <div class="stage">
@@ -110,6 +120,48 @@ const renderUrl = withBase(`/landings/${slug}/render`)
     shell.dataset.toolbarHidden = visible ? "false" : "true"
     revealButton.hidden = visible
     if (!visible) revealButton.focus()
+  })
+
+  // --- Browser fill: iframe fills the browser window, toolbar hidden ------
+  const exitBrowserFill =
+    document.querySelector<HTMLButtonElement>("#exit-browser-fill")
+
+  function setBrowserFill(active: boolean): void {
+    if (!shell) return
+    shell.dataset.browserFill = active ? "true" : "false"
+    if (exitBrowserFill) exitBrowserFill.hidden = !active
+    if (active) {
+      document.dispatchEvent(
+        new CustomEvent("preview:toolbar-visibility", {
+          detail: { visible: false },
+        }),
+      )
+    }
+  }
+
+  document.addEventListener("preview:browser-fill-toggle", () => {
+    const isActive = shell?.dataset.browserFill === "true"
+    setBrowserFill(!isActive)
+  })
+
+  exitBrowserFill?.addEventListener("click", () => {
+    setBrowserFill(false)
+    document.dispatchEvent(
+      new CustomEvent("preview:toolbar-visibility", {
+        detail: { visible: true },
+      }),
+    )
+  })
+
+  document.addEventListener("keydown", (event: KeyboardEvent) => {
+    if (event.key === "Escape" && shell?.dataset.browserFill === "true") {
+      setBrowserFill(false)
+      document.dispatchEvent(
+        new CustomEvent("preview:toolbar-visibility", {
+          detail: { visible: true },
+        }),
+      )
+    }
   })
 
   // --- Fullscreen: shows only the iframe's own device viewport, matching
@@ -353,5 +405,67 @@ const renderUrl = withBase(`/landings/${slug}/render`)
       right: -0.5rem;
       width: 1.25rem;
     }
+  }
+
+  /* Browser-fill exit button — floating in the top-right corner */
+  .browser-fill-exit {
+    position: fixed;
+    top: 0.6rem;
+    right: 0.6rem;
+    z-index: 55;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--platform-border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--platform-text);
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    transition:
+      opacity 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .browser-fill-exit:not([hidden]) {
+    opacity: 1;
+  }
+
+  .browser-fill-exit:hover,
+  .browser-fill-exit:focus-visible {
+    border-color: var(--primary);
+  }
+
+  .browser-fill-exit :global(svg) {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Browser-fill mode: iframe fills the entire browser window */
+  .preview-shell[data-browser-fill="true"] .stage {
+    padding: 0;
+    overflow: hidden;
+    transition: none;
+  }
+
+  .preview-shell[data-browser-fill="true"] .viewport-wrapper {
+    max-width: none;
+  }
+
+  .preview-shell[data-browser-fill="true"] .viewport {
+    width: 100vw !important;
+    max-width: none;
+    height: 100vh;
+    min-height: 0;
+    border: 0;
+    border-radius: 0;
+    transition: none;
+  }
+
+  .preview-shell[data-browser-fill="true"] .resize-handle {
+    display: none;
   }
 </style>

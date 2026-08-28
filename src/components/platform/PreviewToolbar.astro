@@ -1,6 +1,7 @@
 ---
 import {
   Maximize,
+  Maximize2,
   Minimize,
   PanelTopClose,
   SlidersHorizontal,
@@ -62,6 +63,15 @@ const { name, slug } = Astro.props
         </button>
         <button
           type="button"
+          id="browser-fill-toggle"
+          aria-label="Ver a tamaño original del navegador"
+          aria-pressed="false"
+          class="rounded-full size-10 inline-flex items-center justify-center bg-foreground/5 font-semibold text-sm transition-colors duration-300 hover:bg-foreground/10"
+        >
+          <Maximize2 aria-hidden="true" size="18" />
+        </button>
+        <button
+          type="button"
           id="fullscreen-toggle"
           aria-label="Ver a pantalla completa"
           aria-pressed="false"
@@ -101,6 +111,12 @@ const { name, slug } = Astro.props
       }),
     )
   })
+
+  document
+    .getElementById("browser-fill-toggle")
+    ?.addEventListener("click", () => {
+      document.dispatchEvent(new CustomEvent("preview:browser-fill-toggle"))
+    })
 
   const fullscreenButton =
     document.querySelector<HTMLButtonElement>("#fullscreen-toggle")
