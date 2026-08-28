@@ -1,0 +1,218 @@
+---
+// Egypt — Section 07: "Treasures Beneath the Sand"
+// Image-dominant Swiper gallery of relics. Each slide features a large
+// artifact photograph with overlaid text information.
+import { ChevronLeft, ChevronRight } from "@lucide/astro"
+import type { UnsplashImage } from "../data/images"
+import {
+  tutankhamunImage,
+  rosettaStoneImage,
+  nefertitiImage,
+  canopicImage,
+  scarabImage,
+  ankhImage,
+} from "../data/images"
+
+interface Relic {
+  name: string
+  epoch: string
+  material: string
+  description: string
+  image: UnsplashImage
+}
+
+const relics: Relic[] = [
+  {
+    name: "Mask of Tutankhamun",
+    epoch: "c. 1323 BCE",
+    material: "Gold, lapis lazuli, obsidian, quartz",
+    description:
+      "Eleven kilograms of solid gold. The most recognizable artifact in the history of archaeology.",
+    image: tutankhamunImage,
+  },
+  {
+    name: "Rosetta Stone",
+    epoch: "196 BCE",
+    material: "Granodiorite",
+    description:
+      "The key that unlocked a silent language. Three scripts. One decree. Fourteen centuries of mystery, solved.",
+    image: rosettaStoneImage,
+  },
+  {
+    name: "Bust of Nefertiti",
+    epoch: "c. 1345 BCE",
+    material: "Limestone, stucco",
+    description:
+      "Found in a sculptor's workshop in Amarna. An icon of ancient beauty and artistic precision.",
+    image: nefertitiImage,
+  },
+  {
+    name: "Canopic Jars",
+    epoch: "Various periods",
+    material: "Alabaster, limestone",
+    description:
+      "Four jars for four organs. Lungs, liver, stomach, intestines. Protected by the four sons of Horus.",
+    image: canopicImage,
+  },
+  {
+    name: "Scarab Amulets",
+    epoch: "Various periods",
+    material: "Faience, stone, gold",
+    description:
+      "The sacred beetle of rebirth. Placed over the heart of the dead to ensure safe passage through judgment.",
+    image: scarabImage,
+  },
+  {
+    name: "The Ankh",
+    epoch: "Ubiquitous",
+    material: "Various",
+    description:
+      "The key of life. Carried by gods and pharaohs alike, symbolizing the breath of existence and the promise of eternity.",
+    image: ankhImage,
+  },
+]
+---
+
+<section
+  id="treasures"
+  class="relative overflow-hidden bg-[var(--egypt-obsidian)] py-section"
+  aria-labelledby="treasures-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Chapter marker -->
+    <p
+      class="mb-4 font-mono text-xs uppercase tracking-widest text-[var(--egypt-gold)]/60"
+    >
+      07 &mdash; Treasures Beneath the Sand
+    </p>
+
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2
+        id="treasures-heading"
+        class="max-w-heading font-display text-headline-1 uppercase leading-none tracking-wider text-white"
+      >
+        Objects That Outlived Empires
+      </h2>
+
+      <!-- Slider nav (desktop) -->
+      <div class="hidden items-center gap-2 lg:flex">
+        <button
+          type="button"
+          class="treasures-slider-prev inline-flex size-12 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-white/10 p-0 text-white transition duration-200 ease-landing hover:bg-white/20 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-white/15"
+          aria-label="Previous relic"
+        >
+          <ChevronLeft
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+        </button>
+        <button
+          type="button"
+          class="treasures-slider-next inline-flex size-12 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-white/10 p-0 text-white transition duration-200 ease-landing hover:bg-white/20 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-white/15"
+          aria-label="Next relic"
+        >
+          <ChevronRight
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Swiper -->
+  <div class="treasures-slider swiper mt-12 px-container-x sm:px-8 xl:px-14">
+    <div class="swiper-wrapper">
+      {
+        relics.map((relic: Relic) => (
+          <div class="swiper-slide">
+            <article class="group relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-sm sm:aspect-[4/5] lg:aspect-[3/4]">
+              {/* Artifact image as primary visual */}
+              <img
+                src={`${relic.image.src}&w=900&auto=format&fit=crop&q=80`}
+                srcset={`${relic.image.src}&w=500&auto=format&fit=crop&q=80 500w, ${relic.image.src}&w=700&auto=format&fit=crop&q=80 700w, ${relic.image.src}&w=900&auto=format&fit=crop&q=80 900w`}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                alt={relic.image.alt}
+                width={relic.image.width}
+                height={relic.image.height}
+                loading="lazy"
+                decoding="async"
+                class="photo-tone absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-landing group-hover:scale-[1.05]"
+                data-treasure-image
+              />
+
+              {/* Gradient overlay from bottom */}
+              <div
+                class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--egypt-obsidian)] via-[var(--egypt-obsidian)]/50 to-transparent"
+                aria-hidden="true"
+              />
+
+              {/* Relic info overlaid at bottom */}
+              <div class="relative z-10 p-6 sm:p-8">
+                <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--egypt-gold)]/80">
+                  {relic.epoch} &mdash; {relic.material}
+                </p>
+                <h3 class="mt-2 font-display text-headline-3 uppercase tracking-wide text-white">
+                  {relic.name}
+                </h3>
+                <p class="mt-3 max-w-sm text-sm leading-relaxed text-[var(--egypt-sand)]/70 transition-opacity duration-500 ease-landing lg:opacity-0 lg:group-hover:opacity-100">
+                  {relic.description}
+                </p>
+              </div>
+
+              {/* Photo credit */}
+              <p class="absolute top-3 right-3 z-10 text-[10px] text-white/30">
+                <a
+                  href={relic.image.authorUrl}
+                  rel="noopener"
+                  class="underline hover:text-white/50"
+                >
+                  {relic.image.author}
+                </a>
+              </p>
+            </article>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Pagination -->
+    <div class="treasures-slider-pagination mt-8 flex justify-center"></div>
+  </div>
+
+  <!-- Photo credits for images used in this section -->
+  <div
+    class="mx-auto mt-8 w-full max-w-landing px-container-x sm:px-8 xl:px-14"
+  >
+    <div
+      class="flex flex-wrap gap-x-6 gap-y-1 text-[10px] text-[var(--egypt-sand)]/30"
+    >
+      {
+        relics.map((relic: Relic) => (
+          <span>
+            Photo by{" "}
+            <a
+              href={relic.image.authorUrl}
+              rel="noopener"
+              class="underline hover:text-[var(--egypt-sand)]/50"
+            >
+              {relic.image.author}
+            </a>{" "}
+            on{" "}
+            <a
+              href={relic.image.unsplashUrl}
+              rel="noopener"
+              class="underline hover:text-[var(--egypt-sand)]/50"
+            >
+              Unsplash
+            </a>
+          </span>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,155 @@
+---
+// Egypt — Section 08: "The Language We Lost"
+// Hieroglyphic symbols and the Rosetta Stone narrative.
+import { hieroglyphsImage, rosettaStoneImage } from "../data/images"
+
+interface GlyphTranslation {
+  symbol: string
+  meaning: string
+}
+
+const translations: GlyphTranslation[] = [
+  { symbol: "\u{1330F}", meaning: "Life (Ankh)" },
+  { symbol: "\u{13153}", meaning: "Sun (Ra)" },
+  { symbol: "\u{130B8}", meaning: "King" },
+  { symbol: "\u{1312D}", meaning: "Water" },
+  { symbol: "\u{13080}", meaning: "Eternity" },
+]
+---
+
+<section
+  id="hieroglyphs"
+  class="relative overflow-hidden bg-[var(--egypt-papyrus)] py-section dark:bg-[var(--egypt-obsidian)]"
+  aria-labelledby="hieroglyphs-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Chapter marker -->
+    <p
+      class="mb-4 font-mono text-xs uppercase tracking-widest text-[var(--egypt-stone)] dark:text-[var(--egypt-sand)]/60"
+    >
+      08 &mdash; The Language We Lost
+    </p>
+
+    <h2
+      id="hieroglyphs-heading"
+      class="font-display text-headline-1 uppercase leading-none tracking-wider text-[var(--egypt-obsidian)] dark:text-white"
+    >
+      A Language<br />Silent for<br />1,400 Years
+    </h2>
+
+    <p
+      class="mt-6 max-w-copy text-lg leading-relaxed text-[var(--egypt-stone)] italic dark:text-[var(--egypt-sand)]/70"
+    >
+      For over a millennium, the hieroglyphs were silent. Their meaning had been
+      lost with the last priests who could read them. The walls of temples and
+      tombs became beautiful but incomprehensible decoration.
+    </p>
+
+    <!-- Glyph translations grid -->
+    <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:mt-24 lg:grid-cols-5">
+      {
+        translations.map((glyph: GlyphTranslation) => (
+          <div class="flex flex-col items-center gap-3 py-6" data-glyph-item>
+            <span class="text-5xl" aria-hidden="true">
+              {glyph.symbol}
+            </span>
+            <p class="text-center text-sm font-medium text-[var(--egypt-obsidian)] dark:text-[var(--egypt-sand)]">
+              {glyph.meaning}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Hieroglyphs photo -->
+    <figure class="mt-16 lg:mt-24">
+      <div class="overflow-hidden rounded-sm">
+        <img
+          src={`${hieroglyphsImage.src}&w=1600&auto=format&fit=crop&q=80`}
+          srcset={`${hieroglyphsImage.src}&w=800&auto=format&fit=crop&q=80 800w, ${hieroglyphsImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${hieroglyphsImage.src}&w=1600&auto=format&fit=crop&q=80 1600w`}
+          sizes="(max-width: 768px) 100vw, 80vw"
+          alt={hieroglyphsImage.alt}
+          title={`Photo by ${hieroglyphsImage.author} on Unsplash`}
+          width={hieroglyphsImage.width}
+          height={hieroglyphsImage.height}
+          loading="lazy"
+          decoding="async"
+          class="photo-tone w-full object-cover"
+        />
+      </div>
+      <figcaption class="mt-2 text-xs text-muted">
+        Photo by <a
+          href={hieroglyphsImage.authorUrl}
+          rel="noopener"
+          class="text-muted underline hover:text-foreground"
+          >{hieroglyphsImage.author}</a
+        >
+        on <a
+          href={hieroglyphsImage.unsplashUrl}
+          rel="noopener"
+          class="text-muted underline hover:text-foreground">Unsplash</a
+        >
+      </figcaption>
+    </figure>
+
+    <!-- Rosetta Stone narrative -->
+    <div class="mt-16 grid gap-8 lg:mt-24 lg:grid-cols-2 lg:gap-16">
+      <div class="lg:sticky lg:top-24 lg:self-start">
+        <p
+          class="font-display text-figure uppercase leading-none tracking-wider text-[var(--egypt-gold)]"
+        >
+          1822
+        </p>
+        <p
+          class="mt-4 font-display text-headline-3 uppercase tracking-wide text-[var(--egypt-obsidian)] dark:text-[var(--egypt-sand)]"
+        >
+          Jean-Fran&ccedil;ois Champollion
+        </p>
+        <p
+          class="mt-4 max-w-md text-base leading-relaxed text-[var(--egypt-stone)] dark:text-[var(--egypt-sand)]/70"
+        >
+          Using the Rosetta Stone — a decree inscribed in hieroglyphics, Demotic
+          script, and Ancient Greek — Champollion cracked the code. Three
+          scripts, one meaning, and the voices of a lost civilization could
+          finally be heard again.
+        </p>
+        <p
+          class="mt-6 text-sm text-[var(--egypt-stone)] italic dark:text-[var(--egypt-sand)]/50"
+        >
+          Hieroglyphics &rarr; Demotic &rarr; Greek. The same text, three times.
+          The key was comparison.
+        </p>
+      </div>
+
+      <figure>
+        <div class="overflow-hidden rounded-sm">
+          <img
+            src={`${rosettaStoneImage.src}&w=1200&auto=format&fit=crop&q=80`}
+            srcset={`${rosettaStoneImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${rosettaStoneImage.src}&w=900&auto=format&fit=crop&q=80 900w, ${rosettaStoneImage.src}&w=1200&auto=format&fit=crop&q=80 1200w`}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            alt={rosettaStoneImage.alt}
+            title={`Photo by ${rosettaStoneImage.author} on Unsplash`}
+            width={rosettaStoneImage.width}
+            height={rosettaStoneImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone w-full object-cover"
+          />
+        </div>
+        <figcaption class="mt-2 text-xs text-muted">
+          Photo by <a
+            href={rosettaStoneImage.authorUrl}
+            rel="noopener"
+            class="text-muted underline hover:text-foreground"
+            >{rosettaStoneImage.author}</a
+          >
+          on <a
+            href={rosettaStoneImage.unsplashUrl}
+            rel="noopener"
+            class="text-muted underline hover:text-foreground">Unsplash</a
+          >
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

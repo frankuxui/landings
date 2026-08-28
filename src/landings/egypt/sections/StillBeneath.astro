@@ -1,0 +1,83 @@
+---
+// Egypt — Section 12: "What Still Lies Beneath?"
+// Return to desert with massive negative space and open imagery.
+import { desertOpenImage } from "../data/images"
+---
+
+<section
+  class="relative overflow-hidden bg-background py-section"
+  aria-labelledby="beneath-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Chapter marker -->
+    <p class="mb-4 font-mono text-xs uppercase tracking-widest text-muted">
+      12 &mdash; What Still Lies Beneath
+    </p>
+
+    <h2
+      id="beneath-heading"
+      class="font-display text-headline-1 uppercase leading-none tracking-wider text-foreground"
+    >
+      We Have Not<br />Found Everything.
+    </h2>
+
+    <!-- Open desert image -->
+    <figure class="mt-12 lg:mt-16">
+      <div class="overflow-hidden rounded-sm">
+        <img
+          src={`${desertOpenImage.src}&w=2000&auto=format&fit=crop&q=80`}
+          srcset={`${desertOpenImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${desertOpenImage.src}&w=1600&auto=format&fit=crop&q=80 1600w, ${desertOpenImage.src}&w=2000&auto=format&fit=crop&q=80 2000w`}
+          sizes="100vw"
+          alt={desertOpenImage.alt}
+          title={`Photo by ${desertOpenImage.author} on Unsplash`}
+          width={desertOpenImage.width}
+          height={desertOpenImage.height}
+          loading="lazy"
+          decoding="async"
+          class="photo-tone w-full object-cover"
+        />
+      </div>
+      <figcaption class="mt-2 text-xs text-muted">
+        Photo by <a
+          href={desertOpenImage.authorUrl}
+          rel="noopener"
+          class="text-muted underline hover:text-foreground"
+          >{desertOpenImage.author}</a
+        >
+        on <a
+          href={desertOpenImage.unsplashUrl}
+          rel="noopener"
+          class="text-muted underline hover:text-foreground">Unsplash</a
+        >
+      </figcaption>
+    </figure>
+
+    <div class="mt-16 max-w-copy lg:mt-24">
+      <p class="text-base leading-relaxed text-muted">
+        Modern archaeology has barely scratched the surface. Ground-penetrating
+        radar has revealed previously unknown chambers inside the Great Pyramid.
+        Satellite imaging has identified thousands of buried structures across
+        the Nile Delta. Entire cities lie beneath the sand, unexcavated.
+      </p>
+
+      <p class="mt-6 text-base leading-relaxed text-muted">
+        New technologies — muon tomography, infrared thermography, LIDAR — are
+        peeling back layers of earth and stone that have been undisturbed for
+        millennia. Every season brings new discoveries. Every discovery rewrites
+        what we thought we knew.
+      </p>
+
+      <p class="mt-6 text-base leading-relaxed text-muted">
+        The Nile keeps flowing. The sand keeps shifting. And beneath it all,
+        Egypt keeps its secrets — releasing them slowly, one excavation at a
+        time.
+      </p>
+
+      <p
+        class="mt-12 border-l-2 border-[var(--egypt-gold)]/40 pl-6 font-display text-headline-3 uppercase leading-snug tracking-wide text-foreground italic"
+      >
+        Five thousand years later, Egypt is still revealing itself.
+      </p>
+    </div>
+  </div>
+</section>

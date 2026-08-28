@@ -1,0 +1,119 @@
+---
+// Egypt — Section 08b: "The Walls Speak"
+// Immersive torch-reveal effect. A dark tomb wall of hieroglyphs is hidden
+// behind a near-black overlay. On desktop, a circular torch follows the
+// cursor to reveal the wall beneath. On mobile/touch, an automatic slow
+// reveal animation sweeps across the image. Reduced-motion users see the
+// full image with a subtle vignette.
+import { tombWallImage } from "../data/images"
+---
+
+<section
+  id="torch"
+  class="relative min-h-screen overflow-hidden bg-[var(--egypt-obsidian)]"
+  aria-labelledby="torch-heading"
+  data-torch-section
+>
+  {/* Full-section torch viewport — covers the entire section */}
+  <div
+    class="absolute inset-0"
+    data-torch-viewport
+    role="img"
+    aria-label="Ancient Egyptian tomb wall densely covered in hieroglyphs. Move your cursor to reveal the carvings hidden in darkness."
+  >
+    {/* The actual hieroglyphs wall image — revealed through the mask */}
+    <div
+      class="torch-reveal absolute inset-0"
+      data-torch-reveal
+      style={`--torch-x: 50%; --torch-y: 50%; background-image: url('${tombWallImage.src}&w=2000&auto=format&fit=crop&q=85'); background-size: cover; background-position: center;`}
+    >
+    </div>
+
+    {/* Static fallback for reduced-motion — shows full image with vignette */}
+    <div
+      class="torch-static absolute inset-0 hidden"
+      data-torch-static
+      aria-hidden="true"
+    >
+      <img
+        src={`${tombWallImage.src}&w=1600&auto=format&fit=crop&q=80`}
+        srcset={`${tombWallImage.src}&w=800&auto=format&fit=crop&q=80 800w, ${tombWallImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${tombWallImage.src}&w=1600&auto=format&fit=crop&q=80 1600w`}
+        sizes="(max-width: 768px) 100vw, 85vw"
+        alt={tombWallImage.alt}
+        width={tombWallImage.width}
+        height={tombWallImage.height}
+        loading="lazy"
+        decoding="async"
+        class="photo-tone h-full w-full object-cover"
+      />
+      {/* Vignette overlay */}
+      <div
+        class="pointer-events-none absolute inset-0"
+        style="background: radial-gradient(ellipse at center, transparent 40%, var(--egypt-obsidian) 100%);"
+      >
+      </div>
+    </div>
+  </div>
+
+  {/* Content overlaid on top — pointer-events-none so mouse passes through to torch viewport */}
+  <div class="pointer-events-none relative z-10 flex min-h-screen flex-col justify-between">
+    <div
+      class="mx-auto w-full max-w-landing px-container-x pt-section sm:px-8 xl:px-14"
+    >
+      {/* Chapter marker */}
+      <p
+        class="mb-4 font-mono text-xs uppercase tracking-widest text-[var(--egypt-gold)]/60"
+      >
+        08b &mdash; Into the Tomb
+      </p>
+
+      <h2
+        id="torch-heading"
+        class="font-display text-headline-1 uppercase leading-none tracking-wider text-white"
+      >
+        The Walls Speak
+      </h2>
+
+      <p
+        class="mt-6 max-w-copy text-lg leading-relaxed text-[var(--egypt-sand)]/70 italic"
+      >
+        Move your torch across the darkness. The walls of this tomb have waited
+        three thousand years to be seen again.
+      </p>
+    </div>
+
+    {/* Instructional hint — centered in the section, hidden once user interacts */}
+    <div
+      class="pointer-events-none flex flex-1 items-center justify-center"
+      data-torch-hint
+    >
+      <p
+        class="rounded-sm bg-[var(--egypt-obsidian)]/80 px-6 py-3 text-center text-sm text-[var(--egypt-sand)]/60"
+      >
+        <span class="hidden lg:inline"
+          >Move your cursor to illuminate the walls</span
+        >
+        <span class="lg:hidden">Scroll to reveal the ancient carvings</span>
+      </p>
+    </div>
+
+    {/* Photo credit at the bottom */}
+    <div
+      class="pointer-events-auto mx-auto w-full max-w-landing px-container-x pb-section pt-4 sm:px-8 xl:px-14"
+    >
+      <p class="text-[10px] text-[var(--egypt-sand)]/30">
+        Photo by <a
+          href={tombWallImage.authorUrl}
+          rel="noopener"
+          class="underline hover:text-[var(--egypt-sand)]/50"
+          >{tombWallImage.author}</a
+        >
+        on <a
+          href={tombWallImage.unsplashUrl}
+          rel="noopener"
+          class="underline hover:text-[var(--egypt-sand)]/50">Unsplash</a
+        >
+      </p>
+    </div>
+  </div>
+</section>

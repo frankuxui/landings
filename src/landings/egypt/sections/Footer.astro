@@ -1,0 +1,110 @@
+---
+// Egypt — Footer
+// Dark, minimal. Giant "EGYPT" with chapter navigation and photo credits.
+import { allImages } from "../data/images"
+import type { UnsplashImage } from "../data/images"
+
+interface FooterLink {
+  label: string
+  href: string
+}
+
+const chapters: FooterLink[] = [
+  { label: "Timeline", href: "#timeline" },
+  { label: "Architecture", href: "#architecture" },
+  { label: "Pharaohs", href: "#pharaohs" },
+  { label: "Gods", href: "#gods" },
+  { label: "Afterlife", href: "#afterlife" },
+  { label: "Treasures", href: "#treasures" },
+  { label: "Hieroglyphs", href: "#hieroglyphs" },
+]
+---
+
+<footer
+  class="relative overflow-hidden bg-[var(--egypt-obsidian)] pt-section pb-12"
+  role="contentinfo"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Giant footer title -->
+    <p
+      class="font-display text-[clamp(4rem,10vw,10rem)] uppercase leading-none tracking-wider text-white/[0.06]"
+      aria-hidden="true"
+    >
+      Egypt
+    </p>
+
+    <p class="mt-8 max-w-md text-lg text-[var(--egypt-sand)]/60 italic">
+      History never really disappears.
+    </p>
+
+    <!-- Chapter navigation -->
+    <nav class="mt-12" aria-label="Chapter navigation">
+      <p
+        class="mb-4 text-xs font-medium uppercase tracking-widest text-[var(--egypt-gold)]/60"
+      >
+        Chapters
+      </p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        {
+          chapters.map((chapter: FooterLink) => (
+            <li>
+              <a
+                href={chapter.href}
+                class="text-sm text-[var(--egypt-sand)]/50 no-underline transition duration-200 hover:text-[var(--egypt-sand)] focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+              >
+                {chapter.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <!-- Divider -->
+    <div class="my-12 h-px w-full bg-white/10" aria-hidden="true"></div>
+
+    <!-- Photo credits -->
+    <div>
+      <p
+        class="mb-3 text-xs font-medium uppercase tracking-widest text-[var(--egypt-gold)]/60"
+      >
+        Photo Credits
+      </p>
+      <ul class="flex flex-col gap-1">
+        {
+          allImages.map((image: UnsplashImage) => (
+            <li class="text-xs text-[var(--egypt-sand)]/40">
+              Photo by{" "}
+              <a
+                href={image.authorUrl}
+                rel="noopener"
+                class="underline hover:text-[var(--egypt-sand)]/60"
+              >
+                {image.author}
+              </a>{" "}
+              on{" "}
+              <a
+                href={image.unsplashUrl}
+                rel="noopener"
+                class="underline hover:text-[var(--egypt-sand)]/60"
+              >
+                Unsplash
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-12 flex flex-wrap items-center justify-between gap-4">
+      <p class="font-display text-sm uppercase tracking-widest text-white/30">
+        Egypt
+      </p>
+      <p class="text-xs text-white/20">
+        A design demonstration. No affiliation with any archaeological
+        institution.
+      </p>
+    </div>
+  </div>
+</footer>

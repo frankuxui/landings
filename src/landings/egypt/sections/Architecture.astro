@@ -1,0 +1,186 @@
+---
+// Egypt — Section 02: "Built for Eternity"
+// Architecture section with monumental editorial numbers and sticky composition.
+import { karnakImage, abuSimbelImage, luxorImage } from "../data/images"
+
+interface ArchStat {
+  value: string
+  target: number
+  suffix: string
+  label: string
+}
+
+const stats: ArchStat[] = [
+  {
+    value: "146.6",
+    target: 146.6,
+    suffix: " M",
+    label: "Original height of the Great Pyramid",
+  },
+  {
+    value: "2,300,000",
+    target: 2300000,
+    suffix: "",
+    label: "Stone blocks in the Great Pyramid",
+  },
+  { value: "4,500", target: 4500, suffix: "", label: "Years standing" },
+]
+---
+
+<section
+  id="architecture"
+  class="relative overflow-hidden bg-background py-section"
+  aria-labelledby="architecture-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Chapter marker -->
+    <p class="mb-4 font-mono text-xs uppercase tracking-widest text-muted">
+      02 &mdash; Built for Eternity
+    </p>
+
+    <h2
+      id="architecture-heading"
+      class="max-w-heading font-display text-headline-1 uppercase leading-none tracking-wider text-foreground"
+    >
+      Monuments That Refused to Die
+    </h2>
+
+    <p class="mt-6 max-w-copy text-lg leading-relaxed text-muted italic">
+      They built not for a lifetime, but for all of time. Temples, tombs, and
+      pyramids engineered with a precision that still confounds.
+    </p>
+
+    <!-- Stats row -->
+    <div class="mt-16 grid gap-8 sm:grid-cols-3 lg:mt-24">
+      {
+        stats.map((stat: ArchStat) => (
+          <div class="text-center sm:text-left">
+            <p
+              class="font-display text-figure uppercase leading-none tracking-wide text-[var(--egypt-gold)]"
+              data-arch-number
+              data-target={stat.target}
+              data-suffix={stat.suffix}
+              aria-label={`${stat.value}${stat.suffix}`}
+            >
+              {stat.value}
+              {stat.suffix}
+            </p>
+            <p class="mt-2 text-sm text-muted">{stat.label}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Sticky composition: text left, images right -->
+    <div class="mt-16 grid gap-8 lg:mt-24 lg:grid-cols-2 lg:gap-16">
+      <!-- Left: sticky text -->
+      <div class="lg:sticky lg:top-24 lg:self-start">
+        <p class="max-w-md text-base leading-relaxed text-muted">
+          From the sheer mass of the Great Pyramid to the astronomical alignment
+          of Karnak's hypostyle hall, every stone was placed with intentional
+          precision. These were not merely buildings. They were declarations
+          against mortality.
+        </p>
+        <p class="mt-6 max-w-md text-base leading-relaxed text-muted">
+          The temple of Abu Simbel was carved directly into a mountainside.
+          Luxor's columns still stand after millennia of earthquakes and floods.
+          The engineering was so exact that many techniques remain debated
+          today.
+        </p>
+      </div>
+
+      <!-- Right: photo sequence -->
+      <div class="flex flex-col gap-8">
+        <figure>
+          <div class="overflow-hidden rounded-sm">
+            <img
+              src={`${karnakImage.src}&w=1200&auto=format&fit=crop&q=80`}
+              srcset={`${karnakImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${karnakImage.src}&w=900&auto=format&fit=crop&q=80 900w, ${karnakImage.src}&w=1200&auto=format&fit=crop&q=80 1200w`}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              alt={karnakImage.alt}
+              title={`Photo by ${karnakImage.author} on Unsplash`}
+              width={karnakImage.width}
+              height={karnakImage.height}
+              loading="lazy"
+              decoding="async"
+              class="photo-tone w-full object-cover"
+            />
+          </div>
+          <figcaption class="mt-2 text-xs text-muted">
+            Photo by <a
+              href={karnakImage.authorUrl}
+              rel="noopener"
+              class="text-muted underline hover:text-foreground"
+              >{karnakImage.author}</a
+            >
+            on <a
+              href={karnakImage.unsplashUrl}
+              rel="noopener"
+              class="text-muted underline hover:text-foreground">Unsplash</a
+            >
+          </figcaption>
+        </figure>
+
+        <figure>
+          <div class="overflow-hidden rounded-sm">
+            <img
+              src={`${abuSimbelImage.src}&w=1200&auto=format&fit=crop&q=80`}
+              srcset={`${abuSimbelImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${abuSimbelImage.src}&w=900&auto=format&fit=crop&q=80 900w, ${abuSimbelImage.src}&w=1200&auto=format&fit=crop&q=80 1200w`}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              alt={abuSimbelImage.alt}
+              title={`Photo by ${abuSimbelImage.author} on Unsplash`}
+              width={abuSimbelImage.width}
+              height={abuSimbelImage.height}
+              loading="lazy"
+              decoding="async"
+              class="photo-tone w-full object-cover"
+            />
+          </div>
+          <figcaption class="mt-2 text-xs text-muted">
+            Photo by <a
+              href={abuSimbelImage.authorUrl}
+              rel="noopener"
+              class="text-muted underline hover:text-foreground"
+              >{abuSimbelImage.author}</a
+            >
+            on <a
+              href={abuSimbelImage.unsplashUrl}
+              rel="noopener"
+              class="text-muted underline hover:text-foreground">Unsplash</a
+            >
+          </figcaption>
+        </figure>
+
+        <figure>
+          <div class="overflow-hidden rounded-sm">
+            <img
+              src={`${luxorImage.src}&w=1200&auto=format&fit=crop&q=80`}
+              srcset={`${luxorImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${luxorImage.src}&w=900&auto=format&fit=crop&q=80 900w, ${luxorImage.src}&w=1200&auto=format&fit=crop&q=80 1200w`}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              alt={luxorImage.alt}
+              title={`Photo by ${luxorImage.author} on Unsplash`}
+              width={luxorImage.width}
+              height={luxorImage.height}
+              loading="lazy"
+              decoding="async"
+              class="photo-tone w-full object-cover"
+            />
+          </div>
+          <figcaption class="mt-2 text-xs text-muted">
+            Photo by <a
+              href={luxorImage.authorUrl}
+              rel="noopener"
+              class="text-muted underline hover:text-foreground"
+              >{luxorImage.author}</a
+            >
+            on <a
+              href={luxorImage.unsplashUrl}
+              rel="noopener"
+              class="text-muted underline hover:text-foreground">Unsplash</a
+            >
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>

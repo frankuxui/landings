@@ -1,0 +1,115 @@
+---
+import { Menu, X, Moon, Sun } from "@lucide/astro"
+import { navLinks } from "../data/nav"
+import type { NavLink } from "../data/nav"
+---
+
+<header
+  class="fixed top-0 z-40 w-full border-b border-white/[0.06] bg-[var(--egypt-obsidian)]/70 backdrop-blur-xl"
+>
+  <div
+    class="mx-auto flex w-full max-w-landing items-center justify-between gap-4 px-container-x py-4 sm:px-8 xl:px-14"
+  >
+    <a
+      class="inline-flex shrink-0 items-baseline gap-2 text-white no-underline"
+      href="#home"
+    >
+      <span
+        class="font-display text-base font-semibold uppercase tracking-[0.2em] sm:text-lg"
+      >
+        Egypt
+      </span>
+    </a>
+
+    <div class="flex items-center gap-2 lg:gap-3 xl:gap-4">
+      <button
+        type="button"
+        class="group inline-flex size-11 min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 text-white/70 transition duration-200 ease-landing hover:bg-white/10 hover:text-white focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-[var(--egypt-gold)]/40 active:bg-white/15"
+        data-theme-toggle
+        aria-label="Toggle dark mode"
+      >
+        <Moon
+          class="size-5 dark:hidden"
+          aria-hidden="true"
+          stroke-width="1.5"
+        />
+        <Sun
+          class="hidden size-5 dark:block"
+          aria-hidden="true"
+          stroke-width="1.5"
+        />
+      </button>
+
+      <nav
+        class="hidden items-center gap-0.5 nav:flex"
+        aria-label="Primary navigation"
+      >
+        <ul class="flex items-center gap-0.5">
+          {
+            navLinks.map((link: NavLink) => (
+              <li>
+                <a
+                  class="relative flex min-h-11 items-center px-2 py-2 text-sm font-medium text-white/60 no-underline transition duration-200 ease-landing hover:text-white focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-[var(--egypt-gold)]/40 xl:px-3"
+                  href={link.href}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <button
+        type="button"
+        class="group relative z-60 inline-flex size-11 min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0 text-white/70 transition duration-200 ease-landing hover:bg-white/10 hover:text-white focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-[var(--egypt-gold)]/40 active:bg-white/15 aria-expanded:bg-white/10 nav:hidden"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="primary-navigation-mobile"
+        aria-label="Open navigation menu"
+      >
+        <Menu
+          class="size-5.5 group-aria-expanded:hidden"
+          aria-hidden="true"
+          stroke-width="1.5"
+        />
+        <X
+          class="hidden size-5.5 group-aria-expanded:block"
+          aria-hidden="true"
+          stroke-width="1.5"
+        />
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="fixed inset-0 z-50 flex h-dvh w-full translate-y-0 flex-col justify-between bg-[var(--egypt-obsidian)] px-container-x pt-24 pb-10 text-white transition-[transform,visibility] duration-300 ease-landing aria-hidden:invisible aria-hidden:-translate-y-full motion-reduce:transition-none sm:px-8 nav:hidden"
+    data-menu-panel
+    aria-hidden="true"
+  >
+    <nav id="primary-navigation-mobile" aria-label="Primary navigation">
+      <ol class="flex flex-col">
+        {
+          navLinks.map((link: NavLink, index: number) => (
+            <li class="relative before:absolute before:top-0 before:left-0 before:h-px before:w-full before:bg-white/10 before:content-[''] first:before:hidden">
+              <a
+                class="flex min-h-16 items-center gap-4 py-3 text-3xl font-semibold text-white no-underline transition duration-200 ease-landing hover:text-[var(--egypt-gold)] focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-[var(--egypt-gold)]/40 sm:text-4xl"
+                href={link.href}
+                data-mobile-nav-link
+              >
+                <span class="font-mono text-sm text-[var(--egypt-gold)]/50">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+  </div>
+</header>
+
+<script>
+  import "../scripts/menu"
+</script>

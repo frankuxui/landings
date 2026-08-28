@@ -1,0 +1,69 @@
+{
+  "name": "Egypt",
+  "title": "Egypt — Beneath the Sands",
+  "description": "An immersive, cinematic digital experience exploring five thousand years of Ancient Egyptian civilization — pyramids, pharaohs, gods, hieroglyphs, and the treasures beneath the sand.",
+  "subtitle": "Beneath the sands, eternity waits",
+  "category": "portfolio",
+  "tags": [
+    "egypt",
+    "history",
+    "civilization",
+    "archaeology",
+    "documentary",
+    "cinematic",
+    "editorial"
+  ],
+  "technologies": [
+    "Astro",
+    "Tailwind CSS",
+    "GSAP",
+    "ScrollTrigger",
+    "Swiper",
+    "@lucide/astro"
+  ],
+  "thumbnail": "https://images.unsplash.com/photo-1612899326681-66508905b4ce?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8cHlyYW1pZHMlMjBnaXphJTIwZGVzZXJ0JTIwY2luZW1hdGljfGVufDB8MHx8fDE3ODc5MTg0MDh8MA&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
+  "thumbnailAlt": "The Great Pyramids of Giza rising from the desert under a warm sky with small figures walking below",
+  "thumbnailWidth": 8606,
+  "thumbnailHeight": 5737,
+  "thumbnailCredit": {
+    "id": "7EkyXZYeYsw",
+    "author": "Damir Babacic",
+    "authorUrl": "https://unsplash.com/@onemorephoto?utm_source=astro_landings_gallery&utm_medium=referral",
+    "sourceUrl": "https://unsplash.com/photos/people-walking-on-desert-during-daytime-7EkyXZYeYsw?utm_source=astro_landings_gallery&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+    "downloadLocation": "https://api.unsplash.com/photos/7EkyXZYeYsw/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8cHlyYW1pZHMlMjBnaXphJTIwZGVzZXJ0JTIwY2luZW1hdGljfGVufDB8MHx8fDE3ODc5MTg0MDh8MA"
+  },
+  "palettes": [
+    {
+      "id": "grayscale",
+      "name": "Grayscale",
+      "colors": {
+        "primary": "#171717",
+        "secondary": "#404040",
+        "tertiary": "#737373",
+        "accent": "#a3a3a3",
+        "light": "#f5f5f5"
+      }
+    },
+    {
+      "id": "nile",
+      "name": "Nile",
+      "colors": {
+        "primary": "#11100e",
+        "secondary": "#c6a15b",
+        "tertiary": "#183b56",
+        "accent": "#9a432f",
+        "support": "#277f7a",
+        "light": "#d6be91"
+      }
+    }
+  ],
+  "createdAt": "2026-08-28",
+  "author": "frankuxui",
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "featured": true,
+  "status": "published"
+}

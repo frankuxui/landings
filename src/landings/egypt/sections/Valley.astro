@@ -1,0 +1,119 @@
+---
+// Egypt — Section 10: "Valley of the Kings"
+// Exploration-based section with symbolic descent underground.
+import { valleyKingsImage, tombPaintingsImage } from "../data/images"
+---
+
+<section
+  class="relative overflow-hidden bg-[var(--egypt-obsidian)] py-section"
+  aria-labelledby="valley-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Chapter marker -->
+    <p
+      class="mb-4 font-mono text-xs uppercase tracking-widest text-[var(--egypt-gold)]/60"
+    >
+      10 &mdash; Valley of the Kings
+    </p>
+
+    <h2
+      id="valley-heading"
+      class="max-w-heading font-display text-headline-1 uppercase leading-none tracking-wider text-white"
+    >
+      Where Pharaohs Were Laid to Rest
+    </h2>
+
+    <!-- Entry image -->
+    <figure class="mt-12 lg:mt-16" data-valley-layer>
+      <div class="overflow-hidden rounded-sm">
+        <img
+          src={`${valleyKingsImage.src}&w=1600&auto=format&fit=crop&q=80`}
+          srcset={`${valleyKingsImage.src}&w=800&auto=format&fit=crop&q=80 800w, ${valleyKingsImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${valleyKingsImage.src}&w=1600&auto=format&fit=crop&q=80 1600w`}
+          sizes="(max-width: 768px) 100vw, 80vw"
+          alt={valleyKingsImage.alt}
+          title={`Photo by ${valleyKingsImage.author} on Unsplash`}
+          width={valleyKingsImage.width}
+          height={valleyKingsImage.height}
+          loading="lazy"
+          decoding="async"
+          class="photo-tone w-full object-cover"
+        />
+      </div>
+      <figcaption class="mt-2 text-xs text-[var(--egypt-sand)]/40">
+        Photo by <a
+          href={valleyKingsImage.authorUrl}
+          rel="noopener"
+          class="underline hover:text-[var(--egypt-sand)]/60"
+          >{valleyKingsImage.author}</a
+        >
+        on <a
+          href={valleyKingsImage.unsplashUrl}
+          rel="noopener"
+          class="underline hover:text-[var(--egypt-sand)]/60">Unsplash</a
+        >
+      </figcaption>
+    </figure>
+
+    <!-- Descent narrative -->
+    <div class="mt-16 grid gap-8 lg:mt-24 lg:grid-cols-2 lg:gap-16">
+      <div class="lg:sticky lg:top-24 lg:self-start">
+        <p class="text-base leading-relaxed text-[var(--egypt-sand)]/70">
+          Hidden in the arid hills west of Luxor, the Valley of the Kings
+          contains sixty-three known tombs. For nearly five hundred years,
+          Egypt's greatest rulers were buried here — deep underground, in
+          corridors painted with spells and guarded by curses.
+        </p>
+        <p class="mt-6 text-base leading-relaxed text-[var(--egypt-sand)]/70">
+          The tombs descend through corridors, past painted walls depicting the
+          journey through the underworld, past chambers filled with provisions
+          for eternity, down to the burial chamber itself — where the
+          sarcophagus waited, surrounded by gold and silence.
+        </p>
+
+        <!-- KV62 monumental typography -->
+        <div class="mt-12" data-valley-layer>
+          <p
+            class="font-display text-[clamp(4rem,8vw,8rem)] uppercase leading-none tracking-wider text-[var(--egypt-gold)]/30"
+            aria-label="KV62, Tutankhamun's tomb designation"
+          >
+            KV62
+          </p>
+          <p class="mt-2 text-sm text-[var(--egypt-sand)]/50">
+            Tomb designation of Tutankhamun — the most intact royal burial ever
+            found.
+          </p>
+        </div>
+      </div>
+
+      <figure data-valley-layer>
+        <div class="overflow-hidden rounded-sm">
+          <img
+            src={`${tombPaintingsImage.src}&w=1200&auto=format&fit=crop&q=80`}
+            srcset={`${tombPaintingsImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${tombPaintingsImage.src}&w=900&auto=format&fit=crop&q=80 900w, ${tombPaintingsImage.src}&w=1200&auto=format&fit=crop&q=80 1200w`}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            alt={tombPaintingsImage.alt}
+            title={`Photo by ${tombPaintingsImage.author} on Unsplash`}
+            width={tombPaintingsImage.width}
+            height={tombPaintingsImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone w-full object-cover"
+          />
+        </div>
+        <figcaption class="mt-2 text-xs text-[var(--egypt-sand)]/40">
+          Photo by <a
+            href={tombPaintingsImage.authorUrl}
+            rel="noopener"
+            class="underline hover:text-[var(--egypt-sand)]/60"
+            >{tombPaintingsImage.author}</a
+          >
+          on <a
+            href={tombPaintingsImage.unsplashUrl}
+            rel="noopener"
+            class="underline hover:text-[var(--egypt-sand)]/60">Unsplash</a
+          >
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

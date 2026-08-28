@@ -1,0 +1,131 @@
+---
+// Egypt — Section 09: "The Sky Above Egypt"
+// Night scene with desert stars photo and CSS star field.
+import { desertStarsImage } from "../data/images"
+---
+
+<section
+  class="relative overflow-hidden bg-[var(--egypt-lapis)] py-section"
+  aria-labelledby="sky-heading"
+>
+  <!-- CSS star field -->
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <span
+      class="star"
+      style="top:8%;left:12%;width:2px;height:2px;--twinkle-duration:4s;--twinkle-delay:0s;"
+    ></span>
+    <span
+      class="star"
+      style="top:15%;left:45%;width:1px;height:1px;--twinkle-duration:3s;--twinkle-delay:1.2s;"
+    ></span>
+    <span
+      class="star"
+      style="top:22%;left:78%;width:2px;height:2px;--twinkle-duration:5s;--twinkle-delay:0.5s;"
+    ></span>
+    <span
+      class="star"
+      style="top:35%;left:25%;width:1px;height:1px;--twinkle-duration:3.5s;--twinkle-delay:2s;"
+    ></span>
+    <span
+      class="star"
+      style="top:42%;left:60%;width:2px;height:2px;--twinkle-duration:4.2s;--twinkle-delay:0.8s;"
+    ></span>
+    <span
+      class="star"
+      style="top:55%;left:85%;width:1px;height:1px;--twinkle-duration:3s;--twinkle-delay:1.5s;"
+    ></span>
+    <span
+      class="star"
+      style="top:65%;left:35%;width:2px;height:2px;--twinkle-duration:4.8s;--twinkle-delay:0.3s;"
+    ></span>
+    <span
+      class="star"
+      style="top:72%;left:70%;width:1px;height:1px;--twinkle-duration:3.2s;--twinkle-delay:2.5s;"
+    ></span>
+    <span
+      class="star"
+      style="top:82%;left:15%;width:1px;height:1px;--twinkle-duration:5s;--twinkle-delay:1s;"
+    ></span>
+    <span
+      class="star"
+      style="top:88%;left:55%;width:2px;height:2px;--twinkle-duration:4s;--twinkle-delay:0.7s;"
+    ></span>
+    <span
+      class="star"
+      style="top:10%;left:90%;width:1px;height:1px;--twinkle-duration:3.8s;--twinkle-delay:1.8s;"
+    ></span>
+    <span
+      class="star"
+      style="top:48%;left:8%;width:2px;height:2px;--twinkle-duration:4.5s;--twinkle-delay:0.2s;"
+    ></span>
+  </div>
+
+  <div
+    class="relative mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14"
+  >
+    <!-- Chapter marker -->
+    <p
+      class="mb-4 font-mono text-xs uppercase tracking-widest text-[var(--egypt-gold)]/60"
+    >
+      09 &mdash; The Sky Above Egypt
+    </p>
+
+    <h2
+      id="sky-heading"
+      class="max-w-heading font-display text-headline-1 uppercase leading-none tracking-wider text-white"
+    >
+      They Built on Earth While Looking at the Stars
+    </h2>
+
+    <div class="mt-10 grid gap-8 lg:mt-16 lg:grid-cols-2 lg:gap-16">
+      <div class="max-w-md">
+        <p class="text-base leading-relaxed text-white/70">
+          The pyramids of Giza are aligned with Orion's Belt. The temples of
+          Karnak track the winter solstice sunrise. The Egyptian calendar — one
+          of the first in human history — divided the year into 365 days, three
+          seasons, twelve months.
+        </p>
+        <p class="mt-6 text-base leading-relaxed text-white/70">
+          Astronomy was not separate from religion. The stars were the abode of
+          the gods. The Milky Way was the celestial Nile. The circumpolar stars
+          — the ones that never set — were the "Imperishable Ones," the souls of
+          the eternal dead.
+        </p>
+        <p class="mt-6 text-base leading-relaxed text-white/70">
+          To the Egyptians, the sky was not merely above. It was a mirror of
+          everything below.
+        </p>
+      </div>
+
+      <figure>
+        <div class="overflow-hidden rounded-sm">
+          <img
+            src={`${desertStarsImage.src}&w=1200&auto=format&fit=crop&q=80`}
+            srcset={`${desertStarsImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${desertStarsImage.src}&w=900&auto=format&fit=crop&q=80 900w, ${desertStarsImage.src}&w=1200&auto=format&fit=crop&q=80 1200w`}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            alt={desertStarsImage.alt}
+            title={`Photo by ${desertStarsImage.author} on Unsplash`}
+            width={desertStarsImage.width}
+            height={desertStarsImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone w-full object-cover"
+          />
+        </div>
+        <figcaption class="mt-2 text-xs text-white/40">
+          Photo by <a
+            href={desertStarsImage.authorUrl}
+            rel="noopener"
+            class="text-white/50 underline hover:text-white/70"
+            >{desertStarsImage.author}</a
+          >
+          on <a
+            href={desertStarsImage.unsplashUrl}
+            rel="noopener"
+            class="text-white/50 underline hover:text-white/70">Unsplash</a
+          >
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

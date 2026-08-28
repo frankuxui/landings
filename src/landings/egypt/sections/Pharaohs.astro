@@ -1,0 +1,219 @@
+---
+// Egypt — Section 03: "Faces of Eternity"
+// Image-dominant editorial layout. Each pharaoh gets a large photograph
+// with text overlaid or adjacent in alternating compositions.
+import type { UnsplashImage } from "../data/images"
+import {
+  tutankhamunImage,
+  hatshepsutImage,
+  abuSimbelImage,
+  cleopatraImage,
+} from "../data/images"
+
+interface Pharaoh {
+  name: string
+  title: string
+  reign: string
+  description: string
+  legacy: string
+  image: UnsplashImage
+  layout: "overlay" | "side"
+}
+
+const pharaohs: Pharaoh[] = [
+  {
+    name: "Tutankhamun",
+    title: "The Boy King",
+    reign: "c. 1332 — 1323 BCE",
+    description:
+      "He ascended the throne as a child and died before he turned twenty. His reign was unremarkable. His tomb was not. Sealed and forgotten for over three thousand years, it was found virtually intact in 1922 — the most complete royal burial ever discovered.",
+    legacy: "Accidental immortality through a sealed tomb.",
+    image: tutankhamunImage,
+    layout: "overlay",
+  },
+  {
+    name: "Hatshepsut",
+    title: "The Woman Pharaoh",
+    reign: "c. 1478 — 1458 BCE",
+    description:
+      "She ruled as pharaoh in her own right during the New Kingdom, one of the few women to hold the full title. Her reign brought unprecedented prosperity and monumental building — including the temple at Deir el-Bahari, one of the most beautiful structures in Egypt.",
+    legacy: "Proved that power has no gender.",
+    image: hatshepsutImage,
+    layout: "side",
+  },
+  {
+    name: "Ramses II",
+    title: "The Great Builder",
+    reign: "c. 1279 — 1213 BCE",
+    description:
+      "He reigned for sixty-six years, fathered over a hundred children, and built himself into eternity. Abu Simbel, the Ramesseum, additions to Karnak and Luxor. He fought at Kadesh and declared victory whether or not it was true. He understood that legacy is a construction.",
+    legacy: "Built himself into eternity.",
+    image: abuSimbelImage,
+    layout: "overlay",
+  },
+  {
+    name: "Cleopatra VII",
+    title: "The Last Pharaoh",
+    reign: "51 — 30 BCE",
+    description:
+      "The last active ruler of the Ptolemaic Kingdom. She was not merely beautiful — she was brilliant, politically shrewd, multilingual, and strategically aligned with Rome through Caesar and Antony. Her death marked the end of pharaonic Egypt and the beginning of Roman rule.",
+    legacy: "The final act of three thousand years.",
+    image: cleopatraImage,
+    layout: "side",
+  },
+]
+---
+
+<section
+  id="pharaohs"
+  class="relative bg-background-alt py-section dark:bg-[var(--egypt-obsidian)]"
+  aria-labelledby="pharaohs-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Chapter marker -->
+    <p class="mb-4 font-mono text-xs uppercase tracking-widest text-muted">
+      03 &mdash; Faces of Eternity
+    </p>
+
+    <h2
+      id="pharaohs-heading"
+      class="max-w-heading font-display text-headline-1 uppercase leading-none tracking-wider text-foreground"
+    >
+      Rulers Who Became Legends
+    </h2>
+
+    <!-- Pharaoh cards -->
+    <div class="mt-16 flex flex-col gap-24 lg:mt-24 lg:gap-32">
+      {
+        pharaohs.map((pharaoh: Pharaoh, index: number) =>
+          pharaoh.layout === "overlay" ? (
+            /* Full-width image with text overlay at bottom */
+            <article class="group relative" data-pharaoh-card>
+              <figure class="relative overflow-hidden rounded-sm">
+                <img
+                  src={`${pharaoh.image.src}&w=1600&auto=format&fit=crop&q=80`}
+                  srcset={`${pharaoh.image.src}&w=800&auto=format&fit=crop&q=80 800w, ${pharaoh.image.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${pharaoh.image.src}&w=1600&auto=format&fit=crop&q=80 1600w`}
+                  sizes="(max-width: 768px) 100vw, 85vw"
+                  alt={pharaoh.image.alt}
+                  width={pharaoh.image.width}
+                  height={pharaoh.image.height}
+                  loading="lazy"
+                  decoding="async"
+                  class="photo-tone aspect-[3/4] w-full object-cover transition-transform duration-700 ease-landing group-hover:scale-[1.03] sm:aspect-[16/9] lg:aspect-[21/9]"
+                  data-pharaoh-image
+                />
+
+                {/* Gradient overlay from transparent to dark at bottom */}
+                <div
+                  class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--egypt-obsidian)] via-[var(--egypt-obsidian)]/40 to-transparent"
+                  aria-hidden="true"
+                />
+
+                {/* Text overlay at bottom */}
+                <div class="absolute inset-x-0 bottom-0 p-6 sm:p-8 lg:p-12">
+                  <p class="font-mono text-[10px] uppercase tracking-widest text-[var(--egypt-gold)]">
+                    {pharaoh.reign}
+                  </p>
+                  <h3 class="mt-2 font-display text-headline-2 uppercase tracking-wide text-white">
+                    {pharaoh.name}
+                  </h3>
+                  <p class="mt-1 text-xs font-medium uppercase tracking-widest text-[var(--egypt-sand)]/70 italic">
+                    {pharaoh.title}
+                  </p>
+                  <p class="mt-4 max-w-lg text-sm leading-relaxed text-[var(--egypt-sand)]/80">
+                    {pharaoh.description}
+                  </p>
+                  <p class="mt-3 border-l-2 border-[var(--egypt-gold)]/40 pl-4 text-sm text-[var(--egypt-sand)]/60 italic">
+                    {pharaoh.legacy}
+                  </p>
+                </div>
+
+                <figcaption class="absolute top-3 right-3 text-[10px] text-white/40">
+                  Photo by{" "}
+                  <a
+                    href={pharaoh.image.authorUrl}
+                    rel="noopener"
+                    class="underline hover:text-white/60"
+                  >
+                    {pharaoh.image.author}
+                  </a>{" "}
+                  on{" "}
+                  <a
+                    href={pharaoh.image.unsplashUrl}
+                    rel="noopener"
+                    class="underline hover:text-white/60"
+                  >
+                    Unsplash
+                  </a>
+                </figcaption>
+              </figure>
+            </article>
+          ) : (
+            /* Side-by-side: image ~60%, text alongside */
+            <article
+              class={`group grid gap-8 lg:grid-cols-5 lg:items-center lg:gap-12 ${index % 2 !== 0 ? "" : ""}`}
+              data-pharaoh-card
+            >
+              {/* Image side — 3 of 5 cols */}
+              <figure
+                class={`relative overflow-hidden rounded-sm lg:col-span-3 ${index % 2 !== 0 ? "lg:order-2" : ""}`}
+              >
+                <img
+                  src={`${pharaoh.image.src}&w=1200&auto=format&fit=crop&q=80`}
+                  srcset={`${pharaoh.image.src}&w=600&auto=format&fit=crop&q=80 600w, ${pharaoh.image.src}&w=900&auto=format&fit=crop&q=80 900w, ${pharaoh.image.src}&w=1200&auto=format&fit=crop&q=80 1200w`}
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  alt={pharaoh.image.alt}
+                  width={pharaoh.image.width}
+                  height={pharaoh.image.height}
+                  loading="lazy"
+                  decoding="async"
+                  class="photo-tone aspect-[4/5] w-full object-cover transition-transform duration-700 ease-landing group-hover:scale-[1.03]"
+                  data-pharaoh-image
+                />
+                <figcaption class="mt-2 text-[10px] text-muted">
+                  Photo by{" "}
+                  <a
+                    href={pharaoh.image.authorUrl}
+                    rel="noopener"
+                    class="text-muted underline hover:text-foreground"
+                  >
+                    {pharaoh.image.author}
+                  </a>{" "}
+                  on{" "}
+                  <a
+                    href={pharaoh.image.unsplashUrl}
+                    rel="noopener"
+                    class="text-muted underline hover:text-foreground"
+                  >
+                    Unsplash
+                  </a>
+                </figcaption>
+              </figure>
+
+              {/* Text side — 2 of 5 cols */}
+              <div
+                class={`lg:col-span-2 ${index % 2 !== 0 ? "lg:order-1" : ""}`}
+              >
+                <p class="font-mono text-xs uppercase tracking-widest text-[var(--egypt-gold)]">
+                  {pharaoh.reign}
+                </p>
+                <h3 class="mt-3 font-display text-headline-2 uppercase tracking-wide text-foreground">
+                  {pharaoh.name}
+                </h3>
+                <p class="mt-1 text-sm font-medium uppercase tracking-widest text-muted italic">
+                  {pharaoh.title}
+                </p>
+                <p class="mt-6 max-w-md text-base leading-relaxed text-muted">
+                  {pharaoh.description}
+                </p>
+                <p class="mt-4 border-l-2 border-[var(--egypt-gold)]/40 pl-4 text-sm text-[var(--egypt-stone)] italic dark:text-[var(--egypt-sand)]/70">
+                  {pharaoh.legacy}
+                </p>
+              </div>
+            </article>
+          ),
+        )
+      }
+    </div>
+  </div>
+</section>

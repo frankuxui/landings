@@ -1,0 +1,90 @@
+---
+// Egypt — Section 05: "The Book of the Dead"
+// Intimate, dark section about the Egyptian afterlife journey.
+// Text appears as if being deciphered (blur/opacity via GSAP).
+---
+
+<section
+  id="afterlife"
+  class="relative overflow-hidden bg-[var(--egypt-obsidian)] py-section"
+  aria-labelledby="book-heading"
+>
+  <!-- Papyrus texture overlay -->
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.03]"
+    style='background-image: url(&apos;data:image/svg+xml,%3Csvg width="60" height="60" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)" opacity="1"/%3E%3C/svg%3E&apos;);'
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    class="relative mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14"
+  >
+    <!-- Chapter marker -->
+    <p
+      class="mb-4 font-mono text-xs uppercase tracking-widest text-[var(--egypt-gold)]/60"
+    >
+      05 &mdash; The Book of the Dead
+    </p>
+
+    <h2
+      id="book-heading"
+      class="max-w-heading font-display text-headline-1 uppercase leading-none tracking-wider text-white"
+    >
+      Death Was Not the End
+    </h2>
+
+    <div class="mt-16 max-w-copy lg:mt-24">
+      <p
+        class="text-xl leading-relaxed text-[var(--egypt-sand)]/80 italic"
+        data-decipher
+      >
+        It was a journey. A passage through darkness, through judgment, through
+        transformation. The dead did not simply rest. They traveled.
+      </p>
+
+      <p
+        class="mt-10 text-base leading-relaxed text-[var(--egypt-sand)]/60"
+        data-decipher
+      >
+        The Book of the Dead was not a single text but a collection of spells,
+        prayers, and instructions — a guide for navigating the underworld. Each
+        copy was personalized, written on papyrus scrolls and placed inside the
+        coffin with the deceased.
+      </p>
+
+      <p
+        class="mt-8 text-base leading-relaxed text-[var(--egypt-sand)]/60"
+        data-decipher
+      >
+        The spells guided the soul past demons, through gates guarded by
+        serpents, across lakes of fire, and finally to the Hall of Ma'at — where
+        the ultimate judgment awaited.
+      </p>
+
+      <blockquote
+        class="mt-12 border-l-2 border-[var(--egypt-gold)]/30 pl-6"
+        data-decipher
+      >
+        <p
+          class="font-display text-headline-3 uppercase leading-snug tracking-wide text-[var(--egypt-gold)]"
+        >
+          "I have not done iniquity. I have not robbed with violence. I have not
+          done violence to any man. I have not committed theft."
+        </p>
+        <cite class="mt-4 block text-sm text-[var(--egypt-sand)]/50 not-italic">
+          — The Negative Confession, Spell 125, Book of the Dead
+        </cite>
+      </blockquote>
+
+      <p
+        class="mt-10 text-base leading-relaxed text-[var(--egypt-sand)]/60"
+        data-decipher
+      >
+        To pass, the deceased had to recite the Negative Confession — a
+        declaration of innocence before forty-two divine judges. Each denial was
+        specific. Each was a moral inventory of an entire life.
+      </p>
+    </div>
+  </div>
+</section>

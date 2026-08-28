@@ -1,0 +1,142 @@
+---
+// Egypt — Section 01: "Before the World Remembered"
+// Giant "5,000 YEARS" with a chronological timeline progressively revealed.
+import { sphinxImage } from "../data/images"
+
+interface TimelineEra {
+  period: string
+  dates: string
+  description: string
+}
+
+const eras: TimelineEra[] = [
+  {
+    period: "Early Dynastic Period",
+    dates: "c. 3150 — 2686 BCE",
+    description:
+      "The unification of Upper and Lower Egypt under the first pharaohs. The foundations of a civilization that would endure for millennia.",
+  },
+  {
+    period: "Old Kingdom",
+    dates: "c. 2686 — 2181 BCE",
+    description:
+      "The Age of the Pyramids. Monumental architecture reached its zenith at Giza, declaring Egypt's mastery over stone and eternity.",
+  },
+  {
+    period: "Middle Kingdom",
+    dates: "c. 2055 — 1650 BCE",
+    description:
+      "A renaissance of art, literature, and military expansion. Egypt's classical age of cultural refinement.",
+  },
+  {
+    period: "New Kingdom",
+    dates: "c. 1550 — 1069 BCE",
+    description:
+      "The era of empire. Tutankhamun, Hatshepsut, Ramses II. The Valley of the Kings. Egypt's greatest territorial reach.",
+  },
+  {
+    period: "Ptolemaic Egypt",
+    dates: "305 — 30 BCE",
+    description:
+      "Greek rule and Cleopatra VII. The twilight of pharaonic Egypt, ending with Rome's embrace and the death of an era.",
+  },
+]
+---
+
+<section
+  id="timeline"
+  class="relative overflow-hidden bg-[var(--egypt-papyrus)] py-section dark:bg-[var(--egypt-obsidian)]"
+  aria-labelledby="timeline-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Chapter marker -->
+    <p
+      class="mb-4 font-mono text-xs uppercase tracking-widest text-[var(--egypt-stone)] dark:text-[var(--egypt-sand)]"
+    >
+      01 &mdash; Before the World Remembered
+    </p>
+
+    <!-- Giant figure -->
+    <p
+      class="font-display text-figure uppercase leading-none tracking-wider text-[var(--egypt-obsidian)] dark:text-[var(--egypt-sand)]"
+      aria-label="Five thousand years"
+    >
+      5,000 Years
+    </p>
+
+    <p
+      class="mt-6 max-w-copy text-lg leading-relaxed text-[var(--egypt-stone)] italic dark:text-[var(--egypt-sand)]/80"
+    >
+      Before empires rose and disappeared, Egypt was already looking toward
+      eternity.
+    </p>
+
+    <!-- Timeline -->
+    <div class="relative mt-16 lg:mt-24">
+      <!-- Vertical line -->
+      <div
+        class="absolute top-0 left-4 h-full w-px bg-[var(--egypt-stone)]/30 dark:bg-[var(--egypt-sand)]/20 lg:left-1/2 lg:-translate-x-1/2"
+        aria-hidden="true"
+      >
+      </div>
+
+      <div class="flex flex-col gap-16 lg:gap-24">
+        {
+          eras.map((era: TimelineEra, index: number) => (
+            <div
+              class={`relative pl-12 lg:w-1/2 lg:pl-0 ${index % 2 === 0 ? "lg:pr-16 lg:text-right" : "lg:ml-auto lg:pl-16"}`}
+              data-timeline-item
+            >
+              {/* Dot on the line */}
+              <div
+                class={`absolute top-1 left-2.5 size-3 rounded-full bg-[var(--egypt-gold)] lg:top-1 ${index % 2 === 0 ? "lg:left-auto lg:-right-1.5" : "lg:-left-1.5"}`}
+                aria-hidden="true"
+              />
+
+              <p class="font-mono text-xs uppercase tracking-widest text-[var(--egypt-gold)]">
+                {era.dates}
+              </p>
+              <h3 class="mt-2 font-display text-headline-3 uppercase tracking-wide text-[var(--egypt-obsidian)] dark:text-[var(--egypt-sand)]">
+                {era.period}
+              </h3>
+              <p class="mt-3 max-w-md text-base leading-relaxed text-[var(--egypt-stone)] dark:text-[var(--egypt-sand)]/70">
+                {era.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Photo -->
+    <figure class="mt-20 lg:mt-28">
+      <div class="overflow-hidden rounded-sm">
+        <img
+          src={`${sphinxImage.src}&w=1600&auto=format&fit=crop&q=80`}
+          srcset={`${sphinxImage.src}&w=800&auto=format&fit=crop&q=80 800w, ${sphinxImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${sphinxImage.src}&w=1600&auto=format&fit=crop&q=80 1600w`}
+          sizes="(max-width: 768px) 100vw, 80vw"
+          alt={sphinxImage.alt}
+          title={`Photo by ${sphinxImage.author} on Unsplash`}
+          width={sphinxImage.width}
+          height={sphinxImage.height}
+          loading="lazy"
+          decoding="async"
+          class="photo-tone w-full object-cover"
+        />
+      </div>
+      <figcaption class="mt-2 text-xs text-muted">
+        Photo by <a
+          href={sphinxImage.authorUrl}
+          rel="noopener"
+          class="text-muted underline hover:text-foreground"
+          >{sphinxImage.author}</a
+        >
+        on <a
+          href={sphinxImage.unsplashUrl}
+          rel="noopener"
+          class="text-muted underline hover:text-foreground">Unsplash</a
+        >
+      </figcaption>
+    </figure>
+  </div>
+</section>
