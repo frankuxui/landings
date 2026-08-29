@@ -1,10 +1,26 @@
 ---
 // Words of Budapest — large editorial phrase with interactive hover words
+import {
+  chainBridgeImage,
+  thermalImage,
+  budaCastleImage,
+  winterImage,
+  heroImage,
+} from "../data/images"
+
+const wordImages = {
+  bridges: chainBridgeImage,
+  thermal: thermalImage,
+  stone: budaCastleImage,
+  winter: winterImage,
+  evenings: heroImage,
+}
 ---
 
 <section
   class="relative bg-background py-section"
   aria-labelledby="words-heading"
+  data-words-section
 >
   <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
     <p
@@ -24,18 +40,97 @@
         class="font-display text-headline-1 font-bold leading-[1.15] text-foreground sm:text-[clamp(2.5rem,2rem+3vw,4.5rem)]"
       >
         Budapest is a city of
-        <span class="inline-block text-foreground/40">bridges,</span>
+        <button
+          type="button"
+          class="words-trigger inline-block cursor-pointer border-0 bg-transparent p-0 font-display text-foreground/40 underline decoration-border/0 underline-offset-8 transition duration-200 ease-landing hover:text-foreground hover:decoration-border focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+          data-word-trigger="bridges"
+          data-image-src={`${wordImages.bridges.src}&w=700&auto=format&fit=crop&q=80`}
+          data-image-alt={wordImages.bridges.alt}
+          data-credit={`Photo by ${wordImages.bridges.author} on Unsplash`}
+        >
+          bridges,
+        </button>
         <br class="hidden sm:block" />
-        <span class="inline-block text-foreground/40">thermal water,</span>
-        <span class="inline-block text-foreground/40">stone,</span>
+        <button
+          type="button"
+          class="words-trigger inline-block cursor-pointer border-0 bg-transparent p-0 font-display text-foreground/40 underline decoration-border/0 underline-offset-8 transition duration-200 ease-landing hover:text-foreground hover:decoration-border focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+          data-word-trigger="thermal water"
+          data-image-src={`${wordImages.thermal.src}&w=700&auto=format&fit=crop&q=80`}
+          data-image-alt={wordImages.thermal.alt}
+          data-credit={`Photo by ${wordImages.thermal.author} on Unsplash`}
+        >
+          thermal water,
+        </button>
+        <button
+          type="button"
+          class="words-trigger inline-block cursor-pointer border-0 bg-transparent p-0 font-display text-foreground/40 underline decoration-border/0 underline-offset-8 transition duration-200 ease-landing hover:text-foreground hover:decoration-border focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+          data-word-trigger="stone"
+          data-image-src={`${wordImages.stone.src}&w=700&auto=format&fit=crop&q=80`}
+          data-image-alt={wordImages.stone.alt}
+          data-credit={`Photo by ${wordImages.stone.author} on Unsplash`}
+        >
+          stone,
+        </button>
         <br class="hidden sm:block" />
         <span class="inline-block text-foreground/40">music,</span>
-        <span class="inline-block text-foreground/40">winter</span>
-        <br class="hidden sm:block" />
-        and <span class="inline-block text-foreground/40">golden evenings.</span
+        <button
+          type="button"
+          class="words-trigger inline-block cursor-pointer border-0 bg-transparent p-0 font-display text-foreground/40 underline decoration-border/0 underline-offset-8 transition duration-200 ease-landing hover:text-foreground hover:decoration-border focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+          data-word-trigger="winter"
+          data-image-src={`${wordImages.winter.src}&w=700&auto=format&fit=crop&q=80`}
+          data-image-alt={wordImages.winter.alt}
+          data-credit={`Photo by ${wordImages.winter.author} on Unsplash`}
         >
+          winter
+        </button>
+        <br class="hidden sm:block" />
+        and <button
+          type="button"
+          class="words-trigger inline-block cursor-pointer border-0 bg-transparent p-0 font-display text-foreground/40 underline decoration-border/0 underline-offset-8 transition duration-200 ease-landing hover:text-foreground hover:decoration-border focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+          data-word-trigger="golden evenings"
+          data-image-src={`${wordImages.evenings.src}&w=700&auto=format&fit=crop&q=80`}
+          data-image-alt={wordImages.evenings.alt}
+          data-credit={`Photo by ${wordImages.evenings.author} on Unsplash`}
+        >
+          golden evenings.
+        </button>
       </p>
     </div>
+
+    <div
+      class="words-preview pointer-events-none fixed top-0 left-0 z-30 hidden w-72 overflow-hidden rounded-sm bg-surface shadow-2xl md:block"
+      data-words-preview
+      aria-hidden="true"
+    >
+      <img
+        src={`${wordImages.bridges.src}&w=700&auto=format&fit=crop&q=80`}
+        alt=""
+        width={wordImages.bridges.width}
+        height={wordImages.bridges.height}
+        class="photo-tone aspect-[4/3] w-full object-cover"
+        data-words-preview-image
+      />
+      <p class="p-3 text-xs text-muted" data-words-preview-credit>
+        Photo by {wordImages.bridges.author} on Unsplash
+      </p>
+    </div>
+
+    <figure
+      class="mt-10 overflow-hidden rounded-sm bg-surface md:hidden"
+      data-words-mobile-preview
+    >
+      <img
+        src={`${wordImages.bridges.src}&w=800&auto=format&fit=crop&q=80`}
+        alt={wordImages.bridges.alt}
+        width={wordImages.bridges.width}
+        height={wordImages.bridges.height}
+        class="photo-tone aspect-[4/3] w-full object-cover"
+        data-words-mobile-image
+      />
+      <figcaption class="p-3 text-xs text-muted" data-words-mobile-credit>
+        Photo by {wordImages.bridges.author} on Unsplash
+      </figcaption>
+    </figure>
 
     <!-- Editorial divider -->
     <div

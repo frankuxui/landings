@@ -4,8 +4,9 @@ import { winterImage, winterPanoramaImage, heroImage } from "../data/images"
 
 <section
   id="seasons"
-  class="relative overflow-hidden bg-background py-section"
+  class="seasons-experience relative overflow-hidden bg-background py-section"
   aria-labelledby="seasons-heading"
+  data-seasons
 >
   <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
     <p
@@ -31,7 +32,7 @@ import { winterImage, winterPanoramaImage, heroImage } from "../data/images"
   </div>
 
   <!-- Winter block -->
-  <div class="mt-16 sm:mt-24">
+  <div class="season-chapter mt-16 sm:mt-24" data-season-chapter="winter">
     <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
       <div class="grid gap-8 lg:grid-cols-5 lg:gap-12">
         <div class="flex flex-col justify-center lg:col-span-2">
@@ -126,7 +127,7 @@ import { winterImage, winterPanoramaImage, heroImage } from "../data/images"
   </div>
 
   <!-- Summer block -->
-  <div class="mt-24 sm:mt-32">
+  <div class="season-chapter mt-24 sm:mt-32" data-season-chapter="summer">
     <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
       <div class="grid gap-8 lg:grid-cols-5 lg:gap-12">
         <figure class="reveal lg:col-span-3">

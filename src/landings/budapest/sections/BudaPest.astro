@@ -3,8 +3,10 @@ import { budaCastleImage, parliamentImage } from "../data/images"
 ---
 
 <section
+  id="buda-pest"
   class="relative overflow-hidden bg-inverted py-section palette-surface-primary"
   aria-labelledby="buda-pest-heading"
+  data-buda-pest
 >
   <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
     <p
@@ -30,9 +32,12 @@ import { budaCastleImage, parliamentImage } from "../data/images"
     </p>
 
     <!-- Split-screen Buda/Pest -->
-    <div class="mt-16 grid gap-8 sm:mt-20 lg:grid-cols-2 lg:gap-6">
+    <div
+      class="mt-16 grid gap-8 sm:mt-20 lg:grid-cols-2 lg:gap-6"
+      data-buda-pest-split
+    >
       <!-- Buda side -->
-      <div class="reveal">
+      <div class="reveal" data-buda-side>
         <figure>
           <div class="overflow-hidden rounded-sm">
             <img
@@ -76,7 +81,7 @@ import { budaCastleImage, parliamentImage } from "../data/images"
       </div>
 
       <!-- Pest side -->
-      <div class="reveal lg:mt-16">
+      <div class="reveal lg:mt-16" data-pest-side>
         <figure>
           <div class="overflow-hidden rounded-sm">
             <img
@@ -123,6 +128,7 @@ import { budaCastleImage, parliamentImage } from "../data/images"
     <!-- Editorial quote -->
     <blockquote
       class="reveal mt-20 border-l-2 border-inverted-foreground/10 pl-6 sm:mt-28"
+      data-buda-pest-quote
     >
       <p
         class="font-display text-headline-3 font-bold italic leading-snug text-inverted-foreground/80"

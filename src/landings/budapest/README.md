@@ -14,14 +14,16 @@ Portfolio / Editorial
 4. **BudaPest** — split-screen composition: Buda (hills, castle) vs Pest (avenues, Parliament)
 5. **Bridges** — Swiper slider featuring Chain Bridge, Liberty Bridge, Margaret Bridge, Elizabeth Bridge
 6. **Monuments** — architectural showcase: Fisherman's Bastion, Matthias Church, Heroes' Square, St. Stephen's Basilica, Opera House
-7. **Unification** — 1873 historical section: giant year, three cities becoming one
-8. **Details** — architecture in detail: Art Nouveau doorways, spiral staircases, wrought iron
-9. **Words** — large editorial phrase about Budapest's essence
-10. **Seasons** — winter/summer contrast with dedicated photography
-11. **Thermal** — Szechenyi and Gellert baths with sticky column pattern
-12. **Cafe** — Central European cafe culture and intellectual tradition
-13. **Stories** — four editorial travel stories (labeled as fiction)
-14. **Footer** — editorial last chapter with giant BUDAPEST, coordinates, credits
+7. **ThenNow** — accessible historical before/after comparator for Chain Bridge
+8. **Unification** — pinned 1873 GSAP sequence: Buda, Obuda, and Pest becoming Budapest
+9. **Details** — architecture in detail: Art Nouveau doorways, spiral staircases, wrought iron
+10. **Words** — interactive editorial phrase with floating photographs
+11. **Seasons** — winter/summer contrast with ScrollTrigger-controlled palette transition
+12. **Thermal** — Szechenyi and Gellert baths with sticky column pattern
+13. **Cafe** — Central European cafe culture and intellectual tradition
+14. **Stories** — four editorial travel stories (labeled as fiction)
+15. **Gallery** — Frame by Frame Swiper gallery with mixed slide widths
+16. **Footer** — editorial last chapter with giant BUDAPEST, coordinates, credits
 
 ## Components
 
@@ -44,6 +46,7 @@ Three thematic palettes switchable via the preview toolbar:
 ## Dependencies
 
 - Tailwind CSS (via @tailwindcss/vite)
+- GSAP + ScrollTrigger (narrative scroll motion)
 - Swiper Core (bridges slider)
 - @lucide/astro (icons)
 
@@ -55,10 +58,14 @@ Three thematic palettes switchable via the preview toolbar:
 - `backToTop.ts` — floating back-to-top button visibility
 - `menu.ts` — mobile navigation toggle
 - `bridgesSlider.ts` — Swiper instance for the Bridges section
+- `motion.ts` — GSAP + ScrollTrigger narrative motion
+- `thenNow.ts` — pointer/touch/keyboard before-after comparator
+- `words.ts` — floating image interaction for editorial words
+- `frameSlider.ts` — Swiper instance for the Frame by Frame gallery
 
 ## Images
 
-All photographs sourced from Unsplash with proper attribution. See `data/images.ts` for the complete metadata registry. Credits rendered both per-photo (figcaption) and as a consolidated list in the footer.
+All contemporary photographs are sourced from Unsplash with proper attribution. See `data/images.ts` for the complete metadata registry. Credits are rendered both per-photo (figcaption) and as a consolidated list in the footer. The historical Chain Bridge image used in Then / Now comes from Wikimedia Commons and is credited separately with its CC BY 4.0 license.
 
 ## Light / Dark
 
@@ -70,7 +77,9 @@ Both themes supported via `data-theme` attribute. Toggle button in the header. T
 - Semantic HTML5 landmarks
 - ARIA labels on interactive controls
 - Keyboard navigation for all interactive elements
+- Pointer, touch, and keyboard support for the Then / Now comparator
+- Focus trap, Escape close, aria-expanded, and scroll lock for fullscreen mobile navigation
 - Focus-visible outlines
-- prefers-reduced-motion: reveal animations and smooth scroll disabled
+- prefers-reduced-motion: parallax, pinning, cursor-follow motion, demos, reveal animations, and smooth scroll reduced or disabled
 - Minimum 44px touch targets
 - Photo credits visible and keyboard-accessible

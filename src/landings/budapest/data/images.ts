@@ -18,6 +18,21 @@ export interface UnsplashImage {
   downloadLocation: string
 }
 
+export interface HistoricalImage {
+  id: string
+  src: string
+  alt: string
+  width: number
+  height: number
+  title: string
+  date: string
+  author: string
+  sourceName: string
+  sourceUrl: string
+  license: string
+  licenseUrl: string
+}
+
 const UTM = "utm_source=astro_landings_gallery&utm_medium=referral"
 
 // Hero — Parliament and Danube panorama at golden hour
@@ -339,6 +354,80 @@ export const bastionDayImage: UnsplashImage = {
   downloadLocation:
     "https://api.unsplash.com/photos/2TmsyZXMNTE/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8ZmlzaGVybWFucyUyMGJhc3Rpb24lMjBidWRhcGVzdHxlbnwwfDB8fHwxNzg3OTkxNDYwfDA",
 }
+
+export const chainBridgeHistoricalImage: HistoricalImage = {
+  id: "commons-a-lanchid-1949-nyaran",
+  src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/A%20L%C3%A1nch%C3%ADd%201949%20nyar%C3%A1n.jpg",
+  alt: "Szechenyi Chain Bridge photographed in summer 1949 during Budapest's postwar reconstruction",
+  width: 8298,
+  height: 5589,
+  title: "A Lanchid 1949 nyaran",
+  date: "Summer 1949",
+  author: "Racz Erzsebet",
+  sourceName: "Wikimedia Commons",
+  sourceUrl:
+    "https://commons.wikimedia.org/wiki/File:A_L%C3%A1nch%C3%ADd_1949_nyar%C3%A1n.jpg",
+  license: "CC BY 4.0",
+  licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+}
+
+export interface FrameImage {
+  title: string
+  location: string
+  shape: "landscape" | "portrait" | "wide" | "square"
+  image: UnsplashImage
+}
+
+export const frameImages: FrameImage[] = [
+  {
+    title: "Parliament at the River",
+    location: "Danube Embankment",
+    shape: "wide",
+    image: heroImage,
+  },
+  {
+    title: "Castle Above the Water",
+    location: "Buda Castle District",
+    shape: "landscape",
+    image: budaCastleImage,
+  },
+  {
+    title: "Winter Bridge",
+    location: "Danube, Budapest",
+    shape: "landscape",
+    image: winterImage,
+  },
+  {
+    title: "Fisherman's Bastion",
+    location: "Castle Hill",
+    shape: "portrait",
+    image: bastionImage,
+  },
+  {
+    title: "Thermal Facade",
+    location: "Szechenyi Baths",
+    shape: "landscape",
+    image: thermalImage,
+  },
+  {
+    title: "The Opera Interior",
+    location: "Andrassy Avenue",
+    shape: "square",
+    image: operaImage,
+  },
+  {
+    title: "Iron and Glass",
+    location: "Budapest doorway",
+    shape: "portrait",
+    image: gateDetailImage,
+  },
+  {
+    title: "The River From Above",
+    location: "Buda and Pest",
+    shape: "wide",
+    image: danubeImage,
+  },
+]
 
 // All images for the consolidated credits list
 export const allImages: UnsplashImage[] = [

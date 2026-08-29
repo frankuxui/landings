@@ -308,6 +308,82 @@ html[data-theme="dark"][data-palette="summer"] {
   outline-offset: 3px;
 }
 
+/* Then/Now comparator geometry needs custom properties shared by pointer,
+   keyboard, and GSAP demo states. Tailwind cannot express dynamic width/left. */
+.then-now-before {
+  width: var(--then-now-position, 50%);
+}
+
+.then-now-handle {
+  left: var(--then-now-position, 50%);
+  touch-action: none;
+}
+
+.then-now-comparison {
+  touch-action: none;
+}
+
+/* Words preview and section palette overlays are component-local interactive
+   exceptions: both are driven by CSS variables mutated by GSAP. */
+.words-preview {
+  clip-path: inset(18% 18% 18% 18%);
+}
+
+.seasons-experience {
+  --season-progress: 0;
+}
+
+.seasons-experience::before,
+.seasons-experience::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  content: "";
+}
+
+.seasons-experience::before {
+  background: var(--color-secondary);
+  opacity: calc((1 - var(--season-progress)) * 0.18);
+}
+
+.seasons-experience::after {
+  background: var(--color-accent);
+  opacity: calc(var(--season-progress) * 0.16);
+}
+
+.seasons-experience > * {
+  position: relative;
+  z-index: 1;
+}
+
+.season-chapter {
+  transition: color 400ms var(--ease-landing);
+}
+
+/* Swiper (Frame by Frame gallery) pagination theming */
+.frame-slider {
+  --swiper-pagination-color: var(--foreground);
+  --swiper-pagination-bullet-inactive-color: var(--muted);
+  --swiper-pagination-bullet-inactive-opacity: 0.5;
+  --swiper-pagination-bullet-size: 0.5rem;
+  --swiper-pagination-bullet-horizontal-gap: 0.375rem;
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    --swiper-pagination-color: var(--color-primary);
+  }
+}
+
+.frame-slider-pagination .swiper-pagination-bullet {
+  cursor: pointer;
+  border-radius: 9999px;
+}
+
+.frame-slider-pagination .swiper-pagination-bullet:focus-visible {
+  outline: 3px solid var(--border);
+  outline-offset: 3px;
+}
+
 /* Scrollbar hiding for horizontal scroll sections */
 .scroll-hide {
   scrollbar-width: none;

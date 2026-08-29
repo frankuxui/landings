@@ -13,6 +13,7 @@ import {
   id="monuments"
   class="relative bg-background-alt py-section palette-surface-light"
   aria-labelledby="monuments-heading"
+  data-monuments
 >
   <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
     <p
@@ -37,7 +38,7 @@ import {
     </p>
 
     <!-- Parliament — fullscreen image -->
-    <figure class="reveal mt-16 sm:mt-20">
+    <figure class="reveal mt-16 sm:mt-20" data-monument-reveal="scale">
       <div class="overflow-hidden rounded-sm">
         <img
           src={`${bastionDayImage.src}&w=1600&auto=format&fit=crop&q=80`}
@@ -69,7 +70,7 @@ import {
     <!-- Fisherman's Bastion + Matthias Church — two-column -->
     <div class="mt-20 grid gap-8 sm:mt-28 lg:grid-cols-2 lg:gap-10">
       <!-- Fisherman's Bastion -->
-      <div class="reveal">
+      <div class="reveal" data-monument-reveal="mask">
         <figure>
           <div class="overflow-hidden rounded-sm">
             <img
@@ -110,7 +111,7 @@ import {
       </div>
 
       <!-- Matthias Church -->
-      <div class="reveal lg:mt-12">
+      <div class="reveal lg:mt-12" data-monument-reveal="rise">
         <figure>
           <div class="overflow-hidden rounded-sm">
             <img
@@ -152,7 +153,7 @@ import {
     </div>
 
     <!-- Heroes' Square — wide + overlaid text -->
-    <div class="reveal relative mt-20 sm:mt-28">
+    <div class="reveal relative mt-20 sm:mt-28" data-monument-reveal="wide">
       <figure>
         <div class="overflow-hidden rounded-sm">
           <img
@@ -197,7 +198,7 @@ import {
 
     <!-- Basilica + Opera — two-column -->
     <div class="mt-20 grid gap-8 sm:mt-28 lg:grid-cols-5 lg:gap-12">
-      <figure class="reveal lg:col-span-2">
+      <figure class="reveal lg:col-span-2" data-monument-reveal="vertical">
         <div class="overflow-hidden rounded-sm">
           <img
             src={`${basilicaImage.src}&w=800&auto=format&fit=crop&q=80`}
@@ -234,7 +235,7 @@ import {
         </p>
       </figure>
 
-      <figure class="reveal lg:col-span-3">
+      <figure class="reveal lg:col-span-3" data-monument-reveal="clip">
         <div class="overflow-hidden rounded-sm">
           <img
             src={`${operaImage.src}&w=1200&auto=format&fit=crop&q=80`}

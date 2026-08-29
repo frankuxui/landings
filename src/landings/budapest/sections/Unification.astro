@@ -5,8 +5,9 @@
 
 <section
   id="unification"
-  class="relative overflow-hidden bg-inverted py-section palette-surface-primary"
+  class="relative min-h-dvh overflow-hidden bg-inverted py-section palette-surface-primary"
   aria-labelledby="unification-heading"
+  data-unification
 >
   <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
     <div class="flex flex-col items-center text-center">
@@ -14,6 +15,7 @@
       <span
         class="font-display text-figure font-black leading-none tracking-tight text-inverted-foreground/[0.06] sm:text-[clamp(5rem,4rem+6vw,12rem)]"
         aria-hidden="true"
+        data-unification-year
       >
         1873
       </span>
@@ -36,8 +38,9 @@
       <!-- Three city names -->
       <div
         class="mt-16 flex flex-wrap items-center justify-center gap-8 sm:mt-24 sm:gap-12"
+        data-unification-cities
       >
-        <div class="reveal text-center">
+        <div class="reveal text-center" data-city-word="buda">
           <span
             class="block font-display text-headline-2 font-bold text-inverted-foreground"
           >
@@ -54,7 +57,7 @@
           >+</span
         >
 
-        <div class="reveal text-center">
+        <div class="reveal text-center" data-city-word="obuda">
           <span
             class="block font-display text-headline-2 font-bold text-inverted-foreground"
           >
@@ -71,7 +74,7 @@
           >+</span
         >
 
-        <div class="reveal text-center">
+        <div class="reveal text-center" data-city-word="pest">
           <span
             class="block font-display text-headline-2 font-bold text-inverted-foreground"
           >
@@ -93,6 +96,7 @@
       <!-- BUDAPEST result -->
       <span
         class="mt-8 block font-display text-headline-1 font-black uppercase tracking-[0.1em] text-inverted-foreground sm:mt-12 sm:text-[clamp(2.5rem,2rem+3vw,5rem)]"
+        data-unification-result
       >
         Budapest
       </span>
@@ -109,11 +113,11 @@
           <span
             class="font-display text-headline-2 font-bold text-inverted-foreground/15"
           >
-            880,000
+            1873
           </span>
           <p class="mt-2 text-sm leading-relaxed text-inverted-foreground/50">
-            Population of the unified city by 1900, making it the fastest
-            growing city in Europe. By 1910 it had surpassed one million.
+            Buda, Obuda, and Pest became one capital through a civic merger
+            formally completed on November 17, 1873.
           </p>
         </div>
         <div>
@@ -123,9 +127,9 @@
             1896
           </span>
           <p class="mt-2 text-sm leading-relaxed text-inverted-foreground/50">
-            The Millennial Exhibition celebrated a thousand years of Hungarian
-            statehood. The continent's first underground railway opened beneath
-            Andrassy Avenue the same year.
+            Hungary's millennial celebrations reshaped public space around
+            Andrassy Avenue and the Millennium Underground Railway, opened in
+            1896.
           </p>
         </div>
         <div>
@@ -135,9 +139,8 @@
             9
           </span>
           <p class="mt-2 text-sm leading-relaxed text-inverted-foreground/50">
-            Bridges now span the Danube in Budapest, stitching together the two
-            banks that three cities once divided. Each one is a physical
-            argument for unity.
+            The Chain Bridge had already opened in 1849, making the idea of one
+            city visible across the Danube before the cities legally merged.
           </p>
         </div>
       </div>

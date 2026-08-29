@@ -1,0 +1,139 @@
+---
+import { ChevronLeft, ChevronRight } from "@lucide/astro"
+import { frameImages } from "../data/images"
+import type { FrameImage } from "../data/images"
+---
+
+<section
+  id="frame-by-frame"
+  class="relative overflow-hidden bg-background py-section"
+  aria-labelledby="frame-heading"
+>
+  <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="reveal mb-6 text-xs font-medium uppercase tracking-[0.2em] text-muted"
+    >
+      Budapest, Frame by Frame
+    </p>
+
+    <div class="reveal flex flex-wrap items-end justify-between gap-8">
+      <h2
+        id="frame-heading"
+        class="max-w-heading font-display text-headline-1 font-bold leading-[1.05] text-foreground"
+      >
+        A City in Fragments
+      </h2>
+      <p class="max-w-sm text-sm leading-relaxed text-muted">
+        A draggable editorial contact sheet: river, stone, bridges, steam,
+        interiors, winter air, and the human scale hidden inside monumental
+        architecture.
+      </p>
+    </div>
+  </div>
+
+  <div class="frame-slider swiper mt-12 cursor-grab active:cursor-grabbing">
+    <div class="swiper-wrapper items-end">
+      {
+        frameImages.map((frame: FrameImage, index: number) => (
+          <div
+            class:list={[
+              "swiper-slide !w-[78vw]",
+              frame.shape === "landscape" && "sm:!w-[44rem]",
+              frame.shape === "portrait" && "sm:!w-[28rem]",
+              frame.shape === "square" && "sm:!w-[34rem]",
+              frame.shape === "wide" && "sm:!w-[58rem]",
+            ]}
+          >
+            <figure class="px-container-x sm:px-4">
+              <div class="group overflow-hidden rounded-sm bg-placeholder">
+                <img
+                  src={`${frame.image.src}&w=1200&auto=format&fit=crop&q=80`}
+                  srcset={`${frame.image.src}&w=500&auto=format&fit=crop&q=80 500w, ${frame.image.src}&w=800&auto=format&fit=crop&q=80 800w, ${frame.image.src}&w=1200&auto=format&fit=crop&q=80 1200w`}
+                  sizes="(max-width: 640px) 78vw, 55vw"
+                  alt={frame.image.alt}
+                  title={`Photo by ${frame.image.author} on Unsplash`}
+                  width={frame.image.width}
+                  height={frame.image.height}
+                  loading="lazy"
+                  decoding="async"
+                  class:list={[
+                    "photo-tone w-full object-cover transition duration-500 ease-landing group-hover:scale-[1.025]",
+                    frame.shape === "portrait" && "aspect-[3/4]",
+                    frame.shape === "landscape" && "aspect-[4/3]",
+                    frame.shape === "wide" && "aspect-[16/9]",
+                    frame.shape === "square" && "aspect-square",
+                  ]}
+                />
+              </div>
+              <figcaption class="mt-4 grid gap-3 text-xs text-muted sm:grid-cols-[1fr_auto]">
+                <span>
+                  <span class="font-mono text-muted/60">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>{" "}
+                  <strong class="font-semibold text-foreground">
+                    {frame.title}
+                  </strong>{" "}
+                  — {frame.location}
+                </span>
+                <span>
+                  Photo by{" "}
+                  <a
+                    href={frame.image.authorUrl}
+                    class="underline hover:text-foreground"
+                    rel="noopener"
+                  >
+                    {frame.image.author}
+                  </a>{" "}
+                  on{" "}
+                  <a
+                    href={frame.image.unsplashUrl}
+                    class="underline hover:text-foreground"
+                    rel="noopener"
+                  >
+                    Unsplash
+                  </a>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div
+    class="mx-auto mt-8 flex max-w-landing items-center justify-between px-container-x sm:px-8 xl:px-14"
+  >
+    <div class="frame-slider-pagination"></div>
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        class="frame-slider-prev inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-control p-0 text-foreground transition duration-200 ease-landing hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+        aria-label="Previous frame"
+      >
+        <ChevronLeft
+          aria-hidden="true"
+          width="20"
+          height="20"
+          stroke-width="1.5"
+        />
+      </button>
+      <button
+        type="button"
+        class="frame-slider-next inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-control p-0 text-foreground transition duration-200 ease-landing hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+        aria-label="Next frame"
+      >
+        <ChevronRight
+          aria-hidden="true"
+          width="20"
+          height="20"
+          stroke-width="1.5"
+        />
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/frameSlider"
+</script>

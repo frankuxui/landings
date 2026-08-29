@@ -1,7 +1,7 @@
 ---
 import { navLinks } from "../data/nav"
 import type { NavLink } from "../data/nav"
-import { allImages } from "../data/images"
+import { allImages, chainBridgeHistoricalImage } from "../data/images"
 import type { UnsplashImage } from "../data/images"
 ---
 
@@ -82,9 +82,9 @@ import type { UnsplashImage } from "../data/images"
           Sources
         </h3>
         <p class="text-sm leading-relaxed text-inverted-foreground/40">
-          Historical dates and architectural details sourced from public
-          records, UNESCO World Heritage documentation, and the Budapest History
-          Museum archives. Photography from Unsplash.
+          Historical dates are cross-checked against UNESCO World Heritage
+          documentation, Wikimedia Commons file records, and public Budapest
+          history references. Photography from Unsplash and Wikimedia Commons.
         </p>
       </div>
     </div>
@@ -125,6 +125,36 @@ import type { UnsplashImage } from "../data/images"
             ))
         }
       </ul>
+    </div>
+
+    <div class="mt-8 border-t border-inverted-foreground/10 pt-8">
+      <h3
+        class="mb-4 text-xs font-medium uppercase tracking-widest text-inverted-foreground/30"
+      >
+        Historical image credit
+      </h3>
+      <p class="text-xs text-inverted-foreground/30">
+        {chainBridgeHistoricalImage.title}, {chainBridgeHistoricalImage.date} by{
+          " "
+        }
+        {chainBridgeHistoricalImage.author}. Source:{" "}
+        <a
+          href={chainBridgeHistoricalImage.sourceUrl}
+          class="underline hover:text-inverted-foreground/50"
+          rel="noopener"
+        >
+          {chainBridgeHistoricalImage.sourceName}
+        </a>
+        , licensed under{" "}
+        <a
+          href={chainBridgeHistoricalImage.licenseUrl}
+          class="underline hover:text-inverted-foreground/50"
+          rel="noopener"
+        >
+          {chainBridgeHistoricalImage.license}
+        </a>
+        .
+      </p>
     </div>
 
     <!-- Bottom bar -->

@@ -2,6 +2,7 @@
 import { Menu, X, Moon, Sun } from "@lucide/astro"
 import { navLinks } from "../data/nav"
 import type { NavLink } from "../data/nav"
+import { parliamentImage } from "../data/images"
 ---
 
 <header class="fixed top-0 z-40 w-full">
@@ -92,32 +93,59 @@ import type { NavLink } from "../data/nav"
 
   <!-- Mobile menu panel -->
   <div
-    class="fixed inset-0 z-50 flex h-dvh w-full translate-y-0 flex-col justify-between bg-inverted px-container-x pt-24 pb-10 text-inverted-foreground transition-[transform,visibility] duration-300 ease-landing aria-hidden:invisible aria-hidden:-translate-y-full motion-reduce:transition-none sm:px-8 nav:hidden"
+    class="fixed inset-0 z-50 flex h-dvh w-full flex-col justify-between bg-inverted px-container-x pt-24 pb-10 text-inverted-foreground aria-hidden:invisible sm:px-8 nav:hidden"
     data-menu-panel
     aria-hidden="true"
   >
-    <nav id="primary-navigation-mobile" aria-label="Primary navigation">
-      <ol class="flex flex-col">
-        {
-          navLinks.map((link: NavLink, index: number) => (
-            <li class="relative before:absolute before:top-0 before:left-0 before:h-px before:w-full before:bg-inverted-foreground/10 before:content-[''] first:before:hidden">
-              <a
-                class="flex min-h-16 items-center gap-4 py-3 font-display text-2xl font-bold text-inverted-foreground no-underline transition duration-200 ease-landing hover:text-inverted-foreground/70 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-inverted-foreground/40 sm:text-3xl"
-                href={link.href}
-                data-mobile-nav-link
+    <div class="grid min-h-0 flex-1 gap-8 sm:grid-cols-[1fr_14rem]">
+      <nav
+        id="primary-navigation-mobile"
+        aria-label="Primary navigation"
+        class="min-h-0 overflow-y-auto"
+      >
+        <ol class="flex flex-col">
+          {
+            navLinks.map((link: NavLink, index: number) => (
+              <li
+                class="relative before:absolute before:top-0 before:left-0 before:h-px before:w-full before:bg-inverted-foreground/10 before:content-[''] first:before:hidden"
+                data-menu-item
               >
-                <span class="font-mono text-xs text-inverted-foreground/30">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                {link.label}
-              </a>
-            </li>
-          ))
-        }
-      </ol>
-    </nav>
+                <a
+                  class="flex min-h-16 items-center gap-4 py-3 font-display text-2xl font-bold text-inverted-foreground no-underline transition duration-200 ease-landing hover:text-inverted-foreground/70 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-inverted-foreground/40 sm:text-3xl"
+                  href={link.href}
+                  data-mobile-nav-link
+                >
+                  <span class="font-mono text-xs text-inverted-foreground/30">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
 
-    <div class="flex items-end justify-between">
+      <figure
+        class="hidden self-end sm:block"
+        data-menu-visual
+        aria-hidden="true"
+      >
+        <div class="overflow-hidden rounded-sm">
+          <img
+            src={`${parliamentImage.src}&w=500&auto=format&fit=crop&q=80`}
+            alt=""
+            width={parliamentImage.width}
+            height={parliamentImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone aspect-[3/4] w-full object-cover"
+          />
+        </div>
+      </figure>
+    </div>
+
+    <div class="flex items-end justify-between pt-8" data-menu-meta>
       <p class="text-xs tracking-wide text-inverted-foreground/40">
         47.4979° N / 19.0402° E<br />Hungary
       </p>

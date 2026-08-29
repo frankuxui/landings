@@ -1,0 +1,146 @@
+---
+import { chainBridgeHistoricalImage, chainBridgeImage } from "../data/images"
+---
+
+<section
+  id="then-now"
+  class="relative overflow-hidden bg-background py-section"
+  aria-labelledby="then-now-heading"
+  data-then-now-section
+>
+  <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="reveal mb-6 text-xs font-medium uppercase tracking-[0.2em] text-muted"
+    >
+      Then / Now
+    </p>
+
+    <div class="grid gap-10 lg:grid-cols-5 lg:gap-16">
+      <div class="lg:col-span-2">
+        <h2
+          id="then-now-heading"
+          class="reveal max-w-heading font-display text-headline-1 font-bold leading-[1.05] text-foreground"
+        >
+          Drag Through Time
+        </h2>
+        <p class="reveal mt-6 text-base leading-relaxed text-muted sm:text-lg">
+          The Szechenyi Chain Bridge reopened in 1949 after wartime destruction,
+          one hundred years after its first opening in 1849. This comparison
+          places a historical reconstruction photograph beside a contemporary
+          view of the same bridge, turning restoration into an interface.
+        </p>
+        <p class="reveal mt-8 text-xs uppercase tracking-[0.2em] text-muted/70">
+          Pointer, touch, keyboard
+        </p>
+      </div>
+
+      <figure class="reveal lg:col-span-3">
+        <div
+          class="then-now-comparison relative isolate aspect-[4/3] overflow-hidden rounded-sm bg-placeholder sm:aspect-[16/10]"
+          data-then-now
+          style="--then-now-position: 50%;"
+        >
+          <img
+            src={`${chainBridgeImage.src}&w=1400&auto=format&fit=crop&q=80`}
+            srcset={`${chainBridgeImage.src}&w=800&auto=format&fit=crop&q=80 800w, ${chainBridgeImage.src}&w=1100&auto=format&fit=crop&q=80 1100w, ${chainBridgeImage.src}&w=1400&auto=format&fit=crop&q=80 1400w`}
+            sizes="(max-width: 1024px) 100vw, 780px"
+            alt={chainBridgeImage.alt}
+            title={`Photo by ${chainBridgeImage.author} on Unsplash`}
+            width={chainBridgeImage.width}
+            height={chainBridgeImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone absolute inset-0 h-full w-full object-cover"
+          />
+
+          <div
+            class="then-now-before absolute inset-0 overflow-hidden"
+            aria-hidden="true"
+          >
+            <img
+              src={chainBridgeHistoricalImage.src}
+              alt=""
+              width={chainBridgeHistoricalImage.width}
+              height={chainBridgeHistoricalImage.height}
+              loading="lazy"
+              decoding="async"
+              class="h-full w-full max-w-none object-cover grayscale"
+            />
+          </div>
+
+          <div
+            class="pointer-events-none absolute inset-0 bg-gradient-to-t from-inverted/70 via-transparent to-transparent"
+            aria-hidden="true"
+          >
+          </div>
+
+          <span
+            class="absolute top-4 left-4 rounded-sm bg-inverted/70 px-3 py-1 text-xs font-bold tracking-[0.18em] text-inverted-foreground backdrop-blur-md"
+          >
+            THEN
+          </span>
+          <span
+            class="absolute top-4 right-4 rounded-sm bg-surface/80 px-3 py-1 text-xs font-bold tracking-[0.18em] text-foreground backdrop-blur-md"
+          >
+            NOW
+          </span>
+
+          <button
+            type="button"
+            class="then-now-handle absolute top-0 bottom-0 z-10 flex w-12 -translate-x-1/2 cursor-ew-resize items-center justify-center border-0 bg-transparent p-0 text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+            data-then-now-handle
+            aria-label="Reveal historical and contemporary Chain Bridge images"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="50"
+            aria-valuetext="50 percent historical image visible"
+            aria-orientation="horizontal"
+            role="slider"
+          >
+            <span class="h-full w-px bg-inverted-foreground" aria-hidden="true">
+            </span>
+            <span
+              class="absolute flex size-11 items-center justify-center rounded-full bg-inverted text-xs font-bold text-inverted-foreground shadow-lg"
+              aria-hidden="true"
+            >
+              ↔
+            </span>
+          </button>
+
+          <p
+            class="pointer-events-none absolute right-5 bottom-5 max-w-44 text-right text-xs uppercase tracking-[0.16em] text-inverted-foreground/80"
+          >
+            Drag through time
+          </p>
+        </div>
+
+        <figcaption class="mt-3 grid gap-2 text-xs text-muted sm:grid-cols-2">
+          <span>
+            Then: {chainBridgeHistoricalImage.title}, {
+              chainBridgeHistoricalImage.date
+            }. {chainBridgeHistoricalImage.author}, <a
+              href={chainBridgeHistoricalImage.sourceUrl}
+              class="underline hover:text-foreground"
+              rel="noopener">{chainBridgeHistoricalImage.sourceName}</a
+            >, <a
+              href={chainBridgeHistoricalImage.licenseUrl}
+              class="underline hover:text-foreground"
+              rel="noopener">{chainBridgeHistoricalImage.license}</a
+            >.
+          </span>
+          <span>
+            Now: Photo by <a
+              href={chainBridgeImage.authorUrl}
+              class="underline hover:text-foreground"
+              rel="noopener">{chainBridgeImage.author}</a
+            > on <a
+              href={chainBridgeImage.unsplashUrl}
+              class="underline hover:text-foreground"
+              rel="noopener">Unsplash</a
+            >.
+          </span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

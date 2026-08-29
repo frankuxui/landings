@@ -6,6 +6,7 @@ import { danubeImage, budaCastleImage } from "../data/images"
   id="the-river"
   class="relative bg-background py-section"
   aria-labelledby="river-heading"
+  data-river-section
 >
   <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
     <!-- Editorial phrase -->
@@ -31,83 +32,113 @@ import { danubeImage, budaCastleImage } from "../data/images"
       the bridges, the light, and the memories that travel between them.
     </p>
 
-    <!-- Danube aerial photo — full width -->
-    <figure class="reveal mt-16 sm:mt-20">
-      <div class="overflow-hidden rounded-sm">
-        <img
-          src={`${danubeImage.src}&w=1600&auto=format&fit=crop&q=80`}
-          srcset={`${danubeImage.src}&w=800&auto=format&fit=crop&q=80 800w, ${danubeImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${danubeImage.src}&w=1600&auto=format&fit=crop&q=80 1600w`}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
-          alt={danubeImage.alt}
-          title={`Photo by ${danubeImage.author} on Unsplash`}
-          width={danubeImage.width}
-          height={danubeImage.height}
-          loading="lazy"
-          decoding="async"
-          class="photo-tone w-full object-cover"
-        />
-      </div>
-      <figcaption class="mt-3 text-xs text-muted">
-        Photo by <a
-          href={danubeImage.authorUrl}
-          class="underline hover:text-foreground"
-          rel="noopener">{danubeImage.author}</a
+    <!-- Sticky Danube story — image and text are separated for legibility -->
+    <div
+      class="mt-16 grid gap-10 sm:mt-20 lg:grid-cols-12 lg:items-start lg:gap-8"
+    >
+      <figure class="reveal lg:sticky lg:top-28 lg:col-span-8" data-river-image>
+        <div class="overflow-hidden rounded-sm">
+          <img
+            src={`${danubeImage.src}&w=1600&auto=format&fit=crop&q=80`}
+            srcset={`${danubeImage.src}&w=800&auto=format&fit=crop&q=80 800w, ${danubeImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${danubeImage.src}&w=1600&auto=format&fit=crop&q=80 1600w`}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 920px"
+            alt={danubeImage.alt}
+            title={`Photo by ${danubeImage.author} on Unsplash`}
+            width={danubeImage.width}
+            height={danubeImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone aspect-[16/11] w-full object-cover lg:aspect-[4/5] xl:aspect-[16/11]"
+          />
+        </div>
+        <figcaption class="mt-3 text-xs text-muted">
+          Photo by <a
+            href={danubeImage.authorUrl}
+            class="underline hover:text-foreground"
+            rel="noopener">{danubeImage.author}</a
+          >
+          on <a
+            href={danubeImage.unsplashUrl}
+            class="underline hover:text-foreground"
+            rel="noopener">Unsplash</a
+          >
+        </figcaption>
+      </figure>
+
+      <!-- Three narrative beats: Buda / Danube / Pest -->
+      <div
+        class="relative grid gap-5 lg:col-span-4 lg:min-h-[130vh] lg:content-start lg:gap-10 lg:py-14"
+        data-river-beats
+      >
+        <div
+          class="absolute top-0 left-4 hidden h-full w-px origin-top scale-y-0 bg-border/50 lg:block"
+          data-river-line
+          aria-hidden="true"
         >
-        on <a
-          href={danubeImage.unsplashUrl}
-          class="underline hover:text-foreground"
-          rel="noopener">Unsplash</a
+        </div>
+        <!-- Buda -->
+        <article
+          class="reveal relative rounded-sm bg-surface/90 p-5 shadow-2xl ring-1 ring-border/20 backdrop-blur-md lg:mt-0 lg:ml-10"
+          data-river-beat
         >
-      </figcaption>
-    </figure>
+          <span class="font-mono text-xs text-muted/60">01</span>
+          <h3
+            class="mt-2 font-display text-headline-3 font-bold text-foreground"
+          >
+            Buda
+          </h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted">
+            The western bank rises in wooded hills crowned by the Castle
+            District. Cobblestone streets lead past Matthias Church, through the
+            turrets of Fisherman's Bastion, to viewpoints that hold the entire
+            city in one gaze. Buda is memory, stone, and silence.
+          </p>
+        </article>
 
-    <!-- Three narrative beats: Buda / Danube / Pest -->
-    <div class="mt-20 grid gap-16 sm:mt-28 lg:grid-cols-3 lg:gap-12">
-      <!-- Buda -->
-      <div class="reveal">
-        <span class="font-mono text-xs text-muted/60">01</span>
-        <h3 class="mt-2 font-display text-headline-3 font-bold text-foreground">
-          Buda
-        </h3>
-        <p class="mt-3 text-sm leading-relaxed text-muted">
-          The western bank rises in wooded hills crowned by the Castle District.
-          Cobblestone streets lead past Matthias Church, through the turrets of
-          Fisherman's Bastion, to viewpoints that hold the entire city in one
-          gaze. Buda is memory, stone, and silence.
-        </p>
-      </div>
+        <!-- The Danube -->
+        <article
+          class="reveal relative rounded-sm bg-surface/90 p-5 shadow-2xl ring-1 ring-border/20 backdrop-blur-md lg:mt-16 lg:ml-10"
+          data-river-beat
+        >
+          <span class="font-mono text-xs text-muted/60">02</span>
+          <h3
+            class="mt-2 font-display text-headline-3 font-bold text-foreground"
+          >
+            The Danube
+          </h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted">
+            Europe's second longest river flows through Budapest, carrying
+            boats, reflections, and centuries of history beneath its bridges. At
+            sunset the water turns from steel to gold, and the city on either
+            side seems to breathe with the same tide.
+          </p>
+        </article>
 
-      <!-- The Danube -->
-      <div class="reveal">
-        <span class="font-mono text-xs text-muted/60">02</span>
-        <h3 class="mt-2 font-display text-headline-3 font-bold text-foreground">
-          The Danube
-        </h3>
-        <p class="mt-3 text-sm leading-relaxed text-muted">
-          Europe's second longest river flows through Budapest for 28
-          kilometers, carrying boats, reflections, and seven centuries of
-          history beneath its bridges. At sunset the water turns from steel to
-          gold, and the city on either side seems to breathe with the same tide.
-        </p>
-      </div>
-
-      <!-- Pest -->
-      <div class="reveal">
-        <span class="font-mono text-xs text-muted/60">03</span>
-        <h3 class="mt-2 font-display text-headline-3 font-bold text-foreground">
-          Pest
-        </h3>
-        <p class="mt-3 text-sm leading-relaxed text-muted">
-          The eastern bank spreads outward in grand avenues, Beaux-Arts
-          apartment buildings, and the unmistakable silhouette of Parliament.
-          Pest is motion, commerce, and conversation — the cafes, the markets,
-          the theaters, the life that a city generates when it looks forward.
-        </p>
+        <!-- Pest -->
+        <article
+          class="reveal relative rounded-sm bg-surface/90 p-5 shadow-2xl ring-1 ring-border/20 backdrop-blur-md lg:mt-16 lg:ml-10"
+          data-river-beat
+        >
+          <span class="font-mono text-xs text-muted/60">03</span>
+          <h3
+            class="mt-2 font-display text-headline-3 font-bold text-foreground"
+          >
+            Pest
+          </h3>
+          <p class="mt-3 text-sm leading-relaxed text-muted">
+            The eastern bank spreads outward in grand avenues, Beaux-Arts
+            apartment buildings, and the unmistakable silhouette of Parliament.
+            Pest is motion, commerce, and conversation — the cafes, the markets,
+            the theaters, the life that a city generates when it looks forward.
+          </p>
+        </article>
       </div>
     </div>
 
     <!-- Buda Castle photo — asymmetric composition -->
-    <div class="reveal mt-20 grid gap-8 sm:mt-28 lg:grid-cols-5 lg:gap-12">
+    <div
+      class="reveal relative z-10 mt-20 grid gap-8 bg-background sm:mt-28 lg:grid-cols-5 lg:gap-12"
+    >
       <figure class="lg:col-span-3">
         <div class="overflow-hidden rounded-sm">
           <img
