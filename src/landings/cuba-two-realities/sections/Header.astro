@@ -1,0 +1,112 @@
+---
+import { Menu, Moon, Sun, X } from "@lucide/astro"
+
+const links = [
+  { href: "#postcard", label: "01 — La postal" },
+  { href: "#two-cubas", label: "02 — Dos Cubas" },
+  { href: "#havana", label: "03 — La Habana" },
+  { href: "#living", label: "04 — Vivir" },
+  { href: "#leaving", label: "05 — Salir" },
+  { href: "#voices", label: "06 — Voces" },
+  { href: "#sources", label: "07 — Archivo" },
+]
+---
+
+<header
+  class="fixed top-4 right-4 left-4 z-50 border border-border bg-inverted/90 text-inverted-foreground backdrop-blur-md"
+>
+  <div
+    class="mx-auto flex max-w-landing items-center justify-between gap-3 px-4 py-3"
+  >
+    <a
+      href="#top"
+      class="font-display text-sm uppercase tracking-normal no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border sm:text-base"
+    >
+      Cuba — Dos Realidades
+    </a>
+    <p class="hidden text-xs text-inverted-foreground/70 md:block">
+      23.1136° N / 82.3666° W
+    </p>
+    <nav
+      aria-label="Secciones principales"
+      class="hidden items-center gap-5 nav:flex"
+    >
+      {
+        links.slice(0, 5).map((link: (typeof links)[number]) => (
+          <a
+            href={link.href}
+            class="text-xs uppercase text-inverted-foreground/75 underline-offset-4 transition hover:text-inverted-foreground hover:underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+          >
+            {link.label.replace(/^\d+ — /, "")}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        data-theme-toggle
+        aria-label="Cambiar tema claro y oscuro"
+        class="inline-flex size-10 min-h-10 items-center justify-center border border-inverted-foreground/30 bg-inverted-surface text-inverted-foreground transition hover:bg-inverted-foreground hover:text-inverted focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+      >
+        <Moon
+          aria-hidden="true"
+          class="hidden dark:block"
+          width="17"
+          height="17"
+        />
+        <Sun aria-hidden="true" class="dark:hidden" width="17" height="17" />
+      </button>
+      <button
+        type="button"
+        data-menu-toggle
+        aria-label="Abrir navegación"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="inline-flex min-h-10 items-center gap-2 border border-inverted-foreground/30 bg-inverted-surface px-3 text-xs font-semibold uppercase text-inverted-foreground transition hover:bg-inverted-foreground hover:text-inverted focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+      >
+        <Menu aria-hidden="true" width="17" height="17" />
+        Menú
+      </button>
+    </div>
+  </div>
+</header>
+
+<div
+  id="mobile-menu"
+  data-menu-panel
+  aria-hidden="true"
+  class="fixed inset-0 z-60 flex min-h-dvh flex-col justify-between overflow-hidden bg-inverted/95 px-5 py-6 text-inverted-foreground backdrop-blur-xl"
+>
+  <div class="flex items-center justify-between">
+    <p class="font-display text-sm uppercase">Cuba — Dos Realidades</p>
+    <button
+      type="button"
+      data-menu-close
+      aria-label="Cerrar navegación"
+      class="inline-flex size-11 min-h-11 items-center justify-center border border-inverted-foreground/30 bg-inverted-surface text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+    >
+      <X aria-hidden="true" width="18" height="18" />
+    </button>
+  </div>
+  <nav aria-label="Navegación móvil" class="grid gap-2 py-12">
+    {
+      links.map((link: (typeof links)[number]) => (
+        <a
+          href={link.href}
+          class="overflow-hidden font-display text-headline-2 leading-none uppercase text-inverted-foreground no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+  <div
+    data-menu-meta
+    class="grid gap-4 border-t border-inverted-foreground/20 pt-5 text-sm text-inverted-foreground/70 sm:grid-cols-3"
+  >
+    <p>El panel se abre de izquierda a derecha.</p>
+    <p>Teclado: Tab, Shift+Tab, Escape.</p>
+    <p>Paleta: escala de grises por defecto, color por elección.</p>
+  </div>
+</div>

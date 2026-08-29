@@ -1,0 +1,76 @@
+---
+import PhotoCredit from "../components/PhotoCredit.astro"
+import { images } from "../data/images"
+---
+
+<section
+  id="top"
+  data-hero-transition
+  class="relative min-h-[190vh] bg-inverted text-inverted-foreground"
+>
+  <div class="sticky top-0 min-h-dvh overflow-hidden">
+    <div class="absolute inset-0">
+      <img
+        src={images.oldHavana.src}
+        alt={images.oldHavana.alt}
+        width={images.oldHavana.width}
+        height={images.oldHavana.height}
+        class="absolute inset-0 h-full w-full object-cover photo-tone"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+    <div data-hero-postcard class="absolute inset-0">
+      <img
+        src={images.varadero.src}
+        alt={images.varadero.alt}
+        width={images.varadero.width}
+        height={images.varadero.height}
+        class="h-full w-full object-cover photo-tone"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+    <div class="absolute inset-0 bg-inverted/25"></div>
+    <div
+      class="relative z-10 flex min-h-dvh flex-col justify-between px-container-x py-28 sm:px-10"
+    >
+      <div
+        class="grid gap-3 text-xs uppercase text-inverted-foreground/75 sm:grid-cols-3"
+      >
+        <p>Cuba</p>
+        <p>Mar Caribe</p>
+        <p>23.1136° N</p>
+      </div>
+      <div>
+        <h1
+          data-hero-title
+          class="max-w-hero-heading font-display text-headline-1 leading-none uppercase"
+        >
+          Bienvenido al paraíso.
+        </h1>
+        <p
+          data-hero-question
+          class="mt-6 max-w-copy font-display text-headline-2 leading-none uppercase opacity-0"
+        >
+          ¿Para quién?
+        </p>
+      </div>
+      <div
+        class="grid gap-4 text-xs uppercase text-inverted-foreground/75 sm:grid-cols-2"
+      >
+        <p>Sigue mirando ↓</p>
+        <div class="sm:text-right">
+          <PhotoCredit
+            image={images.varadero}
+            class="text-inverted-foreground/75"
+          />
+          <PhotoCredit
+            image={images.oldHavana}
+            class="text-inverted-foreground/75"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

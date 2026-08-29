@@ -1,0 +1,89 @@
+---
+import { allImages } from "../data/images"
+import type { CommonsImage } from "../types"
+
+const closingImage = allImages.find(
+  (image: CommonsImage) => image.id === "malecon",
+)
+---
+
+<footer class="bg-inverted px-container-x py-section text-inverted-foreground">
+  <div class="mx-auto grid max-w-landing gap-16">
+    <div
+      class="relative min-h-[70vh] overflow-hidden border border-inverted-foreground/20"
+    >
+      <img
+        src={closingImage?.src ?? allImages[0].src}
+        alt="El malecón oscuro de La Habana cerrando la experiencia editorial."
+        width="3627"
+        height="2428"
+        loading="lazy"
+        decoding="async"
+        class="absolute inset-0 h-full w-full object-cover opacity-45 photo-tone"
+      />
+      <div class="absolute inset-0 bg-inverted/55"></div>
+      <div
+        class="relative flex min-h-[70vh] flex-col justify-between p-6 sm:p-10"
+      >
+        <p class="text-xs uppercase text-inverted-foreground/70">
+          90 millas de mar
+        </p>
+        <div>
+          <p class="font-display text-headline-1 leading-none uppercase">
+            Cuba.
+          </p>
+          <p class="mt-4 font-display text-headline-3 leading-none uppercase">
+            La isla sigue ahí.
+          </p>
+        </div>
+        <p class="max-w-copy text-xl text-inverted-foreground/80">
+          Detrás de cada estadística, alguien intenta vivir.
+        </p>
+      </div>
+    </div>
+    <div
+      class="grid gap-8 border-t border-inverted-foreground/20 pt-8 footer:grid-cols-[0.75fr_1.25fr]"
+    >
+      <div>
+        <p class="font-display text-xl uppercase">Cuba Dos Realidades</p>
+        <p class="mt-3 text-sm text-inverted-foreground/65">
+          Landing editorial independiente para la galería Astro Landing Pages.
+          2026.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-sm font-semibold uppercase text-inverted-foreground">
+          Créditos fotográficos
+        </h2>
+        <ul
+          class="mt-4 grid gap-2 text-sm text-inverted-foreground/70 sm:grid-cols-2"
+        >
+          {
+            allImages.map((image: CommonsImage) => (
+              <li>
+                <a
+                  href={image.authorUrl}
+                  rel="noopener"
+                  target="_blank"
+                  class="underline underline-offset-2"
+                >
+                  {image.author}
+                </a>{" "}
+                via{" "}
+                <a
+                  href={image.sourceUrl}
+                  rel="noopener"
+                  target="_blank"
+                  class="underline underline-offset-2"
+                >
+                  Wikimedia Commons
+                </a>{" "}
+                ({image.license})
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

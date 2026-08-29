@@ -1,0 +1,57 @@
+---
+import { images } from "../data/images"
+
+const words = [
+  { label: "playa", image: images.varadero },
+  { label: "casa", image: images.oldHavana },
+  { label: "abuela", image: images.elder },
+  { label: "apagón", image: images.streetLife },
+  { label: "maleta", image: images.malecon },
+  { label: "mar", image: images.cayoCoco },
+  { label: "hotel", image: images.varadero },
+  { label: "barrio", image: images.streetLife },
+]
+---
+
+<section
+  class="relative overflow-hidden bg-inverted px-container-x py-section text-inverted-foreground"
+>
+  <div class="mx-auto max-w-landing">
+    <h2
+      class="max-w-heading font-display text-headline-1 leading-none uppercase"
+    >
+      Una playa no puede contar la historia de todo un país.
+    </h2>
+    <p class="mt-6 max-w-copy text-lg text-inverted-foreground/70">
+      Cada palabra esconde una imagen. Pasa el cursor o toca para revelarla.
+    </p>
+    <div class="mt-14 flex flex-wrap gap-x-6 gap-y-4">
+      {
+        words.map((item: (typeof words)[number]) => (
+          <button
+            type="button"
+            data-word-image
+            data-word-alt={item.image.alt}
+            data-word-src={item.image.src}
+            class="documentary-rule cursor-pointer border-0 bg-transparent p-0 font-display text-headline-3 leading-none uppercase text-inverted-foreground/80 transition hover:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+          >
+            {item.label}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+  <div
+    data-word-preview
+    data-visible="false"
+    class="pointer-events-none fixed top-0 left-0 z-70 hidden w-72 border border-inverted-foreground bg-inverted p-2 opacity-0 transition-opacity duration-200 ease-landing data-[visible=true]:opacity-100 md:block"
+  >
+    <img
+      src={images.varadero.src}
+      alt=""
+      width="3702"
+      height="2478"
+      class="aspect-4/3 w-full object-cover photo-tone"
+    />
+  </div>
+</section>

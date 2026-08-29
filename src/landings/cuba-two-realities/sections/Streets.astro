@@ -1,0 +1,83 @@
+---
+import PhotoCredit from "../components/PhotoCredit.astro"
+import { images } from "../data/images"
+---
+
+<section
+  class="bg-background-alt px-container-x py-section palette-surface-light"
+>
+  <div class="mx-auto grid max-w-landing gap-12 lg:grid-cols-[1fr_1fr]">
+    <div class="lg:sticky lg:top-28 lg:self-start">
+      <figure class="relative m-0">
+        <div class="relative w-full overflow-hidden bg-placeholder aspect-3/4">
+          <img
+            src={images.oldHavana.src}
+            alt={images.oldHavana.alt}
+            width={images.oldHavana.width}
+            height={images.oldHavana.height}
+            loading="lazy"
+            decoding="async"
+            data-parallax="true"
+            class="absolute inset-0 h-full w-full scale-110 object-cover photo-tone"
+          />
+        </div>
+        <figcaption class="mt-2">
+          <PhotoCredit image={images.oldHavana} />
+        </figcaption>
+      </figure>
+    </div>
+    <div class="grid gap-16 lg:gap-24">
+      <div class="reveal">
+        <p class="mb-4 text-xs font-semibold uppercase text-muted">
+          03 — The Streets
+        </p>
+        <h2 class="font-display text-headline-2 leading-none uppercase">
+          Time paused. Life did not.
+        </h2>
+        <p class="mt-6 max-w-copy text-lg text-muted">
+          The American cars of the 1950s are not tourist decoration. They are
+          real transport: repaired with improvised parts, adapted engines and
+          paint carrying decades. Each one is an involuntary monument to the
+          shortage of alternatives.
+        </p>
+      </div>
+      <div class="border-t border-border pt-8">
+        <p class="font-display text-headline-3 leading-none uppercase">
+          Involuntary Museum
+        </p>
+        <p class="mt-4 max-w-copy text-muted">
+          The image of the Cuban classic car appears in postcards, documentaries
+          and tourism campaigns. The reason is shown less often: decades of
+          vehicle import restrictions combined with the need to keep moving.
+        </p>
+      </div>
+      <div class="border-t border-border pt-8">
+        <p class="font-display text-headline-3 leading-none uppercase">
+          Mechanical Ingenuity
+        </p>
+        <p class="mt-4 max-w-copy text-muted">
+          Soviet diesel engines inside Chevrolet bodies. Handmade parts.
+          Recycled paint. What the tourist photographs as aesthetic, the driver
+          lives as technical survival.
+        </p>
+      </div>
+      <div class="border-t border-border pt-8">
+        <p class="font-display text-headline-3 leading-none uppercase">
+          The Street Speaks
+        </p>
+        <p class="mt-4 max-w-copy text-muted">
+          Facades, cables, broken asphalt, sidewalks, laundry lines, open
+          windows. The Cuban street does not need a script. It needs someone to
+          look without the filter of cliche.
+        </p>
+      </div>
+      <blockquote>
+        <p
+          class="max-w-copy font-serif text-3xl leading-snug text-foreground sm:text-4xl"
+        >
+          "What the tourist calls charm, the resident calls everyday life."
+        </p>
+      </blockquote>
+    </div>
+  </div>
+</section>

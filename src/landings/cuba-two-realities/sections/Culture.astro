@@ -1,0 +1,66 @@
+---
+import Photo from "../components/Photo.astro"
+import { images } from "../data/images"
+---
+
+<section
+  class="bg-background-alt px-container-x py-section palette-surface-light"
+>
+  <div class="mx-auto grid max-w-landing gap-12">
+    <div class="grid gap-8 lg:grid-cols-2 lg:items-end">
+      <div class="reveal">
+        <p class="mb-4 text-xs font-semibold uppercase text-muted">
+          Descanso emocional
+        </p>
+        <h2
+          class="max-w-heading font-display text-headline-2 leading-none uppercase"
+        >
+          La identidad no se apaga con la luz.
+        </h2>
+      </div>
+      <p class="max-w-copy text-xl leading-snug text-muted">
+        Entre la escasez y la espera, Cuba sigue produciendo cultura. No como
+        escapismo, sino como resistencia cotidiana.
+      </p>
+    </div>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="border-t border-border pt-6">
+        <p class="font-display text-headline-3 leading-none uppercase">
+          Música
+        </p>
+        <p class="mt-3 text-sm text-muted">
+          Son, rumba, timba, jazz cubano, nueva trova. La isla sigue sonando
+          aunque falten otras cosas.
+        </p>
+      </div>
+      <div class="border-t border-border pt-6">
+        <p class="font-display text-headline-3 leading-none uppercase">
+          Literatura
+        </p>
+        <p class="mt-3 text-sm text-muted">
+          De Martí a la diáspora contemporánea. Escritura que documenta,
+          cuestiona y recuerda.
+        </p>
+      </div>
+      <div class="border-t border-border pt-6">
+        <p class="font-display text-headline-3 leading-none uppercase">
+          Arquitectura
+        </p>
+        <p class="mt-3 text-sm text-muted">
+          Colonial, art déco, modernismo tropical. Capas de historia visibles en
+          cada fachada, cuando la fachada aún aguanta.
+        </p>
+      </div>
+      <div class="border-t border-border pt-6">
+        <p class="font-display text-headline-3 leading-none uppercase">
+          Comunidad
+        </p>
+        <p class="mt-3 text-sm text-muted">
+          Vecinos, barrio, comida compartida, soluciones colectivas. Redes
+          humanas llenando los vacíos que deja la infraestructura.
+        </p>
+      </div>
+    </div>
+    <Photo image={images.trinidad} ratio="16 / 9" parallax />
+  </div>
+</section>

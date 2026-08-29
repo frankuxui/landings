@@ -1,0 +1,30 @@
+---
+import Photo from "../components/Photo.astro"
+import { images } from "../data/images"
+---
+
+<section id="postcard" class="bg-background px-container-x py-section">
+  <div class="mx-auto grid max-w-landing gap-12">
+    <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+      <div class="reveal">
+        <p class="mb-4 text-xs font-semibold uppercase text-muted">
+          Acto I — La imagen exterior
+        </p>
+        <h2
+          class="max-w-heading font-display text-headline-2 leading-none uppercase"
+        >
+          Esta es la Cuba que cabe en una postal.
+        </h2>
+      </div>
+      <p class="reveal max-w-copy text-xl leading-snug text-muted">
+        Sol. Arena. Hoteles. Agua caribeña. Esa imagen es real, pero no está
+        completa. Una isla no termina donde termina el resort.
+      </p>
+    </div>
+    <div class="grid gap-6 md:grid-cols-3">
+      <Photo image={images.cayoCoco} ratio="4 / 3" parallax />
+      <Photo image={images.trinidad} ratio="4 / 3" parallax />
+      <Photo image={images.varadero} ratio="4 / 3" parallax />
+    </div>
+  </div>
+</section>

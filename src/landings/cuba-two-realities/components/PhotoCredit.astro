@@ -1,0 +1,30 @@
+---
+import type { CommonsImage } from "../types"
+
+export interface Props {
+  image: CommonsImage
+  class?: string
+}
+
+const { image, class: className } = Astro.props
+---
+
+<p class:list={["text-xs leading-relaxed text-muted", className]}>
+  Photo: <a
+    href={image.authorUrl}
+    rel="noopener"
+    target="_blank"
+    class="underline underline-offset-2">{image.author}</a
+  >, <a
+    href={image.sourceUrl}
+    rel="noopener"
+    target="_blank"
+    class="underline underline-offset-2">Wikimedia Commons</a
+  >,
+  <a
+    href={image.licenseUrl}
+    rel="noopener"
+    target="_blank"
+    class="underline underline-offset-2">{image.license}</a
+  >.
+</p>

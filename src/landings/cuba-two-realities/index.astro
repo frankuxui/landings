@@ -1,0 +1,114 @@
+---
+import "./styles/tailwind.css"
+
+import Header from "./sections/Header.astro"
+import Hero from "./sections/Hero.astro"
+import Postal from "./sections/Postal.astro"
+import Streets from "./sections/Streets.astro"
+import Comparisons from "./sections/Comparisons.astro"
+import TwoTables from "./sections/TwoTables.astro"
+import Geography from "./sections/Geography.astro"
+import Havana from "./sections/Havana.astro"
+import Living from "./sections/Living.astro"
+import Blackout from "./sections/Blackout.astro"
+import Elders from "./sections/Elders.astro"
+import Voices from "./sections/Voices.astro"
+import Departure from "./sections/Departure.astro"
+import Words from "./sections/Words.astro"
+import Beauty from "./sections/Beauty.astro"
+import Culture from "./sections/Culture.astro"
+import Gallery from "./sections/Gallery.astro"
+import Sources from "./sections/Sources.astro"
+import Footer from "./sections/Footer.astro"
+import BackToTop from "./components/BackToTop.astro"
+import { images } from "./data/images"
+
+const pageTitle = "Cuba Dos Realidades — La postal y la vida detrás"
+const pageDescription =
+  "Landing editorial documental sobre la belleza, contradicciones, deterioro habitacional, apagones, emigración, cultura y supervivencia cotidiana de Cuba, construida con fuentes verificables y fotografía acreditada."
+const canonicalUrl = "/landings/cuba-two-realities"
+---
+
+<!doctype html>
+<html
+  lang="es"
+  class="scroll-smooth overflow-x-clip scheme-light motion-reduce:scroll-auto dark:scheme-dark font-sans"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <script is:inline>
+      ;(function () {
+        const saved = localStorage.getItem("cuba-two-realities:theme")
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved)
+        }
+      })()
+    </script>
+    <script is:inline>
+      try {
+        var storedPalette = localStorage.getItem("cuba-two-realities:palette")
+        if (storedPalette)
+          document.documentElement.dataset.palette = storedPalette
+      } catch (error) {}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content="noindex" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={images.varadero.src} />
+    <meta property="og:url" content={canonicalUrl} />
+  </head>
+  <body
+    class="min-h-full overflow-x-clip bg-background text-base leading-relaxed text-foreground antialiased font-sans"
+  >
+    <a
+      class="absolute -top-full left-4 z-1000 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-sm border-0 bg-(--color-primary) px-5 py-3 text-base font-semibold text-(--color-light) no-underline transition duration-200 ease-landing hover:opacity-90 focus-visible:top-4 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+      href="#main-content"
+    >
+      Skip to main content
+    </a>
+    <Header />
+    <main id="main-content">
+      <Hero />
+      <Postal />
+      <Streets />
+      <Comparisons />
+      <TwoTables />
+      <Geography />
+      <Havana />
+      <Living />
+      <Blackout />
+      <Elders />
+      <Voices />
+      <Departure />
+      <Words />
+      <Beauty />
+      <Culture />
+      <Gallery />
+      <Sources />
+    </main>
+    <Footer />
+    <BackToTop />
+    <script>
+      import "./scripts/theme"
+      import "./scripts/palette"
+      import "./scripts/menu"
+      import "./scripts/reveal"
+      import "./scripts/comparison"
+      import "./scripts/motion"
+      import "./scripts/sliders"
+      import "./scripts/wordImages"
+      import "./scripts/backToTop"
+    </script>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+---
+import Photo from "../components/Photo.astro"
+import { images } from "../data/images"
+---
+
+<section class="bg-background px-container-x py-section">
+  <div class="mx-auto grid max-w-landing gap-12">
+    <div class="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+      <div class="reveal">
+        <h2
+          class="max-w-heading font-display text-headline-2 leading-none uppercase"
+        >
+          Cuba sigue siendo extraordinariamente bella.
+        </h2>
+        <p
+          class="mt-4 font-display text-headline-3 leading-none uppercase text-muted"
+        >
+          Y precisamente por eso, duele más.
+        </p>
+      </div>
+      <p class="max-w-copy text-xl text-muted">
+        Criticar ciertas condiciones no es rechazar la isla, su cultura ni su
+        gente. Mostrar las fracturas no niega la belleza; la convierte en parte
+        de la evidencia.
+      </p>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      <Photo image={images.cayoCoco} ratio="16 / 9" parallax />
+      <Photo image={images.trinidad} ratio="16 / 9" parallax />
+    </div>
+    <div class="grid gap-8 border-t border-border pt-8 md:grid-cols-3">
+      <div>
+        <p class="font-display text-headline-3 leading-none uppercase">
+          Naturaleza
+        </p>
+        <p class="mt-3 text-sm text-muted">
+          Viñales, los cayos, la costa sur, reservas de la biosfera. Un
+          ecosistema caribeño que persiste.
+        </p>
+      </div>
+      <div>
+        <p class="font-display text-headline-3 leading-none uppercase">
+          Cultura
+        </p>
+        <p class="mt-3 text-sm text-muted">
+          Música, pintura, literatura, danza, arquitectura, comunidad. Una
+          identidad cultural que excede las condiciones materiales.
+        </p>
+      </div>
+      <div>
+        <p class="font-display text-headline-3 leading-none uppercase">
+          Gente
+        </p>
+        <p class="mt-3 text-sm text-muted">
+          Rostros, familias, generaciones, resistencia cotidiana. La isla no es
+          solo geografía; es la gente que la habita.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,110 @@
+---
+import PhotoCredit from "../components/PhotoCredit.astro"
+import { images } from "../data/images"
+
+const chapters = [
+  {
+    label: "01 / Los mayores",
+    title: "Los que vieron todo cambiar.",
+    body: "Vieron nacer una promesa. También vivieron con el peso de sus consecuencias. Este capítulo no pretende que una vida represente todas las vidas; sostiene memoria, expectativa, pérdida y resistencia juntas.",
+    image: images.elder,
+  },
+  {
+    label: "02 / Generación intermedia",
+    title: "Los que crecieron dentro del experimento.",
+    body: "Experimento es aquí lenguaje editorial, no una categoría histórica neutral. Nacieron en un país que ya había elegido su camino. No tuvieron que imaginar el sistema; tuvieron que aprender a vivir dentro de él.",
+    image: images.oldHavana,
+  },
+  {
+    label: "03 / Nacidos después",
+    title: "Los que heredaron una historia que no eligieron.",
+    body: "No vivieron 1959, la Guerra Fría ni los primeros años revolucionarios. Viven las consecuencias, ahora con teléfonos, redes, familiares en el extranjero y una comparación directa con otros futuros posibles.",
+    image: images.streetLife,
+  },
+  {
+    label: "04 / Otra lucha",
+    title: "Su lucha es otra.",
+    body: "No luchan en Sierra Maestra. Luchan por decidir qué hacer con sus propias vidas: trabajo, vivienda, expresión, comida, apagones, conexión, creación, irse o quedarse.",
+    image: images.trinidad,
+  },
+]
+---
+
+<section data-generations class="bg-background px-container-x py-section">
+  <div class="mx-auto grid max-w-landing gap-12">
+    <div
+      class="grid min-h-dvh gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start"
+    >
+      <div class="grid gap-28 py-8 lg:py-[30vh]">
+        {
+          chapters.map((chapter: (typeof chapters)[number]) => (
+            <article
+              data-generation-chapter
+              class="min-h-[70vh] content-center"
+            >
+              <p class="mb-4 font-condensed text-sm font-black uppercase text-muted">
+                {chapter.label}
+              </p>
+              <h2 class="max-w-heading font-display text-headline-2 leading-none uppercase">
+                {chapter.title}
+              </h2>
+              <p class="mt-6 max-w-copy text-xl leading-snug text-muted">
+                {chapter.body}
+              </p>
+            </article>
+          ))
+        }
+        <article data-generation-final class="min-h-[72vh] content-center">
+          <p
+            class="mb-4 font-condensed text-sm font-black uppercase text-muted"
+          >
+            Capítulo final
+          </p>
+          <h2
+            class="max-w-heading font-display text-headline-2 leading-none uppercase"
+          >
+            Cuatro generaciones. Una isla. Cuatro formas de recordarla.
+          </h2>
+        </article>
+      </div>
+
+      <div class="lg:sticky lg:top-0 lg:h-dvh">
+        <div class="relative h-[72vh] overflow-hidden bg-placeholder lg:h-dvh">
+          {
+            chapters.map(
+              (chapter: (typeof chapters)[number], index: number) => (
+                <img
+                  src={chapter.image.src}
+                  alt={chapter.image.alt}
+                  width={chapter.image.width}
+                  height={chapter.image.height}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  data-generation-image
+                  class:list={[
+                    "absolute inset-0 h-full w-full object-cover photo-tone",
+                    index !== 0 && "opacity-0",
+                  ]}
+                />
+              ),
+            )
+          }
+          <div class="absolute inset-0 bg-background/5"></div>
+          <p
+            data-generation-number
+            class="absolute bottom-6 left-6 font-display text-figure leading-none text-background mix-blend-difference"
+          >
+            01
+          </p>
+        </div>
+        <div class="mt-2 grid gap-1">
+          {
+            chapters.map((chapter: (typeof chapters)[number]) => (
+              <PhotoCredit image={chapter.image} />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

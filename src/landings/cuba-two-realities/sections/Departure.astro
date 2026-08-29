@@ -1,0 +1,80 @@
+---
+import { images } from "../data/images"
+import PhotoCredit from "../components/PhotoCredit.astro"
+
+const stackImages = [images.malecon, images.oldHavana, images.elder]
+---
+
+<section
+  id="leaving"
+  class="bg-background-alt px-container-x py-section palette-surface-light"
+>
+  <div class="mx-auto grid max-w-landing gap-12">
+    <div class="grid gap-7 lg:grid-cols-2 lg:items-end">
+      <div>
+        <p class="mb-4 text-xs font-semibold uppercase text-muted">
+          Acto IV — Ausencia
+        </p>
+        <h2
+          class="max-w-heading font-display text-headline-2 leading-none uppercase"
+        >
+          Un país también se vacía persona a persona.
+        </h2>
+      </div>
+      <p class="max-w-copy text-lg text-muted">
+        La migración se cuenta en tablas demográficas, pero se vive como
+        habitaciones vacías, llamadas, remesas, familiares mayores e hijos
+        creciendo con alguien ausente.
+      </p>
+    </div>
+    <div data-departure-stack class="relative h-[300vh]">
+      <div
+        data-departure-pin
+        class="sticky top-0 h-dvh w-full overflow-hidden"
+      >
+        {
+          stackImages.map(
+            (image: (typeof stackImages)[number], index: number) => (
+              <div
+                data-stack-layer
+                class:list={[
+                  "absolute inset-0",
+                  index !== 0 && "opacity-0",
+                ]}
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  width={image.width}
+                  height={image.height}
+                  loading="lazy"
+                  decoding="async"
+                  class="absolute inset-0 h-full w-full object-cover photo-tone"
+                />
+              </div>
+            ),
+          )
+        }
+        <div class="absolute inset-0 bg-background/10"></div>
+        <div
+          class="absolute bottom-6 left-6 right-6 grid gap-1 sm:bottom-10 sm:left-10"
+        >
+          {
+            stackImages.map((image: (typeof stackImages)[number]) => (
+              <PhotoCredit image={image} class="text-inverted-foreground/70" />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    <div class="grid gap-6 border-t border-border pt-8 md:grid-cols-2">
+      <p class="font-display text-headline-3 leading-none uppercase">
+        La silla vacía.
+      </p>
+      <p class="max-w-copy text-muted">
+        Cada imagen representa una generación. El movimiento revela lo que queda
+        cuando la gente se va: memoria, distancia y un país que envejece.
+      </p>
+    </div>
+  </div>
+</section>

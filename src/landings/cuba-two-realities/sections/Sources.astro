@@ -1,0 +1,46 @@
+---
+import { sources } from "../data/sources"
+import type { SourceReference } from "../types"
+---
+
+<section id="sources" class="bg-background px-container-x py-section">
+  <div class="mx-auto grid max-w-landing gap-10">
+    <div>
+      <p class="mb-4 text-xs font-semibold uppercase text-muted">Archivo</p>
+      <h2
+        class="max-w-heading font-display text-headline-2 leading-none uppercase"
+      >
+        Fuentes.
+      </h2>
+      <p class="mt-6 max-w-copy text-muted">
+        Esta página separa la evidencia de la interpretación. La crisis
+        económica se presenta como multicausal: política interna, control
+        estatal, infraestructura, declive turístico, secuelas de la pandemia,
+        dependencia energética, el embargo y las sanciones de EE.UU.
+      </p>
+    </div>
+    <div class="grid gap-4">
+      {
+        sources.map((source: SourceReference) => (
+          <article class="grid gap-3 border-t border-border py-5 md:grid-cols-[0.35fr_1fr_0.3fr]">
+            <p class="font-mono text-xs uppercase text-muted">
+              {source.publisher}
+            </p>
+            <div>
+              <h3 class="text-xl font-semibold">{source.label}</h3>
+              <p class="mt-2 text-muted">{source.note}</p>
+            </div>
+            <a
+              href={source.url}
+              rel="noopener"
+              target="_blank"
+              class="text-sm font-semibold underline underline-offset-4 md:text-right"
+            >
+              {source.date}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

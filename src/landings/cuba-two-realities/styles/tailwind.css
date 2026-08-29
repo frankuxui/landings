@@ -1,0 +1,294 @@
+@import "tailwindcss";
+
+/* Cuba Two Realities owns the full gallery design-token contract locally.
+   The first-seen state is strict grayscale; the optional Caribbean Archive
+   palette is a deliberate second layer for the preview palette selector. */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --font-base: "Archivo Black", sans-serif;
+  --font-sans: "Archivo Black", sans-serif;
+  --font-display: "Archivo Black", sans-serif;
+  --font-condensed: "Archivo Black", sans-serif;
+  --font-serif: "Source Serif 4", Georgia, serif;
+  --background: var(--color-neutral-50);
+  --background-alt: var(--color-neutral-100);
+  --foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-white);
+  --surface-strong: var(--color-neutral-100);
+  --control: var(--color-neutral-200);
+  --control-hover: var(--color-neutral-300);
+  --ring: var(--color-neutral-900);
+
+  --primary: var(--color-neutral-900);
+  --primary-foreground: var(--color-white);
+  --emphasis: var(--color-black);
+
+  --disabled: var(--color-neutral-300);
+  --disabled-foreground: var(--color-neutral-500);
+
+  --inverted: var(--color-neutral-950);
+  --inverted-foreground: var(--color-white);
+  --inverted-surface: var(--color-neutral-900);
+
+  --placeholder: var(--color-neutral-900);
+  --placeholder-foreground: var(--color-white);
+  --placeholder-inverse: rgb(255 255 255 / 0.72);
+}
+
+[data-theme="dark"] {
+  --background: var(--color-neutral-950);
+  --background-alt: var(--color-neutral-900);
+  --foreground: var(--color-neutral-100);
+  --muted: var(--color-neutral-300);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-neutral-900);
+  --surface-strong: var(--color-neutral-800);
+  --control: var(--color-neutral-800);
+  --control-hover: var(--color-neutral-700);
+  --ring: var(--color-neutral-300);
+
+  --primary: var(--color-neutral-100);
+  --primary-foreground: var(--color-neutral-950);
+  --emphasis: var(--color-white);
+
+  --disabled: var(--color-neutral-700);
+  --disabled-foreground: var(--color-neutral-400);
+
+  --inverted: var(--color-neutral-100);
+  --inverted-foreground: var(--color-neutral-950);
+  --inverted-surface: var(--color-neutral-200);
+
+  --placeholder: var(--color-neutral-300);
+  --placeholder-foreground: var(--color-neutral-900);
+  --placeholder-inverse: rgb(10 10 10 / 0.65);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-emphasis: var(--emphasis);
+
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
+  --color-inverted-surface: var(--inverted-surface);
+
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-placeholder-inverse: var(--placeholder-inverse);
+
+  --font-base: "Archivo Black", sans-serif;
+  --font-sans: "Archivo Black", sans-serif;
+  --font-display: "Archivo Black", sans-serif;
+  --font-condensed: "Archivo Black", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-serif: "Source Serif 4", Georgia, serif;
+}
+
+@theme {
+  --breakpoint-footer: 45rem;
+  --breakpoint-cards: 47.5rem;
+  --breakpoint-nav: 56.25rem;
+  --breakpoint-stats: 67.5rem;
+  --breakpoint-display: 87.5rem;
+
+  --spacing-section: 7rem;
+  --spacing-container-x: 1.5rem;
+
+  --container-landing: 100rem;
+  --container-copy: 66ch;
+  --container-heading: 28ch;
+  --container-hero-heading: 18ch;
+
+  --ease-landing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --text-headline-1: clamp(5rem, 1.5rem + 14vw, 16rem);
+  --text-headline-2: clamp(3rem, 1.5rem + 6.5vw, 9rem);
+  --text-headline-3: clamp(1.75rem, 1.1rem + 2.8vw, 3.75rem);
+  --text-figure: clamp(4rem, 1.8rem + 9vw, 12rem);
+}
+
+@utility reveal {
+  transform: translateY(0);
+  opacity: 1;
+
+  .js-reveal-ready & {
+    transform: translateY(calc(var(--spacing) * 8));
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 800ms;
+    transition-timing-function: var(--ease-landing);
+  }
+
+  .js-reveal-ready &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @variant motion-reduce {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transition-property: none !important;
+  }
+}
+
+@utility photo-tone {
+  filter: grayscale(100%) contrast(118%);
+  transition: filter 500ms var(--ease-landing);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    filter: none;
+  }
+}
+
+@utility palette-surface-primary {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-primary);
+  }
+}
+
+@utility palette-surface-light {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-light);
+  }
+}
+
+@utility documentary-rule {
+  background-image: linear-gradient(
+    90deg,
+    currentcolor 0 18%,
+    transparent 18% 100%
+  );
+  background-position: 0 100%;
+  background-repeat: repeat-x;
+  background-size: 1rem 1px;
+}
+
+@utility text-mask-reveal {
+  clip-path: inset(0 0 0 0);
+
+  .js-reveal-ready & {
+    clip-path: inset(100% 0 0 0);
+    transform: translateY(1.5rem);
+    transition:
+      clip-path 900ms var(--ease-landing),
+      transform 900ms var(--ease-landing);
+  }
+
+  .js-reveal-ready &.is-visible {
+    clip-path: inset(0 0 0 0);
+    transform: translateY(0);
+  }
+}
+
+@utility gallery-slide-wide {
+  width: 82vw;
+  max-width: 46rem;
+}
+
+@utility gallery-slide-tall {
+  width: 68vw;
+  max-width: 31rem;
+}
+
+@utility gallery-slide-cinema {
+  width: 88vw;
+  max-width: 58rem;
+}
+
+@utility voice-slide {
+  width: 82vw;
+  max-width: 36rem;
+}
+
+@utility slide-image-enter {
+  clip-path: inset(0 100% 0 0);
+  transform: scale(1.06);
+}
+
+@utility blackout-word {
+  clip-path: inset(100% 0 0 0);
+  filter: blur(0.5rem);
+  opacity: 0;
+}
+
+.voices-slider,
+.island-slider {
+  --swiper-pagination-color: var(--foreground);
+  --swiper-pagination-bullet-inactive-color: var(--muted);
+  --swiper-pagination-bullet-inactive-opacity: 0.55;
+  --swiper-pagination-bullet-size: 0.5rem;
+  --swiper-pagination-bullet-horizontal-gap: 0.35rem;
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    --swiper-pagination-color: var(--color-primary);
+  }
+}
+
+.comparison-slider {
+  --comparison-position: 50%;
+}
+
+.comparison-slider [data-comparison-before] {
+  clip-path: inset(0 calc(100% - var(--comparison-position)) 0 0);
+}
+
+.comparison-slider [data-comparison-handle] {
+  left: var(--comparison-position);
+}
+
+:root,
+html[data-palette="grayscale"] {
+  --color-primary: #171717;
+  --color-secondary: #404040;
+  --color-tertiary: #737373;
+  --color-accent: #a3a3a3;
+  --color-light: #f5f5f5;
+}
+
+html[data-palette="caribbean-archive"] {
+  --color-primary: #243f48;
+  --color-secondary: #547c89;
+  --color-tertiary: #8c8b82;
+  --color-accent: #d8b760;
+  --color-support: #9ebfc2;
+  --color-light: #e4d5b5;
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"][data-palette="grayscale"] {
+  --color-primary: #f5f5f5;
+  --color-secondary: #a3a3a3;
+  --color-tertiary: #737373;
+  --color-accent: #404040;
+  --color-light: #171717;
+}
+
+html[data-theme="dark"][data-palette="caribbean-archive"] {
+  --color-primary: #e4d5b5;
+  --color-secondary: #d8b760;
+  --color-tertiary: #8c8b82;
+  --color-accent: #547c89;
+  --color-support: #9ebfc2;
+  --color-light: #243f48;
+}

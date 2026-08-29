@@ -1,0 +1,104 @@
+---
+import PhotoCredit from "../components/PhotoCredit.astro"
+import { images } from "../data/images"
+import { notes, sources } from "../data/sources"
+import type { DocumentaryNote, SourceReference } from "../types"
+
+const housingNotes = notes.filter(
+  (note: DocumentaryNote) => note.sourceId === "ap-housing-2023",
+)
+
+const sourceById = new Map(
+  sources.map((source: SourceReference) => [source.id, source]),
+)
+
+const annotations = [
+  { label: "Humidity", top: "12%", left: "5%" },
+  { label: "Roof", top: "3%", left: "62%" },
+  { label: "Balcony", top: "38%", left: "68%" },
+  { label: "Support", top: "82%", left: "12%" },
+]
+---
+
+<section id="havana" class="bg-background px-container-x py-section">
+  <div class="mx-auto grid max-w-landing gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+    <div class="lg:sticky lg:top-28 lg:self-start">
+      <figure class="relative m-0">
+        <div class="relative w-full overflow-hidden bg-placeholder aspect-3/4">
+          <img
+            src={images.oldHavana.src}
+            alt={images.oldHavana.alt}
+            width={images.oldHavana.width}
+            height={images.oldHavana.height}
+            loading="lazy"
+            decoding="async"
+            data-parallax="true"
+            class="absolute inset-0 h-full w-full scale-110 object-cover photo-tone"
+          />
+          {
+            annotations.map((ann: (typeof annotations)[number]) => (
+              <span
+                data-layer
+                class="absolute z-10 bg-control px-2 py-1 text-xs font-bold uppercase text-foreground"
+                style={`top: ${ann.top}; left: ${ann.left};`}
+              >
+                {ann.label}
+              </span>
+            ))
+          }
+        </div>
+        <figcaption class="mt-2">
+          <PhotoCredit image={images.oldHavana} />
+        </figcaption>
+      </figure>
+    </div>
+    <div class="grid gap-14">
+      <div class="reveal">
+        <p class="mb-4 text-xs font-semibold uppercase text-muted">
+          04 — Havana
+        </p>
+        <h2 class="font-display text-headline-2 leading-none uppercase">
+          When a house stops being refuge.
+        </h2>
+        <p class="mt-6 max-w-copy text-lg text-muted">
+          This is not an inspection of this building, and it does not
+          romanticize decay. The labels point to a wider problem: aging housing,
+          insufficient maintenance and families living with uncertainty.
+        </p>
+      </div>
+      {
+        housingNotes.map((note: DocumentaryNote) => {
+          const source = sourceById.get(note.sourceId)
+          return (
+            <article class="border-t border-border pt-8">
+              <p class="text-xs font-semibold uppercase text-muted">
+                {note.kicker}
+              </p>
+              <p class="font-display text-figure leading-none uppercase">
+                {note.value}
+              </p>
+              <p class="max-w-copy text-muted">{note.body}</p>
+              {source && (
+                <a
+                  href={source.url}
+                  rel="noopener"
+                  target="_blank"
+                  class="mt-4 inline-block text-sm font-semibold underline underline-offset-4"
+                >
+                  Source: {source.publisher}, {source.date}
+                </a>
+              )}
+            </article>
+          )
+        })
+      }
+      <blockquote class="border-l-0 pl-0">
+        <p
+          class="max-w-copy font-serif text-3xl leading-snug text-foreground sm:text-4xl"
+        >
+          "Poverty must not become decoration."
+        </p>
+      </blockquote>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,81 @@
+---
+import PhotoCredit from "../components/PhotoCredit.astro"
+import { images } from "../data/images"
+---
+
+<section
+  id="two-cubas"
+  class="bg-inverted px-container-x py-section text-inverted-foreground palette-surface-primary"
+>
+  <div class="mx-auto grid max-w-landing gap-10">
+    <div class="grid gap-5 md:grid-cols-[1fr_0.55fr] md:items-end">
+      <h2
+        class="max-w-heading font-display text-headline-2 leading-none uppercase"
+      >
+        Arrastra la postal.
+      </h2>
+      <p class="max-w-copy text-inverted-foreground/75">
+        Las imágenes no se presentan como la misma calle ni el mismo día. Son un
+        argumento visual sobre dos realidades que coexisten dentro de un mismo
+        país.
+      </p>
+    </div>
+    <div
+      data-comparison
+      class="comparison-slider relative min-h-[70vh] cursor-ew-resize overflow-hidden border border-inverted-foreground/30 bg-inverted-surface"
+    >
+      <img
+        src={images.streetLife.src}
+        alt={images.streetLife.alt}
+        width={images.streetLife.width}
+        height={images.streetLife.height}
+        class="absolute inset-0 h-full w-full object-cover photo-tone"
+        loading="lazy"
+        decoding="async"
+      />
+      <div data-comparison-before class="absolute inset-0">
+        <img
+          src={images.varadero.src}
+          alt={images.varadero.alt}
+          width={images.varadero.width}
+          height={images.varadero.height}
+          class="h-full w-full object-cover photo-tone"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <p
+        class="absolute top-5 left-5 bg-inverted px-3 py-2 text-xs uppercase text-inverted-foreground"
+      >
+        Postal
+      </p>
+      <p
+        class="absolute top-5 right-5 bg-inverted px-3 py-2 text-xs uppercase text-inverted-foreground"
+      >
+        Realidad
+      </p>
+      <button
+        type="button"
+        data-comparison-handle
+        aria-label="Arrastra o usa las flechas para comparar la postal y la realidad"
+        class="absolute top-0 bottom-0 z-10 w-1 -translate-x-1/2 cursor-ew-resize bg-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-border"
+      >
+        <span
+          class="absolute top-1/2 left-1/2 min-w-44 -translate-x-1/2 -translate-y-1/2 border border-inverted-foreground bg-inverted px-4 py-3 text-xs font-semibold uppercase text-inverted-foreground"
+        >
+          Arrastra para mirar detrás
+        </span>
+      </button>
+    </div>
+    <div class="grid gap-2 md:grid-cols-2">
+      <PhotoCredit
+        image={images.varadero}
+        class="text-inverted-foreground/70"
+      />
+      <PhotoCredit
+        image={images.streetLife}
+        class="text-inverted-foreground/70 md:text-right"
+      />
+    </div>
+  </div>
+</section>

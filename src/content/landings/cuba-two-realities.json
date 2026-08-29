@@ -1,0 +1,43 @@
+{
+  "name": "Cuba Two Realities",
+  "title": "Cuba Two Realities — The Postcard and the Life Behind It",
+  "description": "An editorial documentary landing about Cuba's beauty, contradictions, housing strain, blackouts, emigration, culture and everyday survival, built with verifiable sources and credited photography.",
+  "subtitle": "The Cuba that is shown, and the Cuba that is lived",
+  "category": "blog",
+  "tags": ["editorial", "documentary", "photography", "cuba", "social"],
+  "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
+  "thumbnail": "https://commons.wikimedia.org/wiki/Special:FilePath/Varaderobeach1.JPG",
+  "thumbnailAlt": "Playa de arena blanca y agua calmada en Varadero, Cuba",
+  "thumbnailWidth": 3702,
+  "thumbnailHeight": 2478,
+  "palettes": [
+    {
+      "id": "grayscale",
+      "name": "Escala de grises",
+      "colors": {
+        "primary": "#171717",
+        "secondary": "#404040",
+        "tertiary": "#737373",
+        "accent": "#a3a3a3",
+        "light": "#f5f5f5"
+      }
+    },
+    {
+      "id": "caribbean-archive",
+      "name": "Archivo Caribe",
+      "colors": {
+        "primary": "#243f48",
+        "secondary": "#547c89",
+        "tertiary": "#8c8b82",
+        "accent": "#d8b760",
+        "support": "#9ebfc2",
+        "light": "#e4d5b5"
+      }
+    }
+  ],
+  "createdAt": "2026-08-29",
+  "author": "frankuxui",
+  "themes": ["light", "dark"],
+  "featured": false,
+  "status": "published"
+}

@@ -1,0 +1,76 @@
+---
+import { images } from "../data/images"
+---
+
+<section
+  class="bg-inverted px-container-x py-section text-inverted-foreground palette-surface-primary"
+>
+  <div class="mx-auto grid max-w-landing gap-12">
+    <div class="reveal">
+      <p
+        class="mb-4 text-xs font-semibold uppercase text-inverted-foreground/60"
+      >
+        Dos mesas
+      </p>
+      <h2
+        class="max-w-heading font-display text-headline-2 leading-none uppercase"
+      >
+        Abundancia. Resolver.
+      </h2>
+    </div>
+    <div class="grid gap-px md:grid-cols-2">
+      <div
+        class="relative min-h-[50vh] overflow-hidden border border-inverted-foreground/20"
+      >
+        <img
+          src={images.cayoCoco.src}
+          alt={images.cayoCoco.alt}
+          width={images.cayoCoco.width}
+          height={images.cayoCoco.height}
+          loading="lazy"
+          decoding="async"
+          class="absolute inset-0 h-full w-full object-cover photo-tone"
+        />
+        <div class="absolute inset-0 bg-inverted/30"></div>
+        <div class="relative flex min-h-[50vh] flex-col justify-end p-6">
+          <p class="font-display text-headline-3 leading-none uppercase">
+            La mesa del turista
+          </p>
+          <p class="mt-2 text-sm text-inverted-foreground/70">
+            Buffet, langosta, variedad, abundancia visible. Un mundo preparado
+            para el visitante.
+          </p>
+        </div>
+      </div>
+      <div
+        class="relative min-h-[50vh] overflow-hidden border border-inverted-foreground/20"
+      >
+        <img
+          src={images.streetLife.src}
+          alt={images.streetLife.alt}
+          width={images.streetLife.width}
+          height={images.streetLife.height}
+          loading="lazy"
+          decoding="async"
+          class="absolute inset-0 h-full w-full object-cover photo-tone"
+        />
+        <div class="absolute inset-0 bg-inverted/30"></div>
+        <div class="relative flex min-h-[50vh] flex-col justify-end p-6">
+          <p class="font-display text-headline-3 leading-none uppercase">
+            La mesa del residente
+          </p>
+          <p class="mt-2 text-sm text-inverted-foreground/70">
+            Colas, libretas de racionamiento, escasez, invención. Un mundo donde
+            comer puede requerir estrategia.
+          </p>
+        </div>
+      </div>
+    </div>
+    <p
+      class="mx-auto max-w-copy text-center text-lg text-inverted-foreground/70"
+    >
+      No son necesariamente el mismo día ni el mismo lugar. Pero coexisten
+      dentro del mismo país, separados por la valla de un resort.
+    </p>
+  </div>
+</section>
