@@ -21,9 +21,22 @@ function currentTheme(): Theme {
     : "light"
 }
 
+function syncToggleState(theme: Theme): void {
+  const toggle = document.querySelector<HTMLButtonElement>(
+    "[data-theme-toggle]",
+  )
+  if (!toggle) return
+  toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false")
+  toggle.setAttribute(
+    "aria-label",
+    theme === "dark" ? "Cambiar a tema claro" : "Cambiar a tema oscuro",
+  )
+}
+
 function applyTheme(theme: Theme): void {
   document.documentElement.setAttribute("data-theme", theme)
   localStorage.setItem(STORAGE_KEY, theme)
+  syncToggleState(theme)
 }
 
 window.addEventListener("message", (event: MessageEvent<unknown>) => {
@@ -36,3 +49,5 @@ document
   ?.addEventListener("click", () => {
     applyTheme(currentTheme() === "dark" ? "light" : "dark")
   })
+
+syncToggleState(currentTheme())

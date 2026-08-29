@@ -68,7 +68,7 @@ function openMenu(): void {
   if (!toggle || !panel) return
   previousFocus = document.activeElement as HTMLElement | null
   toggle.setAttribute("aria-expanded", "true")
-  toggle.setAttribute("aria-label", "Close navigation")
+  toggle.setAttribute("aria-label", "Cerrar navegación")
   panel.setAttribute("aria-hidden", "false")
   setBackgroundInert(true)
   animateOpen()
@@ -78,7 +78,7 @@ function openMenu(): void {
 function closeMenu(restoreFocus: boolean): void {
   if (!toggle || !panel) return
   toggle.setAttribute("aria-expanded", "false")
-  toggle.setAttribute("aria-label", "Open navigation")
+  toggle.setAttribute("aria-label", "Abrir navegación")
   panel.setAttribute("aria-hidden", "true")
   setBackgroundInert(false)
   animateClose()

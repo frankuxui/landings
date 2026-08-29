@@ -13,10 +13,10 @@ const sourceById = new Map(
 )
 
 const annotations = [
-  { label: "Humidity", top: "12%", left: "5%" },
-  { label: "Roof", top: "3%", left: "62%" },
-  { label: "Balcony", top: "38%", left: "68%" },
-  { label: "Support", top: "82%", left: "12%" },
+  { label: "Humedad", top: "12%", left: "5%" },
+  { label: "Cubierta", top: "3%", left: "62%" },
+  { label: "Balcón", top: "38%", left: "68%" },
+  { label: "Apuntalamiento", top: "82%", left: "12%" },
 ]
 ---
 
@@ -55,15 +55,16 @@ const annotations = [
     <div class="grid gap-14">
       <div class="reveal">
         <p class="mb-4 text-xs font-semibold uppercase text-muted">
-          04 — Havana
+          04 — La Habana
         </p>
         <h2 class="font-display text-headline-2 leading-none uppercase">
-          When a house stops being refuge.
+          Cuando una casa deja de ser refugio.
         </h2>
         <p class="mt-6 max-w-copy text-lg text-muted">
-          This is not an inspection of this building, and it does not
-          romanticize decay. The labels point to a wider problem: aging housing,
-          insufficient maintenance and families living with uncertainty.
+          Esto no es una inspección de este edificio, y no romantiza el
+          deterioro. Las etiquetas señalan un problema más amplio: viviendas
+          envejecidas, mantenimiento insuficiente y familias que conviven con
+          la incertidumbre.
         </p>
       </div>
       {
@@ -85,7 +86,7 @@ const annotations = [
                   target="_blank"
                   class="mt-4 inline-block text-sm font-semibold underline underline-offset-4"
                 >
-                  Source: {source.publisher}, {source.date}
+                  Fuente: {source.publisher}, {source.date}
                 </a>
               )}
             </article>
@@ -96,7 +97,7 @@ const annotations = [
         <p
           class="max-w-copy font-serif text-3xl leading-snug text-foreground sm:text-4xl"
         >
-          "Poverty must not become decoration."
+          "La pobreza no debe convertirse en decoración."
         </p>
       </blockquote>
     </div>

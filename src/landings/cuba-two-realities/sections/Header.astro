@@ -13,49 +13,66 @@ const links = [
 ---
 
 <header
-  class="fixed top-4 right-4 left-4 z-50 border border-border bg-inverted/90 text-inverted-foreground backdrop-blur-md"
+  class="fixed top-4 right-4 left-4 z-50 border border-border bg-inverted/90 text-inverted-foreground shadow-lg backdrop-blur-md"
 >
   <div
-    class="mx-auto flex max-w-landing items-center justify-between gap-3 px-4 py-3"
+    class="mx-auto flex max-w-landing items-center justify-between gap-3 px-4 py-3 sm:px-6"
   >
     <a
       href="#top"
-      class="font-display text-sm uppercase tracking-normal no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border sm:text-base"
+      class="group inline-flex items-center gap-2.5 font-display text-sm uppercase tracking-wide no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border sm:text-base"
     >
+      <span
+        aria-hidden="true"
+        class="size-2 shrink-0 bg-inverted-foreground transition group-hover:scale-125"
+      ></span>
       Cuba — Dos Realidades
     </a>
-    <p class="hidden text-xs text-inverted-foreground/70 md:block">
+    <p
+      class="hidden items-center gap-2 text-xs uppercase tracking-wide text-inverted-foreground/70 md:flex"
+    >
+      <span
+        aria-hidden="true"
+        class="size-1.5 animate-pulse rounded-full bg-inverted-foreground/70"
+      ></span>
       23.1136° N / 82.3666° W
     </p>
     <nav
       aria-label="Secciones principales"
-      class="hidden items-center gap-5 nav:flex"
+      class="hidden items-center gap-6 nav:flex"
     >
       {
         links.slice(0, 5).map((link: (typeof links)[number]) => (
           <a
             href={link.href}
-            class="text-xs uppercase text-inverted-foreground/75 underline-offset-4 transition hover:text-inverted-foreground hover:underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+            class="relative py-1 text-xs uppercase tracking-wide text-inverted-foreground/75 transition after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-0 after:bg-inverted-foreground after:transition-all after:duration-300 after:ease-landing hover:text-inverted-foreground hover:after:w-full focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
           >
             {link.label.replace(/^\d+ — /, "")}
           </a>
         ))
       }
     </nav>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2.5">
       <button
         type="button"
         data-theme-toggle
-        aria-label="Cambiar tema claro y oscuro"
-        class="inline-flex size-10 min-h-10 items-center justify-center border border-inverted-foreground/30 bg-inverted-surface text-inverted-foreground transition hover:bg-inverted-foreground hover:text-inverted focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        aria-label="Cambiar a tema oscuro"
+        aria-pressed="false"
+        class="relative inline-flex h-9 w-16 shrink-0 items-center rounded-full border border-inverted-foreground/30 bg-inverted-surface p-1 transition hover:border-inverted-foreground/60 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
       >
-        <Moon
+        <span
+          data-theme-thumb
           aria-hidden="true"
-          class="hidden dark:block"
-          width="17"
-          height="17"
-        />
-        <Sun aria-hidden="true" class="dark:hidden" width="17" height="17" />
+          class="flex size-7 items-center justify-center rounded-full bg-inverted-foreground text-inverted transition-transform duration-300 ease-landing dark:translate-x-7"
+        >
+          <Sun aria-hidden="true" width="14" height="14" class="dark:hidden" />
+          <Moon
+            aria-hidden="true"
+            width="14"
+            height="14"
+            class="hidden dark:block"
+          />
+        </span>
       </button>
       <button
         type="button"
@@ -63,12 +80,17 @@ const links = [
         aria-label="Abrir navegación"
         aria-expanded="false"
         aria-controls="mobile-menu"
-        class="inline-flex min-h-10 items-center gap-2 border border-inverted-foreground/30 bg-inverted-surface px-3 text-xs font-semibold uppercase text-inverted-foreground transition hover:bg-inverted-foreground hover:text-inverted focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        class="inline-flex min-h-10 items-center gap-2 border border-inverted-foreground/30 bg-inverted-surface px-3 text-xs font-semibold uppercase tracking-wide text-inverted-foreground transition hover:bg-inverted-foreground hover:text-inverted focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
       >
         <Menu aria-hidden="true" width="17" height="17" />
         Menú
       </button>
     </div>
+  </div>
+  <div
+    aria-hidden="true"
+    class="documentary-rule h-px w-full text-inverted-foreground/25"
+  >
   </div>
 </header>
 

@@ -17,14 +17,21 @@ media.add("(prefers-reduced-motion: no-preference)", () => {
         scrub: true,
       },
     })
-    .to("[data-hero-postcard]", { clipPath: "inset(0 0 100% 0)" }, 0)
-    .to("[data-hero-title]", { yPercent: -18, opacity: 0.12 }, 0)
+    .to(
+      "[data-hero-postcard]",
+      { clipPath: "inset(0 0 100% 0)", duration: 0.35 },
+      0,
+    )
+    .to("[data-hero-title]", { yPercent: -18, opacity: 0.12, duration: 0.35 }, 0)
     .fromTo(
       "[data-hero-question]",
       { opacity: 0, yPercent: 35 },
-      { opacity: 1, yPercent: 0 },
-      0.28,
+      { opacity: 1, yPercent: 0, duration: 0.25 },
+      0.3,
     )
+    // Hold the question fully visible for the remainder of the scroll
+    // distance so it has time to be read before the section releases.
+    .to("[data-hero-question]", { opacity: 1, duration: 0.4 })
 
   gsap.utils
     .toArray<HTMLElement>("[data-parallax='true']")
@@ -270,36 +277,37 @@ media.add("(prefers-reduced-motion: no-preference)", () => {
     })
   }
 
-  const geoSection = document.querySelector("[data-geography]")
-  if (geoSection) {
-    gsap.fromTo(
-      "[data-geo-word-leave]",
-      { xPercent: -80, opacity: 0 },
-      {
-        xPercent: 0,
-        opacity: 1,
-        scrollTrigger: {
-          trigger: "[data-geography]",
-          start: "top 60%",
-          end: "top 25%",
-          scrub: true,
-        },
+  const geoScroll = document.querySelector("[data-geo-scroll]")
+  if (geoScroll) {
+    const slides = gsap.utils.toArray<HTMLElement>("[data-geo-slide]")
+    const segment = 1 / slides.length
+    const fade = segment * 0.4
+
+    const geoTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: geoScroll,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
       },
-    )
-    gsap.fromTo(
-      "[data-geo-word-stay]",
-      { xPercent: 80, opacity: 0 },
-      {
-        xPercent: 0,
-        opacity: 1,
-        scrollTrigger: {
-          trigger: "[data-geography]",
-          start: "top 50%",
-          end: "top 15%",
-          scrub: true,
-        },
-      },
-    )
+    })
+
+    slides.forEach((slide: HTMLElement, index: number) => {
+      if (index === 0) return
+      const transitionCenter = index * segment
+      const transitionStart = transitionCenter - fade / 2
+      geoTl.to(
+        slides[index - 1],
+        { opacity: 0, scale: 1.05, duration: fade },
+        transitionStart,
+      )
+      geoTl.fromTo(
+        slide,
+        { opacity: 0, scale: 0.92 },
+        { opacity: 1, scale: 1, duration: fade },
+        transitionStart,
+      )
+    })
   }
 
   const departureStack = document.querySelector("[data-departure-stack]")
