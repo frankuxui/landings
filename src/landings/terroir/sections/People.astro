@@ -1,0 +1,118 @@
+---
+// Terroir — Section 18: Las personas detras del vino
+// Portraits with fictional but authentic quotes.
+import {
+  cellarPortraitImage,
+  harvestImage,
+  harvestPortraitImage,
+  oakImage,
+} from "../data/images"
+import type { UnsplashImage } from "../data/images"
+
+interface Person {
+  role: string
+  quote: string
+  image: UnsplashImage
+  imageAlt: string
+}
+
+const people: Person[] = [
+  {
+    role: "Viticultor",
+    quote:
+      "El mejor viñedo es el que no necesita que le expliques nada. Solo hay que escuchar lo que la tierra pide.",
+    image: harvestPortraitImage,
+    imageAlt: "Retrato de un viticultor entre las vides",
+  },
+  {
+    role: "Enologa",
+    quote:
+      "Mi trabajo no es inventar el vino. Es no estropear lo que la uva ya traia consigo.",
+    image: cellarPortraitImage,
+    imageAlt: "Retrato de una enologa en la bodega",
+  },
+  {
+    role: "Tonelero",
+    quote:
+      "Una barrica bien hecha dura veinte años. Una mal hecha arruina el mejor vino del mundo en seis meses.",
+    image: oakImage,
+    imageAlt: "Retrato de un tonelero trabajando con duelas de roble",
+  },
+  {
+    role: "Vendimiadora",
+    quote:
+      "No hay maquina que sepa distinguir un racimo maduro de uno pasado. Eso solo lo saben las manos.",
+    image: harvestImage,
+    imageAlt: "Retrato de una vendimiadora durante la cosecha",
+  },
+]
+---
+
+<section
+  id="historias"
+  class="relative overflow-hidden bg-background py-section"
+  aria-labelledby="people-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Section header -->
+    <div class="mb-16" data-fade-in>
+      <p class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-muted">
+        18 &mdash; Las personas
+      </p>
+      <h2
+        id="people-heading"
+        class="max-w-heading font-display text-headline-2 font-extrabold uppercase leading-[0.86] text-foreground"
+      >
+        Detras de cada vino hay alguien
+      </h2>
+    </div>
+
+    <!-- People grid -->
+    <div class="grid gap-12 sm:grid-cols-2 lg:gap-16">
+      {
+        people.map((person: Person) => (
+          <div class="people-card reveal" data-fade-in>
+            <figure class="people-portrait">
+              <div class="aspect-3/4 overflow-hidden rounded-sm">
+                <img
+                  src={`${person.image.src}&w=600&auto=format&fit=crop&crop=entropy&q=80`}
+                  alt={person.imageAlt}
+                  title={`Foto de ${person.image.author} en Unsplash`}
+                  width={person.image.width}
+                  height={person.image.height}
+                  loading="lazy"
+                  decoding="async"
+                  class="photo-tone h-full w-full object-cover"
+                />
+              </div>
+              <figcaption class="mt-2 text-[10px] text-muted/60">
+                Foto de{" "}
+                <a
+                  href={person.image.authorUrl}
+                  rel="noopener"
+                  class="underline hover:text-muted"
+                >
+                  {person.image.author}
+                </a>{" "}
+                en{" "}
+                <a
+                  href={person.image.unsplashUrl}
+                  rel="noopener"
+                  class="underline hover:text-muted"
+                >
+                  Unsplash
+                </a>
+              </figcaption>
+            </figure>
+            <p class="mt-4 text-xs font-medium uppercase tracking-widest text-muted/60">
+              {person.role}
+            </p>
+            <blockquote class="mt-3 font-display text-lg leading-relaxed text-foreground italic">
+              &laquo;{person.quote}&raquo;
+            </blockquote>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

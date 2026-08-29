@@ -1,0 +1,112 @@
+---
+// Stories from the City — small human stories related to Budapest
+// Fictional stories labeled as "Editorial travel story"
+
+interface CityStory {
+  title: string
+  text: string
+  date: string
+  place: string
+  coordinates: string
+  label: string
+}
+
+const stories: CityStory[] = [
+  {
+    title: "The first snowfall over Parliament",
+    text: "The flakes arrived at dusk, small and slow, dissolving against the illuminated dome before anyone noticed. By morning the Danube embankment was white, and the city was quieter than it had been in months. A few people stood along the railings, looking at Parliament through the falling snow as if seeing it for the first time.",
+    date: "December",
+    place: "Kossuth Lajos ter, Pest",
+    coordinates: "47.5074° N / 19.0453° E",
+    label: "Editorial travel story",
+  },
+  {
+    title: "Crossing Chain Bridge at midnight",
+    text: "The bridge was empty except for the traffic lights changing color for no one. Each step echoed against the stone pylons. Halfway across, you could see both banks at once — the Castle lit in amber to the west, Parliament in white to the east — and for a moment the city felt like it existed only for this single crossing.",
+    date: "Late September",
+    place: "Szechenyi Chain Bridge",
+    coordinates: "47.4990° N / 19.0435° E",
+    label: "Editorial travel story",
+  },
+  {
+    title: "Coffee before sunrise",
+    text: "The cafe opened at five. The barista had been there since four. The espresso machine exhaled clouds of steam into the cold air slipping through the doorway. Outside, the tram tracks were still wet from the night. The city was waking up in layers — first the bakers, then the market vendors, then the rest.",
+    date: "Early March",
+    place: "District VII, Pest",
+    coordinates: "47.4972° N / 19.0679° E",
+    label: "Editorial travel story",
+  },
+  {
+    title: "A summer evening beside the Danube",
+    text: "The sun set slowly, stretching the shadows of the bridges across the water. People sat on the stone steps of the embankment with wine and bread and conversations that went nowhere and everywhere. A boat passed, and its wake made the reflections of Parliament tremble and reassemble.",
+    date: "July",
+    place: "Danube Promenade, Pest",
+    coordinates: "47.4979° N / 19.0451° E",
+    label: "Editorial travel story",
+  },
+]
+---
+
+<section
+  id="stories"
+  class="relative bg-background-alt py-section palette-surface-light"
+  aria-labelledby="stories-heading"
+>
+  <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="reveal mb-6 text-xs font-medium uppercase tracking-[0.2em] text-muted"
+    >
+      Stories from the City
+    </p>
+
+    <h2
+      id="stories-heading"
+      class="reveal max-w-heading font-display text-headline-1 font-bold leading-[1.05] text-foreground"
+    >
+      Small Moments, Large City
+    </h2>
+
+    <p
+      class="reveal mt-6 max-w-copy text-base leading-relaxed text-muted sm:text-lg"
+    >
+      A city is not its monuments alone. It is the accumulation of small moments
+      — a crossing, a coffee, a view at an unexpected hour.
+    </p>
+
+    <!-- Stories grid — each feels like a diary page -->
+    <div
+      class="mt-16 grid gap-12 sm:mt-20 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-20"
+    >
+      {
+        stories.map((story: CityStory, index: number) => (
+          <article class="reveal relative">
+            <div class="flex items-baseline gap-4">
+              <span class="font-display text-headline-2 font-bold text-foreground/[0.08]">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span class="rounded-sm bg-surface-strong px-2 py-0.5 text-[10px] font-medium uppercase tracking-widest text-muted">
+                {story.label}
+              </span>
+            </div>
+
+            <h3 class="mt-4 font-display text-headline-3 font-bold text-foreground">
+              {story.title}
+            </h3>
+
+            <p class="mt-4 max-w-lg text-sm leading-relaxed text-muted">
+              {story.text}
+            </p>
+
+            <div class="mt-4 flex flex-wrap items-center gap-3 text-xs text-muted/60">
+              <span>{story.date}</span>
+              <span class="h-px w-3 bg-border/30" aria-hidden="true" />
+              <span>{story.place}</span>
+              <span class="h-px w-3 bg-border/30" aria-hidden="true" />
+              <span class="font-mono">{story.coordinates}</span>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

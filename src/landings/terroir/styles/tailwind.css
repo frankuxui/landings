@@ -1,0 +1,511 @@
+@import "tailwindcss";
+
+/* Terroir — Wine editorial landing.
+   Self-contained design-system contract. Token NAMES follow the gallery
+   contract; VALUES are this landing's own. No imports from other landings
+   or platform-global styles. */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --background: var(--color-neutral-50);
+  --background-alt: var(--color-neutral-100);
+  --foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-white);
+  --surface-strong: var(--color-neutral-100);
+  --control: var(--color-neutral-200);
+  --control-hover: var(--color-neutral-300);
+  --ring: var(--color-neutral-900);
+
+  --primary: var(--color-neutral-900);
+  --primary-foreground: var(--color-white);
+  --emphasis: var(--color-black);
+
+  --disabled: var(--color-neutral-300);
+  --disabled-foreground: var(--color-neutral-500);
+
+  --inverted: var(--color-neutral-950);
+  --inverted-foreground: var(--color-white);
+  --inverted-surface: var(--color-neutral-900);
+
+  --placeholder: var(--color-neutral-900);
+  --placeholder-foreground: var(--color-white);
+  --placeholder-inverse: rgb(255 255 255 / 0.72);
+}
+
+[data-theme="dark"] {
+  --background: var(--color-neutral-950);
+  --background-alt: var(--color-neutral-900);
+  --foreground: var(--color-neutral-100);
+  --muted: var(--color-neutral-300);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-neutral-900);
+  --surface-strong: var(--color-neutral-800);
+  --control: var(--color-neutral-800);
+  --control-hover: var(--color-neutral-700);
+  --ring: var(--color-neutral-300);
+
+  --primary: var(--color-neutral-100);
+  --primary-foreground: var(--color-neutral-950);
+  --emphasis: var(--color-white);
+
+  --disabled: var(--color-neutral-700);
+  --disabled-foreground: var(--color-neutral-400);
+
+  --inverted: var(--color-neutral-100);
+  --inverted-foreground: var(--color-neutral-950);
+  --inverted-surface: var(--color-neutral-200);
+
+  --placeholder: var(--color-neutral-300);
+  --placeholder-foreground: var(--color-neutral-900);
+  --placeholder-inverse: rgb(10 10 10 / 0.65);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-emphasis: var(--emphasis);
+
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
+  --color-inverted-surface: var(--inverted-surface);
+
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-placeholder-inverse: var(--placeholder-inverse);
+}
+
+@theme {
+  /* Typography — Wix Madefor Text for both display and body */
+  --font-base: "Wix Madefor Text", sans-serif;
+  --font-sans: var(--font-base);
+  --font-display: "Wix Madefor Text", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Canonical breakpoints — locked gallery-wide, never tuned per landing. */
+  --breakpoint-footer: 45rem;
+  --breakpoint-cards: 47.5rem;
+  --breakpoint-nav: 56.25rem;
+  --breakpoint-stats: 67.5rem;
+  --breakpoint-display: 87.5rem;
+
+  --spacing-section: 7rem;
+  --spacing-container-x: 1.5rem;
+
+  --container-landing: 100rem;
+  --container-copy: 66ch;
+  --container-heading: 30ch;
+  --container-hero-heading: 18ch;
+
+  --ease-landing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Fluid heading scale — Journalist Dispatch family with a controlled,
+     monumental editorial rhythm. Large, but never allowed to swallow UI. */
+  --text-headline-1: clamp(3.25rem, 1.65rem + 6.8vw, 8rem);
+  --text-headline-2: clamp(2.25rem, 1.25rem + 3.8vw, 5rem);
+  --text-headline-3: clamp(1.5rem, 1.15rem + 1.2vw, 2.25rem);
+  --text-figure: clamp(3.75rem, 1.75rem + 7vw, 9rem);
+}
+
+/* Reveal is handled entirely by GSAP ScrollTrigger (reveal.ts).
+   No CSS-based reveal needed — GSAP sets inline styles directly,
+   avoiding CSS layer conflicts with other landings' @utility reveal
+   definitions that Vite loads in dev mode. */
+
+/* Photography: grayscale by default, color when palette is active */
+.photo-tone {
+  filter: grayscale(100%) contrast(125%);
+  transition:
+    filter 700ms var(--ease-landing),
+    transform 900ms var(--ease-landing),
+    scale 900ms var(--ease-landing),
+    opacity 700ms var(--ease-landing);
+  will-change: transform, scale, filter, opacity;
+}
+
+.photo-editorial-hover img {
+  transform: scale(1);
+  transition:
+    transform 900ms var(--ease-landing),
+    filter 700ms var(--ease-landing),
+    opacity 700ms var(--ease-landing);
+  will-change: transform, filter, opacity;
+}
+
+.photo-editorial-hover:hover img {
+  transform: scale(1.045) translateY(-0.35rem);
+  filter: grayscale(70%) contrast(135%);
+}
+
+html[data-palette]:not([data-palette="grayscale"])
+  .photo-editorial-hover:hover
+  img {
+  filter: saturate(108%) contrast(116%);
+}
+
+html[data-palette]:not([data-palette="grayscale"]) .photo-tone {
+  filter: none;
+}
+
+/* Scoped image motion prevents Tailwind's scale longhand and the shared
+   photo filter transition from competing in these editorial sections. */
+.people-portrait img,
+.old-wine-photo img {
+  transform: scale(1);
+  transition:
+    transform 850ms var(--ease-landing),
+    filter 700ms var(--ease-landing),
+    opacity 700ms var(--ease-landing);
+}
+
+.people-card:hover .people-portrait img,
+.people-card:focus-within .people-portrait img,
+.old-wine-card:hover .old-wine-photo img,
+.old-wine-card:focus-within .old-wine-photo img {
+  transform: scale(1.045);
+}
+
+/* Section-level palette surfaces */
+html[data-palette]:not([data-palette="grayscale"]) .palette-surface-primary {
+  background-color: var(--color-primary);
+}
+
+html[data-palette]:not([data-palette="grayscale"]) .palette-surface-light {
+  background-color: var(--color-light);
+}
+
+html[data-palette]:not([data-palette="grayscale"]) .palette-surface-voices {
+  background-color: var(--color-secondary);
+  color: var(--color-light);
+}
+
+html[data-theme="dark"][data-palette="vendimia"] .palette-surface-voices {
+  background-color: var(--color-support);
+  color: var(--color-primary);
+}
+
+html[data-palette]:not([data-palette="grayscale"])
+  .palette-surface-voices
+  :where(h2, blockquote, p, span, a, button) {
+  color: inherit;
+}
+
+html[data-palette]:not([data-palette="grayscale"])
+  .palette-surface-voices
+  :where(button) {
+  background-color: color-mix(in srgb, currentColor 14%, transparent);
+}
+
+html[data-palette]:not([data-palette="grayscale"])
+  .palette-surface-voices
+  :where(button:hover) {
+  background-color: color-mix(in srgb, currentColor 24%, transparent);
+}
+
+html[data-palette]:not([data-palette="grayscale"]) .palette-control {
+  background-color: var(--color-accent);
+  color: var(--color-control-foreground);
+}
+
+html[data-palette]:not([data-palette="grayscale"])
+  .palette-control:where(:hover, :active) {
+  background-color: var(--color-accent);
+  color: var(--color-control-foreground);
+  opacity: 0.88;
+}
+
+/* Wine palette tokens — Burgundy/Garnet/Barrel Oak/Cork/Dried Grape/Cellar Black
+   Grounded in wine color psychology: red-purple hues for identity and passion,
+   warm browns for craft and aging, near-blacks for cellar depth. */
+
+:root,
+html[data-palette="grayscale"] {
+  --color-primary: #171717;
+  --color-secondary: #404040;
+  --color-tertiary: #737373;
+  --color-accent: #a3a3a3;
+  --color-light: #f5f5f5;
+  --color-control-foreground: var(--color-black);
+}
+
+html[data-palette="vendimia"] {
+  --color-primary: #110f0e;
+  --color-secondary: #6e1628;
+  --color-tertiary: #6d4634;
+  --color-accent: #8b2438;
+  --color-support: #a67c5b;
+  --color-light: #f0e4d8;
+  --color-control-foreground: var(--color-white);
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"][data-palette="grayscale"] {
+  --color-primary: #f5f5f5;
+  --color-secondary: #a3a3a3;
+  --color-tertiary: #737373;
+  --color-accent: #404040;
+  --color-light: #171717;
+  --color-control-foreground: var(--color-white);
+}
+
+html[data-theme="dark"][data-palette="vendimia"] {
+  --color-primary: #f0e4d8;
+  --color-secondary: #a67c5b;
+  --color-tertiary: #6d4634;
+  --color-accent: #8b2438;
+  --color-support: #3a2024;
+  --color-light: #110f0e;
+  --color-control-foreground: var(--color-white);
+}
+
+/* Swiper pagination theming — documented native-CSS exception */
+.wine-slider,
+.pairing-slider {
+  --swiper-pagination-color: var(--color-secondary);
+  --swiper-pagination-bullet-inactive-color: var(--color-tertiary);
+  --swiper-pagination-bullet-inactive-opacity: 0.5;
+  --swiper-pagination-bullet-size: 0.5rem;
+  --swiper-pagination-bullet-horizontal-gap: 0.375rem;
+}
+
+.voices-slider-pagination .swiper-pagination-bullet,
+.pairing-slider-pagination .swiper-pagination-bullet {
+  cursor: pointer;
+  border-radius: 9999px;
+}
+
+.voices-slider-pagination .swiper-pagination-bullet:focus-visible,
+.pairing-slider-pagination .swiper-pagination-bullet:focus-visible {
+  outline: 3px solid var(--border);
+  outline-offset: 3px;
+}
+
+.wine-slider-progress.swiper-pagination-progressbar {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: 0.25rem;
+}
+
+.wine-slider-progress .swiper-pagination-progressbar-fill {
+  background-color: var(--inverted-foreground);
+  transition: transform 600ms var(--ease-landing);
+}
+
+html[data-palette]:not([data-palette="grayscale"])
+  .wine-slider-progress
+  .swiper-pagination-progressbar-fill {
+  background-color: var(--color-secondary);
+}
+
+.voices-slider-pagination {
+  color: var(--inverted-foreground);
+}
+
+.voices-slider-pagination .swiper-pagination-bullet {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: currentColor;
+  opacity: 0.32;
+  transition:
+    width 350ms var(--ease-landing),
+    opacity 350ms var(--ease-landing);
+}
+
+.voices-slider-pagination .swiper-pagination-bullet-active {
+  width: 2rem;
+  background-color: currentColor;
+  opacity: 1;
+}
+
+html[data-palette]:not([data-palette="grayscale"])
+  .palette-surface-voices
+  .voices-slider-pagination {
+  color: inherit;
+}
+
+/* Reading progress bar at top — documented native-CSS exception:
+   Tailwind has no scaleX(var(--progress)) utility. */
+.reading-progress {
+  transform-origin: left;
+  transform: scaleX(var(--reading-progress, 0));
+  will-change: transform;
+}
+
+/* Scrollbar hiding for horizontal scroll sections */
+.scroll-hide {
+  scrollbar-width: none;
+}
+
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* GSAP pinned section body lock — prevents horizontal overflow during
+   ScrollTrigger pin operations. Documented native-CSS exception. */
+.gsap-pin-active {
+  overflow-x: clip !important;
+}
+
+/* Diagonal clip-path for hero bottom — documented native-CSS exception:
+   Tailwind has no polygon clip-path utilities. */
+.hero-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.priorat-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+}
+
+.wineries-after-priorat {
+  margin-top: -5rem;
+  padding-top: calc(var(--spacing-section) + 5rem);
+}
+
+/* Twelve-column editorial mosaic — documented native-CSS exception:
+   named placements keep the collage dense across responsive reflow. */
+.gallery-collage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.gallery-item {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.gallery-media {
+  min-height: 0;
+  flex: 1;
+  aspect-ratio: 4 / 3;
+}
+
+.gallery-cell-portrait .gallery-media,
+.gallery-cell-tall .gallery-media {
+  aspect-ratio: 3 / 4;
+}
+
+.gallery-context {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transform-origin: bottom left;
+  transition:
+    opacity 500ms var(--ease-landing),
+    transform 700ms var(--ease-landing);
+}
+
+@media (min-width: 768px) {
+  .hero-diagonal {
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+  }
+
+  .priorat-diagonal {
+    clip-path: polygon(0 0, 100% 0, 100% 91%, 0 100%);
+  }
+
+  .wineries-after-priorat {
+    margin-top: -8rem;
+    padding-top: calc(var(--spacing-section) + 8rem);
+  }
+}
+
+@media (min-width: 640px) {
+  .gallery-collage {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .gallery-cell-lead,
+  .gallery-cell-panorama {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-collage {
+    grid-auto-flow: dense;
+    grid-auto-rows: 6.5rem;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .gallery-item .gallery-media {
+    aspect-ratio: auto;
+  }
+
+  .gallery-cell-lead {
+    grid-column: span 7;
+    grid-row: span 5;
+  }
+
+  .gallery-cell-portrait {
+    grid-column: span 5;
+    grid-row: span 3;
+  }
+
+  .gallery-cell-landscape {
+    grid-column: span 5;
+    grid-row: span 2;
+  }
+
+  .gallery-cell-tall,
+  .gallery-cell-square,
+  .gallery-cell-detail {
+    grid-column: span 4;
+    grid-row: span 4;
+  }
+
+  .gallery-cell-panorama {
+    grid-column: span 8;
+    grid-row: span 3;
+  }
+
+  .gallery-cell-closing {
+    grid-column: span 4;
+    grid-row: span 3;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+  .gallery-context {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.88);
+  }
+
+  .gallery-item:hover .gallery-context,
+  .gallery-item:focus-within .gallery-context {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .people-portrait img,
+  .old-wine-photo img,
+  .gallery-context,
+  .wine-slider-progress .swiper-pagination-progressbar-fill,
+  .voices-slider-pagination .swiper-pagination-bullet {
+    transition: none;
+  }
+}

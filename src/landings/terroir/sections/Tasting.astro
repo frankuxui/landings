@@ -1,0 +1,110 @@
+---
+// Terroir — Section 17: Como catar
+// Didactic visual section with giant words.
+import { glassImage } from "../data/images"
+
+interface TastingStep {
+  word: string
+  sense: string
+  description: string
+}
+
+const steps: TastingStep[] = [
+  {
+    word: "Mira",
+    sense: "Color",
+    description:
+      "Inclina la copa contra un fondo blanco. El color revela la edad, la variedad y la concentracion. Rubi brillante, granate profundo, teja evolucionado.",
+  },
+  {
+    word: "Huele",
+    sense: "Aroma",
+    description:
+      "Primero sin mover la copa: aromas primarios de la uva. Luego agita: aparecen los secundarios del roble y la fermentacion. Fruta, flores, especias, tierra.",
+  },
+  {
+    word: "Prueba",
+    sense: "Estructura",
+    description:
+      "Acidez, taninos, cuerpo, alcohol, dulzor. La boca confirma o desmiente lo que la nariz prometia. El equilibrio es la clave.",
+  },
+  {
+    word: "Espera",
+    sense: "Persistencia",
+    description:
+      "¿Cuanto dura el sabor despues de tragar? Los grandes vinos permanecen. El final largo es la firma de la calidad.",
+  },
+]
+---
+
+<section
+  class="relative overflow-hidden bg-inverted py-section"
+  aria-labelledby="tasting-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Section header -->
+    <div class="mb-16" data-fade-in>
+      <p
+        class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-inverted-foreground/50"
+      >
+        17 &mdash; Como catar
+      </p>
+      <h2
+        id="tasting-heading"
+        class="max-w-heading font-display text-headline-2 font-extrabold uppercase leading-[0.86] text-inverted-foreground"
+      >
+        Cuatro gestos para entender un vino
+      </h2>
+    </div>
+
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- Steps -->
+      <div class="flex flex-col gap-16">
+        {
+          steps.map((step: TastingStep) => (
+            <div class="reveal" data-fade-in>
+              <p class="font-display text-figure font-light uppercase leading-[0.85] text-inverted-foreground/10">
+                {step.word}
+              </p>
+              <p class="mt-3 text-xs font-medium uppercase tracking-widest text-inverted-foreground/40">
+                {step.sense}
+              </p>
+              <p class="mt-3 max-w-copy text-base leading-relaxed text-inverted-foreground/60">
+                {step.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Wine glass image, sticky -->
+      <div class="relative lg:sticky lg:top-24 lg:self-start" data-fade-in>
+        <div class="mx-auto w-64 sm:w-72 lg:w-full lg:max-w-sm">
+          <img
+            src={`${glassImage.src}&w=800&auto=format&fit=crop&q=80`}
+            alt={glassImage.alt}
+            width={glassImage.width}
+            height={glassImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone h-full w-full object-cover rounded-sm"
+          />
+        </div>
+        <div
+          class="mt-2 text-center text-[10px] text-inverted-foreground/40 lg:text-left"
+        >
+          Foto de <a
+            href={glassImage.authorUrl}
+            rel="noopener"
+            class="underline hover:text-inverted-foreground/60"
+            >{glassImage.author}</a
+          > en <a
+            href={glassImage.unsplashUrl}
+            rel="noopener"
+            class="underline hover:text-inverted-foreground/60">Unsplash</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

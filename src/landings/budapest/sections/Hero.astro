@@ -1,0 +1,73 @@
+---
+import { heroImage } from "../data/images"
+---
+
+<section
+  id="home"
+  class="relative flex min-h-dvh items-end overflow-hidden bg-inverted"
+  aria-label="Hero — Two cities. One river."
+>
+  <!-- Background photo with parallax -->
+  <div class="absolute inset-0 z-0" data-hero-parallax>
+    <img
+      src={`${heroImage.src}&w=2000&auto=format&fit=crop&q=80`}
+      srcset={`${heroImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${heroImage.src}&w=1600&auto=format&fit=crop&q=80 1600w, ${heroImage.src}&w=2000&auto=format&fit=crop&q=80 2000w, ${heroImage.src}&w=2400&auto=format&fit=crop&q=80 2400w`}
+      sizes="100vw"
+      alt={heroImage.alt}
+      title={`Photo by ${heroImage.author} on Unsplash`}
+      width={heroImage.width}
+      height={heroImage.height}
+      loading="eager"
+      decoding="async"
+      class="photo-tone h-full w-full object-cover"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"
+    >
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div
+    class="relative z-10 mx-auto w-full max-w-landing px-container-x pb-16 pt-48 sm:px-8 sm:pb-24 xl:px-14"
+  >
+    <!-- Metadata -->
+    <div
+      class="mb-8 flex items-center gap-4 text-xs tracking-widest text-white/50 sm:mb-12"
+    >
+      <span>47.4979° N</span>
+      <span class="h-px w-6 bg-white/20"></span>
+      <span>19.0402° E</span>
+      <span class="h-px w-6 bg-white/20"></span>
+      <span>Hungary</span>
+    </div>
+
+    <!-- Giant BUDAPEST typography -->
+    <h1
+      class="max-w-hero-heading font-display text-figure font-black uppercase leading-none tracking-tight text-white sm:tracking-[-0.02em]"
+    >
+      Budapest
+    </h1>
+
+    <!-- Subtitle -->
+    <p
+      class="mt-6 max-w-md text-lg font-light leading-relaxed text-white/70 sm:mt-8 sm:text-xl"
+    >
+      Two cities. One river.<br />A thousand stories.
+    </p>
+
+    <!-- Credit below the hero, in normal flow -->
+    <p class="mt-12 text-xs text-white/30 sm:mt-16">
+      Photo by <a
+        href={heroImage.authorUrl}
+        class="underline hover:text-white/50"
+        rel="noopener">{heroImage.author}</a
+      >
+      on <a
+        href={heroImage.unsplashUrl}
+        class="underline hover:text-white/50"
+        rel="noopener">Unsplash</a
+      >
+    </p>
+  </div>
+</section>

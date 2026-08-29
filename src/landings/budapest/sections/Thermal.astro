@@ -1,0 +1,143 @@
+---
+import { thermalImage } from "../data/images"
+---
+
+<section
+  id="thermal"
+  class="relative bg-inverted py-section palette-surface-primary"
+  aria-labelledby="thermal-heading"
+>
+  <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="reveal mb-6 text-xs font-medium uppercase tracking-[0.2em] text-inverted-foreground/50"
+    >
+      Thermal Budapest
+    </p>
+
+    <div class="grid gap-12 lg:grid-cols-5 lg:gap-16">
+      <!-- Left: text -->
+      <div class="lg:sticky lg:top-32 lg:col-span-2 lg:self-start">
+        <h2
+          id="thermal-heading"
+          class="reveal max-w-heading font-display text-headline-1 font-bold leading-[1.05] text-inverted-foreground"
+        >
+          Where the City Exhales
+        </h2>
+
+        <p
+          class="reveal mt-6 text-base leading-relaxed text-inverted-foreground/60 sm:text-lg"
+        >
+          Budapest sits on top of 120 natural thermal springs. The Romans built
+          the first baths here two thousand years ago. The Ottomans expanded
+          them. The Austro-Hungarians turned them into palaces. Today, thermal
+          bathing is not a tourist attraction — it is a daily rhythm for a city
+          that has always understood the relationship between water, stone, and
+          time.
+        </p>
+
+        <blockquote
+          class="reveal mt-8 border-l-2 border-inverted-foreground/10 pl-4"
+        >
+          <p
+            class="font-display text-sm font-bold italic text-inverted-foreground/60"
+          >
+            "Some cities are visited. Budapest is remembered."
+          </p>
+        </blockquote>
+
+        <!-- Stats -->
+        <div class="reveal mt-12 grid grid-cols-2 gap-6">
+          <div>
+            <span
+              class="font-display text-headline-2 font-bold text-inverted-foreground/15"
+            >
+              120
+            </span>
+            <p class="mt-1 text-xs text-inverted-foreground/40">
+              Natural thermal springs
+            </p>
+          </div>
+          <div>
+            <span
+              class="font-display text-headline-2 font-bold text-inverted-foreground/15"
+            >
+              70M
+            </span>
+            <p class="mt-1 text-xs text-inverted-foreground/40">
+              Liters of thermal water daily
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: photo + details -->
+      <div class="lg:col-span-3">
+        <figure class="reveal">
+          <div class="overflow-hidden rounded-sm">
+            <img
+              src={`${thermalImage.src}&w=1200&auto=format&fit=crop&q=80`}
+              srcset={`${thermalImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${thermalImage.src}&w=900&auto=format&fit=crop&q=80 900w, ${thermalImage.src}&w=1200&auto=format&fit=crop&q=80 1200w`}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 720px"
+              alt={thermalImage.alt}
+              title={`Photo by ${thermalImage.author} on Unsplash`}
+              width={thermalImage.width}
+              height={thermalImage.height}
+              loading="lazy"
+              decoding="async"
+              class="photo-tone aspect-[4/3] w-full object-cover"
+            />
+          </div>
+          <figcaption class="mt-3 text-xs text-inverted-foreground/40">
+            Photo by <a
+              href={thermalImage.authorUrl}
+              class="underline hover:text-inverted-foreground/60"
+              rel="noopener">{thermalImage.author}</a
+            >
+            on <a
+              href={thermalImage.unsplashUrl}
+              class="underline hover:text-inverted-foreground/60"
+              rel="noopener">Unsplash</a
+            >
+          </figcaption>
+        </figure>
+
+        <!-- Bath details -->
+        <div class="mt-12 grid gap-10 sm:grid-cols-2">
+          <div class="reveal">
+            <h3
+              class="font-display text-headline-3 font-bold text-inverted-foreground"
+            >
+              Szechenyi Baths
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-inverted-foreground/50">
+              One of the largest medicinal bath complexes in Europe, built in
+              1913 in Neo-Baroque style. Its outdoor pools steam in winter, with
+              chess players sitting chest-deep in hot water — one of Budapest's
+              most iconic scenes.
+            </p>
+            <p class="mt-2 text-xs text-inverted-foreground/30">
+              City Park, Pest side — Opened 1913
+            </p>
+          </div>
+
+          <div class="reveal">
+            <h3
+              class="font-display text-headline-3 font-bold text-inverted-foreground"
+            >
+              Gellert Baths
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-inverted-foreground/50">
+              Built between 1912 and 1918 at the foot of Gellert Hill, this Art
+              Nouveau complex features Zsolnay ceramic tiles, marble columns,
+              and an elaborate wave pool. Its thermal water has been used for
+              healing since the 13th century.
+            </p>
+            <p class="mt-2 text-xs text-inverted-foreground/30">
+              Gellert Hill, Buda side — Opened 1918
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

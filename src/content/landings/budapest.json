@@ -1,0 +1,84 @@
+{
+  "name": "Budapest",
+  "title": "Budapest — The City Between Two Worlds",
+  "description": "An editorial digital experience exploring the architecture, history, and atmosphere of Budapest — bridges, thermal baths, imperial monuments, and the Danube that unites two cities.",
+  "subtitle": "Two cities. One river. A thousand stories.",
+  "category": "portfolio",
+  "tags": [
+    "budapest",
+    "hungary",
+    "architecture",
+    "editorial",
+    "history",
+    "cinematic",
+    "travel",
+    "danube"
+  ],
+  "technologies": ["Astro", "Tailwind CSS", "Swiper", "@lucide/astro"],
+  "thumbnail": "https://images.unsplash.com/photo-1616432902940-b7a1acbc60b3?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8YnVkYXBlc3QlMjBkYW51YmUlMjBwYXJsaWFtZW50JTIwcGFub3JhbWF8ZW58MHwwfHx8MTc4Nzk5MTQzMXww&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
+  "thumbnailAlt": "The Hungarian Parliament Building on the banks of the Danube River at golden hour",
+  "thumbnailWidth": 5131,
+  "thumbnailHeight": 3423,
+  "thumbnailCredit": {
+    "id": "sMyQb3i9bNA",
+    "author": "Ervin Lukacs",
+    "authorUrl": "https://unsplash.com/@lukerv4?utm_source=astro_landings_gallery&utm_medium=referral",
+    "sourceUrl": "https://unsplash.com/photos/hungarian-parliament-building-in-budapest-sMyQb3i9bNA?utm_source=astro_landings_gallery&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+    "downloadLocation": "https://api.unsplash.com/photos/sMyQb3i9bNA/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8MXx8YnVkYXBlc3QlMjBkYW51YmUlMjBwYXJsaWFtZW50JTIwcGFub3JhbWF8ZW58MHwwfHx8MTc4Nzk5MTQzMXww"
+  },
+  "palettes": [
+    {
+      "id": "grayscale",
+      "name": "Grayscale",
+      "colors": {
+        "primary": "#171717",
+        "secondary": "#404040",
+        "tertiary": "#737373",
+        "accent": "#a3a3a3",
+        "light": "#f5f5f5"
+      }
+    },
+    {
+      "id": "archive",
+      "name": "Archive",
+      "colors": {
+        "primary": "#0a0a0a",
+        "secondary": "#1c1c1c",
+        "tertiary": "#5e5e5e",
+        "accent": "#b8b8b8",
+        "support": "#e8e6e1",
+        "light": "#f6f4ef"
+      }
+    },
+    {
+      "id": "winter",
+      "name": "Winter",
+      "colors": {
+        "primary": "#16222e",
+        "secondary": "#29475c",
+        "tertiary": "#6c8797",
+        "accent": "#a8bac4",
+        "support": "#d9e2e6",
+        "light": "#f3f5f5"
+      }
+    },
+    {
+      "id": "summer",
+      "name": "Summer",
+      "colors": {
+        "primary": "#5c2e26",
+        "secondary": "#9b4e35",
+        "tertiary": "#c97a45",
+        "accent": "#d9a35f",
+        "support": "#e7c58d",
+        "light": "#f4e4c7"
+      }
+    }
+  ],
+  "createdAt": "2026-08-29",
+  "author": "frankuxui",
+  "themes": ["light", "dark"],
+  "featured": true,
+  "status": "published"
+}

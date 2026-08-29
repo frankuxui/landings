@@ -1,0 +1,298 @@
+---
+// Terroir — Section 03: "Tierras que saben diferente"
+// Clear two-column interactive map of Spanish wine regions.
+import {
+  barrelsImage,
+  grapesImage,
+  steepVineyardImage,
+  vineyardRowsImage,
+} from "../data/images"
+import type { UnsplashImage } from "../data/images"
+
+interface Region {
+  id: string
+  name: string
+  number: string
+  narrative: string
+  grapes: string
+  soil: string
+  note: string
+  x: number
+  y: number
+  image: UnsplashImage
+  ambient: string
+}
+
+const regions: Region[] = [
+  {
+    id: "rioja",
+    name: "Rioja",
+    number: "01",
+    narrative: "Vino entre tradicion, calados historicos y arquitectura.",
+    grapes: "Tempranillo, Garnacha, Graciano, Mazuelo",
+    soil: "Arcillo-calcareo, aluvial y ferroso",
+    note: "Rioja Alta, Rioja Alavesa y Rioja Oriental conviven entre pequeños proyectos familiares y bodegas de arquitectura contemporanea.",
+    x: 45,
+    y: 25,
+    image: vineyardRowsImage,
+    ambient: "Tradicion / Arquitectura / Reserva",
+  },
+  {
+    id: "ribera",
+    name: "Ribera del Duero",
+    number: "02",
+    narrative: "Donde las noches frias construyen vinos poderosos.",
+    grapes: "Tempranillo / Tinta del Pais",
+    soil: "Caliza, arcilla, grava y altitud",
+    note: "La amplitud termica, los viñedos viejos y la vendimia manual orientan la zona hacia vinos profundos, tensos y de gran estructura.",
+    x: 51,
+    y: 40,
+    image: grapesImage,
+    ambient: "Altitud / Frio / Tanino",
+  },
+  {
+    id: "priorat",
+    name: "Priorat",
+    number: "03",
+    narrative: "Vino nacido donde cultivar parece casi imposible.",
+    grapes: "Garnacha y Cariñena",
+    soil: "Llicorella, pizarra y costers",
+    note: "Algunas parcelas alcanzan pendientes extremas. La mecanizacion convencional desaparece y el territorio decide el gesto humano.",
+    x: 69,
+    y: 61,
+    image: steepVineyardImage,
+    ambient: "Pendiente / Pizarra / Mineralidad",
+  },
+  {
+    id: "jerez",
+    name: "Jerez",
+    number: "04",
+    narrative: "Vino que se niega a pertenecer a un solo año.",
+    grapes: "Palomino Fino, Pedro Ximenez, Moscatel",
+    soil: "Albariza blanca y humedad atlantica",
+    note: "Criaderas y solera mezclan progresivamente vinos de distintas edades: la memoria no es lineal, se refresca.",
+    x: 36,
+    y: 82,
+    image: barrelsImage,
+    ambient: "Flor / Solera / Salinidad",
+  },
+]
+---
+
+<section
+  id="regiones"
+  class="relative overflow-hidden bg-inverted py-20 palette-surface-primary sm:py-section"
+  aria-labelledby="map-heading"
+  data-map-section
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+      <div class="lg:sticky lg:top-20">
+        <p
+          class="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-inverted-foreground/50"
+        >
+          03 &mdash; El mapa
+        </p>
+        <h2
+          id="map-heading"
+          class="max-w-heading font-display text-headline-2 font-extrabold uppercase leading-[0.86] text-inverted-foreground"
+        >
+          Tierras que saben diferente
+        </h2>
+        <p
+          class="mt-6 max-w-copy text-lg leading-relaxed text-inverted-foreground/72"
+        >
+          El terroir se entiende como una coordenada: suelo, clima, altitud,
+          variedad y trabajo humano. Cuatro territorios españoles bastan para
+          comprobar que el vino cambia cuando cambia el lugar.
+        </p>
+
+        <div
+          class="mt-8 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap"
+          role="group"
+          aria-label="Regiones vinicolas"
+        >
+          {
+            regions.map((region: Region, index: number) => (
+              <button
+                type="button"
+                class:list={[
+                  "min-h-11 cursor-pointer rounded-sm border border-inverted-foreground/20 px-4 py-3 text-left text-xs font-bold uppercase tracking-[0.16em] text-inverted-foreground/65 transition duration-300 ease-landing hover:border-inverted-foreground/50 hover:bg-inverted-foreground/10 hover:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border [&.is-active]:border-inverted-foreground [&.is-active]:bg-inverted-foreground [&.is-active]:text-inverted",
+                  index === 0 && "is-active",
+                ]}
+                data-region-button={region.id}
+                aria-pressed={index === 0 ? "true" : "false"}
+              >
+                <span class="mr-2 font-mono opacity-60">{region.number}</span>
+                {region.name}
+              </button>
+            ))
+          }
+        </div>
+
+        <div class="mt-8 grid">
+          {
+            regions.map((region: Region, index: number) => (
+              <article
+                class:list={[
+                  "col-start-1 row-start-1 transition duration-500 ease-landing",
+                  index === 0
+                    ? "is-active opacity-100"
+                    : "pointer-events-none opacity-0",
+                ]}
+                data-region-panel={region.id}
+                aria-hidden={index === 0 ? "false" : "true"}
+              >
+                <p class="font-mono text-xs uppercase tracking-[0.22em] text-inverted-foreground/45">
+                  {region.ambient}
+                </p>
+                <h3 class="mt-4 font-display text-headline-3 font-extrabold uppercase leading-[0.9] text-inverted-foreground">
+                  {region.name}
+                </h3>
+                <p class="mt-4 text-xl font-semibold leading-snug text-inverted-foreground">
+                  {region.narrative}
+                </p>
+                <p class="mt-4 text-base leading-relaxed text-inverted-foreground/72">
+                  {region.note}
+                </p>
+                <dl class="mt-6 grid gap-4 text-sm sm:grid-cols-2">
+                  <div class="border-t border-inverted-foreground/15 pt-4">
+                    <dt class="text-xs font-bold uppercase tracking-[0.2em] text-inverted-foreground/42">
+                      Variedad
+                    </dt>
+                    <dd class="mt-2 text-inverted-foreground/85">
+                      {region.grapes}
+                    </dd>
+                  </div>
+                  <div class="border-t border-inverted-foreground/15 pt-4">
+                    <dt class="text-xs font-bold uppercase tracking-[0.2em] text-inverted-foreground/42">
+                      Terreno
+                    </dt>
+                    <dd class="mt-2 text-inverted-foreground/85">
+                      {region.soil}
+                    </dd>
+                  </div>
+                </dl>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <div>
+        <div class="mb-4 flex items-end justify-between gap-4">
+          <p
+            class="text-sm font-bold uppercase tracking-[0.22em] text-inverted-foreground/70"
+          >
+            Mapa vitivinicola de España
+          </p>
+          <p
+            class="hidden text-xs font-medium uppercase tracking-[0.18em] text-inverted-foreground/42 sm:block"
+          >
+            Selecciona una región
+          </p>
+        </div>
+
+        <div
+          class="relative aspect-square overflow-hidden border border-inverted-foreground/15 bg-inverted-surface/55 shadow-2xl"
+        >
+          {
+            regions.map((region: Region, index: number) => (
+              <img
+                src={`${region.image.src}&w=1200&auto=format&fit=crop&q=80`}
+                alt=""
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+                class:list={[
+                  "photo-tone absolute inset-0 h-full w-full object-cover transition duration-700 ease-landing",
+                  index === 0 ? "opacity-20" : "opacity-0",
+                ]}
+                data-region-photo={region.id}
+                aria-hidden="true"
+              />
+            ))
+          }
+          <div class="absolute inset-0 bg-inverted/72" aria-hidden="true"></div>
+
+          <svg
+            class="absolute inset-8 overflow-visible text-inverted-foreground"
+            viewBox="0 0 620 620"
+            role="img"
+            aria-labelledby="spain-map-title spain-map-desc"
+          >
+            <title id="spain-map-title">
+              Mapa estilizado de regiones vinicolas españolas
+            </title>
+            <desc id="spain-map-desc">
+              Marcadores de Rioja, Ribera del Duero, Priorat y Jerez.
+            </desc>
+            <path
+              d="M120 96 L238 48 L382 72 L506 150 L540 284 L486 426 L370 532 L240 562 L116 492 L66 368 L58 226 Z"
+              fill="currentColor"
+              class="opacity-10"></path>
+            <path
+              d="M136 118 L242 78 L366 94 L472 164 L500 286 L452 404 L356 490 L248 520 L148 468 L104 358 L92 238 Z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-dasharray="7 12"
+              class="opacity-40"></path>
+            <path
+              d="M116 296 C196 260 252 278 310 308 C366 337 424 340 504 296"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="opacity-20"></path>
+            <path
+              d="M128 392 C218 360 324 382 448 458"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              class="opacity-20"></path>
+          </svg>
+
+          {
+            regions.map((region: Region, index: number) => (
+              <button
+                type="button"
+                class:list={[
+                  "absolute z-10 flex size-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-inverted-foreground/35 bg-inverted/80 text-xs font-extrabold text-inverted-foreground shadow-xl backdrop-blur-md transition duration-300 ease-landing hover:scale-110 hover:border-inverted-foreground hover:bg-inverted-foreground hover:text-inverted focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border [&.is-active]:scale-110 [&.is-active]:border-inverted-foreground [&.is-active]:bg-inverted-foreground [&.is-active]:text-inverted sm:size-12",
+                  index === 0 && "is-active",
+                ]}
+                style={`left: ${region.x}%; top: ${region.y}%;`}
+                data-region-marker={region.id}
+                aria-label={`Seleccionar ${region.name} en el mapa`}
+                aria-pressed={index === 0 ? "true" : "false"}
+              >
+                {region.number}
+              </button>
+            ))
+          }
+        </div>
+
+        <div
+          class="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-inverted-foreground/45"
+        >
+          {
+            regions.map((region: Region) => (
+              <span>
+                {region.name}: foto de{" "}
+                <a
+                  href={region.image.authorUrl}
+                  rel="noopener"
+                  class="underline underline-offset-3 transition hover:text-inverted-foreground/80"
+                >
+                  {region.image.author}
+                </a>
+              </span>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/mapInteraction"
+</script>

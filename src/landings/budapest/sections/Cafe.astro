@@ -1,0 +1,93 @@
+---
+import { cafeImage } from "../data/images"
+---
+
+<section class="relative bg-inverted py-section" aria-labelledby="cafe-heading">
+  <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="reveal mb-6 text-xs font-medium uppercase tracking-[0.2em] text-inverted-foreground/50"
+    >
+      Cafe Budapest
+    </p>
+
+    <h2
+      id="cafe-heading"
+      class="reveal max-w-heading font-display text-headline-1 font-bold leading-[1.05] text-inverted-foreground"
+    >
+      The Conversations That Built a City
+    </h2>
+
+    <div class="mt-12 grid gap-12 sm:mt-16 lg:grid-cols-5 lg:gap-16">
+      <!-- Photo -->
+      <figure class="reveal lg:col-span-2">
+        <div class="overflow-hidden rounded-sm">
+          <img
+            src={`${cafeImage.src}&w=800&auto=format&fit=crop&q=80`}
+            srcset={`${cafeImage.src}&w=400&auto=format&fit=crop&q=80 400w, ${cafeImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${cafeImage.src}&w=800&auto=format&fit=crop&q=80 800w`}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 400px"
+            alt={cafeImage.alt}
+            title={`Photo by ${cafeImage.author} on Unsplash`}
+            width={cafeImage.width}
+            height={cafeImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone aspect-[3/4] w-full object-cover"
+          />
+        </div>
+        <figcaption class="mt-3 text-xs text-inverted-foreground/40">
+          Photo by <a
+            href={cafeImage.authorUrl}
+            class="underline hover:text-inverted-foreground/60"
+            rel="noopener">{cafeImage.author}</a
+          >
+          on <a
+            href={cafeImage.unsplashUrl}
+            class="underline hover:text-inverted-foreground/60"
+            rel="noopener">Unsplash</a
+          >
+        </figcaption>
+      </figure>
+
+      <!-- Text content -->
+      <div class="flex flex-col justify-center lg:col-span-3">
+        <p class="reveal text-base leading-relaxed text-inverted-foreground/60">
+          In the late 19th century, Budapest's cafes were not restaurants. They
+          were institutions — writing desks, debate halls, newsrooms, and second
+          homes for a generation of writers, journalists, composers, and
+          intellectuals who shaped Central European culture from marble-topped
+          tables.
+        </p>
+
+        <p
+          class="reveal mt-6 text-base leading-relaxed text-inverted-foreground/60"
+        >
+          Cafe New York, opened in 1894 and called "the most beautiful cafe in
+          the world," became so legendary that writers reportedly threw its keys
+          into the Danube so it would never close. Cafe Central, Cafe Gerbeaud,
+          and dozens of others formed a network of cultural spaces where the
+          line between a cup of coffee and a revolution was always thin.
+        </p>
+
+        <blockquote
+          class="reveal mt-10 border-l-2 border-inverted-foreground/10 pl-6"
+        >
+          <p
+            class="font-display text-headline-3 font-bold italic leading-snug text-inverted-foreground/80"
+          >
+            "Some cities are remembered by their monuments. Others by the
+            conversations that happened inside them."
+          </p>
+        </blockquote>
+
+        <p
+          class="reveal mt-8 text-sm leading-relaxed text-inverted-foreground/40"
+        >
+          Today, the tradition continues. Modern roaster cafes sit alongside
+          restored 19th-century grand cafes, and the Hungarian word for
+          coffeehouse — kavehaz — still carries the weight of an idea: that
+          civilization happens one table at a time.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

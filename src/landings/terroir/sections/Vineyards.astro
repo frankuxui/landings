@@ -1,0 +1,125 @@
+---
+// Terroir — Section 04: "La tierra tiene su propia geometria"
+// Landscape gallery with irregular grid of vineyard images.
+import {
+  vineyardRowsImage,
+  aerialImage,
+  leavesImage,
+  grapesImage,
+  harvestImage,
+  heroImage,
+} from "../data/images"
+
+interface GalleryImage {
+  src: string
+  alt: string
+  width: number
+  height: number
+  author: string
+  authorUrl: string
+  unsplashUrl: string
+  aspect: string
+}
+
+const gallery: GalleryImage[] = [
+  {
+    ...vineyardRowsImage,
+    src: `${vineyardRowsImage.src}&w=800&auto=format&fit=crop&q=80`,
+    aspect: "aspect-[3/4]",
+  },
+  {
+    ...aerialImage,
+    src: `${aerialImage.src}&w=800&auto=format&fit=crop&q=80`,
+    aspect: "aspect-[4/3]",
+  },
+  {
+    ...leavesImage,
+    src: `${leavesImage.src}&w=600&auto=format&fit=crop&q=80`,
+    aspect: "aspect-square",
+  },
+  {
+    ...grapesImage,
+    src: `${grapesImage.src}&w=600&auto=format&fit=crop&q=80`,
+    aspect: "aspect-[3/4]",
+  },
+  {
+    ...harvestImage,
+    src: `${harvestImage.src}&w=800&auto=format&fit=crop&q=80`,
+    aspect: "aspect-[16/9]",
+  },
+  {
+    ...heroImage,
+    src: `${heroImage.src}&w=800&auto=format&fit=crop&q=80`,
+    aspect: "aspect-[4/3]",
+  },
+]
+---
+
+<section
+  class="relative overflow-hidden bg-background-alt py-20 sm:py-section"
+  aria-labelledby="vineyards-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Section header -->
+    <div class="mb-16 reveal" data-fade-in>
+      <p class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-muted">
+        04 &mdash; Viñedos
+      </p>
+      <h2
+        id="vineyards-heading"
+        class="max-w-heading font-display text-headline-2 font-extrabold uppercase leading-[0.86] text-foreground"
+      >
+        La tierra tiene su propia geometria
+      </h2>
+    </div>
+
+    <!-- Editorial masonry -->
+    <div class="columns-1 gap-4 sm:columns-2 lg:columns-3">
+      {
+        gallery.map((img: GalleryImage) => (
+          <div
+            class:list={[
+              "photo-editorial-hover mb-4 break-inside-avoid overflow-hidden rounded-sm reveal lg:mb-6",
+              img.aspect,
+            ]}
+            data-fade-in
+          >
+            <img
+              src={img.src}
+              alt={img.alt}
+              width={img.width}
+              height={img.height}
+              loading="lazy"
+              decoding="async"
+              class="photo-tone h-full w-full object-cover"
+            />
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Credits -->
+    <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-muted/60">
+      {
+        gallery.map((img: GalleryImage) => (
+          <span>
+            <a
+              href={img.authorUrl}
+              rel="noopener"
+              class="underline hover:text-muted"
+            >
+              {img.author}
+            </a>
+          </span>
+        ))
+      }
+      <span>
+        en <a
+          href={gallery[0].unsplashUrl}
+          rel="noopener"
+          class="underline hover:text-muted">Unsplash</a
+        >
+      </span>
+    </div>
+  </div>
+</section>

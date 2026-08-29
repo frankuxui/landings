@@ -1,0 +1,189 @@
+---
+import { ChevronLeft, ChevronRight } from "@lucide/astro"
+import {
+  chainBridgeImage,
+  libertyBridgeImage,
+  margaretBridgeImage,
+  elizabethBridgeImage,
+} from "../data/images"
+import type { UnsplashImage } from "../data/images"
+
+interface BridgeSlide {
+  name: string
+  year: string
+  subtitle: string
+  description: string
+  image: UnsplashImage
+}
+
+const bridges: BridgeSlide[] = [
+  {
+    name: "Chain Bridge",
+    year: "1849",
+    subtitle: "Szechenyi Lanchid",
+    description:
+      "The first permanent bridge across the Danube in Budapest, designed by English engineer William Tierney Clark and built by Scottish engineer Adam Clark. Opened on November 20, 1849, it connected the two cities years before their official unification. Reconstructed after World War II and fully renovated in 2023.",
+    image: chainBridgeImage,
+  },
+  {
+    name: "Liberty Bridge",
+    year: "1896",
+    subtitle: "Szabadsag hid",
+    description:
+      "Built for the Millennial Exhibition of 1896, this green iron bridge connects the Great Market Hall on the Pest side with Gellert Hill and the famous Gellert Baths on the Buda side. Its Art Nouveau ironwork features Turul birds perched on top of each pylon — a mythical falcon of Hungarian origin.",
+    image: libertyBridgeImage,
+  },
+  {
+    name: "Margaret Bridge",
+    year: "1876",
+    subtitle: "Margit hid",
+    description:
+      "The second permanent public bridge of Budapest, designed by French engineer Ernest Gouin. Its distinctive Y-shaped branch leads to Margaret Island, a 2.5-kilometer green retreat in the middle of the Danube. The bridge was rebuilt in 1948 after being destroyed in World War II.",
+    image: margaretBridgeImage,
+  },
+  {
+    name: "Elizabeth Bridge",
+    year: "1903 / 1964",
+    subtitle: "Erzsebet hid",
+    description:
+      "Named after Queen Elisabeth of Hungary, the original suspension bridge (1903) was the longest in the world at its opening. Destroyed in 1945, it was rebuilt as a modern suspension bridge in 1964 — the only Budapest bridge not reconstructed in its original form. It connects Gellert Square in Buda to Ferenciek tere in Pest.",
+    image: elizabethBridgeImage,
+  },
+]
+---
+
+<section
+  id="bridges"
+  class="relative bg-background py-section"
+  aria-labelledby="bridges-heading"
+>
+  <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="reveal mb-6 text-xs font-medium uppercase tracking-[0.2em] text-muted"
+    >
+      Connections
+    </p>
+
+    <div class="reveal flex flex-wrap items-end justify-between gap-6">
+      <h2
+        id="bridges-heading"
+        class="max-w-heading font-display text-headline-1 font-bold leading-[1.05] text-foreground"
+      >
+        Bridges
+      </h2>
+
+      <p class="max-w-sm text-sm leading-relaxed text-muted">
+        Every bridge is a conversation between Buda and Pest. Nine bridges cross
+        the Danube in Budapest today, each carrying its own chapter of the
+        city's history.
+      </p>
+    </div>
+  </div>
+
+  <!-- Swiper slider -->
+  <div class="mt-12 sm:mt-16">
+    <div class="bridges-slider swiper">
+      <div class="swiper-wrapper">
+        {
+          bridges.map((bridge: BridgeSlide) => (
+            <div class="swiper-slide">
+              <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
+                <div class="grid gap-8 lg:grid-cols-5 lg:gap-12">
+                  <figure class="lg:col-span-3">
+                    <div class="overflow-hidden rounded-sm">
+                      <img
+                        src={`${bridge.image.src}&w=1200&auto=format&fit=crop&q=80`}
+                        srcset={`${bridge.image.src}&w=600&auto=format&fit=crop&q=80 600w, ${bridge.image.src}&w=900&auto=format&fit=crop&q=80 900w, ${bridge.image.src}&w=1200&auto=format&fit=crop&q=80 1200w`}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 720px"
+                        alt={bridge.image.alt}
+                        title={`Photo by ${bridge.image.author} on Unsplash`}
+                        width={bridge.image.width}
+                        height={bridge.image.height}
+                        loading="lazy"
+                        decoding="async"
+                        class="photo-tone aspect-[16/10] w-full object-cover"
+                      />
+                    </div>
+                    <figcaption class="mt-3 text-xs text-muted">
+                      Photo by{" "}
+                      <a
+                        href={bridge.image.authorUrl}
+                        class="underline hover:text-foreground"
+                        rel="noopener"
+                      >
+                        {bridge.image.author}
+                      </a>{" "}
+                      on{" "}
+                      <a
+                        href={bridge.image.unsplashUrl}
+                        class="underline hover:text-foreground"
+                        rel="noopener"
+                      >
+                        Unsplash
+                      </a>
+                    </figcaption>
+                  </figure>
+
+                  <div class="flex flex-col justify-center lg:col-span-2">
+                    <span class="font-display text-figure font-black leading-none text-foreground/10">
+                      {bridge.year.split("/")[0].trim()}
+                    </span>
+                    <h3 class="mt-4 font-display text-headline-2 font-bold text-foreground">
+                      {bridge.name}
+                    </h3>
+                    <p class="mt-1 text-xs font-medium uppercase tracking-[0.15em] text-muted">
+                      {bridge.subtitle}
+                    </p>
+                    <p class="mt-4 text-sm leading-relaxed text-muted">
+                      {bridge.description}
+                    </p>
+                    <p class="mt-3 text-xs text-muted/60">
+                      Opened {bridge.year}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div
+      class="mx-auto mt-8 flex max-w-landing items-center justify-between px-container-x sm:px-8 xl:px-14"
+    >
+      <div class="bridges-slider-pagination"></div>
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          class="bridges-slider-prev inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-control p-0 text-foreground transition duration-200 ease-landing hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+          aria-label="Previous bridge"
+        >
+          <ChevronLeft
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+        </button>
+        <button
+          type="button"
+          class="bridges-slider-next inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-control p-0 text-foreground transition duration-200 ease-landing hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-control-hover"
+          aria-label="Next bridge"
+        >
+          <ChevronRight
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/bridgesSlider"
+</script>

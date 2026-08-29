@@ -1,0 +1,154 @@
+---
+import { danubeImage, budaCastleImage } from "../data/images"
+---
+
+<section
+  id="the-river"
+  class="relative bg-background py-section"
+  aria-labelledby="river-heading"
+>
+  <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Editorial phrase -->
+    <p
+      class="reveal mb-6 text-xs font-medium uppercase tracking-[0.2em] text-muted"
+    >
+      The Danube
+    </p>
+
+    <h2
+      id="river-heading"
+      class="reveal max-w-heading font-display text-headline-1 font-bold leading-[1.05] text-foreground"
+    >
+      The River Between Us
+    </h2>
+
+    <p
+      class="reveal mt-6 max-w-copy text-base leading-relaxed text-muted sm:text-lg"
+    >
+      The Danube does not divide Budapest. It tells its story. For centuries,
+      the river has been the axis around which two cities breathe — Buda on the
+      western hills, Pest on the eastern plains — joined not by geography but by
+      the bridges, the light, and the memories that travel between them.
+    </p>
+
+    <!-- Danube aerial photo — full width -->
+    <figure class="reveal mt-16 sm:mt-20">
+      <div class="overflow-hidden rounded-sm">
+        <img
+          src={`${danubeImage.src}&w=1600&auto=format&fit=crop&q=80`}
+          srcset={`${danubeImage.src}&w=800&auto=format&fit=crop&q=80 800w, ${danubeImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${danubeImage.src}&w=1600&auto=format&fit=crop&q=80 1600w`}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+          alt={danubeImage.alt}
+          title={`Photo by ${danubeImage.author} on Unsplash`}
+          width={danubeImage.width}
+          height={danubeImage.height}
+          loading="lazy"
+          decoding="async"
+          class="photo-tone w-full object-cover"
+        />
+      </div>
+      <figcaption class="mt-3 text-xs text-muted">
+        Photo by <a
+          href={danubeImage.authorUrl}
+          class="underline hover:text-foreground"
+          rel="noopener">{danubeImage.author}</a
+        >
+        on <a
+          href={danubeImage.unsplashUrl}
+          class="underline hover:text-foreground"
+          rel="noopener">Unsplash</a
+        >
+      </figcaption>
+    </figure>
+
+    <!-- Three narrative beats: Buda / Danube / Pest -->
+    <div class="mt-20 grid gap-16 sm:mt-28 lg:grid-cols-3 lg:gap-12">
+      <!-- Buda -->
+      <div class="reveal">
+        <span class="font-mono text-xs text-muted/60">01</span>
+        <h3 class="mt-2 font-display text-headline-3 font-bold text-foreground">
+          Buda
+        </h3>
+        <p class="mt-3 text-sm leading-relaxed text-muted">
+          The western bank rises in wooded hills crowned by the Castle District.
+          Cobblestone streets lead past Matthias Church, through the turrets of
+          Fisherman's Bastion, to viewpoints that hold the entire city in one
+          gaze. Buda is memory, stone, and silence.
+        </p>
+      </div>
+
+      <!-- The Danube -->
+      <div class="reveal">
+        <span class="font-mono text-xs text-muted/60">02</span>
+        <h3 class="mt-2 font-display text-headline-3 font-bold text-foreground">
+          The Danube
+        </h3>
+        <p class="mt-3 text-sm leading-relaxed text-muted">
+          Europe's second longest river flows through Budapest for 28
+          kilometers, carrying boats, reflections, and seven centuries of
+          history beneath its bridges. At sunset the water turns from steel to
+          gold, and the city on either side seems to breathe with the same tide.
+        </p>
+      </div>
+
+      <!-- Pest -->
+      <div class="reveal">
+        <span class="font-mono text-xs text-muted/60">03</span>
+        <h3 class="mt-2 font-display text-headline-3 font-bold text-foreground">
+          Pest
+        </h3>
+        <p class="mt-3 text-sm leading-relaxed text-muted">
+          The eastern bank spreads outward in grand avenues, Beaux-Arts
+          apartment buildings, and the unmistakable silhouette of Parliament.
+          Pest is motion, commerce, and conversation — the cafes, the markets,
+          the theaters, the life that a city generates when it looks forward.
+        </p>
+      </div>
+    </div>
+
+    <!-- Buda Castle photo — asymmetric composition -->
+    <div class="reveal mt-20 grid gap-8 sm:mt-28 lg:grid-cols-5 lg:gap-12">
+      <figure class="lg:col-span-3">
+        <div class="overflow-hidden rounded-sm">
+          <img
+            src={`${budaCastleImage.src}&w=1200&auto=format&fit=crop&q=80`}
+            srcset={`${budaCastleImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${budaCastleImage.src}&w=900&auto=format&fit=crop&q=80 900w, ${budaCastleImage.src}&w=1200&auto=format&fit=crop&q=80 1200w`}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 720px"
+            alt={budaCastleImage.alt}
+            title={`Photo by ${budaCastleImage.author} on Unsplash`}
+            width={budaCastleImage.width}
+            height={budaCastleImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone aspect-[4/3] w-full object-cover"
+          />
+        </div>
+        <figcaption class="mt-3 text-xs text-muted">
+          Photo by <a
+            href={budaCastleImage.authorUrl}
+            class="underline hover:text-foreground"
+            rel="noopener">{budaCastleImage.author}</a
+          >
+          on <a
+            href={budaCastleImage.unsplashUrl}
+            class="underline hover:text-foreground"
+            rel="noopener">Unsplash</a
+          >
+        </figcaption>
+      </figure>
+
+      <div class="flex flex-col justify-center lg:col-span-2">
+        <blockquote
+          class="font-display text-headline-3 font-bold italic leading-snug text-foreground"
+        >
+          "Two shores. One soul."
+        </blockquote>
+        <p class="mt-4 text-sm leading-relaxed text-muted">
+          The Castle District has watched over the Danube since the 13th
+          century. Rebuilt after every war, it remains the hill where Budapest
+          remembers what it has been — and what it intends to become.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

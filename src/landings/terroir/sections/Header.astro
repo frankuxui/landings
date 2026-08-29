@@ -1,0 +1,131 @@
+---
+// Terroir — editorial side index and theme control.
+import { Menu, X } from "@lucide/astro"
+import { navLinks } from "../data/nav"
+import type { NavLink } from "../data/nav"
+
+interface ChapterLink {
+  number: string
+  label: string
+  href: string
+}
+
+const chapters: ChapterLink[] = [
+  { number: "01", label: "Tierra", href: "#terroir" },
+  { number: "02", label: "Vendimia", href: "#vendimia" },
+  { number: "03", label: "Bodega", href: "#bodega" },
+  { number: "04", label: "Tiempo", href: "#tiempo" },
+  { number: "05", label: "Mesa", href: "#maridaje" },
+]
+---
+
+<header class="pointer-events-none fixed inset-0 z-40" data-header>
+  <div
+    class="reading-progress pointer-events-none fixed top-0 left-0 z-50 h-0.5 w-full bg-foreground"
+    data-reading-progress
+    aria-hidden="true"
+  >
+  </div>
+
+  <a
+    class="pointer-events-auto fixed top-4 left-4 z-50 bg-inverted/80 px-3 py-2 font-display text-sm font-extrabold uppercase tracking-[0.32em] text-inverted-foreground no-underline shadow-xl backdrop-blur-xl transition duration-300 ease-landing hover:bg-inverted hover:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border sm:top-6 sm:left-6 nav:top-1/2 nav:left-5 nav:-translate-y-1/2 nav:-rotate-90 nav:px-4 nav:py-2 nav:text-base"
+    href="#home"
+  >
+    TERROIR
+  </a>
+
+  <button
+    type="button"
+    class="pointer-events-auto fixed top-4 right-4 z-60 inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-sm border border-inverted-foreground/15 bg-inverted/80 p-1 text-xs font-bold uppercase tracking-[0.22em] text-inverted-foreground shadow-2xl backdrop-blur-xl transition duration-300 ease-landing hover:bg-inverted focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border sm:top-6 sm:right-6"
+    data-theme-toggle
+    aria-label="Cambiar entre modo viñedo y modo bodega"
+  >
+    <span
+      class="rounded-xs bg-inverted-foreground px-3 py-2 text-inverted transition duration-300 ease-landing dark:bg-transparent dark:text-inverted-foreground/45"
+      data-theme-light-label
+    >
+      Viñedo
+    </span>
+    <span
+      class="rounded-xs px-3 py-2 text-inverted-foreground/45 transition duration-300 ease-landing dark:bg-inverted-foreground dark:text-inverted"
+      data-theme-dark-label
+    >
+      Bodega
+    </span>
+  </button>
+
+  <nav
+    class="pointer-events-auto fixed bottom-5 left-1/2 hidden -translate-x-1/2 bg-inverted/78 px-4 py-2 shadow-2xl backdrop-blur-xl nav:block"
+    aria-label="Indice editorial"
+  >
+    <ol class="flex items-center gap-1">
+      {
+        chapters.map((chapter: ChapterLink) => (
+          <li>
+            <a
+              class="group flex min-h-10 items-center gap-2 px-3 text-xs font-semibold uppercase tracking-[0.14em] text-inverted-foreground/55 no-underline transition duration-300 ease-landing hover:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border [&.is-active]:text-inverted-foreground"
+              href={chapter.href}
+              data-chapter-link={chapter.href.replace("#", "")}
+            >
+              <span class="font-mono text-xs opacity-60">{chapter.number}</span>
+              <span class="transition duration-300 ease-landing group-hover:-translate-y-0.5">
+                {chapter.label}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+
+  <button
+    type="button"
+    class="group pointer-events-auto fixed right-4 bottom-4 z-60 inline-flex size-12 min-h-12 cursor-pointer items-center justify-center rounded-sm border-0 bg-inverted/85 p-0 text-inverted-foreground backdrop-blur-xl transition duration-200 ease-landing hover:bg-inverted focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border active:bg-inverted nav:hidden"
+    data-menu-toggle
+    aria-expanded="false"
+    aria-controls="primary-navigation-mobile"
+    aria-label="Abrir menu de navegacion"
+  >
+    <Menu
+      class="size-5.5 group-aria-expanded:hidden"
+      aria-hidden="true"
+      stroke-width="1.5"
+    />
+    <X
+      class="hidden size-5.5 group-aria-expanded:block"
+      aria-hidden="true"
+      stroke-width="1.5"
+    />
+  </button>
+
+  <div
+    class="pointer-events-auto fixed inset-0 z-50 flex h-dvh w-full translate-y-0 flex-col justify-between bg-inverted px-container-x pt-24 pb-10 text-inverted-foreground transition-[transform,visibility] duration-300 ease-landing aria-hidden:invisible aria-hidden:translate-y-full motion-reduce:transition-none sm:px-8 nav:hidden"
+    data-menu-panel
+    aria-hidden="true"
+  >
+    <nav id="primary-navigation-mobile" aria-label="Navegacion principal">
+      <ol class="flex flex-col">
+        {
+          navLinks.map((link: NavLink, index: number) => (
+            <li class="relative before:absolute before:top-0 before:left-0 before:h-px before:w-full before:bg-inverted-foreground/10 before:content-[''] first:before:hidden">
+              <a
+                class="flex min-h-16 items-center gap-4 py-3 font-display text-4xl font-extrabold uppercase leading-[0.86] text-inverted-foreground no-underline transition duration-200 ease-landing hover:text-inverted-foreground/70 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border sm:text-5xl"
+                href={link.href}
+                data-mobile-nav-link
+              >
+                <span class="font-mono text-sm font-normal text-inverted-foreground/30">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+  </div>
+</header>
+
+<script>
+  import "../scripts/menu"
+</script>

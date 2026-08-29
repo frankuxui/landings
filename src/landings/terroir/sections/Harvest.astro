@@ -1,0 +1,156 @@
+---
+// Terroir — Section 05: Vendimia — "Un momento al año"
+// ScrollTrigger vertical sequence: seasons change on scroll.
+import {
+  harvestImage,
+  grapesImage,
+  leavesImage,
+  vineyardRowsImage,
+} from "../data/images"
+
+interface Season {
+  name: string
+  title: string
+  description: string
+  imageSrc: string
+  imageAlt: string
+  ambient: string
+}
+
+const seasons: Season[] = [
+  {
+    name: "Invierno",
+    title: "La poda",
+    description:
+      "La vid duerme. El viñador poda ramas, define la estructura y prepara la planta para el proximo ciclo. Cada corte es una decision sobre el futuro.",
+    imageSrc: `${vineyardRowsImage.src}&w=1200&auto=format&fit=crop&q=80`,
+    imageAlt: vineyardRowsImage.alt,
+    ambient: "Silencio / poda / madera fria",
+  },
+  {
+    name: "Primavera",
+    title: "La brotacion",
+    description:
+      "Las yemas se abren. Los primeros brotes verdes aparecen. La vid despierta y comienza a extender sus pampanos hacia el sol.",
+    imageSrc: `${leavesImage.src}&w=1200&auto=format&fit=crop&q=80`,
+    imageAlt: leavesImage.alt,
+    ambient: "Brotacion / savia / luz nueva",
+  },
+  {
+    name: "Verano",
+    title: "La maduracion",
+    description:
+      "El envero: las uvas cambian de color. El azucar sube, la acidez baja. El viñador vigila cada dia, esperando el punto exacto de equilibrio.",
+    imageSrc: `${grapesImage.src}&w=1200&auto=format&fit=crop&q=80`,
+    imageAlt: grapesImage.alt,
+    ambient: "Envero / azucar / vigilancia",
+  },
+  {
+    name: "Vendimia",
+    title: "La cosecha",
+    description:
+      "365 dias para unas pocas semanas decisivas. La uva se recoge a mano, caja por caja. No hay segunda oportunidad. Lo que se corta hoy sera vino mañana.",
+    imageSrc: `${harvestImage.src}&w=1200&auto=format&fit=crop&q=80`,
+    imageAlt: harvestImage.alt,
+    ambient: "Corte / cajas / decision",
+  },
+]
+---
+
+<section
+  id="vendimia"
+  class="relative isolate overflow-hidden bg-inverted py-20 sm:py-section"
+  aria-labelledby="harvest-heading"
+  data-vendimia-section
+>
+  <div
+    class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-inverted via-inverted-surface to-inverted"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="mx-auto grid w-full max-w-landing gap-10 px-container-x sm:px-8 lg:min-h-svh lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16 xl:px-14"
+  >
+    <!-- Section header -->
+    <div class="lg:sticky lg:top-20">
+      <p
+        class="mb-5 text-xs font-bold uppercase tracking-[0.3em] text-inverted-foreground/50"
+      >
+        05 &mdash; Vendimia
+      </p>
+      <h2
+        id="harvest-heading"
+        class="max-w-heading font-display text-headline-2 font-extrabold uppercase leading-[0.86] text-inverted-foreground"
+      >
+        Un momento al año
+      </h2>
+      <p
+        class="mt-6 font-display text-headline-3 font-semibold italic leading-tight text-inverted-foreground/70"
+      >
+        365 dias para unas pocas semanas decisivas
+      </p>
+
+      <div class="mt-10" aria-label="Progreso del ciclo anual">
+        <div class="flex items-center justify-between gap-4">
+          <span
+            class="font-mono text-sm font-bold text-inverted-foreground"
+            data-harvest-count
+          >
+            01 / 04
+          </span>
+          <span
+            class="text-xs font-bold uppercase tracking-[0.24em] text-inverted-foreground/45"
+          >
+            Invierno &mdash; Vendimia
+          </span>
+        </div>
+        <div class="mt-4 h-px w-full bg-inverted-foreground/20">
+          <div
+            class="h-px w-full origin-left scale-x-0 bg-inverted-foreground"
+            data-harvest-progress
+            aria-hidden="true"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Seasons: visible one at a time via GSAP -->
+    <div class="relative min-h-[32rem] sm:min-h-[36rem] lg:min-h-[68svh]">
+      {
+        seasons.map((season: Season, index: number) => (
+          <div
+            class:list={[
+              "absolute inset-0 grid content-end overflow-hidden border border-inverted-foreground/10 bg-inverted-surface shadow-2xl",
+              index > 0 && "absolute inset-0",
+            ]}
+            data-vendimia-season
+          >
+            <img
+              src={season.imageSrc}
+              alt={season.imageAlt}
+              loading="lazy"
+              decoding="async"
+              class="photo-tone absolute inset-0 h-full w-full object-cover opacity-70"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-inverted via-inverted/55 to-transparent" />
+            <div class="relative z-10 m-5 max-w-xl bg-inverted/82 p-5 shadow-2xl backdrop-blur-md sm:m-8 sm:p-7">
+              <p class="text-xs font-bold uppercase tracking-[0.24em] text-inverted-foreground/55">
+                {season.ambient}
+              </p>
+              <h3 class="mt-4 font-display text-headline-3 font-extrabold uppercase leading-[0.9] text-inverted-foreground">
+                {season.title}
+              </h3>
+              <p class="mt-4 max-w-copy text-base leading-relaxed text-inverted-foreground/76 sm:text-lg">
+                {season.description}
+              </p>
+              <p class="mt-6 font-mono text-sm font-bold uppercase tracking-[0.2em] text-inverted-foreground/55">
+                {String(index + 1).padStart(2, "0")} &mdash; {season.name}
+              </p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

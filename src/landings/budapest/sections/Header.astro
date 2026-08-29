@@ -1,0 +1,135 @@
+---
+import { Menu, X, Moon, Sun } from "@lucide/astro"
+import { navLinks } from "../data/nav"
+import type { NavLink } from "../data/nav"
+---
+
+<header class="fixed top-0 z-40 w-full">
+  <div
+    class="mx-auto flex w-full max-w-landing items-center justify-between gap-4 px-container-x py-4 sm:px-8 xl:px-14"
+  >
+    <!-- Floating capsule nav -->
+    <div
+      class="flex w-full items-center justify-between gap-3 rounded-full bg-inverted/80 px-5 py-2.5 backdrop-blur-xl sm:px-6"
+    >
+      <a
+        class="inline-flex shrink-0 items-baseline gap-3 text-inverted-foreground no-underline"
+        href="#home"
+      >
+        <span
+          class="font-display text-sm font-bold uppercase tracking-[0.25em] sm:text-base"
+        >
+          Budapest
+        </span>
+        <span
+          class="hidden text-xs tracking-wide text-inverted-foreground/50 sm:inline"
+        >
+          47.4979 N / 19.0402 E
+        </span>
+      </a>
+
+      <div class="flex items-center gap-1 lg:gap-2">
+        <button
+          type="button"
+          class="group inline-flex size-10 min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inverted-foreground/70 transition duration-200 ease-landing hover:bg-inverted-foreground/10 hover:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-inverted-foreground/40 active:bg-inverted-foreground/15"
+          data-theme-toggle
+          aria-label="Toggle dark mode"
+        >
+          <Moon
+            class="size-4 dark:hidden"
+            aria-hidden="true"
+            stroke-width="1.5"
+          />
+          <Sun
+            class="hidden size-4 dark:block"
+            aria-hidden="true"
+            stroke-width="1.5"
+          />
+        </button>
+
+        <nav
+          class="hidden items-center gap-0.5 nav:flex"
+          aria-label="Primary navigation"
+        >
+          <ul class="flex items-center gap-0">
+            {
+              navLinks.map((link: NavLink) => (
+                <li>
+                  <a
+                    class="relative flex min-h-10 items-center px-2.5 py-2 text-xs font-medium tracking-wide text-inverted-foreground/60 no-underline transition duration-200 ease-landing hover:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-inverted-foreground/40 xl:px-3"
+                    href={link.href}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <button
+          type="button"
+          class="group relative z-60 inline-flex size-10 min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent p-0 text-inverted-foreground/70 transition duration-200 ease-landing hover:bg-inverted-foreground/10 hover:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-inverted-foreground/40 active:bg-inverted-foreground/15 aria-expanded:bg-inverted-foreground/10 nav:hidden"
+          data-menu-toggle
+          aria-expanded="false"
+          aria-controls="primary-navigation-mobile"
+          aria-label="Open navigation menu"
+        >
+          <Menu
+            class="size-5 group-aria-expanded:hidden"
+            aria-hidden="true"
+            stroke-width="1.5"
+          />
+          <X
+            class="hidden size-5 group-aria-expanded:block"
+            aria-hidden="true"
+            stroke-width="1.5"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu panel -->
+  <div
+    class="fixed inset-0 z-50 flex h-dvh w-full translate-y-0 flex-col justify-between bg-inverted px-container-x pt-24 pb-10 text-inverted-foreground transition-[transform,visibility] duration-300 ease-landing aria-hidden:invisible aria-hidden:-translate-y-full motion-reduce:transition-none sm:px-8 nav:hidden"
+    data-menu-panel
+    aria-hidden="true"
+  >
+    <nav id="primary-navigation-mobile" aria-label="Primary navigation">
+      <ol class="flex flex-col">
+        {
+          navLinks.map((link: NavLink, index: number) => (
+            <li class="relative before:absolute before:top-0 before:left-0 before:h-px before:w-full before:bg-inverted-foreground/10 before:content-[''] first:before:hidden">
+              <a
+                class="flex min-h-16 items-center gap-4 py-3 font-display text-2xl font-bold text-inverted-foreground no-underline transition duration-200 ease-landing hover:text-inverted-foreground/70 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-inverted-foreground/40 sm:text-3xl"
+                href={link.href}
+                data-mobile-nav-link
+              >
+                <span class="font-mono text-xs text-inverted-foreground/30">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <div class="flex items-end justify-between">
+      <p class="text-xs tracking-wide text-inverted-foreground/40">
+        47.4979° N / 19.0402° E<br />Hungary
+      </p>
+      <p
+        class="font-display text-xs font-bold uppercase tracking-[0.2em] text-inverted-foreground/30"
+      >
+        Budapest
+      </p>
+    </div>
+  </div>
+</header>
+
+<script>
+  import "../scripts/menu"
+</script>

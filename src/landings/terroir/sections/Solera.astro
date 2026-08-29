@@ -1,0 +1,103 @@
+---
+// Terroir — Section 11: La Solera
+// "Hay vinos que no pertenecen a una sola añada"
+// Visual representation of the Jerez solera system.
+
+interface Scale {
+  name: string
+  description: string
+  position: string
+}
+
+const scales: Scale[] = [
+  {
+    name: "3a Criadera",
+    description: "Vino mas joven. Alimenta la siguiente escala.",
+    position: "top",
+  },
+  {
+    name: "2a Criadera",
+    description: "Mezcla de añadas. El vino gana complejidad.",
+    position: "middle-top",
+  },
+  {
+    name: "1a Criadera",
+    description: "Casi listo. El vino se acerca a su version final.",
+    position: "middle-bottom",
+  },
+  {
+    name: "Solera",
+    description:
+      "La escala mas antigua. De aqui sale el vino que se embotella. Nunca se vacia del todo.",
+    position: "bottom",
+  },
+]
+---
+
+<section
+  class="relative overflow-hidden bg-inverted py-section"
+  aria-labelledby="solera-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Section header -->
+    <div class="mb-20 text-center" data-fade-in>
+      <p
+        class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-inverted-foreground/50"
+      >
+        11 &mdash; La solera
+      </p>
+      <h2
+        id="solera-heading"
+        class="mx-auto font-display text-headline-1 font-extrabold uppercase leading-[0.82] text-inverted-foreground"
+      >
+        Hay vinos que no pertenecen a una sola añada
+      </h2>
+    </div>
+
+    <!-- Solera visual representation -->
+    <div class="mx-auto max-w-2xl">
+      <div class="flex flex-col gap-0">
+        {
+          scales.map((scale: Scale, index: number) => (
+            <div
+              class="reveal flex items-center gap-6 border-t border-inverted-foreground/10 py-8 first:border-t-0"
+              data-fade-in
+            >
+              <div class="flex shrink-0 gap-1.5" aria-hidden="true">
+                {Array.from({ length: 3 + index }).map((_: unknown) => (
+                  <div class="size-8 rounded-full bg-inverted-foreground/10 sm:size-10" />
+                ))}
+              </div>
+
+              <div class="flex-1">
+                <h3 class="font-display text-headline-3 font-semibold uppercase tracking-wider text-inverted-foreground">
+                  {scale.name}
+                </h3>
+                <p class="mt-2 text-base leading-relaxed text-inverted-foreground/60">
+                  {scale.description}
+                </p>
+              </div>
+
+              {index < scales.length - 1 && (
+                <span
+                  class="hidden text-xl text-inverted-foreground/20 sm:block"
+                  aria-hidden="true"
+                >
+                  &#8595;
+                </span>
+              )}
+            </div>
+          ))
+        }
+      </div>
+
+      <p
+        class="mt-10 text-center text-sm italic leading-relaxed text-inverted-foreground/50"
+      >
+        El sistema de solera garantiza la consistencia del estilo año tras año.
+        El vino mas joven se mezcla gradualmente con el mas antiguo. Algunas
+        soleras llevan activas mas de un siglo.
+      </p>
+    </div>
+  </div>
+</section>

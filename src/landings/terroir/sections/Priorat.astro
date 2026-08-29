@@ -1,0 +1,104 @@
+---
+// Terroir — Section 14: Priorat — "Donde las vides se aferran a la tierra"
+// Steep slope photo with a diagonal section cut.
+import { steepVineyardImage } from "../data/images"
+
+interface SlopeIndicator {
+  degrees: string
+  label: string
+}
+
+const slopes: SlopeIndicator[] = [
+  { degrees: "15", label: "Suave" },
+  { degrees: "30", label: "Pronunciada" },
+  { degrees: "45", label: "Extrema" },
+  { degrees: "60", label: "Heroica" },
+]
+---
+
+<section
+  class="priorat-diagonal relative min-h-svh overflow-hidden bg-inverted pb-32"
+  aria-labelledby="priorat-heading"
+>
+  <!-- Background image -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src={`${steepVineyardImage.src}&w=2000&auto=format&fit=crop&q=80`}
+      alt={steepVineyardImage.alt}
+      width={steepVineyardImage.width}
+      height={steepVineyardImage.height}
+      loading="lazy"
+      decoding="async"
+      class="photo-tone h-full w-full object-cover opacity-65"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-inverted via-inverted/50 to-transparent"
+      aria-hidden="true"
+    >
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex min-h-svh flex-col justify-end">
+    <div
+      class="mx-auto w-full max-w-landing px-container-x pb-28 pt-40 sm:px-8 md:pb-40 xl:px-14"
+    >
+      <p
+        class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-inverted-foreground/50"
+      >
+        14 &mdash; Priorat
+      </p>
+
+      <h2
+        id="priorat-heading"
+        class="font-display text-headline-1 font-extrabold uppercase leading-[0.82] text-inverted-foreground"
+        data-fade-in
+      >
+        <span class="block text-figure leading-[0.9]"
+          >¿Cómo se cultiva vino aquí?</span
+        >
+      </h2>
+
+      <!-- Slope indicators -->
+      <div class="mt-12 flex flex-wrap gap-8 sm:gap-12" data-fade-in>
+        {
+          slopes.map((slope: SlopeIndicator) => (
+            <div class="text-center">
+              <p class="font-display text-headline-2 font-light text-inverted-foreground">
+                {slope.degrees}°
+              </p>
+              <p class="mt-1 text-xs uppercase tracking-widest text-inverted-foreground/40">
+                {slope.label}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <p
+        class="mt-8 max-w-md text-lg leading-relaxed text-inverted-foreground/60"
+      >
+        En el Priorat, las vides crecen en laderas de pizarra con pendientes de
+        hasta 60 grados. Aquí no caben máquinas. Todo se hace a mano. Los
+        rendimientos son mínimos. Los vinos, extraordinarios.
+      </p>
+    </div>
+  </div>
+
+  <!-- Photo credit -->
+  <div
+    class="absolute right-4 bottom-16 z-10 text-[10px] text-inverted-foreground/40 sm:right-8 sm:bottom-24 md:bottom-28"
+  >
+    Foto de <a
+      href={steepVineyardImage.authorUrl}
+      rel="noopener"
+      class="text-inverted-foreground/50 underline hover:text-inverted-foreground/70"
+      >{steepVineyardImage.author}</a
+    > en <a
+      href={steepVineyardImage.unsplashUrl}
+      rel="noopener"
+      class="text-inverted-foreground/50 underline hover:text-inverted-foreground/70"
+      >Unsplash</a
+    >
+  </div>
+</section>

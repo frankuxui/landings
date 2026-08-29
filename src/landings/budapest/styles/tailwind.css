@@ -1,0 +1,324 @@
+@import "tailwindcss";
+
+/* Budapest — "The City Between Two Worlds"
+   Self-contained design-system contract. This landing is strictly monochrome
+   by default and ships three thematic color palettes (Archive, Winter, Summer)
+   grounded in the city's narrative and color psychology.
+   Token NAMES follow the gallery contract; VALUES are locked.
+   No imports from other landings or platform-global styles. */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --background: var(--color-neutral-50);
+  --background-alt: var(--color-neutral-100);
+  --foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-white);
+  --surface-strong: var(--color-neutral-100);
+  --control: var(--color-neutral-200);
+  --control-hover: var(--color-neutral-300);
+  --ring: var(--color-neutral-900);
+
+  --primary: var(--color-neutral-900);
+  --primary-foreground: var(--color-white);
+  --emphasis: var(--color-black);
+
+  --disabled: var(--color-neutral-300);
+  --disabled-foreground: var(--color-neutral-500);
+
+  --inverted: var(--color-neutral-950);
+  --inverted-foreground: var(--color-white);
+  --inverted-surface: var(--color-neutral-900);
+
+  --placeholder: var(--color-neutral-900);
+  --placeholder-foreground: var(--color-white);
+  --placeholder-inverse: rgb(255 255 255 / 0.72);
+}
+
+[data-theme="dark"] {
+  --background: var(--color-neutral-950);
+  --background-alt: var(--color-neutral-900);
+  --foreground: var(--color-neutral-100);
+  --muted: var(--color-neutral-300);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-neutral-900);
+  --surface-strong: var(--color-neutral-800);
+  --control: var(--color-neutral-800);
+  --control-hover: var(--color-neutral-700);
+  --ring: var(--color-neutral-300);
+
+  --primary: var(--color-neutral-100);
+  --primary-foreground: var(--color-neutral-950);
+  --emphasis: var(--color-white);
+
+  --disabled: var(--color-neutral-700);
+  --disabled-foreground: var(--color-neutral-400);
+
+  --inverted: var(--color-neutral-100);
+  --inverted-foreground: var(--color-neutral-950);
+  --inverted-surface: var(--color-neutral-200);
+
+  --placeholder: var(--color-neutral-300);
+  --placeholder-foreground: var(--color-neutral-900);
+  --placeholder-inverse: rgb(10 10 10 / 0.65);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-emphasis: var(--emphasis);
+
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
+  --color-inverted-surface: var(--inverted-surface);
+
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-placeholder-inverse: var(--placeholder-inverse);
+}
+
+@theme {
+  /* Typography — Bodoni Moda for monumental display, Manrope for body/nav.
+     Bodoni Moda provides high-contrast serif headlines inspired by classical
+     European editorial design. Manrope is a clean geometric sans-serif
+     for readability in body, metadata, and navigation. */
+  --font-base: "Manrope", system-ui, sans-serif;
+  --font-sans: var(--font-base);
+  --font-display: "Bodoni Moda", "Playfair Display", Georgia, serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Canonical breakpoints — locked gallery-wide, never tuned per landing. */
+  --breakpoint-footer: 45rem;
+  --breakpoint-cards: 47.5rem;
+  --breakpoint-nav: 56.25rem;
+  --breakpoint-stats: 67.5rem;
+  --breakpoint-display: 87.5rem;
+
+  --spacing-section: 7rem;
+  --spacing-container-x: 1.5rem;
+
+  --container-landing: 100rem;
+  --container-copy: 66ch;
+  --container-heading: 28ch;
+  --container-hero-heading: 18ch;
+
+  --ease-landing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Fluid heading scale — this is a deeply editorial, cinematic landing
+     about architecture, history, and urban poetry. Headlines are deliberately
+     large and dramatic, inspired by European cultural magazines and
+     architectural monographs. The scale suits monumental display typography
+     (Bodoni Moda) with measured body text (Manrope). */
+  --text-headline-1: clamp(2.5rem, 1.8rem + 3.2vw, 4.75rem);
+  --text-headline-2: clamp(1.625rem, 1.3rem + 1.4vw, 2.625rem);
+  --text-headline-3: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem);
+  --text-figure: clamp(3.5rem, 2.5rem + 4.5vw, 7rem);
+}
+
+@utility reveal {
+  transform: translateY(0);
+  opacity: 1;
+
+  .js-reveal-ready & {
+    transform: translateY(calc(var(--spacing) * 6));
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 700ms;
+    transition-timing-function: var(--ease-landing);
+  }
+
+  .js-reveal-ready &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @variant motion-reduce {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transition-property: none !important;
+  }
+}
+
+/* Photography: grayscale by default, color when palette is active */
+@utility photo-tone {
+  filter: grayscale(100%) contrast(125%);
+  transition: filter 400ms var(--ease-landing);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    filter: none;
+  }
+}
+
+/* Section-level palette surfaces */
+@utility palette-surface-primary {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-primary);
+  }
+}
+
+@utility palette-surface-light {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-light);
+  }
+}
+
+@utility palette-control {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-accent);
+    color: var(--color-control-foreground);
+  }
+
+  html[data-palette]:not([data-palette="grayscale"]) &:where(:hover, :active) {
+    background-color: var(--color-accent);
+    color: var(--color-control-foreground);
+    opacity: 0.88;
+  }
+}
+
+/* Budapest palette tokens — three palettes grounded in color psychology:
+
+   Archive — warm documentary tones: deep editorial blacks, warm paper grays,
+             evoking old photography, archival materials, Central European
+             print culture. Heritage, authority, quiet sophistication.
+   Winter  — cold Danube blues: steel, fog, ice, snow. Atmospheric and
+             contemplative. Trust, calm, introspection, distance.
+   Summer  — warm terracotta and gold: wine red, architectural orange,
+             golden stone, summer light. Comfort, warmth, indulgence,
+             the golden hours of Central European summers. */
+
+:root,
+html[data-palette="grayscale"] {
+  --color-primary: #171717;
+  --color-secondary: #404040;
+  --color-tertiary: #737373;
+  --color-accent: #a3a3a3;
+  --color-light: #f5f5f5;
+  --color-control-foreground: var(--color-black);
+}
+
+html[data-palette="archive"] {
+  --color-primary: #0a0a0a;
+  --color-secondary: #1c1c1c;
+  --color-tertiary: #5e5e5e;
+  --color-accent: #b8b8b8;
+  --color-support: #e8e6e1;
+  --color-light: #f6f4ef;
+  --color-control-foreground: var(--color-black);
+}
+
+html[data-palette="winter"] {
+  --color-primary: #16222e;
+  --color-secondary: #29475c;
+  --color-tertiary: #6c8797;
+  --color-accent: #a8bac4;
+  --color-support: #d9e2e6;
+  --color-light: #f3f5f5;
+  --color-control-foreground: var(--color-black);
+}
+
+html[data-palette="summer"] {
+  --color-primary: #5c2e26;
+  --color-secondary: #9b4e35;
+  --color-tertiary: #c97a45;
+  --color-accent: #d9a35f;
+  --color-support: #e7c58d;
+  --color-light: #f4e4c7;
+  --color-control-foreground: var(--color-black);
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"][data-palette="grayscale"] {
+  --color-primary: #f5f5f5;
+  --color-secondary: #a3a3a3;
+  --color-tertiary: #737373;
+  --color-accent: #404040;
+  --color-light: #171717;
+  --color-control-foreground: var(--color-white);
+}
+
+html[data-theme="dark"][data-palette="archive"] {
+  --color-primary: #f6f4ef;
+  --color-secondary: #e8e6e1;
+  --color-tertiary: #b8b8b8;
+  --color-accent: #5e5e5e;
+  --color-support: #1c1c1c;
+  --color-light: #0a0a0a;
+  --color-control-foreground: var(--color-white);
+}
+
+html[data-theme="dark"][data-palette="winter"] {
+  --color-primary: #f3f5f5;
+  --color-secondary: #d9e2e6;
+  --color-tertiary: #a8bac4;
+  --color-accent: #6c8797;
+  --color-support: #29475c;
+  --color-light: #16222e;
+  --color-control-foreground: var(--color-white);
+}
+
+html[data-theme="dark"][data-palette="summer"] {
+  --color-primary: #f4e4c7;
+  --color-secondary: #e7c58d;
+  --color-tertiary: #d9a35f;
+  --color-accent: #c97a45;
+  --color-support: #9b4e35;
+  --color-light: #5c2e26;
+  --color-control-foreground: var(--color-white);
+}
+
+/* Swiper (Bridges gallery) pagination theming */
+.bridges-slider {
+  --swiper-pagination-color: var(--foreground);
+  --swiper-pagination-bullet-inactive-color: var(--muted);
+  --swiper-pagination-bullet-inactive-opacity: 0.5;
+  --swiper-pagination-bullet-size: 0.5rem;
+  --swiper-pagination-bullet-horizontal-gap: 0.375rem;
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    --swiper-pagination-color: var(--color-primary);
+  }
+}
+
+.bridges-slider-pagination .swiper-pagination-bullet {
+  cursor: pointer;
+  border-radius: 9999px;
+}
+
+.bridges-slider-pagination .swiper-pagination-bullet:focus-visible {
+  outline: 3px solid var(--border);
+  outline-offset: 3px;
+}
+
+/* Scrollbar hiding for horizontal scroll sections */
+.scroll-hide {
+  scrollbar-width: none;
+}
+
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* GSAP pinned section body lock — prevents horizontal overflow during
+   ScrollTrigger pin operations. Documented native-CSS exception. */
+.gsap-pin-active {
+  overflow-x: clip !important;
+}

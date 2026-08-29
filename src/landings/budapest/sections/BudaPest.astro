@@ -1,0 +1,134 @@
+---
+import { budaCastleImage, parliamentImage } from "../data/images"
+---
+
+<section
+  class="relative overflow-hidden bg-inverted py-section palette-surface-primary"
+  aria-labelledby="buda-pest-heading"
+>
+  <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="reveal mb-6 text-xs font-medium uppercase tracking-[0.2em] text-inverted-foreground/50"
+    >
+      Two cities
+    </p>
+
+    <h2
+      id="buda-pest-heading"
+      class="reveal max-w-heading font-display text-headline-1 font-bold leading-[1.05] text-inverted-foreground"
+    >
+      Buda / Pest
+    </h2>
+
+    <p
+      class="reveal mt-6 max-w-copy text-base leading-relaxed text-inverted-foreground/60 sm:text-lg"
+    >
+      Before 1873, they were separate cities. Buda, on the hills to the west —
+      royal, ancient, fortified. Pest, on the plains to the east — commercial,
+      cosmopolitan, expanding. The Danube ran between them like a sentence that
+      connected two paragraphs of the same story.
+    </p>
+
+    <!-- Split-screen Buda/Pest -->
+    <div class="mt-16 grid gap-8 sm:mt-20 lg:grid-cols-2 lg:gap-6">
+      <!-- Buda side -->
+      <div class="reveal">
+        <figure>
+          <div class="overflow-hidden rounded-sm">
+            <img
+              src={`${budaCastleImage.src}&w=900&auto=format&fit=crop&q=80`}
+              srcset={`${budaCastleImage.src}&w=500&auto=format&fit=crop&q=80 500w, ${budaCastleImage.src}&w=700&auto=format&fit=crop&q=80 700w, ${budaCastleImage.src}&w=900&auto=format&fit=crop&q=80 900w`}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 45vw"
+              alt={budaCastleImage.alt}
+              title={`Photo by ${budaCastleImage.author} on Unsplash`}
+              width={budaCastleImage.width}
+              height={budaCastleImage.height}
+              loading="lazy"
+              decoding="async"
+              class="photo-tone aspect-[3/4] w-full object-cover"
+            />
+          </div>
+          <figcaption class="mt-3 text-xs text-inverted-foreground/40">
+            Photo by <a
+              href={budaCastleImage.authorUrl}
+              class="underline hover:text-inverted-foreground/60"
+              rel="noopener">{budaCastleImage.author}</a
+            >
+            on <a
+              href={budaCastleImage.unsplashUrl}
+              class="underline hover:text-inverted-foreground/60"
+              rel="noopener">Unsplash</a
+            >
+          </figcaption>
+        </figure>
+        <h3
+          class="mt-6 font-display text-headline-2 font-bold text-inverted-foreground"
+        >
+          Buda
+        </h3>
+        <p
+          class="mt-3 max-w-md text-sm leading-relaxed text-inverted-foreground/50"
+        >
+          Hills, castle, cobblestone. The medieval fortress district, Gellert
+          Hill, and the winding paths of a city that remembers its
+          fortifications, its monarchs, and the view from above.
+        </p>
+      </div>
+
+      <!-- Pest side -->
+      <div class="reveal lg:mt-16">
+        <figure>
+          <div class="overflow-hidden rounded-sm">
+            <img
+              src={`${parliamentImage.src}&w=900&auto=format&fit=crop&q=80`}
+              srcset={`${parliamentImage.src}&w=500&auto=format&fit=crop&q=80 500w, ${parliamentImage.src}&w=700&auto=format&fit=crop&q=80 700w, ${parliamentImage.src}&w=900&auto=format&fit=crop&q=80 900w`}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 45vw"
+              alt={parliamentImage.alt}
+              title={`Photo by ${parliamentImage.author} on Unsplash`}
+              width={parliamentImage.width}
+              height={parliamentImage.height}
+              loading="lazy"
+              decoding="async"
+              class="photo-tone aspect-[3/4] w-full object-cover"
+            />
+          </div>
+          <figcaption class="mt-3 text-xs text-inverted-foreground/40">
+            Photo by <a
+              href={parliamentImage.authorUrl}
+              class="underline hover:text-inverted-foreground/60"
+              rel="noopener">{parliamentImage.author}</a
+            >
+            on <a
+              href={parliamentImage.unsplashUrl}
+              class="underline hover:text-inverted-foreground/60"
+              rel="noopener">Unsplash</a
+            >
+          </figcaption>
+        </figure>
+        <h3
+          class="mt-6 font-display text-headline-2 font-bold text-inverted-foreground"
+        >
+          Pest
+        </h3>
+        <p
+          class="mt-3 max-w-md text-sm leading-relaxed text-inverted-foreground/50"
+        >
+          Avenues, Parliament, cafes. The flat eastern bank where grand
+          boulevards radiate from the Danube, where the Opera House stands
+          between two centuries, and where conversations never stop.
+        </p>
+      </div>
+    </div>
+
+    <!-- Editorial quote -->
+    <blockquote
+      class="reveal mt-20 border-l-2 border-inverted-foreground/10 pl-6 sm:mt-28"
+    >
+      <p
+        class="font-display text-headline-3 font-bold italic leading-snug text-inverted-foreground/80"
+      >
+        "The Danube doesn't divide Budapest. It tells its story."
+      </p>
+    </blockquote>
+  </div>
+</section>

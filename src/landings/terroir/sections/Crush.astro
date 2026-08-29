@@ -1,0 +1,74 @@
+---
+// Terroir — Section 07: "Romper la piel"
+// Radical aesthetic shift. Dark background with wine-making process.
+
+interface Step {
+  title: string
+  description: string
+}
+
+const steps: Step[] = [
+  {
+    title: "Despalillado",
+    description:
+      "Separar la uva del raspón. Solo la baya entera pasa al siguiente paso.",
+  },
+  {
+    title: "Estrujado",
+    description:
+      "Romper la piel sin aplastar la semilla. Liberar el jugo sin amargor.",
+  },
+  {
+    title: "Maceracion",
+    description:
+      "El mosto reposa con las pieles. Color, taninos y aromas se extraen lentamente.",
+  },
+  {
+    title: "Fermentacion",
+    description:
+      "Las levaduras transforman el azucar en alcohol. La temperatura se controla al grado.",
+  },
+]
+---
+
+<section
+  class="relative overflow-hidden bg-inverted py-section palette-surface-primary"
+  aria-labelledby="crush-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Giant title -->
+    <div class="mb-20" data-fade-in>
+      <p
+        class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-inverted-foreground/50"
+      >
+        07 &mdash; Transformacion
+      </p>
+      <h2
+        id="crush-heading"
+        class="font-display text-figure font-extrabold uppercase leading-[0.82] text-inverted-foreground"
+      >
+        <span class="block">Romper</span>
+        <span class="block">la piel</span>
+      </h2>
+    </div>
+
+    <!-- Steps grid -->
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+      {
+        steps.map((step: Step, index: number) => (
+          <div class="reveal" data-fade-in>
+            <p class="font-mono text-sm text-inverted-foreground/30">
+              {String(index + 1).padStart(2, "0")}
+            </p>
+            <h3 class="mt-3 font-display text-headline-3 font-semibold uppercase tracking-wider text-inverted-foreground">
+              {step.title}
+            </h3>
+            <p class="mt-3 text-base leading-relaxed text-inverted-foreground/60">
+              {step.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

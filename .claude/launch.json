@@ -5,7 +5,8 @@
       "name": "landings-dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 4326
+      "port": 4326,
+      "autoPort": true
     }
   ]
 }

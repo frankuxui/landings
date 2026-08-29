@@ -1,0 +1,114 @@
+---
+// Terroir — Footer
+// Dark, minimal. Giant "TERROIR" with chapter navigation and photo credits.
+import { allImages } from "../data/images"
+import type { UnsplashImage } from "../data/images"
+
+interface FooterLink {
+  label: string
+  href: string
+}
+
+const chapters: FooterLink[] = [
+  { label: "Tierra", href: "#terroir" },
+  { label: "Vendimia", href: "#vendimia" },
+  { label: "Bodega", href: "#bodega" },
+  { label: "Regiones", href: "#regiones" },
+  { label: "Maridaje", href: "#maridaje" },
+  { label: "Historias", href: "#historias" },
+]
+---
+
+<footer
+  class="relative overflow-hidden bg-inverted pt-section pb-12"
+  role="contentinfo"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Giant footer title -->
+    <p
+      class="font-display text-[clamp(4rem,10vw,10rem)] uppercase leading-none tracking-wider text-inverted-foreground/[0.06]"
+      aria-hidden="true"
+    >
+      Terroir
+    </p>
+
+    <p
+      class="mt-8 max-w-md font-display text-lg text-inverted-foreground/50 italic"
+    >
+      Hecho por la tierra. Moldeado por las personas. Terminado por el tiempo.
+    </p>
+
+    <!-- Chapter navigation -->
+    <nav class="mt-12" aria-label="Navegacion por capitulos">
+      <p
+        class="mb-4 text-xs font-medium uppercase tracking-widest text-inverted-foreground/30"
+      >
+        Capitulos
+      </p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        {
+          chapters.map((chapter: FooterLink) => (
+            <li>
+              <a
+                href={chapter.href}
+                class="text-sm text-inverted-foreground/40 no-underline transition duration-200 hover:text-inverted-foreground/70 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+              >
+                {chapter.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <!-- Divider -->
+    <div class="my-12 h-px w-full bg-inverted-foreground/10" aria-hidden="true">
+    </div>
+
+    <!-- Photo credits -->
+    <div>
+      <p
+        class="mb-3 text-xs font-medium uppercase tracking-widest text-inverted-foreground/30"
+      >
+        Creditos fotograficos
+      </p>
+      <ul class="flex flex-col gap-1">
+        {
+          allImages.map((image: UnsplashImage) => (
+            <li class="text-xs text-inverted-foreground/30">
+              Foto de{" "}
+              <a
+                href={image.authorUrl}
+                rel="noopener"
+                class="underline hover:text-inverted-foreground/50"
+              >
+                {image.author}
+              </a>{" "}
+              en{" "}
+              <a
+                href={image.unsplashUrl}
+                rel="noopener"
+                class="underline hover:text-inverted-foreground/50"
+              >
+                Unsplash
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-12 flex flex-wrap items-center justify-between gap-4">
+      <p
+        class="font-display text-sm uppercase tracking-widest text-inverted-foreground/20"
+      >
+        Terroir
+      </p>
+      <p class="text-xs text-inverted-foreground/15">
+        Una demostracion de diseño. Sin afiliacion con ninguna bodega o
+        denominacion de origen.
+      </p>
+    </div>
+  </div>
+</footer>

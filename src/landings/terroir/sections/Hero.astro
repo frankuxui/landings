@@ -1,0 +1,89 @@
+---
+// Terroir — Hero: "El vino comienza bajo tierra"
+// Massive hero with dramatic vineyard image, diagonal clip-path, parallax.
+import { ArrowDownRight } from "@lucide/astro"
+import { heroImage } from "../data/images"
+---
+
+<section
+  id="home"
+  class="hero-diagonal relative flex min-h-svh items-end overflow-hidden bg-inverted"
+  aria-label="El vino comienza bajo tierra"
+>
+  <!-- Background image with parallax -->
+  <div class="absolute inset-0 z-0" data-hero-image>
+    <img
+      src={`${heroImage.src}&w=2000&auto=format&fit=crop&q=80`}
+      srcset={`${heroImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${heroImage.src}&w=1600&auto=format&fit=crop&q=80 1600w, ${heroImage.src}&w=2000&auto=format&fit=crop&q=80 2000w`}
+      sizes="100vw"
+      alt={heroImage.alt}
+      title={`Foto de ${heroImage.author} en Unsplash`}
+      width={heroImage.width}
+      height={heroImage.height}
+      loading="eager"
+      decoding="async"
+      class="photo-tone h-full w-full object-cover opacity-60"
+    />
+    <!-- Gradient overlay -->
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-inverted via-inverted/50 to-transparent"
+      aria-hidden="true"
+    >
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div
+    class="relative z-10 mx-auto w-full max-w-landing px-container-x pb-20 pt-40 sm:px-8 sm:pb-28 nav:pl-24 xl:px-14 xl:pb-36 xl:pl-28"
+  >
+    <!-- Subtitle line -->
+    <div
+      class="mb-6 flex items-center gap-4 text-xs font-medium uppercase tracking-[0.3em] text-inverted-foreground/50 sm:text-sm"
+      data-hero-subtitle
+    >
+      <span class="h-px w-10 bg-inverted-foreground/30" aria-hidden="true"
+      ></span>
+      <span>Suelo &middot; Clima &middot; Tiempo &middot; Manos humanas</span>
+    </div>
+
+    <!-- Title -->
+    <h1
+      class="max-w-hero-heading font-display text-headline-1 font-extrabold uppercase leading-[0.82] text-inverted-foreground"
+      data-hero-title
+    >
+      <span class="block font-medium">El vino</span>
+      <span class="block font-semibold italic">comienza</span>
+      <span class="block font-extrabold">bajo tierra</span>
+    </h1>
+
+    <a
+      href="#terroir"
+      class="group mt-10 inline-flex min-h-12 items-center gap-4 overflow-hidden rounded-sm bg-inverted-foreground px-5 py-3 text-sm font-extrabold uppercase tracking-[0.22em] text-inverted no-underline transition duration-500 ease-landing hover:-translate-y-1 hover:bg-inverted-foreground/85 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+    >
+      Explorar el viaje
+      <ArrowDownRight
+        class="size-5 transition duration-500 ease-landing group-hover:translate-x-1 group-hover:translate-y-1"
+        aria-hidden="true"
+        stroke-width="1.7"
+      />
+    </a>
+  </div>
+
+  <!-- Photo credit -->
+  <div
+    class="absolute bottom-3 right-4 z-10 text-[10px] text-inverted-foreground/40 sm:bottom-4 sm:right-8"
+  >
+    Foto de <a
+      href={heroImage.authorUrl}
+      rel="noopener"
+      class="text-inverted-foreground/50 underline hover:text-inverted-foreground/70"
+      >{heroImage.author}</a
+    >
+    en <a
+      href={heroImage.unsplashUrl}
+      rel="noopener"
+      class="text-inverted-foreground/50 underline hover:text-inverted-foreground/70"
+      >Unsplash</a
+    >
+  </div>
+</section>

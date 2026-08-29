@@ -1,0 +1,137 @@
+---
+// Terroir — Section 19: Voces alrededor de la mesa
+// Testimonial Swiper with full-screen quotes.
+import { ChevronLeft, ChevronRight } from "@lucide/astro"
+import { tableImage } from "../data/images"
+
+interface Testimonial {
+  quote: string
+  attribution: string
+}
+
+const testimonials: Testimonial[] = [
+  {
+    quote: "La botella era excelente. La conversacion la hizo inolvidable.",
+    attribution: "Una cena entre amigos, Rioja",
+  },
+  {
+    quote: "Hay vinos que saben a fruta. Otros saben al lugar del que vienen.",
+    attribution: "Un sumiller, despues de una cata a ciegas",
+  },
+  {
+    quote: "Llegamos para una cata. Nos quedamos hasta que cayo el sol.",
+    attribution: "Una tarde en el Priorat",
+  },
+  {
+    quote:
+      "No recuerdo la añada. Recuerdo perfectamente con quien la comparti.",
+    attribution: "Una celebracion familiar",
+  },
+]
+---
+
+<section
+  class="palette-surface-voices relative overflow-hidden bg-inverted py-section"
+  aria-labelledby="voices-heading"
+>
+  <!-- Background image -->
+  <div class="absolute inset-0 z-0 opacity-20">
+    <img
+      src={`${tableImage.src}&w=1600&auto=format&fit=crop&q=80`}
+      alt=""
+      title={`Foto de ${tableImage.author} en Unsplash`}
+      width={tableImage.width}
+      height={tableImage.height}
+      loading="lazy"
+      decoding="async"
+      class="photo-tone h-full w-full object-cover"
+      aria-hidden="true"
+    />
+  </div>
+
+  <div
+    class="relative z-10 mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14"
+  >
+    <!-- Section header -->
+    <div class="mb-12 flex items-end justify-between gap-4" data-fade-in>
+      <div>
+        <p
+          class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-inverted-foreground/50"
+        >
+          19 &mdash; Voces
+        </p>
+        <h2
+          id="voices-heading"
+          class="max-w-heading font-display text-headline-2 font-extrabold uppercase leading-[0.86] text-inverted-foreground"
+        >
+          Alrededor de la mesa
+        </h2>
+      </div>
+
+      <!-- Navigation buttons -->
+      <div class="hidden items-center gap-2 sm:flex">
+        <button
+          type="button"
+          class="voices-slider-prev inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-inverted-foreground/10 p-0 text-inverted-foreground transition duration-200 ease-landing hover:bg-inverted-foreground/20 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border disabled:cursor-default disabled:opacity-40"
+          aria-label="Testimonio anterior"
+        >
+          <ChevronLeft
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+        </button>
+        <button
+          type="button"
+          class="voices-slider-next inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-inverted-foreground/10 p-0 text-inverted-foreground transition duration-200 ease-landing hover:bg-inverted-foreground/20 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border disabled:cursor-default disabled:opacity-40"
+          aria-label="Siguiente testimonio"
+        >
+          <ChevronRight
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+        </button>
+      </div>
+    </div>
+
+    <!-- Swiper -->
+    <div class="voices-slider overflow-hidden">
+      <div class="swiper-wrapper">
+        {
+          testimonials.map((t: Testimonial) => (
+            <div class="swiper-slide">
+              <div class="flex min-h-64 flex-col justify-center py-8">
+                <blockquote class="font-display text-headline-1 font-bold leading-[0.9] text-inverted-foreground italic">
+                  &laquo;{t.quote}&raquo;
+                </blockquote>
+                <p class="mt-6 text-sm text-inverted-foreground/50">
+                  &mdash; {t.attribution}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="voices-slider-pagination mt-6 flex justify-center"></div>
+
+    <!-- Photo credit -->
+    <div class="mt-8 text-[10px] text-inverted-foreground/30">
+      Foto de <a
+        href={tableImage.authorUrl}
+        rel="noopener"
+        class="underline hover:text-inverted-foreground/50"
+        >{tableImage.author}</a
+      > en <a
+        href={tableImage.unsplashUrl}
+        rel="noopener"
+        class="underline hover:text-inverted-foreground/50">Unsplash</a
+      >
+    </div>
+  </div>
+</section>

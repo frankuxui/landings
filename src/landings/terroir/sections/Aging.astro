@@ -1,0 +1,123 @@
+---
+// Terroir — Section 12: Tiempo
+// Aging section. Minimal, black background. Single bottle scroll through years.
+import { bottleImage } from "../data/images"
+
+interface AgingStage {
+  years: string
+  label: string
+  description: string
+}
+
+const stages: AgingStage[] = [
+  {
+    years: "1",
+    label: "Joven",
+    description:
+      "Frutal, directo, vibrante. El vino expresa la uva y la añada sin intermediarios.",
+  },
+  {
+    years: "5",
+    label: "Crianza",
+    description:
+      "El roble ha dejado su marca. Vainilla, especias, taninos integrados. El vino gana profundidad.",
+  },
+  {
+    years: "10",
+    label: "Reserva",
+    description:
+      "Complejidad terciaria. Notas de cuero, tabaco, trufa. Los taninos se han suavizado.",
+  },
+  {
+    years: "25",
+    label: "Gran Reserva",
+    description:
+      "Solo las mejores añadas llegan aqui. El vino ha alcanzado una expresion irrepetible del lugar y el tiempo.",
+  },
+]
+---
+
+<section
+  id="tiempo"
+  class="relative overflow-hidden bg-inverted py-section palette-surface-primary"
+  aria-labelledby="aging-heading"
+  data-tiempo-section
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- Bottle image -->
+      <div class="relative flex items-center justify-center" data-tiempo-bottle>
+        <div class="mx-auto w-48 sm:w-56 lg:w-64">
+          <img
+            src={`${bottleImage.src}&w=600&auto=format&fit=crop&q=80`}
+            alt={bottleImage.alt}
+            width={bottleImage.width}
+            height={bottleImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone h-full w-full object-contain"
+          />
+        </div>
+        <div
+          class="absolute bottom-0 left-0 text-[10px] text-inverted-foreground/40"
+        >
+          Foto de <a
+            href={bottleImage.authorUrl}
+            rel="noopener"
+            class="underline hover:text-inverted-foreground/60"
+            >{bottleImage.author}</a
+          > en <a
+            href={bottleImage.unsplashUrl}
+            rel="noopener"
+            class="underline hover:text-inverted-foreground/60">Unsplash</a
+          >
+        </div>
+      </div>
+
+      <!-- Aging stages -->
+      <div>
+        <div class="mb-10">
+          <p
+            class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-inverted-foreground/50"
+          >
+            12 &mdash; Tiempo
+          </p>
+          <h2
+            id="aging-heading"
+            class="max-w-heading font-display text-headline-1 font-extrabold uppercase leading-[0.82] text-inverted-foreground"
+          >
+            El tiempo no pasa. Transforma.
+          </h2>
+        </div>
+
+        <div class="flex flex-col gap-10">
+          {
+            stages.map((stage: AgingStage) => (
+              <div
+                class="reveal border-t border-inverted-foreground/10 pt-6"
+                data-fade-in
+              >
+                <div class="flex items-baseline gap-3">
+                  <span class="font-display text-figure font-light text-inverted-foreground/20">
+                    {stage.years}
+                  </span>
+                  <div>
+                    <p class="text-xs font-medium uppercase tracking-widest text-inverted-foreground/40">
+                      {stage.years === "1" ? "Año" : "Años"}
+                    </p>
+                    <h3 class="mt-1 font-display text-headline-3 font-semibold text-inverted-foreground">
+                      {stage.label}
+                    </h3>
+                  </div>
+                </div>
+                <p class="mt-3 max-w-copy text-base leading-relaxed text-inverted-foreground/60">
+                  {stage.description}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

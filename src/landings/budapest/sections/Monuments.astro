@@ -1,0 +1,276 @@
+---
+import {
+  bastionImage,
+  matthiasChurchImage,
+  heroesSquareImage,
+  basilicaImage,
+  operaImage,
+  bastionDayImage,
+} from "../data/images"
+---
+
+<section
+  id="monuments"
+  class="relative bg-background-alt py-section palette-surface-light"
+  aria-labelledby="monuments-heading"
+>
+  <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
+    <p
+      class="reveal mb-6 text-xs font-medium uppercase tracking-[0.2em] text-muted"
+    >
+      Monumental Budapest
+    </p>
+
+    <h2
+      id="monuments-heading"
+      class="reveal max-w-heading font-display text-headline-1 font-bold leading-[1.05] text-foreground"
+    >
+      Stone, Light, Memory
+    </h2>
+
+    <p
+      class="reveal mt-6 max-w-copy text-base leading-relaxed text-muted sm:text-lg"
+    >
+      Budapest's architecture is not a single style but a conversation between
+      centuries — Romanesque foundations, Gothic spires, Baroque palaces,
+      Neo-Renaissance facades, and Art Nouveau details layered one upon another.
+    </p>
+
+    <!-- Parliament — fullscreen image -->
+    <figure class="reveal mt-16 sm:mt-20">
+      <div class="overflow-hidden rounded-sm">
+        <img
+          src={`${bastionDayImage.src}&w=1600&auto=format&fit=crop&q=80`}
+          srcset={`${bastionDayImage.src}&w=800&auto=format&fit=crop&q=80 800w, ${bastionDayImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${bastionDayImage.src}&w=1600&auto=format&fit=crop&q=80 1600w`}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+          alt={bastionDayImage.alt}
+          title={`Photo by ${bastionDayImage.author} on Unsplash`}
+          width={bastionDayImage.width}
+          height={bastionDayImage.height}
+          loading="lazy"
+          decoding="async"
+          class="photo-tone aspect-[16/9] w-full object-cover"
+        />
+      </div>
+      <figcaption class="mt-3 text-xs text-muted">
+        Photo by <a
+          href={bastionDayImage.authorUrl}
+          class="underline hover:text-foreground"
+          rel="noopener">{bastionDayImage.author}</a
+        >
+        on <a
+          href={bastionDayImage.unsplashUrl}
+          class="underline hover:text-foreground"
+          rel="noopener">Unsplash</a
+        >
+      </figcaption>
+    </figure>
+
+    <!-- Fisherman's Bastion + Matthias Church — two-column -->
+    <div class="mt-20 grid gap-8 sm:mt-28 lg:grid-cols-2 lg:gap-10">
+      <!-- Fisherman's Bastion -->
+      <div class="reveal">
+        <figure>
+          <div class="overflow-hidden rounded-sm">
+            <img
+              src={`${bastionImage.src}&w=800&auto=format&fit=crop&q=80`}
+              srcset={`${bastionImage.src}&w=400&auto=format&fit=crop&q=80 400w, ${bastionImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${bastionImage.src}&w=800&auto=format&fit=crop&q=80 800w`}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 500px"
+              alt={bastionImage.alt}
+              title={`Photo by ${bastionImage.author} on Unsplash`}
+              width={bastionImage.width}
+              height={bastionImage.height}
+              loading="lazy"
+              decoding="async"
+              class="photo-tone aspect-[4/3] w-full object-cover"
+            />
+          </div>
+          <figcaption class="mt-3 text-xs text-muted">
+            Photo by <a
+              href={bastionImage.authorUrl}
+              class="underline hover:text-foreground"
+              rel="noopener">{bastionImage.author}</a
+            >
+            on <a
+              href={bastionImage.unsplashUrl}
+              class="underline hover:text-foreground"
+              rel="noopener">Unsplash</a
+            >
+          </figcaption>
+        </figure>
+        <h3 class="mt-5 font-display text-headline-3 font-bold text-foreground">
+          Fisherman's Bastion
+        </h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">
+          Built between 1895 and 1902 to the designs of Frigyes Schulek, the
+          Bastion's seven turrets represent the seven Magyar tribes that settled
+          in the Carpathian Basin in 895. A Neo-Romanesque terrace offering the
+          city's most celebrated panorama of Parliament and the Danube.
+        </p>
+      </div>
+
+      <!-- Matthias Church -->
+      <div class="reveal lg:mt-12">
+        <figure>
+          <div class="overflow-hidden rounded-sm">
+            <img
+              src={`${matthiasChurchImage.src}&w=800&auto=format&fit=crop&q=80`}
+              srcset={`${matthiasChurchImage.src}&w=400&auto=format&fit=crop&q=80 400w, ${matthiasChurchImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${matthiasChurchImage.src}&w=800&auto=format&fit=crop&q=80 800w`}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 45vw, 500px"
+              alt={matthiasChurchImage.alt}
+              title={`Photo by ${matthiasChurchImage.author} on Unsplash`}
+              width={matthiasChurchImage.width}
+              height={matthiasChurchImage.height}
+              loading="lazy"
+              decoding="async"
+              class="photo-tone aspect-[4/3] w-full object-cover"
+            />
+          </div>
+          <figcaption class="mt-3 text-xs text-muted">
+            Photo by <a
+              href={matthiasChurchImage.authorUrl}
+              class="underline hover:text-foreground"
+              rel="noopener">{matthiasChurchImage.author}</a
+            >
+            on <a
+              href={matthiasChurchImage.unsplashUrl}
+              class="underline hover:text-foreground"
+              rel="noopener">Unsplash</a
+            >
+          </figcaption>
+        </figure>
+        <h3 class="mt-5 font-display text-headline-3 font-bold text-foreground">
+          Matthias Church
+        </h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">
+          Officially the Church of Our Lady, its foundations date to 1255. Named
+          after King Matthias Corvinus who held both his weddings here in the
+          15th century. The colorful Zsolnay ceramic tiles on its roof were
+          added during Frigyes Schulek's 19th-century restoration.
+        </p>
+      </div>
+    </div>
+
+    <!-- Heroes' Square — wide + overlaid text -->
+    <div class="reveal relative mt-20 sm:mt-28">
+      <figure>
+        <div class="overflow-hidden rounded-sm">
+          <img
+            src={`${heroesSquareImage.src}&w=1600&auto=format&fit=crop&q=80`}
+            srcset={`${heroesSquareImage.src}&w=800&auto=format&fit=crop&q=80 800w, ${heroesSquareImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${heroesSquareImage.src}&w=1600&auto=format&fit=crop&q=80 1600w`}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+            alt={heroesSquareImage.alt}
+            title={`Photo by ${heroesSquareImage.author} on Unsplash`}
+            width={heroesSquareImage.width}
+            height={heroesSquareImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone aspect-[21/9] w-full object-cover"
+          />
+        </div>
+        <figcaption class="mt-3 text-xs text-muted">
+          Photo by <a
+            href={heroesSquareImage.authorUrl}
+            class="underline hover:text-foreground"
+            rel="noopener">{heroesSquareImage.author}</a
+          >
+          on <a
+            href={heroesSquareImage.unsplashUrl}
+            class="underline hover:text-foreground"
+            rel="noopener">Unsplash</a
+          >
+        </figcaption>
+      </figure>
+      <div class="mt-5">
+        <h3 class="font-display text-headline-2 font-bold text-foreground">
+          Heroes' Square
+        </h3>
+        <p class="mt-2 max-w-lg text-sm leading-relaxed text-muted">
+          Built for Hungary's Millennial celebrations in 1896, the square
+          features the Millennium Monument — a 36-meter column topped by the
+          Archangel Gabriel, flanked by colonnades bearing statues of Hungary's
+          most important historical leaders. A UNESCO World Heritage Site since
+          2002.
+        </p>
+      </div>
+    </div>
+
+    <!-- Basilica + Opera — two-column -->
+    <div class="mt-20 grid gap-8 sm:mt-28 lg:grid-cols-5 lg:gap-12">
+      <figure class="reveal lg:col-span-2">
+        <div class="overflow-hidden rounded-sm">
+          <img
+            src={`${basilicaImage.src}&w=800&auto=format&fit=crop&q=80`}
+            srcset={`${basilicaImage.src}&w=400&auto=format&fit=crop&q=80 400w, ${basilicaImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${basilicaImage.src}&w=800&auto=format&fit=crop&q=80 800w`}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 40vw, 400px"
+            alt={basilicaImage.alt}
+            title={`Photo by ${basilicaImage.author} on Unsplash`}
+            width={basilicaImage.width}
+            height={basilicaImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone aspect-square w-full object-cover"
+          />
+        </div>
+        <figcaption class="mt-3 text-xs text-muted">
+          Photo by <a
+            href={basilicaImage.authorUrl}
+            class="underline hover:text-foreground"
+            rel="noopener">{basilicaImage.author}</a
+          >
+          on <a
+            href={basilicaImage.unsplashUrl}
+            class="underline hover:text-foreground"
+            rel="noopener">Unsplash</a
+          >
+        </figcaption>
+        <h3 class="mt-5 font-display text-headline-3 font-bold text-foreground">
+          St. Stephen's Basilica
+        </h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">
+          The largest church in Budapest, completed in 1905 after 54 years of
+          construction. Its dome, at 96 meters, matches Parliament's height
+          exactly — by law, no building in Budapest may exceed this.
+        </p>
+      </figure>
+
+      <figure class="reveal lg:col-span-3">
+        <div class="overflow-hidden rounded-sm">
+          <img
+            src={`${operaImage.src}&w=1200&auto=format&fit=crop&q=80`}
+            srcset={`${operaImage.src}&w=600&auto=format&fit=crop&q=80 600w, ${operaImage.src}&w=900&auto=format&fit=crop&q=80 900w, ${operaImage.src}&w=1200&auto=format&fit=crop&q=80 1200w`}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 60vw, 700px"
+            alt={operaImage.alt}
+            title={`Photo by ${operaImage.author} on Unsplash`}
+            width={operaImage.width}
+            height={operaImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone aspect-[4/3] w-full object-cover"
+          />
+        </div>
+        <figcaption class="mt-3 text-xs text-muted">
+          Photo by <a
+            href={operaImage.authorUrl}
+            class="underline hover:text-foreground"
+            rel="noopener">{operaImage.author}</a
+          >
+          on <a
+            href={operaImage.unsplashUrl}
+            class="underline hover:text-foreground"
+            rel="noopener">Unsplash</a
+          >
+        </figcaption>
+        <h3 class="mt-5 font-display text-headline-3 font-bold text-foreground">
+          Hungarian State Opera
+        </h3>
+        <p class="mt-2 max-w-lg text-sm leading-relaxed text-muted">
+          Designed by Miklos Ybl and opened in 1884, the Opera House on Andrassy
+          Avenue is considered one of the most beautiful in Europe. Emperor
+          Franz Joseph I attended the opening but stipulated that it must not
+          outshine the Vienna Opera in size.
+        </p>
+      </figure>
+    </div>
+  </div>
+</section>

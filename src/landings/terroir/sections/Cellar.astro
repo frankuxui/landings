@@ -1,0 +1,77 @@
+---
+// Terroir — Section 09: La Bodega — "Hacia la oscuridad"
+// Full transition to black. Barrel rows in perspective, light increases on scroll.
+import { cellarImage } from "../data/images"
+---
+
+<section
+  id="bodega"
+  class="relative min-h-svh overflow-hidden bg-inverted"
+  aria-labelledby="cellar-heading"
+  data-bodega-section
+>
+  <!-- Full background image -->
+  <div class="absolute inset-0 z-0" data-bodega-image>
+    <img
+      src={`${cellarImage.src}&w=2000&auto=format&fit=crop&q=80`}
+      srcset={`${cellarImage.src}&w=1200&auto=format&fit=crop&q=80 1200w, ${cellarImage.src}&w=1600&auto=format&fit=crop&q=80 1600w, ${cellarImage.src}&w=2000&auto=format&fit=crop&q=80 2000w`}
+      sizes="100vw"
+      alt={cellarImage.alt}
+      width={cellarImage.width}
+      height={cellarImage.height}
+      loading="lazy"
+      decoding="async"
+      class="photo-tone h-full w-full object-cover opacity-40"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-inverted via-inverted/60 to-inverted/30"
+      aria-hidden="true"
+    >
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex min-h-svh items-end">
+    <div
+      class="mx-auto w-full max-w-landing px-container-x pb-20 pt-40 sm:px-8 sm:pb-32 xl:px-14"
+      data-bodega-title
+    >
+      <p
+        class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-inverted-foreground/50"
+      >
+        09 &mdash; La bodega
+      </p>
+      <h2
+        id="cellar-heading"
+        class="font-display text-figure font-extrabold uppercase leading-[0.82] text-inverted-foreground"
+      >
+        <span class="block">Aqui</span>
+        <span class="block">comienza</span>
+        <span class="block">el tiempo</span>
+      </h2>
+      <p
+        class="mt-6 max-w-md text-lg leading-relaxed text-inverted-foreground/60"
+      >
+        La bodega es silencio, oscuridad y paciencia. El vino entra joven e
+        inquieto. Sale transformado por meses o años de reposo.
+      </p>
+    </div>
+  </div>
+
+  <!-- Photo credit -->
+  <div
+    class="absolute bottom-3 right-4 z-10 text-[10px] text-inverted-foreground/40 sm:bottom-4 sm:right-8"
+  >
+    Foto de <a
+      href={cellarImage.authorUrl}
+      rel="noopener"
+      class="text-inverted-foreground/50 underline hover:text-inverted-foreground/70"
+      >{cellarImage.author}</a
+    > en <a
+      href={cellarImage.unsplashUrl}
+      rel="noopener"
+      class="text-inverted-foreground/50 underline hover:text-inverted-foreground/70"
+      >Unsplash</a
+    >
+  </div>
+</section>

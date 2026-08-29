@@ -1,0 +1,153 @@
+---
+// Terroir — Section 06: La Uva
+// Near-scientific section on grape varieties.
+import { grapesImage } from "../data/images"
+
+interface Variety {
+  name: string
+  acidity: string
+  body: string
+  fruit: string
+  tannin: string
+  regions: string
+}
+
+const varieties: Variety[] = [
+  {
+    name: "Tempranillo",
+    acidity: "Media",
+    body: "Medio-alto",
+    fruit: "Cereza, ciruela",
+    tannin: "Medio-alto",
+    regions: "Rioja, Ribera del Duero, Toro",
+  },
+  {
+    name: "Garnacha",
+    acidity: "Media-baja",
+    body: "Medio",
+    fruit: "Fresa, frambuesa",
+    tannin: "Medio-bajo",
+    regions: "Priorat, Campo de Borja, Gredos",
+  },
+  {
+    name: "Graciano",
+    acidity: "Alta",
+    body: "Medio",
+    fruit: "Mora, arándano",
+    tannin: "Alto",
+    regions: "Rioja, Navarra",
+  },
+  {
+    name: "Cariñena",
+    acidity: "Alta",
+    body: "Alto",
+    fruit: "Ciruela negra",
+    tannin: "Alto",
+    regions: "Priorat, Terra Alta, Cariñena",
+  },
+  {
+    name: "Palomino",
+    acidity: "Alta",
+    body: "Ligero",
+    fruit: "Manzana verde, almendra",
+    tannin: "Bajo",
+    regions: "Jerez, Sanlucar de Barrameda",
+  },
+]
+---
+
+<section
+  class="relative overflow-hidden bg-background py-section"
+  aria-labelledby="grape-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- Image column -->
+      <div class="relative lg:sticky lg:top-24 lg:self-start" data-fade-in>
+        <div class="aspect-[3/4] overflow-hidden rounded-sm">
+          <img
+            src={`${grapesImage.src}&w=800&auto=format&fit=crop&q=80`}
+            alt={grapesImage.alt}
+            width={grapesImage.width}
+            height={grapesImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone h-full w-full object-cover"
+          />
+        </div>
+        <div class="mt-2 text-[10px] text-muted/60">
+          Foto de <a
+            href={grapesImage.authorUrl}
+            rel="noopener"
+            class="underline hover:text-muted">{grapesImage.author}</a
+          > en <a
+            href={grapesImage.unsplashUrl}
+            rel="noopener"
+            class="underline hover:text-muted">Unsplash</a
+          >
+        </div>
+      </div>
+
+      <!-- Varieties list -->
+      <div>
+        <div class="mb-10">
+          <p
+            class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-muted"
+          >
+            06 &mdash; La uva
+          </p>
+          <h2
+            id="grape-heading"
+            class="max-w-heading font-display text-headline-2 font-extrabold uppercase leading-[0.86] text-foreground"
+          >
+            Cada variedad, un caracter
+          </h2>
+        </div>
+
+        <div class="flex flex-col gap-8">
+          {
+            varieties.map((v: Variety) => (
+              <div class="reveal border-t border-border/20 pt-6" data-fade-in>
+                <h3 class="font-display text-headline-3 font-semibold uppercase tracking-wider text-foreground">
+                  {v.name}
+                </h3>
+                <div class="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 text-sm sm:grid-cols-3">
+                  <div>
+                    <p class="text-xs uppercase tracking-widest text-muted/60">
+                      Acidez
+                    </p>
+                    <p class="mt-1 text-foreground">{v.acidity}</p>
+                  </div>
+                  <div>
+                    <p class="text-xs uppercase tracking-widest text-muted/60">
+                      Cuerpo
+                    </p>
+                    <p class="mt-1 text-foreground">{v.body}</p>
+                  </div>
+                  <div>
+                    <p class="text-xs uppercase tracking-widest text-muted/60">
+                      Fruta
+                    </p>
+                    <p class="mt-1 text-foreground">{v.fruit}</p>
+                  </div>
+                  <div>
+                    <p class="text-xs uppercase tracking-widest text-muted/60">
+                      Tanino
+                    </p>
+                    <p class="mt-1 text-foreground">{v.tannin}</p>
+                  </div>
+                  <div class="col-span-2">
+                    <p class="text-xs uppercase tracking-widest text-muted/60">
+                      Regiones
+                    </p>
+                    <p class="mt-1 text-foreground">{v.regions}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

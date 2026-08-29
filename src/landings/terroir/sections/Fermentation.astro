@@ -1,0 +1,112 @@
+---
+// Terroir — Section 08: Fermentacion — "El vino esta vivo"
+// Experimental section with data points about the fermentation process.
+import { pouringImage } from "../data/images"
+
+interface DataPoint {
+  label: string
+  value: string
+  detail: string
+}
+
+const dataPoints: DataPoint[] = [
+  {
+    label: "Levadura",
+    value: "Saccharomyces",
+    detail: "Microorganismos que convierten azucar en alcohol y CO2",
+  },
+  {
+    label: "Azucar",
+    value: "200-250 g/L",
+    detail: "Concentracion en el mosto antes de fermentar",
+  },
+  {
+    label: "Alcohol",
+    value: "12-15%",
+    detail: "Grado resultante tras la fermentacion completa",
+  },
+  {
+    label: "Temperatura",
+    value: "26-30 °C",
+    detail: "Rango optimo para tintos durante la fermentacion",
+  },
+]
+---
+
+<section
+  class="relative overflow-hidden bg-background-alt py-section"
+  aria-labelledby="fermentation-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- Text content -->
+      <div>
+        <div class="mb-10" data-fade-in>
+          <p
+            class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-muted"
+          >
+            08 &mdash; Fermentacion
+          </p>
+          <h2
+            id="fermentation-heading"
+            class="font-display text-headline-2 font-extrabold uppercase leading-[0.86] text-foreground"
+          >
+            <span class="block">El vino</span>
+            <span class="block">esta vivo</span>
+          </h2>
+          <p class="mt-6 max-w-copy text-lg leading-relaxed text-muted">
+            La fermentacion no es un proceso industrial. Es un acto biologico.
+            Millones de levaduras transforman el azucar de la uva en alcohol,
+            liberando aromas, calor y CO2. El bodeguero no fabrica el vino: lo
+            acompaña.
+          </p>
+        </div>
+
+        <!-- Data points -->
+        <div class="grid grid-cols-2 gap-6">
+          {
+            dataPoints.map((dp: DataPoint) => (
+              <div class="reveal border-t border-border/20 pt-4" data-fade-in>
+                <p class="text-xs font-medium uppercase tracking-widest text-muted/60">
+                  {dp.label}
+                </p>
+                <p class="mt-2 font-display text-headline-3 font-semibold text-foreground">
+                  {dp.value}
+                </p>
+                <p class="mt-1 text-xs leading-relaxed text-muted">
+                  {dp.detail}
+                </p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div class="relative lg:sticky lg:top-24 lg:self-start" data-fade-in>
+        <div class="aspect-[3/4] overflow-hidden rounded-sm">
+          <img
+            src={`${pouringImage.src}&w=800&auto=format&fit=crop&q=80`}
+            alt={pouringImage.alt}
+            width={pouringImage.width}
+            height={pouringImage.height}
+            loading="lazy"
+            decoding="async"
+            class="photo-tone h-full w-full object-cover"
+          />
+        </div>
+        <div class="mt-2 text-[10px] text-muted/60">
+          Foto de <a
+            href={pouringImage.authorUrl}
+            rel="noopener"
+            class="underline hover:text-muted">{pouringImage.author}</a
+          > en <a
+            href={pouringImage.unsplashUrl}
+            rel="noopener"
+            class="underline hover:text-muted">Unsplash</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

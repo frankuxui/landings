@@ -1,0 +1,134 @@
+---
+// Terroir — Section 15: Bodegas — "Arquitectura para el vino"
+// Asymmetric architectural composition: one deep cellar and two contrasting spaces.
+import { barrelsImage, cellarImage, wineryImage } from "../data/images"
+import type { UnsplashImage } from "../data/images"
+
+interface Winery {
+  title: string
+  description: string
+  note: string
+  image: UnsplashImage
+}
+
+const wineries: Winery[] = [
+  {
+    title: "La bodega subterránea",
+    description:
+      "Excavada en la roca. Temperatura constante, humedad natural y una oscuridad que protege el vino del mundo exterior.",
+    note: "Tierra / silencio / profundidad",
+    image: cellarImage,
+  },
+  {
+    title: "La sala de crianza",
+    description:
+      "La arquitectura se mide aquí en pasillos, respiración y distancia. Cada barrica necesita aire, calma y continuidad.",
+    note: "Roble / penumbra / ritmo",
+    image: barrelsImage,
+  },
+  {
+    title: "La bodega contemporánea",
+    description:
+      "Grandes voladizos, gravedad y luz controlada. El edificio se abre al viñedo sin competir con el paisaje que lo origina.",
+    note: "Paisaje / materia / precisión",
+    image: wineryImage,
+  },
+]
+---
+
+<section
+  class="wineries-after-priorat relative overflow-hidden bg-background-alt py-section palette-surface-light"
+  aria-labelledby="wineries-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="mb-14 grid gap-8 lg:grid-cols-12 lg:items-end" data-fade-in>
+      <div class="lg:col-span-8">
+        <p
+          class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-muted"
+        >
+          15 &mdash; Bodegas
+        </p>
+        <h2
+          id="wineries-heading"
+          class="max-w-heading font-display text-headline-2 font-extrabold uppercase leading-[0.86] text-foreground"
+        >
+          Arquitectura para el vino
+        </h2>
+      </div>
+      <p class="max-w-copy text-lg leading-relaxed text-muted lg:col-span-4">
+        Una bodega no es un contenedor. Es una máquina lenta para ordenar la
+        temperatura, la sombra, el movimiento y el tiempo.
+      </p>
+    </div>
+
+    <div class="grid gap-10 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-14">
+      {
+        wineries.map((winery: Winery, index: number) => (
+          <article
+            class:list={[
+              "reveal min-w-0",
+              index === 0 && "lg:col-span-7 lg:row-span-2",
+              index !== 0 && "lg:col-span-5",
+            ]}
+            data-fade-in
+          >
+            <figure class="photo-editorial-hover">
+              <div
+                class:list={[
+                  "overflow-hidden bg-placeholder",
+                  index === 0 ? "aspect-[4/3] lg:aspect-[5/4]" : "aspect-video",
+                ]}
+              >
+                <img
+                  src={`${winery.image.src}&w=${index === 0 ? "1400" : "1000"}&auto=format&fit=crop&crop=entropy&q=80`}
+                  alt={winery.image.alt}
+                  title={`Foto de ${winery.image.author} en Unsplash`}
+                  width={winery.image.width}
+                  height={winery.image.height}
+                  loading="lazy"
+                  decoding="async"
+                  class="photo-tone h-full w-full object-cover"
+                />
+              </div>
+              <figcaption class="mt-2 text-xs text-muted/60">
+                Foto de{" "}
+                <a
+                  href={winery.image.authorUrl}
+                  rel="noopener"
+                  class="underline hover:text-muted"
+                >
+                  {winery.image.author}
+                </a>{" "}
+                en{" "}
+                <a
+                  href={winery.image.unsplashUrl}
+                  rel="noopener"
+                  class="underline hover:text-muted"
+                >
+                  Unsplash
+                </a>
+              </figcaption>
+            </figure>
+
+            <div class="mt-6 flex gap-5">
+              <p class="w-12 shrink-0 font-display text-3xl font-extrabold text-foreground/20">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-widest text-muted/60">
+                  {winery.note}
+                </p>
+                <h3 class="mt-3 font-display text-headline-3 font-extrabold leading-[0.95] text-foreground">
+                  {winery.title}
+                </h3>
+                <p class="mt-4 max-w-copy leading-relaxed text-muted">
+                  {winery.description}
+                </p>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

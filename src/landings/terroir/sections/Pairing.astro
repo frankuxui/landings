@@ -1,0 +1,170 @@
+---
+// Terroir — Section 16: Maridaje — "El vino nunca bebe solo"
+// Gastronomic pairings in a horizontal Swiper.
+import { ChevronLeft, ChevronRight } from "@lucide/astro"
+import { foodImage, cheeseImage } from "../data/images"
+
+interface PairingItem {
+  wine: string
+  foods: string
+  note: string
+}
+
+const pairings: PairingItem[] = [
+  {
+    wine: "Tempranillo",
+    foods: "Cordero asado, manchego curado, setas",
+    note: "La fruta roja y los taninos del Tempranillo encuentran equilibrio con la grasa del cordero y la intensidad del queso curado.",
+  },
+  {
+    wine: "Garnacha",
+    foods: "Verduras a la brasa, pato, embutidos curados",
+    note: "La Garnacha, suave y frutal, acompaña sin competir. Su baja acidez permite combinaciones amplias.",
+  },
+  {
+    wine: "Rioja Reserva",
+    foods: "Carne cocinada lentamente, quesos curados",
+    note: "La complejidad de un Reserva — vainilla, cuero, fruta evolucionada — pide platos con profundidad y tiempo de coccion.",
+  },
+  {
+    wine: "Fino",
+    foods: "Aceitunas, marisco, jamon iberico",
+    note: "Seco, salino, con notas de levadura. El Fino de Jerez es el compañero natural de la cocina de barra.",
+  },
+  {
+    wine: "Pedro Ximenez",
+    foods: "Chocolate, queso azul, postres",
+    note: "Dulzura concentrada, pasas, higos, melaza. Un PX desafia la regla de que el postre debe ser mas dulce que el vino.",
+  },
+]
+---
+
+<section
+  id="maridaje"
+  class="relative overflow-hidden bg-background py-section"
+  aria-labelledby="pairing-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Section header -->
+    <div class="mb-12 flex items-end justify-between gap-4" data-fade-in>
+      <div>
+        <p
+          class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-muted"
+        >
+          16 &mdash; Maridaje
+        </p>
+        <h2
+          id="pairing-heading"
+          class="font-display text-headline-2 font-extrabold uppercase leading-[0.86] text-foreground"
+        >
+          <span class="block">El vino</span>
+          <span class="block">nunca bebe solo</span>
+        </h2>
+      </div>
+
+      <!-- Navigation buttons -->
+      <div class="hidden items-center gap-2 sm:flex">
+        <button
+          type="button"
+          class="pairing-slider-prev inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-control p-0 text-foreground transition duration-200 ease-landing hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border disabled:cursor-default disabled:opacity-40"
+          aria-label="Maridaje anterior"
+        >
+          <ChevronLeft
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+        </button>
+        <button
+          type="button"
+          class="pairing-slider-next inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-control p-0 text-foreground transition duration-200 ease-landing hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border disabled:cursor-default disabled:opacity-40"
+          aria-label="Siguiente maridaje"
+        >
+          <ChevronRight
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+        </button>
+      </div>
+    </div>
+
+    <!-- Food images -->
+    <div class="mb-12 grid grid-cols-2 gap-4 lg:gap-6" data-fade-in>
+      <div class="aspect-[16/9] overflow-hidden rounded-sm">
+        <img
+          src={`${foodImage.src}&w=800&auto=format&fit=crop&q=80`}
+          alt={foodImage.alt}
+          width={foodImage.width}
+          height={foodImage.height}
+          loading="lazy"
+          decoding="async"
+          class="photo-tone h-full w-full object-cover"
+        />
+      </div>
+      <div class="aspect-[16/9] overflow-hidden rounded-sm">
+        <img
+          src={`${cheeseImage.src}&w=800&auto=format&fit=crop&q=80`}
+          alt={cheeseImage.alt}
+          width={cheeseImage.width}
+          height={cheeseImage.height}
+          loading="lazy"
+          decoding="async"
+          class="photo-tone h-full w-full object-cover"
+        />
+      </div>
+      <div class="col-span-2 flex gap-4 text-[10px] text-muted/60">
+        <span>
+          Foto de <a
+            href={foodImage.authorUrl}
+            rel="noopener"
+            class="underline hover:text-muted">{foodImage.author}</a
+          > en <a
+            href={foodImage.unsplashUrl}
+            rel="noopener"
+            class="underline hover:text-muted">Unsplash</a
+          >
+        </span>
+        <span>
+          Foto de <a
+            href={cheeseImage.authorUrl}
+            rel="noopener"
+            class="underline hover:text-muted">{cheeseImage.author}</a
+          > en <a
+            href={cheeseImage.unsplashUrl}
+            rel="noopener"
+            class="underline hover:text-muted">Unsplash</a
+          >
+        </span>
+      </div>
+    </div>
+
+    <!-- Swiper slider -->
+    <div class="pairing-slider overflow-hidden">
+      <div class="swiper-wrapper">
+        {
+          pairings.map((pairing: PairingItem) => (
+            <div class="swiper-slide">
+              <div class="rounded-sm bg-surface-strong p-6 sm:p-8">
+                <h3 class="font-display text-headline-3 font-semibold uppercase tracking-wider text-foreground">
+                  {pairing.wine}
+                </h3>
+                <p class="mt-3 text-base font-medium text-foreground">
+                  {pairing.foods}
+                </p>
+                <p class="mt-3 text-base leading-relaxed text-muted">
+                  {pairing.note}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pairing-slider-pagination mt-6 flex justify-center"></div>
+  </div>
+</section>

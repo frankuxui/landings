@@ -1,0 +1,210 @@
+---
+// Terroir — Section 13: Botellas de otro tiempo
+// Compact editorial Swiper with a continuous progress indicator.
+import { ChevronLeft, ChevronRight } from "@lucide/astro"
+import { archiveBottlesImage } from "../data/images"
+
+interface OldWine {
+  name: string
+  year: string
+  region: string
+  variety: string
+  winery: string
+  aging: string
+}
+
+const wines: OldWine[] = [
+  {
+    name: "Reserva 1964",
+    year: "1964",
+    region: "Rioja Alta",
+    variety: "Tempranillo, Graciano",
+    winery: "Bodega histórica",
+    aging: "36 meses en roble americano",
+  },
+  {
+    name: "Gran Reserva 1978",
+    year: "1978",
+    region: "Ribera del Duero",
+    variety: "Tinto Fino",
+    winery: "Bodega centenaria",
+    aging: "42 meses en roble francés",
+  },
+  {
+    name: "Vendimia 1982",
+    year: "1982",
+    region: "Priorat",
+    variety: "Garnacha, Cariñena",
+    winery: "Bodega de montaña",
+    aging: "24 meses en roble mixto",
+  },
+  {
+    name: "Viejo Calar 1991",
+    year: "1991",
+    region: "Jerez",
+    variety: "Palomino Fino",
+    winery: "Bodega de crianza biológica",
+    aging: "Solera de 50 años",
+  },
+  {
+    name: "Viñedo Único 1998",
+    year: "1998",
+    region: "Rioja Alavesa",
+    variety: "Tempranillo",
+    winery: "Bodega familiar",
+    aging: "30 meses en roble francés nuevo",
+  },
+]
+---
+
+<section
+  class="relative overflow-hidden bg-inverted py-section"
+  aria-labelledby="old-wines-heading"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="mb-12 flex items-end justify-between gap-6" data-fade-in>
+      <div>
+        <p
+          class="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-inverted-foreground/45"
+        >
+          13 &mdash; Botellas de otro tiempo
+        </p>
+        <h2
+          id="old-wines-heading"
+          class="max-w-heading font-display text-headline-2 font-extrabold uppercase leading-[0.86] text-inverted-foreground"
+        >
+          Cada botella conserva un tiempo irrepetible
+        </h2>
+      </div>
+
+      <div class="hidden shrink-0 items-center gap-2 sm:flex">
+        <button
+          type="button"
+          class="wine-slider-prev inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-inverted-foreground/10 p-0 text-inverted-foreground transition duration-200 ease-landing hover:bg-inverted-foreground/20 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border disabled:cursor-default disabled:opacity-40"
+          aria-label="Vino anterior"
+        >
+          <ChevronLeft
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+        </button>
+        <button
+          type="button"
+          class="wine-slider-next inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-inverted-foreground/10 p-0 text-inverted-foreground transition duration-200 ease-landing hover:bg-inverted-foreground/20 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border disabled:cursor-default disabled:opacity-40"
+          aria-label="Siguiente vino"
+        >
+          <ChevronRight
+            aria-hidden="true"
+            width="20"
+            height="20"
+            stroke-width="1.5"
+          />
+        </button>
+      </div>
+    </div>
+
+    <div class="wine-slider overflow-hidden">
+      <div class="swiper-wrapper">
+        {
+          wines.map((wine: OldWine, index: number) => (
+            <div class="swiper-slide h-auto">
+              <article class="old-wine-card group h-full overflow-hidden bg-inverted-surface/55 md:grid md:grid-cols-2">
+                <figure class="flex min-h-0 flex-col">
+                  <div class="old-wine-photo aspect-video min-h-0 overflow-hidden bg-inverted-foreground/8 md:min-h-72 md:flex-1 md:aspect-auto">
+                    <img
+                      src={`${archiveBottlesImage.src}&w=900&auto=format&fit=crop&crop=entropy&q=80`}
+                      alt={archiveBottlesImage.alt}
+                      title={`Foto de ${archiveBottlesImage.author} en Unsplash`}
+                      width={archiveBottlesImage.width}
+                      height={archiveBottlesImage.height}
+                      loading="lazy"
+                      decoding="async"
+                      class="photo-tone h-full w-full object-cover opacity-75"
+                    />
+                  </div>
+                  <figcaption class="px-5 py-2 text-xs text-inverted-foreground/35">
+                    Foto de{" "}
+                    <a
+                      href={archiveBottlesImage.authorUrl}
+                      rel="noopener"
+                      class="underline hover:text-inverted-foreground/60"
+                    >
+                      {archiveBottlesImage.author}
+                    </a>{" "}
+                    en{" "}
+                    <a
+                      href={archiveBottlesImage.unsplashUrl}
+                      rel="noopener"
+                      class="underline hover:text-inverted-foreground/60"
+                    >
+                      Unsplash
+                    </a>
+                  </figcaption>
+                </figure>
+
+                <div class="relative flex flex-col justify-between p-6 sm:p-8">
+                  <div>
+                    <div class="flex items-center justify-between gap-4">
+                      <p class="text-xs font-bold uppercase tracking-widest text-inverted-foreground/40">
+                        Archivo {String(index + 1).padStart(2, "0")}
+                      </p>
+                      <p class="font-display text-3xl font-extrabold text-inverted-foreground/20">
+                        {wine.year}
+                      </p>
+                    </div>
+                    <h3 class="mt-5 font-display text-headline-3 font-extrabold uppercase leading-[0.9] text-inverted-foreground">
+                      {wine.name}
+                    </h3>
+                  </div>
+
+                  <dl class="mt-8 grid grid-cols-2 gap-x-5 gap-y-4 text-sm">
+                    <div>
+                      <dt class="text-xs font-bold uppercase tracking-widest text-inverted-foreground/35">
+                        Región
+                      </dt>
+                      <dd class="mt-1 text-inverted-foreground/80">
+                        {wine.region}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt class="text-xs font-bold uppercase tracking-widest text-inverted-foreground/35">
+                        Variedad
+                      </dt>
+                      <dd class="mt-1 text-inverted-foreground/80">
+                        {wine.variety}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt class="text-xs font-bold uppercase tracking-widest text-inverted-foreground/35">
+                        Bodega
+                      </dt>
+                      <dd class="mt-1 text-inverted-foreground/80">
+                        {wine.winery}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt class="text-xs font-bold uppercase tracking-widest text-inverted-foreground/35">
+                        Crianza
+                      </dt>
+                      <dd class="mt-1 text-inverted-foreground/80">
+                        {wine.aging}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </article>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="wine-slider-progress mt-8 h-1 overflow-hidden bg-inverted-foreground/15"
+      aria-hidden="true"
+    >
+    </div>
+  </div>
+</section>

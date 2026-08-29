@@ -1,0 +1,60 @@
+---
+// Terroir — Section 21: Tierra embotellada
+// Closing. Black background. Single bottle that grows on scroll.
+import { bottleImage } from "../data/images"
+---
+
+<section
+  class="relative overflow-hidden bg-inverted py-section"
+  aria-labelledby="closing-heading"
+  data-closing-section
+>
+  <div
+    class="mx-auto flex w-full max-w-landing flex-col items-center px-container-x text-center sm:px-8 xl:px-14"
+  >
+    <!-- Bottle -->
+    <div class="mb-12 w-40 sm:w-48 lg:w-56" data-closing-bottle>
+      <img
+        src={`${bottleImage.src}&w=600&auto=format&fit=crop&q=80`}
+        alt={bottleImage.alt}
+        width={bottleImage.width}
+        height={bottleImage.height}
+        loading="lazy"
+        decoding="async"
+        class="photo-tone h-full w-full object-contain"
+      />
+    </div>
+
+    <!-- Title -->
+    <h2
+      id="closing-heading"
+      class="font-display text-figure font-extrabold uppercase leading-[0.82] text-inverted-foreground"
+      data-fade-in
+    >
+      <span class="block">Tierra</span>
+      <span class="block">embotellada</span>
+    </h2>
+
+    <!-- Closing statement -->
+    <p
+      class="mt-10 max-w-lg font-display text-lg leading-relaxed text-inverted-foreground/60 italic"
+      data-fade-in
+    >
+      Cada añada es un lugar, un año y una decision que no puede repetirse.
+    </p>
+
+    <!-- Photo credit -->
+    <div class="mt-8 text-[10px] text-inverted-foreground/30">
+      Foto de <a
+        href={bottleImage.authorUrl}
+        rel="noopener"
+        class="underline hover:text-inverted-foreground/50"
+        >{bottleImage.author}</a
+      > en <a
+        href={bottleImage.unsplashUrl}
+        rel="noopener"
+        class="underline hover:text-inverted-foreground/50">Unsplash</a
+      >
+    </div>
+  </div>
+</section>

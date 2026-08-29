@@ -1,0 +1,144 @@
+---
+import { navLinks } from "../data/nav"
+import type { NavLink } from "../data/nav"
+import { allImages } from "../data/images"
+import type { UnsplashImage } from "../data/images"
+---
+
+<footer
+  class="relative bg-inverted pt-section pb-12 palette-surface-primary"
+  role="contentinfo"
+>
+  <div class="mx-auto max-w-landing px-container-x sm:px-8 xl:px-14">
+    <!-- Giant BUDAPEST -->
+    <div class="mb-16 sm:mb-24">
+      <span
+        class="block font-display text-figure font-black uppercase leading-none tracking-tight text-inverted-foreground/[0.06] sm:text-[clamp(5rem,4rem+6vw,10rem)]"
+        aria-hidden="true"
+      >
+        Budapest
+      </span>
+
+      <div class="mt-8 flex flex-col gap-2">
+        <p class="font-mono text-xs tracking-wide text-inverted-foreground/30">
+          47.4979° N / 19.0402° E
+        </p>
+        <p
+          class="mt-4 max-w-md font-display text-headline-3 font-bold italic leading-snug text-inverted-foreground/60"
+        >
+          Two cities became one.<br />The river kept flowing.
+        </p>
+      </div>
+    </div>
+
+    <!-- Navigation + info grid -->
+    <div
+      class="grid gap-12 border-t border-inverted-foreground/10 pt-12 footer:grid-cols-3 footer:gap-8"
+    >
+      <!-- Navigation -->
+      <nav aria-label="Footer navigation">
+        <h3
+          class="mb-4 text-xs font-medium uppercase tracking-widest text-inverted-foreground/30"
+        >
+          Explore
+        </h3>
+        <ul class="flex flex-col gap-2">
+          {
+            navLinks.map((link: NavLink) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-sm text-inverted-foreground/50 no-underline transition duration-200 ease-landing hover:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-inverted-foreground/40"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <!-- About -->
+      <div>
+        <h3
+          class="mb-4 text-xs font-medium uppercase tracking-widest text-inverted-foreground/30"
+        >
+          About this landing
+        </h3>
+        <p class="max-w-sm text-sm leading-relaxed text-inverted-foreground/40">
+          Budapest is a design demonstration — an editorial landing page
+          exploring the architecture, history, and atmosphere of Hungary's
+          capital through photography, typography, and narrative structure. All
+          historical facts have been verified. Travel stories are labeled as
+          editorial fiction.
+        </p>
+      </div>
+
+      <!-- Credits -->
+      <div>
+        <h3
+          class="mb-4 text-xs font-medium uppercase tracking-widest text-inverted-foreground/30"
+        >
+          Sources
+        </h3>
+        <p class="text-sm leading-relaxed text-inverted-foreground/40">
+          Historical dates and architectural details sourced from public
+          records, UNESCO World Heritage documentation, and the Budapest History
+          Museum archives. Photography from Unsplash.
+        </p>
+      </div>
+    </div>
+
+    <!-- Photo credits -->
+    <div class="mt-16 border-t border-inverted-foreground/10 pt-8">
+      <h3
+        class="mb-4 text-xs font-medium uppercase tracking-widest text-inverted-foreground/30"
+      >
+        Photo credits
+      </h3>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        {
+          allImages
+            .filter(
+              (img: UnsplashImage, index: number, self: UnsplashImage[]) =>
+                self.findIndex((i: UnsplashImage) => i.id === img.id) === index,
+            )
+            .map((img: UnsplashImage) => (
+              <li class="text-xs text-inverted-foreground/30">
+                Photo by{" "}
+                <a
+                  href={img.authorUrl}
+                  class="underline hover:text-inverted-foreground/50"
+                  rel="noopener"
+                >
+                  {img.author}
+                </a>{" "}
+                on{" "}
+                <a
+                  href={img.unsplashUrl}
+                  class="underline hover:text-inverted-foreground/50"
+                  rel="noopener"
+                >
+                  Unsplash
+                </a>
+              </li>
+            ))
+        }
+      </ul>
+    </div>
+
+    <!-- Bottom bar -->
+    <div
+      class="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-inverted-foreground/10 pt-8"
+    >
+      <p
+        class="font-display text-xs font-bold uppercase tracking-[0.2em] text-inverted-foreground/30"
+      >
+        Budapest
+      </p>
+      <p class="text-xs text-inverted-foreground/20">
+        A design demonstration. Not a commercial product.
+      </p>
+    </div>
+  </div>
+</footer>
