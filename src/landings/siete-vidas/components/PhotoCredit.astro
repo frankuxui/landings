@@ -1,0 +1,34 @@
+---
+import type { UnsplashImage } from "../types"
+
+export interface Props {
+  image: UnsplashImage
+  inverse?: boolean
+}
+
+const { image, inverse = false } = Astro.props
+---
+
+<span
+  class:list={[
+    "text-xs leading-relaxed",
+    inverse ? "text-current/65" : "text-muted",
+  ]}
+>
+  Photo by{" "}
+  <a
+    href={image.authorUrl}
+    rel="noopener"
+    target="_blank"
+    class="underline underline-offset-2 transition hover:opacity-70 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+    >{image.author}</a
+  >{" "}
+  on{" "}
+  <a
+    href={image.unsplashUrl}
+    rel="noopener"
+    target="_blank"
+    class="underline underline-offset-2 transition hover:opacity-70 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-current"
+    >Unsplash</a
+  >
+</span>

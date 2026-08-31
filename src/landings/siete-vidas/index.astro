@@ -1,0 +1,92 @@
+---
+import "./styles/tailwind.css"
+
+import BackToTop from "./components/BackToTop.astro"
+import Experience from "./sections/Experience.astro"
+import Footer from "./sections/Footer.astro"
+import Header from "./sections/Header.astro"
+
+const pageTitle = "Siete Vidas - Hundreds of Cat Stories, Zero Obedience"
+const pageDescription =
+  "Siete Vidas is an editorial, photographic, and slightly chaotic Astro landing about cat behavior, curiosity, folklore, sleep, night vision, and domestic absurdity."
+const canonicalUrl = "/landings/siete-vidas"
+const thumbnailUrl =
+  "https://images.unsplash.com/photo-1720110449458-455fbfa719cc?ixid=M3wxMDE2NzMxfDB8MXxzZWFyY2h8M3x8Y2F0JTIwcG9ydHJhaXR8ZW58MXwxfHxibGFja19hbmRfd2hpdGV8MTc4ODA5MTIxMXwy&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80"
+---
+
+<!doctype html>
+<html
+  lang="en"
+  class="scroll-smooth overflow-x-clip scheme-light motion-reduce:scroll-auto dark:scheme-dark font-sans"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+
+    <script is:inline>
+      ;(function () {
+        try {
+          var saved = localStorage.getItem("siete-vidas:theme")
+          if (saved === "dark" || saved === "light") {
+            document.documentElement.setAttribute("data-theme", saved)
+          }
+        } catch (error) {}
+      })()
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content="noindex" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={thumbnailUrl} />
+    <meta property="og:url" content={canonicalUrl} />
+
+    <script is:inline>
+      try {
+        var storedPalette = localStorage.getItem("siete-vidas:palette")
+        if (storedPalette)
+          document.documentElement.dataset.palette = storedPalette
+      } catch (error) {}
+    </script>
+  </head>
+  <body
+    class="min-h-full overflow-x-clip bg-background text-base leading-relaxed text-foreground antialiased font-sans"
+  >
+    <a
+      class="absolute -top-full left-4 z-1000 inline-flex min-h-12 cursor-pointer items-center rounded-sm bg-foreground px-5 py-3 text-base font-semibold text-background no-underline transition focus-visible:top-4 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+      href="#main-content"
+    >
+      Skip to main content
+    </a>
+
+    <Header />
+
+    <main id="main-content">
+      <Experience />
+    </main>
+
+    <Footer />
+    <BackToTop />
+
+    <script>
+      import "./scripts/theme"
+      import "./scripts/palette"
+      import "./scripts/reveal"
+      import "./scripts/motion"
+      import "./scripts/sliders"
+      import "./scripts/cards"
+      import "./scripts/accordion"
+      import "./scripts/backToTop"
+    </script>
+  </body>
+</html>

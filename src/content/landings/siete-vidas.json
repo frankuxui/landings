@@ -1,0 +1,51 @@
+{
+  "name": "Siete Vidas",
+  "title": "Siete Vidas - Hundreds of Cat Stories, Zero Obedience",
+  "description": "Siete Vidas is an editorial, photographic, and slightly chaotic Astro landing about cat behavior, curiosity, folklore, sleep, night vision, and domestic absurdity.",
+  "subtitle": "A photographic cat archive with science, folklore, nocturnal moods, and enough attitude for several apartments.",
+  "category": "blog",
+  "tags": ["editorial", "cats", "photography", "culture", "animals"],
+  "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
+  "thumbnail": "https://images.unsplash.com/photo-1720110449458-455fbfa719cc?ixid=M3wxMDE2NzMxfDB8MXxzZWFyY2h8M3x8Y2F0JTIwcG9ydHJhaXR8ZW58MXwxfHxibGFja19hbmRfd2hpdGV8MTc4ODA5MTIxMXwy&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
+  "thumbnailAlt": "Black and white cat face filling the frame with a direct editorial stare",
+  "thumbnailWidth": 3000,
+  "thumbnailHeight": 4344,
+  "thumbnailCredit": {
+    "id": "ia8OJNgaoO0",
+    "author": "Annie Knitter",
+    "authorUrl": "https://unsplash.com/@staywild_outdoor?utm_source=astro_landings_gallery&utm_medium=referral",
+    "sourceUrl": "https://unsplash.com/photos/a-black-and-white-photo-of-a-cats-face-ia8OJNgaoO0?utm_source=astro_landings_gallery&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+    "downloadLocation": "https://api.unsplash.com/photos/ia8OJNgaoO0/download?ixid=M3wxMDE2NzMxfDB8MXxzZWFyY2h8M3x8Y2F0JTIwcG9ydHJhaXR8ZW58MXwxfHxibGFja19hbmRfd2hpdGV8MTc4ODA5MTIxMXwy"
+  },
+  "palettes": [
+    {
+      "id": "grayscale",
+      "name": "Grayscale",
+      "colors": {
+        "primary": "#171717",
+        "secondary": "#404040",
+        "tertiary": "#737373",
+        "accent": "#a3a3a3",
+        "light": "#f5f5f5"
+      }
+    },
+    {
+      "id": "blue-cat",
+      "name": "Blue Cat",
+      "colors": {
+        "primary": "#101D2C",
+        "secondary": "#314B61",
+        "tertiary": "#557A95",
+        "accent": "#91AFC1",
+        "support": "#C2D3DB",
+        "light": "#E9EFF1"
+      }
+    }
+  ],
+  "createdAt": "2026-08-30",
+  "author": "frankuxui",
+  "themes": ["light", "dark"],
+  "featured": false,
+  "status": "published"
+}

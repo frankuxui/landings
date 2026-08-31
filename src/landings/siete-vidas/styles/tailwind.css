@@ -1,0 +1,280 @@
+@import "tailwindcss";
+
+/* Siete Vidas keeps the gallery's self-contained token contract inside the
+   landing. Token names stay shared across the platform; values below are
+   local to this editorial cat archive. */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --background: #f4f4f1;
+  --background-alt: #e8e8e4;
+  --foreground: #171717;
+  --muted: #62625f;
+  --border: #d2d2cd;
+
+  --surface: var(--color-white);
+  --surface-strong: #d2d2cd;
+  --control: var(--color-neutral-200);
+  --control-hover: var(--color-neutral-300);
+  --ring: #171717;
+
+  --primary: #171717;
+  --primary-foreground: #f4f4f1;
+  --emphasis: var(--color-black);
+
+  --disabled: var(--color-neutral-300);
+  --disabled-foreground: var(--color-neutral-500);
+
+  --inverted: #171717;
+  --inverted-foreground: #f4f4f1;
+  --inverted-surface: #181818;
+
+  --placeholder: #181818;
+  --placeholder-foreground: #f4f4f1;
+  --placeholder-inverse: rgb(244 244 241 / 0.72);
+}
+
+[data-theme="dark"] {
+  --background: #111111;
+  --background-alt: #181818;
+  --foreground: #f4f4f1;
+  --muted: #d2d2cd;
+  --border: #62625f;
+
+  --surface: #181818;
+  --surface-strong: #414141;
+  --control: var(--color-neutral-800);
+  --control-hover: var(--color-neutral-700);
+  --ring: #d2d2cd;
+
+  --primary: #f4f4f1;
+  --primary-foreground: #171717;
+  --emphasis: var(--color-white);
+
+  --disabled: var(--color-neutral-700);
+  --disabled-foreground: var(--color-neutral-400);
+
+  --inverted: #f4f4f1;
+  --inverted-foreground: #171717;
+  --inverted-surface: #d2d2cd;
+
+  --placeholder: #d2d2cd;
+  --placeholder-foreground: #171717;
+  --placeholder-inverse: rgb(8 8 8 / 0.68);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-emphasis: var(--emphasis);
+
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
+  --color-inverted-surface: var(--inverted-surface);
+
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-placeholder-inverse: var(--placeholder-inverse);
+}
+
+@theme {
+  --font-base: "Manrope", sans-serif;
+  --font-sans: var(--font-base);
+  --font-display: "Barlow Condensed", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-impact: "Anton", "Barlow Condensed", sans-serif;
+
+  --breakpoint-footer: 45rem;
+  --breakpoint-cards: 47.5rem;
+  --breakpoint-nav: 56.25rem;
+  --breakpoint-stats: 67.5rem;
+  --breakpoint-display: 87.5rem;
+
+  --spacing-section: 8rem;
+  --spacing-container-x: 1.25rem;
+
+  --container-landing: 106rem;
+  --container-copy: 68ch;
+  --container-heading: 26ch;
+  --container-hero-heading: 14ch;
+
+  --ease-landing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --text-headline-1: clamp(4.25rem, 2.2rem + 10.5vw, 14rem);
+  --text-headline-2: clamp(3.25rem, 1.8rem + 6.9vw, 9rem);
+  --text-headline-3: clamp(2rem, 1.35rem + 2.5vw, 4.5rem);
+  --text-figure: clamp(9rem, 4rem + 25vw, 31rem);
+}
+
+@utility reveal {
+  transform: translateY(0);
+  opacity: 1;
+
+  .js-reveal-ready & {
+    transform: translateY(calc(var(--spacing) * 8));
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 800ms;
+    transition-timing-function: var(--ease-landing);
+  }
+
+  .js-reveal-ready &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @variant motion-reduce {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transition-property: none !important;
+  }
+}
+
+/* Native CSS exception: the interactive panels use clip-path and Swiper's
+   custom properties, neither of which map cleanly to static Tailwind
+   utilities without repeating arbitrary values throughout markup. */
+@utility photo-tone {
+  filter: grayscale(100%) contrast(116%);
+  transition:
+    filter 400ms var(--ease-landing),
+    transform 600ms var(--ease-landing);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    filter: none;
+  }
+}
+
+@utility reveal-clip {
+  clip-path: inset(0 0 0 0);
+
+  .js-motion-ready & {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  @variant motion-reduce {
+    clip-path: inset(0 0 0 0) !important;
+  }
+}
+
+.stories-slider,
+.expressions-slider,
+.gallery-slider {
+  --swiper-pagination-color: var(--foreground);
+  --swiper-pagination-bullet-inactive-color: var(--muted);
+  --swiper-pagination-bullet-inactive-opacity: 0.55;
+  --swiper-pagination-bullet-size: 0.5rem;
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    --swiper-pagination-color: var(--color-primary);
+  }
+}
+
+.stories-slider {
+  height: min(42rem, calc(100dvh - 8rem));
+  min-height: 34rem;
+  --swiper-pagination-progressbar-bg-color: rgb(137 137 137 / 0.35);
+  --swiper-pagination-color: var(--inverted-foreground);
+  --swiper-pagination-bullet-inactive-color: var(--inverted-foreground);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    --swiper-pagination-color: var(--color-light);
+  }
+}
+
+.stories-slider .swiper-wrapper {
+  align-items: stretch;
+}
+
+.stories-slider .swiper-slide {
+  height: 100%;
+}
+
+.cat-card [data-card-body],
+.profile-card [data-card-body] {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  clip-path: inset(0 0 100% 0);
+  will-change: height, opacity, transform, clip-path;
+}
+
+:root,
+html[data-palette="grayscale"] {
+  --color-primary: #171717;
+  --color-secondary: #404040;
+  --color-tertiary: #737373;
+  --color-accent: #a3a3a3;
+  --color-light: #f5f5f5;
+}
+
+html[data-palette="blue-cat"] {
+  --color-primary: #101d2c;
+  --color-secondary: #314b61;
+  --color-tertiary: #557a95;
+  --color-accent: #91afc1;
+  --color-support: #c2d3db;
+  --color-light: #e9eff1;
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"][data-palette="grayscale"] {
+  --color-primary: #f5f5f5;
+  --color-secondary: #a3a3a3;
+  --color-tertiary: #737373;
+  --color-accent: #404040;
+  --color-light: #171717;
+}
+
+html[data-theme="dark"][data-palette="blue-cat"] {
+  --color-primary: #e9eff1;
+  --color-secondary: #91afc1;
+  --color-tertiary: #557a95;
+  --color-accent: #314b61;
+  --color-support: #c2d3db;
+  --color-light: #101d2c;
+}
+
+@utility palette-surface-primary {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-primary);
+  }
+}
+
+@utility palette-surface-light {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-light);
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+.accordion-item > summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-item [data-accordion-content] {
+  will-change: height, opacity, transform;
+}
+
+.logic-track {
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) transparent;
+}

@@ -1,0 +1,794 @@
+---
+import Photo from "../components/Photo.astro"
+import PhotoCredit from "../components/PhotoCredit.astro"
+import {
+  anatomyItems,
+  archiveRecords,
+  curiosities,
+  expressions,
+  factItems,
+  logicPairs,
+  personalityProfiles,
+  stories,
+} from "../data/content"
+import { images } from "../data/images"
+import type {
+  AnatomyItem,
+  ArchiveRecord,
+  Curiosity,
+  Expression,
+  FactItem,
+  LogicPair,
+  PersonalityProfile,
+  Story,
+  UnsplashImage,
+} from "../types"
+---
+
+<section
+  id="hero"
+  class="relative isolate min-h-dvh overflow-hidden bg-background-alt pt-24 text-foreground palette-surface-light"
+  data-header-tone="light"
+  data-hero
+>
+  <div
+    class="pointer-events-none absolute inset-x-0 top-28 z-0 flex justify-center overflow-hidden px-container-x text-center"
+    aria-hidden="true"
+  >
+    <p
+      class="font-impact text-figure leading-none text-foreground/8 uppercase"
+      data-hero-bg
+    >
+      CATUS
+    </p>
+  </div>
+
+  <div
+    class="relative z-10 mx-auto grid min-h-[calc(100dvh-6rem)] w-full max-w-landing grid-rows-[auto_1fr_auto] px-container-x sm:px-8 xl:px-14"
+  >
+    <div
+      class="flex flex-wrap items-start justify-between gap-5 pt-8 font-mono text-xs tracking-widest text-muted uppercase"
+      data-hero-meta
+    >
+      <p>Felis catus / Domestic, mostly</p>
+      <p>Issue 001 / Editorial field notes</p>
+      <p>Obedience probability: 00%</p>
+    </div>
+
+    <div class="relative grid content-center py-8 lg:py-0">
+      <h1
+        class="relative z-10 max-w-hero-heading font-impact text-headline-1 leading-[0.78] font-black uppercase"
+        data-hero-title
+      >
+        <span class="block overflow-hidden">
+          <span class="block" data-hero-line="top">Siete</span>
+        </span>
+        <span class="block overflow-hidden">
+          <span class="block" data-hero-line="bottom">Vidas.</span>
+        </span>
+      </h1>
+
+      <Photo
+        image={images.hero}
+        ratio="3 / 4"
+        eager
+        parallax
+        caption={false}
+        class="hero-photo pointer-events-none relative z-20 mt-6 ml-auto w-[92vw] max-w-5xl translate-x-10 sm:w-[68vw] lg:absolute lg:right-10 lg:bottom-0 lg:mt-0 lg:w-[46vw] lg:translate-x-0"
+        imgClass="object-[50%_22%]"
+      />
+
+      <div
+        class="relative z-30 -mt-20 max-w-copy justify-self-end bg-background/70 p-4 backdrop-blur-md sm:w-96 sm:p-5 lg:absolute lg:right-0 lg:bottom-20 lg:mt-0"
+        data-hero-card
+      >
+        <p class="font-mono text-xs tracking-widest text-muted uppercase">
+          Supplement
+        </p>
+        <p class="mt-4 font-display text-5xl leading-none font-black uppercase">
+          And none for obeying you.
+        </p>
+        <p class="mt-4 text-sm text-muted">
+          A photographic field guide to elegance, nonsense, stealth, affection,
+          and sudden furniture violence.
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="relative z-30 flex flex-col gap-4 pb-8 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <p class="max-w-copy text-xl leading-snug text-muted">
+        Magazine logic, veterinary footnotes, impossible confidence, and a cat
+        large enough to own the viewport.
+      </p>
+      <PhotoCredit image={images.hero} />
+    </div>
+  </div>
+</section>
+
+<section
+  id="black-cat"
+  class="relative overflow-hidden bg-background py-section text-foreground palette-surface-light"
+  data-header-tone="light"
+>
+  <div
+    class="mx-auto grid w-full max-w-landing gap-12 px-container-x sm:px-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,0.9fr)] lg:items-center xl:px-14"
+  >
+    <div class="relative lg:sticky lg:top-20">
+      <Photo
+        image={images.blackCat}
+        ratio="4 / 3"
+        parallax
+        sizes="(min-width: 1024px) 56vw, 100vw"
+        class="w-full lg:w-[112%]"
+        imgClass="object-[42%_45%]"
+      />
+      <p
+        class="mt-4 font-mono text-xs tracking-widest text-muted uppercase lg:absolute lg:top-1/2 lg:-right-8 lg:mt-0 lg:-translate-y-1/2 lg:[writing-mode:vertical-rl]"
+      >
+        Superstition is bad interface design
+      </p>
+    </div>
+    <div
+      class="relative z-10 bg-background-alt/80 p-5 backdrop-blur-md sm:p-8 lg:-ml-8 lg:justify-self-end"
+    >
+      <p class="mb-8 font-mono text-xs tracking-widest text-muted uppercase">
+        Superstition Department
+      </p>
+      <h2
+        class="max-w-heading font-impact text-headline-2 leading-[0.82] uppercase text-balance"
+        data-black-title
+      >
+        <span class="block">No bad</span>
+        <span class="block">luck.</span>
+        <span class="mt-6 block text-muted">Bad press.</span>
+      </h2>
+      <p
+        class="mt-8 max-w-copy text-xl leading-tight font-semibold sm:text-2xl"
+      >
+        The black cat was never the problem. Centuries of human storytelling
+        simply needed better editors.
+      </p>
+      <p class="mt-6 max-w-copy text-muted">
+        Folklore shifts by region and period: feared in one place, lucky in
+        another, protective somewhere else. This spread treats the myth as a
+        layout error.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section
+  id="lives"
+  class="relative overflow-hidden bg-background-alt py-section text-foreground"
+  data-header-tone="light"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-10 lg:grid-cols-[0.75fr_1fr]">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <p class="font-mono text-xs tracking-widest text-muted uppercase">
+          Seven lives / expanded field cards
+        </p>
+        <h2
+          class="mt-6 max-w-heading font-impact text-headline-2 leading-[0.82] uppercase"
+        >
+          7 lives. 7 alibis.
+        </h2>
+      </div>
+      <ol class="grid gap-10">
+        {
+          factItems.map((item: FactItem, index: number) => (
+            <li
+              class:list={[
+                "seven-item group grid gap-5 md:grid-cols-[0.42fr_1fr]",
+                index % 2 === 1 && "md:translate-x-10",
+              ]}
+            >
+              <Photo
+                image={item.image}
+                ratio={index % 2 === 0 ? "3 / 4" : "4 / 3"}
+                caption={false}
+                class="overflow-hidden"
+              />
+              <div class="grid content-between bg-background/62 p-5 backdrop-blur-md transition duration-500 ease-landing group-hover:-translate-y-2">
+                <div>
+                  <div class="flex items-center justify-between gap-4">
+                    <span class="font-impact text-7xl leading-none text-muted/45">
+                      {item.number}
+                    </span>
+                    <span class="font-mono text-xs tracking-widest text-muted uppercase">
+                      {item.category}
+                    </span>
+                  </div>
+                  <h3 class="mt-8 font-display text-5xl leading-none font-black uppercase">
+                    {item.title}
+                  </h3>
+                  <p class="mt-5 text-muted">{item.body}</p>
+                  <p class="mt-4 text-sm text-muted/80">{item.detail}</p>
+                </div>
+                <p class="mt-8 font-mono text-xs text-muted uppercase">
+                  {item.sourceLabel}
+                </p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section
+  id="curiosities"
+  class="bg-background py-section text-foreground"
+  data-header-tone="light"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-12 lg:grid-cols-[0.72fr_1fr]">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <p class="mb-5 font-mono text-xs tracking-widest text-muted uppercase">
+          Instinct / Senses / Sleep / Communication / History
+        </p>
+        <h2
+          class="max-w-heading font-impact text-headline-2 leading-[0.82] uppercase"
+        >
+          This sounds invented. It is not.
+        </h2>
+      </div>
+      <div class="grid gap-8">
+        {
+          curiosities.map((item: Curiosity, index: number) => (
+            <article
+              class:list={[
+                "cat-card group relative grid min-h-80 cursor-pointer overflow-hidden bg-surface p-4 outline-none transition duration-500 ease-landing focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border cards:grid-cols-[0.85fr_1fr]",
+                index % 2 === 1 && "cards:-translate-x-12",
+              ]}
+              tabindex="0"
+              data-card
+            >
+              <Photo
+                image={item.image}
+                ratio="4 / 3"
+                caption={false}
+                class="overflow-hidden"
+                imgClass="transition duration-700 ease-landing group-hover:scale-105"
+              />
+              <div class="relative z-10 flex flex-col justify-between p-2">
+                <div>
+                  <div class="flex items-start justify-between gap-4">
+                    <p class="font-mono text-xs tracking-widest text-muted uppercase">
+                      {item.category}
+                    </p>
+                    <span
+                      class="card-number font-impact text-6xl leading-none text-muted/45"
+                      data-card-number
+                    >
+                      {item.number}
+                    </span>
+                  </div>
+                  <h3 class="mt-5 font-display text-5xl leading-none font-black uppercase">
+                    {item.title}
+                  </h3>
+                  <p class="mt-5 text-muted">{item.body}</p>
+                </div>
+                <div
+                  class="card-hidden mt-6 overflow-hidden bg-background-alt p-4"
+                  data-card-body
+                >
+                  <p class="font-mono text-xs font-semibold tracking-widest uppercase">
+                    Why?
+                  </p>
+                  <p class="mt-2 text-sm text-muted">{item.why}</p>
+                  <p class="mt-4 text-sm text-muted/80">{item.extra}</p>
+                </div>
+                <p class="mt-5">
+                  <PhotoCredit image={item.image} />
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  id="personalities"
+  class="overflow-hidden bg-background-alt py-section text-foreground"
+  data-header-tone="light"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
+      <h2
+        class="max-w-heading font-impact text-headline-2 leading-[0.82] uppercase"
+      >
+        No two are alike.
+      </h2>
+      <p class="max-w-copy text-xl text-muted">
+        Six comic profiles, all fictional, all suspiciously recognizable.
+      </p>
+    </div>
+    <div class="mt-16 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+      {
+        personalityProfiles.map(
+          (profile: PersonalityProfile, index: number) => (
+            <article
+              class:list={[
+                "profile-card group grid gap-5 outline-none focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border",
+                index === 1 && "md:mt-20",
+                index === 2 && "xl:-mt-10",
+                index === 4 && "xl:mt-16",
+              ]}
+              data-card
+              tabindex="0"
+            >
+              <Photo
+                image={profile.image}
+                ratio={index % 3 === 0 ? "3 / 4" : "1 / 1"}
+                caption={false}
+                class="overflow-hidden"
+                imgClass="transition duration-700 ease-landing group-hover:scale-105"
+              />
+              <div>
+                <p class="font-mono text-xs tracking-widest text-muted uppercase">
+                  {profile.code}
+                </p>
+                <h3 class="mt-3 font-display text-5xl leading-none font-black uppercase">
+                  {profile.title}
+                </h3>
+                <p class="mt-4 text-muted">{profile.description}</p>
+                <p class="mt-4 overflow-hidden font-mono text-xs tracking-widest uppercase">
+                  <span class="block" data-card-body>
+                    {profile.signal}
+                  </span>
+                </p>
+              </div>
+            </article>
+          ),
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<section
+  id="stories"
+  class="bg-inverted py-section text-inverted-foreground palette-surface-primary"
+  data-header-tone="dark"
+>
+  <div
+    class="mx-auto grid w-full max-w-landing gap-10 px-container-x sm:px-8 lg:grid-cols-[0.78fr_1fr] xl:px-14"
+  >
+    <div class="lg:sticky lg:top-28 lg:self-start">
+      <h2
+        class="max-w-heading font-impact text-headline-2 leading-[0.82] uppercase"
+      >
+        Winning Stories.
+      </h2>
+      <p class="mt-6 max-w-copy text-current/68">
+        Case files with locations, context, and actual slide progress instead of
+        ornamental dots pretending to be useful.
+      </p>
+      <div class="mt-10 hidden items-stretch gap-4 lg:flex">
+        <p
+          class="font-mono text-xs text-current/55 uppercase [writing-mode:vertical-rl]"
+        >
+          vertical evidence reel
+        </p>
+        <div class="h-56 w-px bg-current/20">
+          <div
+            class="h-0 w-full bg-current transition-all duration-500 ease-landing"
+            data-slider-progress="stories"
+          >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper stories-slider w-full" data-slider="stories">
+      <div class="swiper-wrapper">
+        {
+          stories.map((story: Story, index: number) => (
+            <article class="swiper-slide grid content-center gap-6">
+              <Photo
+                image={story.image}
+                ratio="16 / 9"
+                inverse
+                caption={false}
+                class="story-image overflow-hidden"
+              />
+              <div class="story-copy">
+                <p class="font-mono text-xs tracking-widest text-current/55 uppercase">
+                  {String(index + 1).padStart(2, "0")} /{" "}
+                  {String(stories.length).padStart(2, "0")} - {story.kicker}
+                </p>
+                <h3 class="mt-4 font-display text-6xl leading-none font-black uppercase">
+                  {story.title}
+                </h3>
+                <dl class="mt-5 grid gap-3 font-mono text-xs uppercase text-current/55 sm:grid-cols-2">
+                  <div>
+                    <dt>Location</dt>
+                    <dd class="mt-1 text-current/80">{story.location}</dd>
+                  </div>
+                  <div>
+                    <dt>Context</dt>
+                    <dd class="mt-1 text-current/80">{story.context}</dd>
+                  </div>
+                </dl>
+                <p class="mt-5 text-lg text-current/75">{story.body}</p>
+                <p class="mt-4 text-sm text-current/55">{story.note}</p>
+                <p class="mt-5">
+                  <PhotoCredit image={story.image} inverse />
+                </p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <div class="mt-8 flex items-center gap-4">
+        <p
+          class="min-w-16 font-mono text-xs tracking-widest text-current/65 uppercase"
+          data-slider-counter="stories"
+        >
+          01 / {String(stories.length).padStart(2, "0")}
+        </p>
+        <div class="h-px flex-1 bg-current/20">
+          <div
+            class="h-full w-0 bg-current transition-all duration-500 ease-landing lg:hidden"
+            data-slider-progress="stories-mobile"
+          >
+          </div>
+        </div>
+      </div>
+      <div class="stories-slider-pagination mt-5"></div>
+    </div>
+  </div>
+</section>
+
+<section
+  id="instinct"
+  class="overflow-hidden bg-background py-section text-foreground"
+  data-header-tone="light"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <h2
+      class="max-w-heading font-impact text-headline-2 leading-[0.82] uppercase"
+    >
+      Cat logic.
+    </h2>
+    <div class="logic-track mt-12 flex gap-4 overflow-x-auto pb-6">
+      {
+        logicPairs.map((pair: LogicPair, index: number) => (
+          <article class="logic-panel grid min-h-96 min-w-[82vw] content-between bg-background-alt p-6 md:min-w-[58vw] xl:min-w-[42vw]">
+            <span class="font-mono text-xs text-muted">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div class="font-display text-5xl leading-none font-black uppercase md:text-7xl">
+              <p>{pair.setup}</p>
+              <p class="mt-6 text-muted">{pair.result}</p>
+            </div>
+            <p class="text-sm text-muted">Humor, not a scientific claim.</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section
+  class="bg-background-alt py-section text-foreground"
+  data-header-tone="light"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="swiper expressions-slider" data-slider="expressions">
+      <div class="mb-8 grid gap-6 sm:grid-cols-[1fr_auto] sm:items-end">
+        <h2
+          class="max-w-heading font-impact text-headline-2 leading-[0.82] uppercase"
+        >
+          Expressions.
+        </h2>
+        <div class="min-w-52">
+          <p
+            class="font-mono text-xs tracking-widest text-muted uppercase"
+            data-slider-counter="expressions"
+          >
+            01 / {String(expressions.length).padStart(2, "0")}
+          </p>
+          <div class="mt-3 h-px bg-border">
+            <div
+              class="h-full w-0 bg-foreground transition-all duration-500 ease-landing"
+              data-slider-progress="expressions"
+            >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-wrapper">
+        {
+          expressions.map((item: Expression) => (
+            <article class="swiper-slide max-w-[22rem] md:max-w-[34rem]">
+              <Photo image={item.image} ratio="1 / 1" caption={false} />
+              <h3 class="mt-4 font-impact text-8xl leading-none uppercase">
+                {item.word}
+              </h3>
+              <p class="mt-2 text-muted">{item.caption}</p>
+              <p class="mt-3">
+                <PhotoCredit image={item.image} />
+              </p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="expressions-pagination mt-6"></div>
+    </div>
+  </div>
+</section>
+
+<section
+  id="night-mode"
+  class="relative overflow-hidden bg-inverted py-section text-inverted-foreground palette-surface-primary"
+  data-header-tone="dark"
+>
+  <div
+    class="absolute top-16 left-0 hidden w-56 -translate-x-1/3 rotate-[-8deg] md:block"
+    data-night-float
+  >
+    <Photo image={images.expressionNo} ratio="1 / 1" inverse caption={false} />
+  </div>
+  <div
+    class="absolute right-0 bottom-20 hidden w-72 translate-x-1/4 rotate-6 lg:block"
+    data-night-float
+  >
+    <Photo image={images.logic} ratio="4 / 3" inverse caption={false} />
+  </div>
+  <div
+    class="relative z-10 mx-auto grid w-full max-w-landing gap-10 px-container-x sm:px-8 lg:grid-cols-[1fr_0.78fr] xl:px-14"
+  >
+    <div>
+      <p
+        class="mb-5 font-mono text-xs tracking-widest text-current/60 uppercase"
+      >
+        Night mode / unofficial sprint protocol
+      </p>
+      <h2
+        class="max-w-heading font-impact text-headline-2 leading-[0.82] uppercase"
+        data-night-title
+      >
+        03:17 AM. Run. No motive.
+      </h2>
+      <p class="mt-8 max-w-copy text-xl text-current/75">
+        House cats are better described as crepuscular than truly nocturnal:
+        dawn and dusk are their natural rush hours, and the midnight sprint is
+        merely a bonus track with excellent acoustics.
+      </p>
+    </div>
+    <Photo image={images.night} ratio="3 / 4" inverse parallax />
+  </div>
+</section>
+
+<section
+  class="bg-background py-section text-foreground"
+  data-header-tone="light"
+>
+  <div
+    class="mx-auto grid w-full max-w-landing gap-10 px-container-x sm:px-8 lg:grid-cols-[0.85fr_1fr] xl:px-14"
+  >
+    <Photo image={images.expressionWatch} ratio="1 / 1" parallax />
+    <div class="self-center">
+      <h2
+        class="max-w-heading font-impact text-headline-2 leading-[0.82] uppercase"
+      >
+        What is it looking at?
+      </h2>
+      <ul
+        class="mt-8 grid gap-3 font-display text-4xl leading-none font-black uppercase text-muted sm:text-5xl"
+      >
+        <li>a bird</li>
+        <li>a shadow</li>
+        <li>absolutely nothing</li>
+        <li>something you cannot see</li>
+      </ul>
+      <p class="mt-8 font-impact text-headline-3 leading-none uppercase">
+        We will never know.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section
+  class="bg-background-alt py-section text-foreground"
+  data-header-tone="light"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <h2
+      class="max-w-heading font-impact text-headline-2 leading-[0.82] uppercase"
+    >
+      Accordion anatomy.
+    </h2>
+    <div class="mt-12 grid gap-8 lg:grid-cols-[0.85fr_1fr] lg:items-start">
+      <Photo image={images.hero} ratio="3 / 4" parallax />
+      <div class="grid gap-3">
+        {
+          anatomyItems.map((item: AnatomyItem) => (
+            <details class="accordion-item bg-background p-4" data-accordion>
+              <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-5 font-mono text-sm font-semibold tracking-widest uppercase focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border">
+                <span>{item.question}</span>
+                <span
+                  class="grid size-8 shrink-0 place-items-center bg-control text-lg leading-none"
+                  data-accordion-indicator
+                  aria-hidden="true"
+                >
+                  +
+                </span>
+              </summary>
+              <div class="overflow-hidden" data-accordion-content>
+                <h3 class="pt-4 font-display text-4xl leading-none font-black uppercase">
+                  {item.title}
+                </h3>
+                <p class="mt-3 text-muted">{item.body}</p>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  id="sleep-mode"
+  class="relative overflow-hidden bg-background-alt py-section text-foreground"
+  data-header-tone="light"
+>
+  <div
+    class="mx-auto grid w-full max-w-landing gap-10 px-container-x sm:px-8 lg:grid-cols-[1fr_0.8fr] lg:items-center xl:px-14"
+  >
+    <div class="order-2 lg:order-1">
+      <h2
+        class="max-w-heading font-impact text-headline-2 leading-[0.82] uppercase"
+        data-sleep-title
+      >
+        14 hours. Still tired.
+      </h2>
+      <p class="mt-8 max-w-copy text-xl text-muted">
+        A slower room after the night sprint: soft gray, almost no borders, one
+        enormous nap, and motion that behaves like breathing.
+      </p>
+    </div>
+    <Photo
+      image={images.sleep}
+      ratio="4 / 3"
+      parallax
+      class="order-1 lg:order-2"
+      imgClass="object-[50%_55%]"
+    />
+  </div>
+</section>
+
+<section
+  id="gallery"
+  class="bg-background py-section text-foreground"
+  data-header-tone="light"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="swiper gallery-slider" data-slider="gallery">
+      <div class="grid gap-6 sm:grid-cols-[1fr_auto] sm:items-end">
+        <h2
+          class="max-w-heading font-impact text-headline-2 leading-[0.82] uppercase"
+        >
+          Cats. No explanation.
+        </h2>
+        <div class="min-w-52">
+          <p
+            class="font-mono text-xs tracking-widest text-muted uppercase"
+            data-slider-counter="gallery"
+          >
+            01 / 06
+          </p>
+          <div class="mt-3 h-px bg-border">
+            <div
+              class="h-full w-0 bg-foreground transition-all duration-500 ease-landing"
+              data-slider-progress="gallery"
+            >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-wrapper mt-12">
+        {
+          [
+            images.blackCat,
+            images.logic,
+            images.galleryStand,
+            images.expressionNo,
+            images.sleep,
+            images.night,
+          ].map((image: UnsplashImage, index: number) => (
+            <article class="swiper-slide max-w-[18rem] md:max-w-[30rem]">
+              <Photo
+                image={image}
+                ratio={index % 2 === 0 ? "3 / 4" : "4 / 3"}
+                caption={false}
+              />
+              <p class="mt-3 font-mono text-xs text-muted">
+                {String(index + 1).padStart(2, "0")} / 06
+              </p>
+              <p class="mt-1">
+                <PhotoCredit image={image} />
+              </p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="gallery-pagination mt-8"></div>
+    </div>
+  </div>
+</section>
+
+<section
+  class="bg-inverted py-section text-inverted-foreground"
+  data-header-tone="dark"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-8 lg:grid-cols-[1fr_0.8fr]">
+      <div class="font-impact text-headline-2 leading-[0.82] uppercase">
+        <p>4 KG</p>
+        <p>of attitude.</p>
+        <p class="mt-12">0 KG</p>
+        <p>of remorse.</p>
+      </div>
+      <div class="grid content-center gap-5">
+        <Photo image={images.galleryStand} ratio="4 / 3" inverse />
+        <p class="max-w-copy text-current/68">
+          A typographic interruption for an animal that weighs almost nothing
+          and somehow occupies the entire apartment.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  id="archive"
+  class="bg-background py-section text-foreground"
+  data-header-tone="light"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <h2
+      class="max-w-heading font-impact text-headline-2 leading-[0.82] uppercase"
+    >
+      The archive.
+    </h2>
+    <div class="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+      {
+        archiveRecords.map((record: ArchiveRecord) => (
+          <article class="bg-background-alt p-5 transition duration-500 ease-landing hover:-translate-y-2">
+            <p class="font-mono text-xs text-muted">{record.code}</p>
+            <dl class="mt-10 grid gap-4 font-mono text-sm uppercase">
+              <div>
+                <dt class="text-muted">Coat</dt>
+                <dd>{record.coat}</dd>
+              </div>
+              <div>
+                <dt class="text-muted">Weight</dt>
+                <dd>{record.mass}</dd>
+              </div>
+              <div>
+                <dt class="text-muted">Likes</dt>
+                <dd>{record.likes}</dd>
+              </div>
+              <div>
+                <dt class="text-muted">Hates</dt>
+                <dd>{record.hates}</dd>
+              </div>
+            </dl>
+            <p class="mt-8 text-xs text-muted">
+              Fictional editorial file. No real cat was asked for comment.
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

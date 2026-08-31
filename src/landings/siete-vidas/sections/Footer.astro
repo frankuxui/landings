@@ -1,0 +1,84 @@
+---
+import Photo from "../components/Photo.astro"
+import PhotoCredit from "../components/PhotoCredit.astro"
+import { sourceLinks } from "../data/content"
+import { allImages, images } from "../data/images"
+import type { NavLink, UnsplashImage } from "../types"
+---
+
+<footer
+  class="bg-background pt-section pb-8 text-foreground"
+  data-header-tone="light"
+>
+  <div class="mx-auto w-full max-w-landing px-container-x sm:px-8 xl:px-14">
+    <div class="grid gap-10 lg:grid-cols-[1fr_0.5fr] lg:items-end">
+      <div>
+        <h2 class="font-impact text-headline-1 leading-[0.82] uppercase">
+          Fin.
+        </h2>
+        <p class="mt-6 text-2xl leading-tight font-semibold">
+          It will probably return when it is hungry.
+        </p>
+        <nav class="mt-10 flex flex-wrap gap-4" aria-label="Footer navigation">
+          <a
+            href="#hero"
+            class="inline-flex min-h-11 items-center rounded-sm bg-foreground px-5 py-2.5 font-mono text-xs font-semibold tracking-widest text-background uppercase no-underline transition hover:opacity-85 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+            >Back to top</a
+          >
+          <a
+            href="#sources"
+            class="inline-flex min-h-11 items-center rounded-sm bg-control px-5 py-2.5 font-mono text-xs font-semibold tracking-widest text-foreground uppercase no-underline transition hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+            >Sources</a
+          >
+        </nav>
+      </div>
+      <Photo image={images.footer} ratio="4 / 3" />
+    </div>
+
+    <div
+      id="sources"
+      class="mt-16 grid gap-8 border-t border-border pt-8 lg:grid-cols-[0.7fr_1fr]"
+    >
+      <div>
+        <p class="font-display text-2xl font-black uppercase">Siete Vidas</p>
+        <p class="mt-3 text-sm text-muted">
+          A fictional editorial landing page for design demonstration purposes.
+          Scientific notes are summarized from veterinary and academic sources.
+        </p>
+        <ul class="mt-5 grid gap-2 text-xs text-muted">
+          {
+            sourceLinks.map((source: NavLink) => (
+              <li>
+                <a
+                  href={source.href}
+                  rel="noopener"
+                  target="_blank"
+                  class="underline underline-offset-2 transition hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+                >
+                  {source.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <p
+          class="font-mono text-xs font-semibold tracking-widest text-muted uppercase"
+        >
+          Photo credits
+        </p>
+        <ul class="mt-3 flex flex-wrap gap-x-2 gap-y-1 text-xs text-muted">
+          {
+            allImages.map((image: UnsplashImage, index: number) => (
+              <li>
+                <PhotoCredit image={image} />
+                {index < allImages.length - 1 ? "," : ""}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
