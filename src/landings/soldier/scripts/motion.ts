@@ -188,7 +188,12 @@ async function initMotion(): Promise<void> {
           },
         })
       }
+    },
+  )
 
+  mm.add(
+    "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
+    () => {
       const statsSection = document.querySelector<HTMLElement>(
         "[data-stats-section]",
       )
@@ -206,7 +211,7 @@ async function initMotion(): Promise<void> {
             scrollTrigger: {
               trigger: statsSection,
               start: "top top",
-              end: () => `+=${statsDistance() + window.innerHeight * 0.8}`,
+              end: () => `+=${statsDistance() + window.innerHeight * 1.5}`,
               scrub: true,
               pin: true,
               invalidateOnRefresh: true,

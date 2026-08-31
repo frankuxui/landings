@@ -199,7 +199,11 @@ const stats = [
     {
       fieldScenarios.map((item: FieldScenario) => (
         <article class="field-panel w-[82vw] shrink-0 md:w-[72vw] lg:w-[64vw]">
-          <Photo image={item.image} sizes="80vw" class="field-photo" />
+          <Photo
+            image={item.image}
+            sizes="80vw"
+            class="field-photo [&>div]:aspect-[16/10]"
+          />
           <div class="mt-4 flex items-end justify-between font-tech uppercase">
             <div>
               <p class="text-xs text-inverted-foreground/60">{item.label}</p>
@@ -484,6 +488,7 @@ const stats = [
               <Photo
                 image={images[item.imageKey]}
                 sizes="(min-width: 1024px) 42vw, 82vw"
+                class="[&>div]:aspect-[3/2]"
               />
               <div class="mt-4 flex justify-between font-tech text-xs font-bold uppercase text-muted">
                 <span>{item.number} / 05</span>
@@ -514,10 +519,23 @@ const stats = [
   id="mission"
   data-command="MISSION: BRIEF"
   data-mission
-  class="bg-inverted px-6 py-section text-inverted-foreground md:px-10"
+  class="relative overflow-hidden bg-inverted px-6 py-section text-inverted-foreground md:px-10"
 >
+  <img
+    class="photo-tone pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20"
+    src={`${images.operator.src}&w=2000&auto=format&fit=crop&q=80`}
+    alt=""
+    width={images.operator.width}
+    height={images.operator.height}
+    loading="lazy"
+    decoding="async"
+  />
   <div
-    class="mx-auto grid min-h-dvh max-w-landing gap-10 lg:grid-cols-[1fr_1fr] lg:items-center"
+    class="absolute inset-0 bg-gradient-to-r from-inverted via-inverted/80 to-inverted"
+  >
+  </div>
+  <div
+    class="relative mx-auto grid min-h-dvh max-w-landing gap-10 lg:grid-cols-[1fr_1fr] lg:items-center"
   >
     <div>
       <p
@@ -610,9 +628,26 @@ const stats = [
 
 <section
   data-command="COUNT: ZERO"
-  class="zero-section bg-inverted px-6 py-section text-inverted-foreground md:px-10"
+  class="zero-section relative overflow-hidden bg-inverted px-6 py-section text-inverted-foreground md:px-10"
 >
-  <div class="mx-auto grid min-h-dvh max-w-landing content-center gap-10">
+  <img
+    class="photo-tone pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40"
+    src={`${images.smoke.src}&w=2000&auto=format&fit=crop&q=80`}
+    alt=""
+    width={images.smoke.width}
+    height={images.smoke.height}
+    loading="lazy"
+    decoding="async"
+    role="presentation"
+  />
+  <div
+    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-inverted via-inverted/40 to-transparent"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="relative mx-auto grid min-h-dvh max-w-landing content-center gap-10"
+  >
     <h2 class="font-display text-headline-1 font-bold uppercase leading-none">
       00:00
     </h2>
@@ -748,18 +783,20 @@ const stats = [
 
 <section
   data-command="MISSION READY"
-  class="palette-surface-primary bg-inverted px-6 py-section text-inverted-foreground md:px-10"
+  class="grid bg-black text-white md:grid-cols-2"
 >
-  <div class="mx-auto grid min-h-dvh max-w-landing content-center gap-10">
+  <div class="flex min-h-dvh flex-col justify-center px-6 py-section md:px-10">
     <h2
       class="max-w-heading font-display text-headline-1 font-bold uppercase leading-none"
     >
       DISCIPLINE OVER FEAR.
     </h2>
-    <p
-      class="font-tech text-sm font-bold uppercase text-inverted-foreground/65"
-    >
+    <p class="mt-6 font-tech text-sm font-bold uppercase text-white/65">
       SOLDIER / 001 - MISSION READY
     </p>
   </div>
+  <Photo
+    image={images.discipline}
+    class="flex min-h-[24rem] flex-col bg-black px-6 py-6 md:min-h-dvh md:px-10 [&>div]:h-full [&>div]:flex-1 [&>figcaption]:text-white/65 [&>figcaption_a]:text-white"
+  />
 </section>

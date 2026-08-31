@@ -41,6 +41,19 @@ const renderUrl = withBase(`/landings/${slug}/render`)
   <div class="stage">
     <div class="viewport-wrapper">
       <div class="viewport" id="preview-viewport" data-device="desktop">
+        <div
+          class="preview-loader"
+          id="preview-loader"
+          role="status"
+          aria-label="Cargando vista previa"
+        >
+          <div class="preview-loader-inner">
+            <span class="preview-loader-name">{name}</span>
+            <div class="preview-loader-track">
+              <div class="preview-loader-bar"></div>
+            </div>
+          </div>
+        </div>
         <iframe
           id="preview-frame"
           class="preview-frame-content h-full w-full"
@@ -69,6 +82,7 @@ const renderUrl = withBase(`/landings/${slug}/render`)
     PreviewPaletteMessage,
   } from "../../types/preview"
   import {
+    isPreviewReadyMessage,
     classifyDevice,
     DEVICE_PRESET_WIDTH,
     VIEWPORT_MIN_WIDTH,
@@ -81,13 +95,68 @@ const renderUrl = withBase(`/landings/${slug}/render`)
   const shell = document.getElementById("preview-shell")
   const viewport = document.querySelector<HTMLDivElement>(".viewport")
   const frame = document.querySelector<HTMLIFrameElement>("#preview-frame")
+  const loader = document.getElementById("preview-loader")
   const revealButton =
     document.querySelector<HTMLButtonElement>("#show-toolbar")
   const resizeHandle = document.querySelector<HTMLDivElement>(
     "#viewport-resize-handle",
   )
 
-  // --- Theme bridge (unchanged) -------------------------------------------
+  // --- Loading state -------------------------------------------------------
+  const FALLBACK_TIMEOUT_MS = 10_000
+  let revealed = false
+  let navigationId = 0
+
+  function revealLanding(navId: number): void {
+    if (revealed || navId !== navigationId) return
+    revealed = true
+
+    if (frame) frame.dataset.ready = "true"
+
+    if (loader) {
+      loader.dataset.hidden = "true"
+      loader.addEventListener(
+        "transitionend",
+        () => {
+          loader.hidden = true
+        },
+        { once: true },
+      )
+    }
+  }
+
+  // Explicit ready signal from the landing (opt-in via landing-ready.ts).
+  window.addEventListener("message", (event: MessageEvent<unknown>) => {
+    if (isPreviewReadyMessage(event.data)) {
+      revealLanding(navigationId)
+    }
+  })
+
+  // Default detection: iframe load → fonts ready → rAF → reveal.
+  frame?.addEventListener("load", () => {
+    const navId = navigationId
+
+    const fontsPromise: Promise<FontFaceSet> =
+      frame.contentDocument?.fonts?.ready ?? Promise.resolve(document.fonts)
+
+    fontsPromise
+      .then(
+        () =>
+          new Promise<void>((resolve: () => void) => {
+            const raf =
+              frame.contentWindow?.requestAnimationFrame ??
+              requestAnimationFrame
+            raf(() => resolve())
+          }),
+      )
+      .then(() => revealLanding(navId))
+      .catch(() => revealLanding(navId))
+  })
+
+  // Safety net: never leave the loader stuck forever.
+  window.setTimeout(() => revealLanding(navigationId), FALLBACK_TIMEOUT_MS)
+
+  // --- Theme bridge ---------------------------------------------------------
   document.addEventListener("preview:theme", (event) => {
     const message: PreviewThemeMessage = {
       type: "preview:theme",
@@ -301,6 +370,16 @@ const renderUrl = withBase(`/landings/${slug}/render`)
     height: 100% !important;
     border: 0;
     display: block;
+    opacity: 0;
+    transform: scale(0.985);
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
+  }
+
+  .preview-frame-content[data-ready="true"] {
+    opacity: 1;
+    transform: scale(1);
   }
 
   .toolbar-reveal:hover,
@@ -335,6 +414,7 @@ const renderUrl = withBase(`/landings/${slug}/render`)
   }
 
   .viewport {
+    position: relative;
     width: calc(100vw - clamp(2rem, 8vw, 8rem));
     max-width: 2048px;
     height: 100%;
@@ -404,6 +484,86 @@ const renderUrl = withBase(`/landings/${slug}/render`)
     .resize-handle {
       right: -0.5rem;
       width: 1.25rem;
+    }
+  }
+
+  /* --- Loader overlay ---------------------------------------------------- */
+  .preview-loader {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--background);
+    transition:
+      opacity 0.4s ease,
+      visibility 0.4s ease;
+  }
+
+  .preview-loader[data-hidden="true"] {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .preview-loader-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .preview-loader-name {
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--platform-text-muted);
+  }
+
+  .preview-loader-track {
+    width: 120px;
+    height: 2px;
+    background: var(--platform-border);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .preview-loader-bar {
+    width: 40%;
+    height: 100%;
+    background: var(--platform-text-muted);
+    border-radius: 1px;
+    animation: preview-loader-slide 1.2s ease-in-out infinite;
+  }
+
+  @keyframes preview-loader-slide {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(350%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .preview-loader-bar {
+      animation: none;
+      width: 100%;
+      opacity: 0.5;
+    }
+
+    .preview-frame-content {
+      transform: none !important;
+      transition: opacity 0.15s ease !important;
+    }
+
+    .preview-loader {
+      transition:
+        opacity 0.15s ease,
+        visibility 0.15s ease;
     }
   }
 

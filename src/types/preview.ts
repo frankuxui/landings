@@ -135,6 +135,32 @@ export interface PreviewPaletteSyncMessage {
   palette: string
 }
 
+/**
+ * Cross-document `postMessage` notification sent FROM a landing's own
+ * iframe document to the platform's preview shell when the landing
+ * considers itself fully ready (DOM, fonts, scripts, animations).
+ *
+ * This is an opt-in enhancement: landings that import the
+ * `src/lib/landing-ready` utility emit this signal after their own
+ * comprehensive readiness checks. When the shell receives it, it
+ * reveals the iframe immediately. Landings that don't use it fall
+ * back to the shell's built-in detection (iframe `load` event +
+ * `document.fonts.ready`).
+ */
+export interface PreviewReadyMessage {
+  type: "landing-ready"
+}
+
+export function isPreviewReadyMessage(
+  value: unknown,
+): value is PreviewReadyMessage {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    (value as Record<string, unknown>).type === "landing-ready"
+  )
+}
+
 declare global {
   interface DocumentEventMap {
     /** Command: apply this device's preset width to the viewport. */
