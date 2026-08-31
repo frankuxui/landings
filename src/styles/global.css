@@ -40,16 +40,6 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0d0d12;
-    --surface: #17171e;
-    --platform-border: #2a2a33;
-    --platform-text: #f2f2f5;
-    --platform-text-muted: #a3a3ad;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
