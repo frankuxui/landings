@@ -1,0 +1,58 @@
+---
+import type { UnsplashImage } from "../data/images"
+
+type Props = {
+  image: UnsplashImage
+  sizes?: string
+  loading?: "eager" | "lazy"
+  class?: string
+}
+
+const {
+  image,
+  sizes = "(min-width: 1024px) 50vw, 100vw",
+  loading = "lazy",
+  class: className = "",
+} = Astro.props
+
+const source = new URL(image.src)
+const widths = [800, 1200, 1600, 2200]
+const srcFor = (width: number): string => {
+  const next = new URL(source)
+  next.searchParams.set("w", String(width))
+  next.searchParams.set("auto", "format")
+  next.searchParams.set("fit", "crop")
+  next.searchParams.set("q", "80")
+  return next.toString()
+}
+---
+
+<figure class={className}>
+  <div class="overflow-hidden bg-placeholder">
+    <img
+      class="photo-tone h-full w-full object-cover"
+      src={srcFor(1400)}
+      srcset={widths
+        .map((width: number) => `${srcFor(width)} ${width}w`)
+        .join(", ")}
+      sizes={sizes}
+      alt={image.alt}
+      title={`Photo by ${image.author} on Unsplash`}
+      width={image.width}
+      height={image.height}
+      loading={loading}
+      decoding="async"
+    />
+  </div>
+  <figcaption class="mt-2 font-tech text-xs text-muted">
+    Photo by <a
+      class="underline underline-offset-4"
+      href={image.authorUrl}
+      rel="noopener">{image.author}</a
+    > on <a
+      class="underline underline-offset-4"
+      href={image.unsplashUrl}
+      rel="noopener">Unsplash</a
+    >
+  </figcaption>
+</figure>

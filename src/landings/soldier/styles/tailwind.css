@@ -1,0 +1,301 @@
+@import "tailwindcss";
+
+/* Soldier owns a complete local copy of the gallery design-system contract.
+   Token names match the platform vocabulary; values are local so this landing
+   remains portable as a standalone tactical briefing experience. */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --background: #ecebe5;
+  --background-alt: #d8d7d0;
+  --foreground: #070807;
+  --muted: #292d29;
+  --border: #676c65;
+
+  --surface: #f5f4ef;
+  --surface-strong: #c8c7bf;
+  --control: #d0cfc8;
+  --control-hover: #b4b1a7;
+  --ring: #070807;
+
+  --primary: #070807;
+  --primary-foreground: #ecebe5;
+  --emphasis: #000000;
+
+  --disabled: #b4b1a7;
+  --disabled-foreground: #676c65;
+
+  --inverted: #070807;
+  --inverted-foreground: #ecebe5;
+  --inverted-surface: #121412;
+
+  --placeholder: #292d29;
+  --placeholder-foreground: #ecebe5;
+  --placeholder-inverse: rgb(236 235 229 / 0.72);
+}
+
+[data-theme="dark"] {
+  --background: #070807;
+  --background-alt: #121412;
+  --foreground: #ecebe5;
+  --muted: #b4b1a7;
+  --border: #676c65;
+
+  --surface: #121412;
+  --surface-strong: #292d29;
+  --control: #292d29;
+  --control-hover: #3f443e;
+  --ring: #ecebe5;
+
+  --primary: #ecebe5;
+  --primary-foreground: #070807;
+  --emphasis: #ffffff;
+
+  --disabled: #292d29;
+  --disabled-foreground: #676c65;
+
+  --inverted: #ecebe5;
+  --inverted-foreground: #070807;
+  --inverted-surface: #d8d7d0;
+
+  --placeholder: #b4b1a7;
+  --placeholder-foreground: #070807;
+  --placeholder-inverse: rgb(7 8 7 / 0.68);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-emphasis: var(--emphasis);
+
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
+  --color-inverted-surface: var(--inverted-surface);
+
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-placeholder-inverse: var(--placeholder-inverse);
+}
+
+@theme {
+  --font-base: "IBM Plex Sans", sans-serif;
+  --font-sans: var(--font-base);
+  --font-display: "Teko", sans-serif;
+  --font-tech: "Rajdhani", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --breakpoint-footer: 45rem;
+  --breakpoint-cards: 47.5rem;
+  --breakpoint-nav: 56.25rem;
+  --breakpoint-stats: 67.5rem;
+  --breakpoint-display: 87.5rem;
+
+  --spacing-section: 7rem;
+  --spacing-container-x: 1.5rem;
+
+  --container-landing: 100rem;
+  --container-copy: 66ch;
+  --container-heading: 28ch;
+  --container-hero-heading: 18ch;
+
+  --ease-landing: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --text-headline-1: clamp(5rem, 4rem + 10vw, 16rem);
+  --text-headline-2: clamp(3rem, 2.2rem + 5vw, 8rem);
+  --text-headline-3: clamp(2rem, 1.45rem + 2.4vw, 4.25rem);
+  --text-figure: clamp(4rem, 3rem + 7vw, 11rem);
+  --text-masthead: clamp(5rem, 20vw, 19rem);
+}
+
+@utility reveal {
+  transform: translateY(0);
+  opacity: 1;
+
+  .js-reveal-ready & {
+    transform: translateY(calc(var(--spacing) * 7));
+    opacity: 0;
+    transition-property: opacity, transform, clip-path;
+    transition-duration: 760ms;
+    transition-timing-function: var(--ease-landing);
+  }
+
+  .js-reveal-ready &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @variant motion-reduce {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transition-property: none !important;
+  }
+}
+
+@utility photo-tone {
+  filter: grayscale(100%) contrast(122%);
+  transition: filter 400ms var(--ease-landing);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    filter: saturate(82%) contrast(108%);
+  }
+}
+
+@utility palette-surface-primary {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-primary);
+  }
+}
+
+@utility palette-surface-light {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-light);
+  }
+}
+
+@utility palette-control {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-accent);
+    color: var(--color-control-foreground);
+  }
+
+  html[data-palette]:not([data-palette="grayscale"]) &:where(:hover, :active) {
+    background-color: var(--color-accent);
+    color: var(--color-control-foreground);
+    opacity: 0.88;
+  }
+}
+
+/* Swiper exposes pagination through custom properties; this local exception
+   keeps the active state on the Soldier palette while inactive markers remain
+   neutral. Field amber clears contrast against both neutral surfaces. */
+.archive-slider,
+.stories-slider {
+  --swiper-pagination-color: var(--foreground);
+  --swiper-pagination-bullet-inactive-color: var(--muted);
+  --swiper-pagination-bullet-inactive-opacity: 0.55;
+  --swiper-pagination-bullet-size: 0.55rem;
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    --swiper-pagination-color: var(--color-primary);
+  }
+}
+
+.archive-slider .swiper-slide,
+.stories-slider .swiper-slide {
+  height: auto;
+}
+
+.stories-pagination .swiper-pagination-bullet,
+.archive-slider .swiper-pagination-bullet {
+  cursor: pointer;
+}
+
+/* Native-CSS visual effects used for HUD scanlines, tactical map grids, and
+   cinematic masks. Tailwind cannot express these repeated gradients and
+   pseudo-elements without making the markup noisy. */
+.scanline {
+  background:
+    linear-gradient(rgb(236 235 229 / 0.08) 1px, transparent 1px) 0 0 / 100%
+      0.5rem,
+    linear-gradient(90deg, transparent, rgb(236 235 229 / 0.08), transparent);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.module-card::before,
+.mission-map::before,
+.loadout-map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--border) 1px, transparent 1px) 0 0 / 2rem 2rem,
+    linear-gradient(90deg, var(--border) 1px, transparent 1px) 0 0 / 2rem 2rem;
+  opacity: 0;
+  transition: opacity 420ms var(--ease-landing);
+  pointer-events: none;
+}
+
+.module-card:hover::before,
+.module-card:focus-within::before,
+.loadout-map:hover::before,
+.mission-map:hover::before {
+  opacity: 0.16;
+}
+
+.night-chip {
+  background: var(--inverted-surface);
+  padding: calc(var(--spacing) * 3);
+}
+
+.mission-step {
+  transform: translate(-50%, -50%);
+}
+
+.zero-section {
+  background:
+    radial-gradient(
+      circle at 70% 20%,
+      rgb(236 235 229 / 0.12),
+      transparent 32rem
+    ),
+    var(--inverted);
+}
+
+:root,
+html[data-palette="grayscale"] {
+  --color-primary: #171717;
+  --color-secondary: #404040;
+  --color-tertiary: #737373;
+  --color-accent: #a3a3a3;
+  --color-support: #d4d4d4;
+  --color-light: #f5f5f5;
+  --color-control-foreground: #070807;
+}
+
+html[data-palette="field"] {
+  --color-primary: #30392a;
+  --color-secondary: #59633d;
+  --color-tertiary: #68563e;
+  --color-accent: #c08b45;
+  --color-support: #a08b67;
+  --color-light: #c9b992;
+  --color-control-foreground: #070807;
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"][data-palette="grayscale"] {
+  --color-primary: #f5f5f5;
+  --color-secondary: #a3a3a3;
+  --color-tertiary: #737373;
+  --color-accent: #404040;
+  --color-support: #262626;
+  --color-light: #171717;
+  --color-control-foreground: #ecebe5;
+}
+
+html[data-theme="dark"][data-palette="field"] {
+  --color-primary: #c9b992;
+  --color-secondary: #c08b45;
+  --color-tertiary: #68563e;
+  --color-accent: #59633d;
+  --color-support: #a08b67;
+  --color-light: #30392a;
+  --color-control-foreground: #ecebe5;
+}

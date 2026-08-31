@@ -1,0 +1,765 @@
+---
+import { ArrowRight, ChevronLeft, ChevronRight } from "@lucide/astro"
+import Photo from "../components/Photo.astro"
+import {
+  archiveItems,
+  modules,
+  phases,
+  requirements,
+  stories,
+  timelineItems,
+  type ArchiveItem,
+  type Module,
+  type Phase,
+  type Requirement,
+  type Story,
+  type TimelineItem,
+} from "../data/content"
+import { images } from "../data/images"
+
+type FieldScenario = {
+  label: string
+  title: string
+  metric: string
+  image: (typeof images)[keyof typeof images]
+}
+
+type MissionStep = {
+  label: string
+  position: string
+}
+
+const trainingImages = [images.operator, images.patrol, images.forest]
+const fieldScenarios: FieldScenario[] = [
+  {
+    label: "FIELD / 01",
+    title: "DESERT",
+    metric: "+46 C",
+    image: images.patrol,
+  },
+  {
+    label: "FIELD / 02",
+    title: "FOREST",
+    metric: "VISIBILITY / LIMITED",
+    image: images.forest,
+  },
+  {
+    label: "FIELD / 03",
+    title: "URBAN",
+    metric: "DENSITY / HIGH",
+    image: images.operator,
+  },
+  {
+    label: "FIELD / 04",
+    title: "AIR",
+    metric: "TRANSIT / LOW",
+    image: images.helicopter,
+  },
+]
+const missionSteps: MissionStep[] = [
+  { label: "BRIEF", position: "left-1/5 top-1/4" },
+  { label: "MOVE", position: "left-1/3 top-2/5" },
+  { label: "CONTACT", position: "left-1/2 top-3/5" },
+  { label: "COMPLETE", position: "left-2/3 top-3/4" },
+]
+const stats = [
+  "06 Training Phases",
+  "4,800 Training Hours",
+  "37 Field Exercises",
+  "01 Unit",
+]
+---
+
+<section
+  id="initiation"
+  data-command="PHASE: 01"
+  class="bg-background px-6 py-section text-foreground md:px-10"
+>
+  <div class="mx-auto grid max-w-landing gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+    <aside class="lg:sticky lg:top-32 lg:self-start">
+      <p class="font-tech text-sm font-bold uppercase text-muted">
+        01 - Initiation
+      </p>
+      <h2
+        class="max-w-heading font-display text-headline-2 font-bold uppercase leading-none"
+      >
+        EVERY SOLDIER STARTS HERE.
+      </h2>
+    </aside>
+    <div class="grid gap-8 md:grid-cols-[0.9fr_1.1fr]">
+      <Photo image={images.patrol} sizes="(min-width: 768px) 42vw, 100vw" />
+      <div class="space-y-8 text-lg text-muted">
+        <p>
+          Readiness begins without mythology. A person enters the frame with a
+          body that gets tired, a mind that hesitates, and a first lesson:
+          discipline is built by staying present after comfort leaves.
+        </p>
+        <div
+          class="grid grid-cols-2 gap-4 font-tech text-xs font-bold uppercase text-foreground sm:grid-cols-4"
+        >
+          <span>Discipline</span>
+          <span>Resistance</span>
+          <span>Adaptation</span>
+          <span>Control</span>
+        </div>
+        <div
+          class="border-t border-border pt-6 font-display text-figure font-bold leading-none"
+        >
+          01
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  id="training"
+  data-command="PHASE: 03"
+  data-training
+  class="bg-background-alt px-6 py-section text-foreground md:px-10"
+>
+  <div class="mx-auto grid max-w-landing gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+    <div class="space-y-10 lg:sticky lg:top-28 lg:h-[72vh] lg:self-start">
+      <p class="font-tech text-sm font-bold uppercase text-muted">
+        02 - Building the Soldier
+      </p>
+      <h2
+        class="max-w-heading font-display text-headline-2 font-bold uppercase leading-none"
+      >
+        TRAINING TURNS FEAR INTO PROCEDURE.
+      </h2>
+      <div
+        class="relative h-96 overflow-hidden bg-placeholder lg:h-[calc(72vh-13rem)]"
+      >
+        {
+          trainingImages.map((image: FieldScenario["image"], index: number) => (
+            <img
+              class="training-layer photo-tone absolute inset-0 h-full w-full object-cover"
+              style={`z-index:${3 - index}`}
+              src={`${image.src}&w=1200&auto=format&fit=crop&q=80`}
+              alt={image.alt}
+              width={image.width}
+              height={image.height}
+              loading="lazy"
+              decoding="async"
+            />
+          ))
+        }
+      </div>
+    </div>
+    <div class="space-y-24">
+      {
+        phases.map((phase: Phase) => (
+          <article class="training-phase min-h-80 border-t border-border py-8">
+            <div class="mb-8 flex items-center justify-between font-tech text-xs font-bold uppercase text-muted">
+              <span>PHASE {phase.number}</span>
+              <span>{phase.label}</span>
+            </div>
+            <h3 class="font-display text-headline-2 font-bold uppercase leading-none">
+              {phase.title}
+            </h3>
+            <p class="mt-5 max-w-copy text-lg text-muted">{phase.copy}</p>
+            <div class="mt-8 h-2 bg-control">
+              <span
+                class="training-bar block h-full bg-foreground"
+                style={`width:${phase.progress}`}
+              />
+            </div>
+            <p class="mt-3 font-tech text-xs font-bold uppercase text-muted">
+              TRAINING STATUS / {phase.progress}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section
+  id="field"
+  data-command="FIELD: ACTIVE"
+  data-horizontal
+  class="overflow-hidden bg-inverted py-section text-inverted-foreground"
+>
+  <div class="px-6 md:px-10">
+    <div class="mx-auto max-w-landing">
+      <p
+        class="font-tech text-sm font-bold uppercase text-inverted-foreground/65"
+      >
+        03 - Field Training
+      </p>
+      <h2
+        class="max-w-heading font-display text-headline-2 font-bold uppercase leading-none"
+      >
+        TERRAIN CHANGES THE BODY'S LANGUAGE.
+      </h2>
+    </div>
+  </div>
+  <div data-horizontal-track class="mt-12 flex gap-6 px-6 md:px-10">
+    {
+      fieldScenarios.map((item: FieldScenario) => (
+        <article class="field-panel w-[82vw] shrink-0 md:w-[72vw] lg:w-[64vw]">
+          <Photo image={item.image} sizes="80vw" class="field-photo" />
+          <div class="mt-4 flex items-end justify-between font-tech uppercase">
+            <div>
+              <p class="text-xs text-inverted-foreground/60">{item.label}</p>
+              <h3 class="font-display text-headline-3 font-bold text-inverted-foreground">
+                {item.title}
+              </h3>
+            </div>
+            <p class="text-xs text-inverted-foreground/70">{item.metric}</p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<section
+  id="modules"
+  data-command="MODULES: READY"
+  class="bg-background px-6 py-section text-foreground md:px-10"
+>
+  <div class="mx-auto max-w-landing">
+    <div class="mb-10 grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+      <div class="lg:sticky lg:top-32 lg:self-start">
+        <p class="font-tech text-sm font-bold uppercase text-muted">
+          04 - Tactical Modules
+        </p>
+        <h2
+          class="max-w-heading font-display text-headline-2 font-bold uppercase leading-none"
+        >
+          SKILL IS A SYSTEM UNDER LOAD.
+        </h2>
+      </div>
+      <div class="grid gap-4 cards:grid-cols-2">
+        {
+          modules.map((module: Module) => (
+            <article class="module-card group relative min-h-72 overflow-hidden bg-surface-strong p-5 transition duration-500 hover:-translate-y-1 hover:bg-control focus-within:-translate-y-1">
+              <span class="font-tech text-xs font-bold uppercase text-muted">
+                MODULE / {module.number}
+              </span>
+              <h3 class="mt-16 font-display text-headline-3 font-bold uppercase leading-none">
+                {module.title}
+              </h3>
+              <p class="mt-4 max-w-copy translate-y-5 text-muted opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                {module.copy}
+              </p>
+              <div class="absolute right-5 bottom-5 flex items-center gap-3 font-tech text-xs font-bold uppercase">
+                <span>{module.code}</span>
+                <ArrowRight
+                  class="transition group-hover:translate-x-2"
+                  aria-hidden="true"
+                  width="18"
+                  height="18"
+                />
+              </div>
+              <span class="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-foreground transition duration-500 group-hover:scale-x-100" />
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  id="awareness"
+  data-command="MODE: THERMAL"
+  data-awareness
+  class="relative min-h-dvh overflow-hidden bg-inverted px-6 py-section text-inverted-foreground md:px-10"
+>
+  <img
+    class="awareness-image photo-tone absolute inset-0 h-full w-full object-cover opacity-20"
+    src={`${images.forest.src}&w=1800&auto=format&fit=crop&q=80`}
+    alt=""
+    width={images.forest.width}
+    height={images.forest.height}
+    loading="lazy"
+    decoding="async"
+  />
+  <div
+    class="relative mx-auto flex min-h-[70dvh] max-w-landing flex-col justify-between"
+  >
+    <p
+      class="font-tech text-sm font-bold uppercase text-inverted-foreground/65"
+    >
+      05 - Situational Awareness
+    </p>
+    <h2
+      class="max-w-heading font-display text-headline-1 font-bold uppercase leading-none"
+    >
+      SEE BEFORE YOU ARE SEEN.
+    </h2>
+    <div
+      class="grid gap-3 font-tech text-xs font-bold uppercase text-inverted-foreground/70 md:grid-cols-3"
+    >
+      <span>NIGHT MODE / ACTIVE</span>
+      <span>THERMAL MODE / SIMULATED</span>
+      <span>VISUAL LANGUAGE / FICTIONAL</span>
+    </div>
+  </div>
+</section>
+
+<section
+  data-night-operation
+  data-command="MODE: NIGHT"
+  class="relative overflow-hidden bg-inverted px-6 py-section text-inverted-foreground md:px-10"
+>
+  <img
+    class="night-background photo-tone absolute inset-0 h-full w-full object-cover opacity-25"
+    src={`${images.patrol.src}&w=2000&auto=format&fit=crop&q=80`}
+    alt=""
+    width={images.patrol.width}
+    height={images.patrol.height}
+    loading="lazy"
+    decoding="async"
+  />
+  <div
+    class="absolute inset-0 bg-[linear-gradient(90deg,var(--inverted)_0%,transparent_48%,var(--inverted)_100%)]"
+  >
+  </div>
+  <div class="scanline absolute inset-0 opacity-60"></div>
+  <div
+    class="relative mx-auto grid min-h-dvh max-w-landing content-center gap-10"
+  >
+    <p
+      class="font-tech text-sm font-bold uppercase text-inverted-foreground/60"
+    >
+      06 - Night Operation
+    </p>
+    <h2 class="font-display text-headline-1 font-bold uppercase leading-none">
+      02:43<br />MOVE.
+    </h2>
+    <div
+      class="grid gap-4 font-tech text-xs font-bold uppercase text-inverted-foreground/80 md:grid-cols-4"
+    >
+      <span class="night-chip">TEAM / FOUR</span>
+      <span class="night-chip">POSITION / HELD</span>
+      <span class="night-chip">VISIBILITY / LOW</span>
+      <span class="night-chip">STATUS / MOVING</span>
+    </div>
+    <div
+      aria-hidden="true"
+      class="absolute right-0 bottom-12 hidden w-64 border-t border-inverted-foreground/40 pt-4 font-tech text-xs font-bold uppercase text-inverted-foreground/60 lg:block"
+    >
+      <p>ROUTE HOLD / 02:43</p>
+      <p class="mt-2">SIGNAL LOW / SILENCE REQUIRED</p>
+    </div>
+  </div>
+</section>
+
+<section
+  id="loadout"
+  data-command="LOADOUT: READY"
+  class="bg-background-alt px-6 py-section md:px-10"
+>
+  <div class="mx-auto max-w-landing">
+    <p class="font-tech text-sm font-bold uppercase text-muted">
+      07 - Equipment
+    </p>
+    <h2
+      class="max-w-heading font-display text-headline-2 font-bold uppercase leading-none"
+    >
+      PREPARATION HAS WEIGHT.
+    </h2>
+    <div
+      class="loadout-map mt-12 grid gap-6 lg:grid-cols-[1fr_1.2fr_1fr] lg:items-center"
+    >
+      <div class="space-y-4">
+        {
+          ["COMMS", "MEDICAL", "NAVIGATION"].map((label: string) => (
+            <button class="loadout-label min-h-12 w-full bg-control px-4 text-left font-tech text-xs font-bold uppercase transition hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border">
+              {label} / FIELD SYSTEM
+            </button>
+          ))
+        }
+      </div>
+      <Photo image={images.loadout} sizes="(min-width: 1024px) 42vw, 100vw" />
+      <div class="space-y-4">
+        {
+          ["SHELTER", "BOOTS", "OPTICS"].map((label: string) => (
+            <button class="loadout-label min-h-12 w-full bg-control px-4 text-left font-tech text-xs font-bold uppercase transition hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border">
+              {label} / LOAD READY
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  id="brotherhood"
+  data-command="UNIT: SYNC"
+  class="bg-background px-6 py-section text-foreground md:px-10"
+>
+  <div class="mx-auto grid max-w-landing gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+    <div class="lg:sticky lg:top-28 lg:self-start">
+      <Photo image={images.forest} sizes="(min-width: 1024px) 45vw, 100vw" />
+    </div>
+    <div>
+      <p class="font-tech text-sm font-bold uppercase text-muted">
+        08 - Brotherhood
+      </p>
+      <h2
+        class="max-w-heading font-display text-headline-2 font-bold uppercase leading-none"
+      >
+        NOBODY FIGHTS ALONE.
+      </h2>
+      <div class="stories-slider swiper mt-10 h-auto lg:h-[34rem]">
+        <div class="swiper-wrapper">
+          {
+            stories.map((story: Story) => (
+              <article class="swiper-slide story-copy flex h-auto flex-col justify-center border-t border-border py-8 lg:h-full">
+                <p class="font-tech text-xs font-bold uppercase text-muted">
+                  {story.number} / 04
+                </p>
+                <h3 class="mt-8 font-display text-headline-3 font-bold uppercase leading-none">
+                  {story.title}
+                </h3>
+                <p class="mt-5 text-lg text-muted">{story.copy}</p>
+              </article>
+            ))
+          }
+        </div>
+        <div class="stories-pagination mt-6"></div>
+      </div>
+      <div class="mt-5 h-1 bg-control">
+        <span
+          data-slider-progress="stories"
+          class="block h-full w-1/4 bg-foreground"></span>
+      </div>
+      <p
+        data-slider-counter="stories"
+        class="mt-3 font-tech text-xs font-bold uppercase text-muted"
+      >
+        01 / 04
+      </p>
+    </div>
+  </div>
+</section>
+
+<section
+  id="archive"
+  data-command="ARCHIVE: OPEN"
+  class="bg-background-alt px-6 py-section text-foreground md:px-10"
+>
+  <div class="mx-auto max-w-landing">
+    <div class="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+      <div>
+        <p class="font-tech text-sm font-bold uppercase text-muted">
+          09 - Mission Archive
+        </p>
+        <h2
+          class="max-w-heading font-display text-headline-2 font-bold uppercase leading-none"
+        >
+          FIELD ARCHIVE.
+        </h2>
+      </div>
+      <div class="flex gap-2">
+        <button
+          data-archive-prev
+          type="button"
+          aria-label="Previous archive item"
+          class="inline-flex size-12 items-center justify-center bg-control transition hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        >
+          <ChevronLeft aria-hidden="true" width="20" height="20" />
+        </button>
+        <button
+          data-archive-next
+          type="button"
+          aria-label="Next archive item"
+          class="inline-flex size-12 items-center justify-center bg-control transition hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        >
+          <ChevronRight aria-hidden="true" width="20" height="20" />
+        </button>
+      </div>
+    </div>
+    <div class="archive-slider swiper mt-12 cursor-grab active:cursor-grabbing">
+      <div class="swiper-wrapper">
+        {
+          archiveItems.map((item: ArchiveItem) => (
+            <article class="swiper-slide w-[82vw] md:w-[56vw] lg:w-[42vw]">
+              <Photo
+                image={images[item.imageKey]}
+                sizes="(min-width: 1024px) 42vw, 82vw"
+              />
+              <div class="mt-4 flex justify-between font-tech text-xs font-bold uppercase text-muted">
+                <span>{item.number} / 05</span>
+                <span>{item.meta}</span>
+              </div>
+              <h3 class="mt-2 font-display text-headline-3 font-bold uppercase leading-none">
+                {item.title}
+              </h3>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+    <div
+      class="mt-8 grid gap-3 font-tech text-xs font-bold uppercase md:grid-cols-[auto_1fr] md:items-center"
+    >
+      <span data-slider-counter="archive">01 / 05</span>
+      <div class="h-1 bg-control">
+        <span
+          data-slider-progress="archive"
+          class="block h-full w-1/5 bg-foreground"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  id="mission"
+  data-command="MISSION: BRIEF"
+  data-mission
+  class="bg-inverted px-6 py-section text-inverted-foreground md:px-10"
+>
+  <div
+    class="mx-auto grid min-h-dvh max-w-landing gap-10 lg:grid-cols-[1fr_1fr] lg:items-center"
+  >
+    <div>
+      <p
+        class="font-tech text-sm font-bold uppercase text-inverted-foreground/65"
+      >
+        10 - The Mission
+      </p>
+      <h2
+        class="max-w-heading font-display text-headline-2 font-bold uppercase leading-none"
+      >
+        MISSION BRIEFING.
+      </h2>
+      <p class="mt-6 max-w-copy text-lg text-inverted-foreground/70">
+        The right panel is a fictional briefing board. It tracks the story
+        sequence, not real tactics: objective, route state, unit status, and
+        extraction readiness update as the scroll advances.
+      </p>
+    </div>
+    <div
+      class="mission-map relative min-h-[34rem] overflow-hidden bg-inverted-surface p-6 font-tech text-xs font-bold uppercase"
+    >
+      <div
+        class="relative z-10 grid h-full min-h-[30rem] grid-rows-[auto_1fr_auto] gap-8"
+      >
+        <div
+          class="grid gap-3 border-b border-inverted-foreground/20 pb-5 sm:grid-cols-3"
+        >
+          <div>
+            <p class="text-inverted-foreground/45">OBJECTIVE</p>
+            <p class="mt-1 text-inverted-foreground">Reach readiness state</p>
+          </div>
+          <div>
+            <p class="text-inverted-foreground/45">LOCATION</p>
+            <p class="mt-1 text-inverted-foreground">
+              Classified training grid
+            </p>
+          </div>
+          <div>
+            <p class="text-inverted-foreground/45">TEAM</p>
+            <p class="mt-1 text-inverted-foreground">
+              Four-person fictional unit
+            </p>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="absolute inset-4 border border-inverted-foreground/20">
+          </div>
+          <div
+            class="absolute top-1/2 right-10 left-10 h-px bg-inverted-foreground/30"
+          >
+          </div>
+          {
+            missionSteps.map((step: MissionStep, index: number) => (
+              <div
+                class={`mission-step absolute ${step.position} bg-inverted px-3 py-2 text-inverted-foreground`}
+              >
+                <span class="mr-2 text-inverted-foreground/45">
+                  0{index + 1}
+                </span>
+                {step.label}
+              </div>
+            ))
+          }
+        </div>
+
+        <div
+          class="grid gap-3 border-t border-inverted-foreground/20 pt-5 sm:grid-cols-[1fr_auto] sm:items-end"
+        >
+          <div>
+            <p class="text-inverted-foreground/45">SEQUENCE</p>
+            <p class="mt-1 text-inverted-foreground/75">
+              Brief establishes intent. Move begins pressure. Contact tests
+              discipline. Complete confirms preparation.
+            </p>
+          </div>
+          <div class="min-w-40">
+            <p class="text-inverted-foreground/45">PROGRESS</p>
+            <div class="mt-2 h-2 bg-inverted">
+              <span
+                data-mission-progress
+                class="block h-full w-1/4 bg-inverted-foreground"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section
+  data-command="COUNT: ZERO"
+  class="zero-section bg-inverted px-6 py-section text-inverted-foreground md:px-10"
+>
+  <div class="mx-auto grid min-h-dvh max-w-landing content-center gap-10">
+    <h2 class="font-display text-headline-1 font-bold uppercase leading-none">
+      00:00
+    </h2>
+    <p
+      class="max-w-heading font-display text-headline-2 font-bold uppercase leading-none"
+    >
+      THERE IS NO PERFECT MOMENT. ONLY PREPARATION.
+    </p>
+  </div>
+</section>
+
+<section
+  data-stats-section
+  data-command="STATS: READY"
+  class="overflow-hidden bg-background px-6 py-section text-foreground md:px-10 lg:min-h-dvh"
+>
+  <div class="mx-auto grid min-h-[70dvh] max-w-landing content-center">
+    <p class="font-tech text-sm font-bold uppercase text-muted">
+      12 - Statistics
+    </p>
+    <div
+      data-stats-track
+      class="mt-8 flex w-max gap-16 font-display font-bold uppercase leading-none"
+    >
+      {stats.map((stat: string) => <span class="text-figure">{stat}</span>)}
+    </div>
+  </div>
+</section>
+
+<section
+  data-command="TIMELINE: DRAW"
+  class="bg-background-alt px-6 py-section text-foreground md:px-10"
+>
+  <div class="mx-auto max-w-landing">
+    <p class="font-tech text-sm font-bold uppercase text-muted">
+      13 - Operations Timeline
+    </p>
+    <h2
+      class="max-w-heading font-display text-headline-2 font-bold uppercase leading-none"
+    >
+      OPERATIONS THAT NEVER HAPPENED.
+    </h2>
+    <div class="timeline relative mt-14 grid gap-10">
+      <span
+        data-timeline-line
+        class="absolute top-0 bottom-0 left-3 w-px origin-top scale-y-0 bg-foreground md:left-1/2"
+      ></span>
+      {
+        timelineItems.map((item: TimelineItem, index: number) => (
+          <article
+            class={`timeline-item grid gap-3 pl-10 md:w-1/2 md:pl-0 ${index % 2 === 0 ? "md:pr-10" : "md:ml-auto md:pl-10"}`}
+          >
+            <p class="font-tech text-xs font-bold uppercase text-muted">
+              {item.year} / {item.place}
+            </p>
+            <h3 class="font-display text-headline-3 font-bold uppercase leading-none">
+              {item.title}
+            </h3>
+            <p class="text-muted">{item.copy}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section
+  id="recruitment"
+  data-command="READY: YES"
+  class="palette-surface-primary bg-inverted px-6 py-section text-inverted-foreground md:px-10"
+>
+  <div class="mx-auto grid min-h-dvh max-w-landing content-center gap-8">
+    <p
+      class="font-tech text-sm font-bold uppercase text-inverted-foreground/65"
+    >
+      14 - Recruitment
+    </p>
+    <h2
+      class="ready-word max-w-hero-heading font-display text-headline-1 font-bold uppercase leading-none"
+    >
+      THE NEXT SOLDIER COULD BE YOU.
+    </h2>
+    <div class="flex flex-wrap gap-3">
+      <a
+        href="#requirements"
+        class="inline-flex min-h-12 items-center bg-(--color-light) px-6 font-tech text-sm font-bold uppercase text-(--color-primary) no-underline transition hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        >Begin training</a
+      >
+      <a
+        href="#requirements"
+        class="palette-control inline-flex min-h-12 items-center bg-control px-6 font-tech text-sm font-bold uppercase text-foreground no-underline transition hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        >View requirements</a
+      >
+    </div>
+  </div>
+</section>
+
+<section
+  id="requirements"
+  data-command="REQUIREMENTS: OPEN"
+  class="bg-background px-6 py-section text-foreground md:px-10"
+>
+  <div class="mx-auto grid max-w-landing gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+    <div class="lg:sticky lg:top-32 lg:self-start">
+      <p class="font-tech text-sm font-bold uppercase text-muted">
+        15 - Requirements
+      </p>
+      <h2
+        class="max-w-heading font-display text-headline-2 font-bold uppercase leading-none"
+      >
+        READINESS IS A CONTRACT.
+      </h2>
+    </div>
+    <div class="space-y-3">
+      {
+        requirements.map((item: Requirement) => (
+          <details data-accordion class="border-t border-border py-5">
+            <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between font-display text-headline-3 font-bold uppercase leading-none">
+              {item.title}
+              <span data-accordion-indicator class="font-tech text-base">
+                +
+              </span>
+            </summary>
+            <div data-accordion-content class="overflow-hidden">
+              <p class="max-w-copy pt-4 text-muted">{item.copy}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section
+  data-command="MISSION READY"
+  class="palette-surface-primary bg-inverted px-6 py-section text-inverted-foreground md:px-10"
+>
+  <div class="mx-auto grid min-h-dvh max-w-landing content-center gap-10">
+    <h2
+      class="max-w-heading font-display text-headline-1 font-bold uppercase leading-none"
+    >
+      DISCIPLINE OVER FEAR.
+    </h2>
+    <p
+      class="font-tech text-sm font-bold uppercase text-inverted-foreground/65"
+    >
+      SOLDIER / 001 - MISSION READY
+    </p>
+  </div>
+</section>

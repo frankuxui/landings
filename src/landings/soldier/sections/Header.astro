@@ -1,0 +1,124 @@
+---
+import { Moon, Sun } from "@lucide/astro"
+import { images } from "../data/images"
+import { navItems, type NavItem } from "../data/content"
+---
+
+<header
+  data-command-bar
+  class="fixed inset-x-4 top-4 z-50 border border-border/60 bg-background/95 px-4 py-3 font-tech text-xs font-bold uppercase backdrop-blur md:inset-x-6"
+>
+  <div
+    class="mx-auto grid max-w-landing grid-cols-[1fr_auto] items-center gap-3 nav:grid-cols-[1fr_auto_1fr]"
+  >
+    <a
+      href="#top"
+      class="text-sm text-foreground no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+      >SOLDIER / 001</a
+    >
+    <div class="hidden items-center justify-center gap-3 nav:flex">
+      <span class="relative inline-flex size-2 rounded-full bg-foreground">
+        <span
+          class="absolute inset-0 animate-ping rounded-full bg-foreground opacity-40"
+        ></span>
+      </span>
+      <span data-command-status>STATUS: ACTIVE</span>
+      <span class="text-muted">ONLINE</span>
+    </div>
+    <div class="flex items-center justify-end gap-2">
+      <button
+        type="button"
+        data-theme-toggle
+        aria-label="Switch theme"
+        class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-sm border-0 bg-control text-foreground transition hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+      >
+        <Sun
+          class="hidden dark:block"
+          aria-hidden="true"
+          width="18"
+          height="18"
+        />
+        <Moon class="dark:hidden" aria-hidden="true" width="18" height="18" />
+      </button>
+      <button
+        type="button"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="soldier-menu"
+        aria-label="Open menu"
+        class="inline-flex min-h-11 cursor-pointer items-center bg-control px-4 text-foreground transition hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+      >
+        MENU
+      </button>
+      <a
+        href="#recruitment"
+        class="hidden min-h-11 items-center bg-(--color-primary) px-5 text-(--color-light) no-underline transition hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border sm:inline-flex"
+        >ENLIST</a
+      >
+    </div>
+  </div>
+</header>
+
+<div
+  id="soldier-menu"
+  data-menu-panel
+  aria-hidden="true"
+  class="invisible fixed inset-0 z-60 bg-background text-foreground"
+>
+  <div
+    class="grid min-h-dvh grid-cols-1 overflow-y-auto nav:grid-cols-[0.85fr_1.15fr]"
+  >
+    <div
+      class="relative hidden min-h-dvh overflow-hidden bg-placeholder nav:block"
+    >
+      <img
+        class="mobile-menu-photo photo-tone h-full w-full object-cover"
+        src={`${images.patrol.src}&w=1400&auto=format&fit=crop&q=80`}
+        alt=""
+        width={images.patrol.width}
+        height={images.patrol.height}
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="absolute inset-0 bg-inverted/60"></div>
+    </div>
+    <nav
+      class="relative flex min-h-dvh flex-col justify-between px-6 py-8 sm:px-10"
+    >
+      <div
+        class="flex items-center justify-between font-tech text-xs font-bold uppercase"
+      >
+        <span>COMMAND INDEX</span>
+        <button
+          type="button"
+          data-menu-close
+          class="min-h-11 bg-control px-4 text-foreground transition hover:bg-control-hover focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        >
+          CLOSE
+        </button>
+      </div>
+      <div class="my-12 border-l border-border pl-5 sm:pl-8">
+        {
+          navItems.map((item: NavItem) => (
+            <a
+              class="mobile-menu-link group block overflow-hidden py-3 font-display text-5xl font-bold leading-none text-foreground no-underline transition hover:translate-x-2 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border sm:text-7xl lg:text-8xl"
+              href={item.href}
+            >
+              <span class="mobile-menu-number mr-3 align-top font-tech text-base text-muted">
+                {item.id} -
+              </span>
+              {item.label}
+            </a>
+          ))
+        }
+      </div>
+      <div
+        class="mobile-menu-meta grid gap-3 font-tech text-xs uppercase text-muted sm:grid-cols-3"
+      >
+        <span>STATUS / ACTIVE</span>
+        <span>LOCATION / CLASSIFIED</span>
+        <span>MISSION / READY</span>
+      </div>
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+---
+import { images } from "../data/images"
+---
+
+<section
+  id="top"
+  data-hero
+  data-command="STATUS: ACTIVE"
+  class="relative min-h-dvh overflow-hidden bg-inverted pt-28 text-inverted-foreground"
+>
+  <div class="absolute inset-0 opacity-50">
+    <img
+      data-hero-image
+      class="photo-tone h-full w-full scale-105 object-cover object-center"
+      src={`${images.operator.src}&w=2200&auto=format&fit=crop&q=80`}
+      alt={images.operator.alt}
+      width={images.operator.width}
+      height={images.operator.height}
+      loading="eager"
+      decoding="async"
+    />
+  </div>
+  <div class="scanline absolute inset-0"></div>
+  <div
+    class="absolute inset-0 bg-[linear-gradient(90deg,var(--inverted)_0%,transparent_45%,var(--inverted)_100%)]"
+  >
+  </div>
+
+  <div
+    class="relative mx-auto flex min-h-[calc(100dvh-7rem)] max-w-landing flex-col justify-between px-6 pb-8 md:px-10"
+  >
+    <div
+      class="grid gap-4 font-tech text-xs font-bold uppercase text-inverted-foreground/70 sm:grid-cols-4"
+    >
+      <span>OPERATOR 001</span>
+      <span>STATUS / ACTIVE</span>
+      <span>LOCATION / CLASSIFIED</span>
+      <span>MISSION / READY</span>
+    </div>
+    <div>
+      <p
+        data-boot
+        class="mb-8 font-tech text-xs font-bold uppercase text-inverted-foreground/70"
+      >
+        SYSTEM INITIALIZING / SYNC / IDENTITY
+      </p>
+      <h1
+        class="max-w-hero-heading font-display text-headline-1 font-bold uppercase leading-none"
+      >
+        <span data-hero-word class="block">YOU ARE NOT</span>
+        <span data-hero-word class="block">BORN READY.</span>
+        <span data-hero-word class="mt-4 block text-inverted-foreground/65"
+          >YOU BECOME READY.</span
+        >
+      </h1>
+    </div>
+    <div class="grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+      <div
+        aria-hidden="true"
+        class="font-display text-masthead font-bold leading-none text-inverted-foreground/10"
+      >
+        <span data-hero-letter>SOL</span><span data-hero-letter>DIER</span>
+      </div>
+      <a
+        href="#initiation"
+        class="inline-flex min-h-12 w-fit items-center bg-(--color-primary) px-6 font-tech text-sm font-bold uppercase text-(--color-light) no-underline transition hover:opacity-90 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-border"
+        >Begin briefing</a
+      >
+    </div>
+  </div>
+</section>

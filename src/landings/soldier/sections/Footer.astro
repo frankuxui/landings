@@ -1,0 +1,47 @@
+---
+import { allImages, type UnsplashImage } from "../data/images"
+---
+
+<footer class="bg-background px-6 py-12 text-foreground md:px-10">
+  <div class="mx-auto max-w-landing">
+    <div
+      class="flex flex-col justify-between gap-6 border-t border-border pt-8 font-tech text-xs font-bold uppercase text-muted md:flex-row"
+    >
+      <p class="text-foreground">SOLDIER</p>
+      <p>SYSTEM / ACTIVE</p>
+      <p>© FIELD ARCHIVE</p>
+      <a class="text-foreground underline underline-offset-4" href="#top"
+        >RETURN ↑</a
+      >
+    </div>
+    <div class="mt-10">
+      <h2 class="font-tech text-xs font-bold uppercase text-muted">
+        Photo credits
+      </h2>
+      <ul class="mt-3 grid gap-2 text-sm text-muted md:grid-cols-2">
+        {
+          allImages.map((image: UnsplashImage) => (
+            <li>
+              Photo by{" "}
+              <a
+                class="underline underline-offset-4"
+                href={image.authorUrl}
+                rel="noopener"
+              >
+                {image.author}
+              </a>{" "}
+              on{" "}
+              <a
+                class="underline underline-offset-4"
+                href={image.unsplashUrl}
+                rel="noopener"
+              >
+                Unsplash
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</footer>

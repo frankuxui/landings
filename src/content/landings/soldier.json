@@ -1,0 +1,61 @@
+{
+  "name": "Soldier",
+  "title": "Soldier — Mission Ready",
+  "description": "A fictional cinematic tactical briefing experience about discipline, preparation, endurance, strategy, and becoming mission ready.",
+  "subtitle": "Recruit. Soldier. Mission ready.",
+  "category": "portfolio",
+  "tags": [
+    "soldier",
+    "cinematic",
+    "interactive",
+    "gsap",
+    "swiper",
+    "tactical",
+    "editorial",
+    "monochrome"
+  ],
+  "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
+  "thumbnail": "https://images.unsplash.com/photo-1653451643028-e639abea333b?ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&w=1200&auto=format&fit=crop&q=80",
+  "thumbnailAlt": "A small training patrol moving along an empty road with heavy field packs.",
+  "thumbnailWidth": 1000,
+  "thumbnailHeight": 769,
+  "thumbnailCredit": {
+    "id": "vRMmUjwZkCQ",
+    "author": "Niamat Ullah",
+    "authorUrl": "https://unsplash.com/@niull8664?utm_source=astro_landings_gallery&utm_medium=referral",
+    "sourceUrl": "https://unsplash.com/photos/a-group-of-soldiers-walking-down-a-road-vRMmUjwZkCQ?utm_source=astro_landings_gallery&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+    "downloadLocation": "https://api.unsplash.com/photos/vRMmUjwZkCQ/download"
+  },
+  "palettes": [
+    {
+      "id": "grayscale",
+      "name": "Grayscale",
+      "colors": {
+        "primary": "#171717",
+        "secondary": "#404040",
+        "tertiary": "#737373",
+        "accent": "#a3a3a3",
+        "support": "#d4d4d4",
+        "light": "#f5f5f5"
+      }
+    },
+    {
+      "id": "field",
+      "name": "Field",
+      "colors": {
+        "primary": "#30392a",
+        "secondary": "#59633d",
+        "tertiary": "#68563e",
+        "accent": "#c08b45",
+        "support": "#a08b67",
+        "light": "#c9b992"
+      }
+    }
+  ],
+  "createdAt": "2026-08-31",
+  "author": "frankuxui",
+  "themes": ["light", "dark"],
+  "featured": true,
+  "status": "published"
+}
