@@ -1,0 +1,52 @@
+{
+  "name": "Joyful Mind",
+  "title": "Joyful Mind — Make Room For Everyday Joy",
+  "description": "An energetic editorial wellbeing landing about emotional care through laughter, movement, rest, connection, daylight, and small daily rituals.",
+  "subtitle": "Make room for everyday joy",
+  "category": "business",
+  "tags": ["wellbeing", "mental health", "joy", "editorial", "gsap"],
+  "technologies": ["Astro", "Tailwind CSS", "GSAP", "Swiper", "@lucide/astro"],
+  "thumbnail": "https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8eW91bmclMjBmcmllbmRzJTIwZ3JvdXAlMjBsYXVnaGluZyUyMG91dGRvb3JzJTIwc3VubGlnaHR8ZW58MXwwfHx8MTc4ODI1NDY2OXww&ixlib=rb-4.1.0&w=2000&auto=format&fit=crop&crop=entropy&q=80",
+  "thumbnailAlt": "Four young friends laughing together on the grass on a sunny afternoon",
+  "thumbnailWidth": 5090,
+  "thumbnailHeight": 3393,
+  "thumbnailCredit": {
+    "id": "e3OUQGT9bWU",
+    "author": "Helena Lopes",
+    "authorUrl": "https://unsplash.com/@helenalopesph?utm_source=astro_landings_gallery&utm_medium=referral",
+    "sourceUrl": "https://unsplash.com/photos/three-men-and-one-woman-laughing-during-daytime-e3OUQGT9bWU?utm_source=astro_landings_gallery&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/?utm_source=astro_landings_gallery&utm_medium=referral",
+    "downloadLocation": "https://api.unsplash.com/photos/e3OUQGT9bWU/download?ixid=M3wxMDQwNDk5fDB8MXxzZWFyY2h8Mnx8eW91bmclMjBmcmllbmRzJTIwZ3JvdXAlMjBsYXVnaGluZyUyMG91dGRvb3JzJTIwc3VubGlnaHR8ZW58MXwwfHx8MTc4ODI1NDY2OXww"
+  },
+  "palettes": [
+    {
+      "id": "grayscale",
+      "name": "Grayscale",
+      "colors": {
+        "primary": "#171717",
+        "secondary": "#404040",
+        "tertiary": "#737373",
+        "accent": "#a3a3a3",
+        "support": "#525252",
+        "light": "#f5f5f5"
+      }
+    },
+    {
+      "id": "alive",
+      "name": "Alive",
+      "colors": {
+        "primary": "#12142B",
+        "secondary": "#3B6EF6",
+        "tertiary": "#7C5CFC",
+        "accent": "#FF6B5A",
+        "support": "#22C7B8",
+        "light": "#EEF1FF"
+      }
+    }
+  ],
+  "createdAt": "2026-09-01",
+  "author": "frankuxui",
+  "themes": ["light", "dark"],
+  "featured": false,
+  "status": "published"
+}

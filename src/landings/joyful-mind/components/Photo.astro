@@ -1,0 +1,64 @@
+---
+import type { UnsplashImage } from "../types"
+
+type PhotoRatio = "1 / 1" | "3 / 4" | "4 / 3" | "16 / 10" | "21 / 9"
+
+export interface Props {
+  image: UnsplashImage
+  ratio?: PhotoRatio
+  loading?: "eager" | "lazy"
+  class?: string
+  imageClass?: string
+}
+
+const {
+  image,
+  ratio = "4 / 3",
+  loading = "lazy",
+  class: className,
+  imageClass,
+} = Astro.props
+---
+
+<figure class:list={["m-0", className]}>
+  <div
+    class:list={[
+      "w-full overflow-hidden bg-placeholder",
+      ratio === "1 / 1" && "aspect-square",
+      ratio === "3 / 4" && "aspect-3/4",
+      ratio === "4 / 3" && "aspect-4/3",
+      ratio === "16 / 10" && "aspect-16/10",
+      ratio === "21 / 9" && "aspect-21/9",
+      imageClass,
+    ]}
+  >
+    <img
+      src={image.src}
+      alt={image.alt}
+      title={`Photo by ${image.author} on Unsplash`}
+      width={image.width}
+      height={image.height}
+      loading={loading}
+      decoding="async"
+      class="h-full w-full object-cover photo-tone"
+    />
+  </div>
+  <figcaption class="mt-2 text-xs font-semibold tracking-wide text-muted">
+    Photo by
+    <a
+      href={image.authorUrl}
+      target="_blank"
+      rel="noopener"
+      class="underline decoration-current/40 underline-offset-3 hover:decoration-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+      >{image.author}</a
+    >
+    on
+    <a
+      href={image.unsplashUrl}
+      target="_blank"
+      rel="noopener"
+      class="underline decoration-current/40 underline-offset-3 hover:decoration-current focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+      >Unsplash</a
+    >
+  </figcaption>
+</figure>

@@ -27,21 +27,17 @@ const featured = allLandings
         <header
           class="pb-10 w-full max-w-full flex flex-col md:flex-row md:items-center items-start gap-4"
         >
-          <div class="flex flex-col gap-4 w-full max-w-2xl flex-1">
-            <h1 class="text-3xl sm:text-4xl font-bold">
+          <div class="flex flex-col gap-4 w-full flex-1">
+            <h1 class="text-3xl sm:text-4xl font-bold max-w-2xl">
               Una galería de Landing Pages construidas con Astro
             </h1>
-            <p class="mt-6 text-lg">
+            <p class="mt-6 text-lg w-full max-w-5xl">
               Explora, visualiza y consulta una colección de diseños de Landing
               Pages agrupados por categoría. Cada landing es una unidad
               independiente: su propio diseño, sus propios componentes y su
               propio código, listo para inspeccionar.
             </p>
           </div>
-          <a
-            class="h-10 mt-4 md:ml-auto inline-flex items-center justify-center px-6 text-sm rounded-full font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-300"
-            href={withBase("/landings")}>Explorar landings</a
-          >
         </header>
       </div>
     </section>

@@ -1,0 +1,108 @@
+---
+// Decorative "connection" layer — a soft constellation of nodes linked by thin
+// dashed lines, with a gentle twinkle. Purely ornamental: aria-hidden, no
+// pointer events, monochrome via currentColor (inherits the section's text
+// colour), and it tints to the palette accent only when a colour palette is on.
+// Motion is disabled under prefers-reduced-motion.
+interface Props {
+  class?: string
+  variant?: "wide" | "compact"
+}
+
+const { class: className, variant = "wide" } = Astro.props
+
+type Point = [number, number]
+
+const nodes: Point[] =
+  variant === "compact"
+    ? [
+        [10, 24],
+        [34, 10],
+        [60, 26],
+        [86, 16],
+        [78, 58],
+        [50, 78],
+        [22, 62],
+      ]
+    : [
+        [6, 20],
+        [24, 8],
+        [44, 24],
+        [66, 10],
+        [88, 30],
+        [94, 62],
+        [74, 82],
+        [50, 66],
+        [28, 84],
+        [10, 54],
+      ]
+
+const links: [number, number][] =
+  variant === "compact"
+    ? [
+        [0, 1],
+        [1, 2],
+        [2, 3],
+        [2, 4],
+        [4, 5],
+        [5, 6],
+        [6, 0],
+      ]
+    : [
+        [0, 1],
+        [1, 2],
+        [2, 3],
+        [3, 4],
+        [4, 5],
+        [5, 6],
+        [6, 7],
+        [7, 8],
+        [8, 9],
+        [9, 0],
+        [2, 7],
+        [1, 9],
+        [3, 5],
+      ]
+---
+
+<svg
+  class:list={[
+    "sparkles-layer pointer-events-none absolute inset-0 h-full w-full",
+    className,
+  ]}
+  viewBox="0 0 100 100"
+  preserveAspectRatio="xMidYMid slice"
+  fill="none"
+  aria-hidden="true"
+>
+  {
+    links.map(([a, b]: [number, number]) => (
+      <line
+        x1={nodes[a][0]}
+        y1={nodes[a][1]}
+        x2={nodes[b][0]}
+        y2={nodes[b][1]}
+        stroke="currentColor"
+        stroke-width="0.12"
+        stroke-dasharray="0.6 1.4"
+        stroke-linecap="round"
+        opacity="0.16"
+      />
+    ))
+  }
+  {
+    nodes.map(([x, y]: Point, index: number) => (
+      <g style={`--spark-delay:${(index % 5) * 0.6}s`}>
+        <circle
+          cx={x}
+          cy={y}
+          r="1.4"
+          fill="currentColor"
+          class="spark-twinkle"
+          opacity="0.06"
+        />
+        <circle cx={x} cy={y} r="0.5" fill="currentColor" opacity="0.4" />
+      </g>
+    ))
+  }
+</svg>

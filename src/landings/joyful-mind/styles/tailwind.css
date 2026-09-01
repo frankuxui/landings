@@ -1,0 +1,344 @@
+@import "tailwindcss";
+
+/* Joyful Mind owns its full design-token contract locally. Token names match
+   the gallery vocabulary; values and typography scale are chosen for this
+   expressive editorial wellness demo while preserving isolation. */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --background: var(--color-neutral-50);
+  --background-alt: var(--color-neutral-100);
+  --foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-white);
+  --surface-strong: var(--color-neutral-100);
+  --control: var(--color-neutral-200);
+  --control-hover: var(--color-neutral-300);
+  --ring: var(--color-neutral-900);
+
+  --primary: var(--color-neutral-900);
+  --primary-foreground: var(--color-white);
+  --emphasis: var(--color-black);
+
+  --disabled: var(--color-neutral-300);
+  --disabled-foreground: var(--color-neutral-500);
+
+  --inverted: var(--color-neutral-950);
+  --inverted-foreground: var(--color-white);
+  --inverted-surface: var(--color-neutral-900);
+
+  --placeholder: var(--color-neutral-900);
+  --placeholder-foreground: var(--color-white);
+  --placeholder-inverse: rgb(255 255 255 / 0.72);
+}
+
+[data-theme="dark"] {
+  --background: var(--color-neutral-950);
+  --background-alt: var(--color-neutral-900);
+  --foreground: var(--color-neutral-100);
+  --muted: var(--color-neutral-300);
+  --border: var(--color-neutral-500);
+
+  --surface: var(--color-neutral-900);
+  --surface-strong: var(--color-neutral-800);
+  --control: var(--color-neutral-800);
+  --control-hover: var(--color-neutral-700);
+  --ring: var(--color-neutral-300);
+
+  --primary: var(--color-neutral-100);
+  --primary-foreground: var(--color-neutral-950);
+  --emphasis: var(--color-white);
+
+  --disabled: var(--color-neutral-700);
+  --disabled-foreground: var(--color-neutral-400);
+
+  --inverted: var(--color-neutral-100);
+  --inverted-foreground: var(--color-neutral-950);
+  --inverted-surface: var(--color-neutral-200);
+
+  --placeholder: var(--color-neutral-300);
+  --placeholder-foreground: var(--color-neutral-900);
+  --placeholder-inverse: rgb(10 10 10 / 0.65);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-alt: var(--background-alt);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-control: var(--control);
+  --color-control-hover: var(--control-hover);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-emphasis: var(--emphasis);
+
+  --color-disabled: var(--disabled);
+  --color-disabled-foreground: var(--disabled-foreground);
+
+  --color-inverted: var(--inverted);
+  --color-inverted-foreground: var(--inverted-foreground);
+  --color-inverted-surface: var(--inverted-surface);
+
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-placeholder-inverse: var(--placeholder-inverse);
+}
+
+@theme {
+  --font-base: "Plus Jakarta Sans", sans-serif;
+  --font-sans: var(--font-base);
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --breakpoint-footer: 45rem;
+  --breakpoint-cards: 47.5rem;
+  --breakpoint-nav: 56.25rem;
+  --breakpoint-stats: 67.5rem;
+  --breakpoint-display: 87.5rem;
+
+  --spacing-section: 7rem;
+  --spacing-container-x: 1.5rem;
+
+  --container-landing: 100rem;
+  --container-copy: 66ch;
+  --container-heading: 28ch;
+  --container-hero-heading: 16ch;
+
+  --ease-landing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Scale kept intentionally restrained: this is a wellbeing campaign, not a
+     brutalist poster. Headlines are large and confident but never fill the
+     viewport with a single word outside the deliberate manifesto moments. */
+  --text-headline-1: clamp(2.5rem, 1.7rem + 3.4vw, 5.25rem);
+  --text-headline-2: clamp(1.875rem, 1.4rem + 2.3vw, 3.5rem);
+  --text-headline-3: clamp(1.375rem, 1.15rem + 1.1vw, 2.25rem);
+  --text-figure: clamp(2.5rem, 1.8rem + 3.4vw, 5rem);
+}
+
+@utility reveal {
+  transform: translateY(0);
+  opacity: 1;
+
+  .js-reveal-ready & {
+    transform: translateY(calc(var(--spacing) * 8));
+    opacity: 0;
+    transition-property: opacity, transform;
+    transition-duration: 800ms;
+    transition-timing-function: var(--ease-landing);
+  }
+
+  .js-reveal-ready &.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  @variant motion-reduce {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transition-property: none !important;
+  }
+}
+
+@utility photo-tone {
+  filter: grayscale(100%) contrast(118%);
+  transition:
+    filter 400ms var(--ease-landing),
+    transform 600ms var(--ease-landing);
+
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    filter: none;
+  }
+}
+
+@utility palette-surface-primary {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-primary);
+  }
+}
+
+@utility palette-surface-light {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-light);
+  }
+}
+
+/* Decorative constellation layer (components/Sparkles.astro). Monochrome by
+   default via currentColor; tints to the palette accent when a colour palette
+   is active. Twinkle halts under reduced motion. */
+@utility spark-twinkle {
+  animation: spark-twinkle 3.6s var(--ease-landing) infinite;
+  animation-delay: var(--spark-delay, 0s);
+
+  @variant motion-reduce {
+    animation: none;
+  }
+}
+
+@keyframes spark-twinkle {
+  0%,
+  100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.22;
+  }
+}
+
+html[data-palette]:not([data-palette="grayscale"]) .sparkles-layer {
+  color: var(--color-secondary);
+}
+
+/* Mood spectrum: one soft radial glow whose reach and intensity grow with the
+   selected feeling (dim + small at "low", wide + bright at "alive"). Monochrome
+   by default (grayscale --color-secondary); picks up the palette hue when a
+   colour palette is active. The glow sits behind content and never affects text
+   contrast. */
+[data-mood-section] [data-mood-glow] {
+  background: radial-gradient(
+    closest-side,
+    var(--color-secondary) 0%,
+    transparent 75%
+  );
+  opacity: 0.3;
+}
+
+[data-mood-section][data-mood="low"] [data-mood-glow] {
+  opacity: 0.12;
+  scale: 0.6;
+}
+[data-mood-section][data-mood="calm"] [data-mood-glow] {
+  opacity: 0.2;
+  scale: 0.8;
+}
+[data-mood-section][data-mood="okay"] [data-mood-glow] {
+  opacity: 0.32;
+  scale: 1;
+}
+[data-mood-section][data-mood="good"] [data-mood-glow] {
+  opacity: 0.45;
+  scale: 1.15;
+}
+[data-mood-section][data-mood="great"] [data-mood-glow] {
+  opacity: 0.6;
+  scale: 1.3;
+}
+[data-mood-section][data-mood="alive"] [data-mood-glow] {
+  opacity: 0.78;
+  scale: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-mood-section] [data-mood-glow] {
+    transition: none;
+  }
+}
+
+@utility palette-control {
+  html[data-palette]:not([data-palette="grayscale"]) & {
+    background-color: var(--color-accent);
+    color: var(--color-control-foreground);
+  }
+
+  html[data-palette]:not([data-palette="grayscale"]) &:where(:hover, :active) {
+    background-color: var(--color-accent);
+    color: var(--color-control-foreground);
+    opacity: 0.9;
+  }
+}
+
+@utility aspect-3\/4 {
+  aspect-ratio: 3 / 4;
+}
+
+@utility aspect-4\/3 {
+  aspect-ratio: 4 / 3;
+}
+
+@utility aspect-16\/10 {
+  aspect-ratio: 16 / 10;
+}
+
+@utility aspect-21\/9 {
+  aspect-ratio: 21 / 9;
+}
+
+:root,
+html[data-palette="grayscale"] {
+  --color-primary: #171717;
+  --color-secondary: #404040;
+  --color-tertiary: #737373;
+  --color-accent: #a3a3a3;
+  --color-support: #525252;
+  --color-light: #f5f5f5;
+  --color-control-foreground: var(--color-black);
+}
+
+/* "Alive" — a cohesive electric-blue family for joy, clarity and energy.
+   --color-primary is a deep indigo anchor that inverts Light/Dark exactly like
+   --inverted; --color-light tracks --background. The vivid steps (blue → violet
+   → coral, plus a fresh teal) are analogous / one-warm-pop, all AA against the
+   grayscale base and against each other where they meet. */
+html[data-palette="alive"] {
+  --color-primary: #12142b;
+  --color-secondary: #3b6ef6;
+  --color-tertiary: #7c5cfc;
+  --color-accent: #ff6b5a;
+  --color-support: #22c7b8;
+  --color-light: #eef1ff;
+  --color-control-foreground: #12142b;
+}
+
+html[data-theme="dark"],
+html[data-theme="dark"][data-palette="grayscale"] {
+  --color-primary: #f5f5f5;
+  --color-secondary: #a3a3a3;
+  --color-tertiary: #737373;
+  --color-accent: #404040;
+  --color-support: #525252;
+  --color-light: #171717;
+  --color-control-foreground: var(--color-white);
+}
+
+/* Dark: primary<->light and secondary<->accent swap, tertiary/support hold. */
+html[data-theme="dark"][data-palette="alive"] {
+  --color-primary: #eef1ff;
+  --color-secondary: #ff6b5a;
+  --color-tertiary: #7c5cfc;
+  --color-accent: #3b6ef6;
+  --color-support: #22c7b8;
+  --color-light: #12142b;
+  --color-control-foreground: #eef1ff;
+}
+
+.stories-swiper {
+  --swiper-pagination-color: var(--foreground);
+  --swiper-pagination-bullet-inactive-color: var(--muted);
+}
+
+html[data-palette]:not([data-palette="grayscale"]) .stories-swiper {
+  --swiper-pagination-color: var(--color-primary);
+}
+
+/* Hero collage: every photo is visible from the first frame (clustered around
+   the central image). Scroll only drifts the secondary photos further out and
+   apart. Without JS or under reduced motion they simply stay in their composed
+   home positions. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-card,
+  .hero-main,
+  [data-horizontal-track],
+  [data-gallery-item],
+  [data-community] > * {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

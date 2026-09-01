@@ -1,0 +1,69 @@
+---
+import { RefreshCw } from "@lucide/astro"
+import { momentPrompts } from "../data/content"
+
+const total = String(momentPrompts.length).padStart(2, "0")
+---
+
+<section
+  id="moment"
+  class="bg-inverted px-4 py-section text-inverted-foreground sm:px-6"
+>
+  <div
+    class="mx-auto grid max-w-landing gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center"
+  >
+    <div>
+      <p
+        class="text-sm font-medium tracking-wide text-inverted-foreground/55 uppercase"
+      >
+        Take a moment
+      </p>
+      <h2
+        class="mt-4 max-w-heading text-headline-2 leading-tight font-semibold tracking-tight text-balance"
+      >
+        Not a plan. Just one small thing.
+      </h2>
+      <p class="mt-5 max-w-copy leading-relaxed text-inverted-foreground/70">
+        Tap for a tiny, doable nudge. Do it now or don&apos;t — the point is the
+        pause, not the performance.
+      </p>
+      <button
+        type="button"
+        data-moment-shuffle
+        class="mt-8 inline-flex min-h-12 cursor-pointer items-center gap-2 rounded-full bg-inverted-foreground px-6 py-3.5 text-sm font-semibold tracking-wide text-inverted transition hover:scale-[1.03] focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring active:scale-95 motion-reduce:transition-none"
+      >
+        <RefreshCw
+          data-moment-icon
+          aria-hidden="true"
+          width="16"
+          height="16"
+          class="transition-transform duration-500 ease-landing motion-reduce:transition-none"
+        />
+        Give me another
+      </button>
+    </div>
+
+    <div
+      class="flex min-h-72 flex-col justify-between rounded-3xl bg-inverted-surface p-8 sm:min-h-80 sm:p-12 lg:min-h-96"
+    >
+      <p class="font-mono text-xs text-inverted-foreground/45">
+        <span data-moment-index>01</span> / {total}
+      </p>
+      <p
+        data-moment-text
+        aria-live="polite"
+        class="text-headline-2 leading-snug font-semibold tracking-tight text-balance transition-[opacity,transform] duration-300 ease-landing motion-reduce:transition-none"
+      >
+        {momentPrompts[0]}
+      </p>
+    </div>
+  </div>
+
+  <ul data-moment-prompts hidden>
+    {
+      momentPrompts.map((prompt: (typeof momentPrompts)[number]) => (
+        <li>{prompt}</li>
+      ))
+    }
+  </ul>
+</section>

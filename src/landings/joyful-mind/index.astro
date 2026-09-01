@@ -1,0 +1,114 @@
+---
+import "./styles/tailwind.css"
+
+import BackToTop from "./components/BackToTop.astro"
+import CTAFinal from "./sections/CTAFinal.astro"
+import Community from "./sections/Community.astro"
+import Footer from "./sections/Footer.astro"
+import Gallery from "./sections/Gallery.astro"
+import Habits from "./sections/Habits.astro"
+import Header from "./sections/Header.astro"
+import Hero from "./sections/Hero.astro"
+import Horizontal from "./sections/Horizontal.astro"
+import Joy from "./sections/Joy.astro"
+import Manifesto from "./sections/Manifesto.astro"
+import Moment from "./sections/Moment.astro"
+import Mood from "./sections/Mood.astro"
+import Remember from "./sections/Remember.astro"
+import Science from "./sections/Science.astro"
+import Stories from "./sections/Stories.astro"
+import Things from "./sections/Things.astro"
+import { heroMainImage } from "./data/images"
+
+const pageTitle = "Joyful Mind - Make room for everyday joy"
+const pageDescription =
+  "Joyful Mind is an editorial Astro landing about emotional wellbeing through laughter, movement, rest, connection, daylight, and small daily rituals."
+const canonicalUrl = "/landings/joyful-mind"
+const thumbnailUrl = heroMainImage.src
+---
+
+<!doctype html>
+<html
+  lang="en"
+  class="scroll-smooth overflow-x-clip scheme-light motion-reduce:scroll-auto dark:scheme-dark font-sans"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+
+    <script is:inline>
+      ;(function () {
+        const saved = localStorage.getItem("joyful-mind:theme")
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved)
+        }
+      })()
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content="noindex" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={thumbnailUrl} />
+    <meta property="og:url" content={canonicalUrl} />
+
+    <script is:inline>
+      try {
+        var storedPalette = localStorage.getItem("joyful-mind:palette")
+        if (storedPalette)
+          document.documentElement.dataset.palette = storedPalette
+      } catch (error) {}
+    </script>
+  </head>
+  <body
+    class="min-h-full overflow-x-clip bg-background text-base leading-relaxed text-foreground antialiased font-sans"
+  >
+    <a
+      href="#main-content"
+      class="absolute -top-full left-4 z-50 inline-flex min-h-12 items-center rounded-full bg-(--color-primary) px-5 py-3 text-sm font-extrabold text-(--color-light) no-underline focus-visible:top-4 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+    >
+      Skip to main content
+    </a>
+
+    <Header />
+
+    <main id="main-content">
+      <Hero />
+      <Joy />
+      <Habits />
+      <Manifesto />
+      <Science />
+      <Stories />
+      <Horizontal />
+      <Mood />
+      <Gallery />
+      <Things />
+      <Moment />
+      <Remember />
+      <Community />
+      <CTAFinal />
+    </main>
+
+    <Footer />
+    <BackToTop />
+
+    <script>
+      import "./scripts/theme"
+      import "./scripts/palette"
+      import "./scripts/menu"
+      import "./scripts/sliders"
+      import "./scripts/animations"
+      import "./scripts/backToTop"
+    </script>
+  </body>
+</html>

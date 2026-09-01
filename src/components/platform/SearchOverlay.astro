@@ -1,0 +1,473 @@
+---
+import { getCollection } from "astro:content"
+import { getCategory, categories } from "../../data/categories"
+import { withBase } from "../../utils/url"
+import type { LandingEntry } from "../../types/landing"
+import type { Category } from "../../types/category"
+
+const allLandings = await getCollection(
+  "landings",
+  ({ data }: LandingEntry) => data.status === "published",
+)
+
+const searchData = allLandings.map((landing: LandingEntry) => ({
+  id: landing.id,
+  title: landing.data.title,
+  name: landing.data.name,
+  description: landing.data.description,
+  category: landing.data.category,
+  categoryLabel:
+    getCategory(landing.data.category)?.label ?? landing.data.category,
+  tags: landing.data.tags ?? [],
+  thumbnail: landing.data.thumbnail,
+  thumbnailAlt: landing.data.thumbnailAlt ?? landing.data.title,
+}))
+
+const featuredLandings = allLandings
+  .filter((l: LandingEntry) => l.data.featured)
+  .slice(0, 4)
+
+const popularTags = [
+  ...new Set(allLandings.flatMap((l: LandingEntry) => l.data.tags ?? [])),
+].slice(0, 12)
+---
+
+<!-- Search: two-block architecture -->
+<div
+  id="search-wrapper"
+  class="fixed inset-0 z-[60] flex flex-col invisible pointer-events-none"
+  data-open="false"
+>
+  <!-- Block 1: Search bar — same height as header, slides from top -->
+  <div
+    id="search-bar"
+    class="search-bar relative z-10 shrink-0 w-full h-20 bg-background border-b border-border/60 translate-y-[-100%]"
+  >
+    <div class="container h-full flex items-center gap-3">
+      <svg
+        class="shrink-0 text-muted"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.3-4.3"></path>
+      </svg>
+      <input
+        id="search-input"
+        type="search"
+        placeholder="Buscar por título, categoría, tags..."
+        autocomplete="off"
+        class="flex-1 min-w-0 bg-transparent text-base text-foreground placeholder:text-muted/50 outline-none border-none"
+      />
+      <button
+        id="search-close"
+        type="button"
+        class="shrink-0 inline-flex items-center justify-center size-9 rounded-full hover:bg-foreground/5 transition-colors duration-200 text-muted hover:text-foreground"
+        aria-label="Cerrar buscador"
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Block 2: Suggestions / results panel — fills remaining viewport, is its own backdrop -->
+  <div
+    id="search-panel"
+    class="search-panel relative z-10 flex-1 min-h-0 w-full bg-background opacity-0 overflow-y-auto"
+  >
+    <div class="container py-6 sm:py-8">
+      <!-- Suggestions (visible when input is empty) -->
+      <div id="search-suggestions">
+        <!-- Categories -->
+        <div class="mb-8">
+          <h3
+            class="text-xs font-semibold text-muted uppercase tracking-wider mb-3"
+          >
+            Categorías
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              categories.map((cat: Category) => (
+                <a
+                  href={withBase(`/landings/category/${cat.slug}`)}
+                  class="inline-flex items-center h-8 px-3.5 text-sm rounded-full bg-foreground/[0.04] text-foreground/70 hover:bg-foreground/[0.08] hover:text-foreground transition-colors duration-200"
+                >
+                  {cat.label}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Popular tags -->
+        {
+          popularTags.length > 0 && (
+            <div class="mb-8">
+              <h3 class="text-xs font-semibold text-muted uppercase tracking-wider mb-3">
+                Tags populares
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                {popularTags.map((tag: string) => (
+                  <button
+                    type="button"
+                    class="search-tag-btn inline-flex items-center h-8 px-3.5 text-sm rounded-full bg-foreground/[0.04] text-foreground/70 hover:bg-foreground/[0.08] hover:text-foreground transition-colors duration-200"
+                    data-query={tag}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )
+        }
+
+        <!-- Featured landings -->
+        {
+          featuredLandings.length > 0 && (
+            <div>
+              <h3 class="text-xs font-semibold text-muted uppercase tracking-wider mb-3">
+                Landings destacadas
+              </h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {featuredLandings.map((landing: LandingEntry) => {
+                  const cat = getCategory(landing.data.category)
+                  const desc = landing.data.description?.slice(0, 90) ?? ""
+                  return (
+                    <a
+                      href={withBase(`/landings/${landing.id}`)}
+                      class="search-nav-link group flex gap-4 p-3 rounded-xl hover:bg-foreground/[0.04] transition-colors duration-200"
+                    >
+                      <div class="shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-foreground/5">
+                        {landing.data.thumbnail && (
+                          <img
+                            src={landing.data.thumbnail}
+                            alt={
+                              landing.data.thumbnailAlt ?? landing.data.title
+                            }
+                            width="96"
+                            height="96"
+                            loading="lazy"
+                            decoding="async"
+                            class="w-full h-full object-cover grayscale contrast-125"
+                          />
+                        )}
+                      </div>
+                      <div class="flex-1 min-w-0 py-0.5">
+                        <p class="text-sm font-semibold truncate">
+                          {landing.data.name}
+                        </p>
+                        {cat && (
+                          <p class="text-xs text-muted mt-0.5">{cat.label}</p>
+                        )}
+                        {desc && (
+                          <p class="text-xs text-muted/70 mt-1.5 line-clamp-2 leading-relaxed">
+                            {desc}
+                            {desc.length >= 90 ? "…" : ""}
+                          </p>
+                        )}
+                      </div>
+                    </a>
+                  )
+                })}
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      <!-- Search results (hidden by default) -->
+      <div id="search-results-list" class="hidden">
+        <div
+          id="search-results-count"
+          class="text-xs font-semibold text-muted uppercase tracking-wider mb-4"
+        >
+        </div>
+        <div
+          id="search-results-items"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
+        >
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div id="search-empty" class="hidden py-12 text-center">
+        <p class="text-muted text-sm">
+          No se encontraron resultados para esta búsqueda
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Inline search data for client-side Fuse -->
+<script
+  id="search-data"
+  type="application/json"
+  set:html={JSON.stringify(searchData)}
+/>
+
+<script>
+  import Fuse, { type FuseResult } from "fuse.js"
+
+  interface SearchItem {
+    id: string
+    title: string
+    name: string
+    description: string
+    category: string
+    categoryLabel: string
+    tags: string[]
+    thumbnail: string
+    thumbnailAlt: string
+  }
+
+  function getEl(id: string): HTMLElement {
+    return document.getElementById(id)!
+  }
+
+  function initSearch(): void {
+    const dataScript = document.getElementById("search-data")
+    if (!dataScript) return
+
+    const wrapper = getEl("search-wrapper")
+    const bar = getEl("search-bar")
+    const panel = getEl("search-panel")
+    const input = document.getElementById("search-input") as HTMLInputElement
+    const closeBtn = getEl("search-close")
+    const suggestions = getEl("search-suggestions")
+    const resultsList = getEl("search-results-list")
+    const resultsItems = getEl("search-results-items")
+    const resultsCount = getEl("search-results-count")
+    const emptyState = getEl("search-empty")
+
+    const searchData: SearchItem[] = JSON.parse(dataScript.textContent ?? "[]")
+
+    const fuse = new Fuse(searchData, {
+      keys: [
+        { name: "title", weight: 0.35 },
+        { name: "name", weight: 0.25 },
+        { name: "categoryLabel", weight: 0.2 },
+        { name: "tags", weight: 0.15 },
+        { name: "description", weight: 0.05 },
+      ],
+      threshold: 0.35,
+      ignoreLocation: true,
+      minMatchCharLength: 2,
+    })
+
+    function getBasePath(): string {
+      const base = import.meta.env.BASE_URL ?? "/"
+      return base.replace(/\/$/, "")
+    }
+
+    function isOpen(): boolean {
+      return wrapper.dataset.open === "true"
+    }
+
+    function open(): void {
+      wrapper.dataset.open = "true"
+      wrapper.classList.remove("invisible", "pointer-events-none")
+      wrapper.classList.add("bg-background")
+      document.documentElement.style.overflow = "hidden"
+      document.body.style.overflow = "hidden"
+
+      requestAnimationFrame(() => {
+        bar.classList.remove("translate-y-[-100%]")
+        bar.classList.add("translate-y-0")
+        panel.classList.remove("opacity-0")
+        panel.classList.add("opacity-100")
+        input.focus()
+      })
+    }
+
+    function resetAfterClose(): void {
+      wrapper.dataset.open = "false"
+      wrapper.classList.add("invisible", "pointer-events-none")
+      wrapper.classList.remove("bg-background")
+      document.documentElement.style.overflow = ""
+      document.body.style.overflow = ""
+      input.value = ""
+      showSuggestions()
+    }
+
+    function close(): void {
+      bar.classList.remove("translate-y-0")
+      bar.classList.add("translate-y-[-100%]")
+      panel.classList.remove("opacity-100")
+      panel.classList.add("opacity-0")
+
+      let done = false
+      const onDone = (): void => {
+        if (done) return
+        done = true
+        resetAfterClose()
+      }
+      bar.addEventListener("transitionend", onDone, { once: true })
+      setTimeout(onDone, 400)
+    }
+
+    function showSuggestions(): void {
+      suggestions.classList.remove("hidden")
+      resultsList.classList.add("hidden")
+      emptyState.classList.add("hidden")
+    }
+
+    function renderResults(query: string): void {
+      const trimmed = query.trim()
+      if (!trimmed) {
+        showSuggestions()
+        return
+      }
+
+      const results = fuse.search(trimmed, { limit: 9 })
+      suggestions.classList.add("hidden")
+
+      if (results.length === 0) {
+        resultsList.classList.add("hidden")
+        emptyState.classList.remove("hidden")
+        return
+      }
+
+      emptyState.classList.add("hidden")
+      resultsList.classList.remove("hidden")
+
+      const noun = results.length === 1 ? "resultado" : "resultados"
+      resultsCount.textContent = `${results.length} ${noun}`
+
+      const basePath = getBasePath()
+      resultsItems.innerHTML = results
+        .map((r: FuseResult<SearchItem>) => {
+          const item = r.item
+          const desc =
+            item.description.length > 80
+              ? item.description.slice(0, 80) + "…"
+              : item.description
+          return `
+            <a
+              href="${basePath}/landings/${item.id}"
+              class="search-nav-link group flex gap-4 p-3 rounded-xl hover:bg-foreground/[0.04] transition-colors duration-200"
+            >
+              <div class="shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-foreground/5">
+                <img
+                  src="${item.thumbnail}"
+                  alt="${item.thumbnailAlt}"
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover grayscale contrast-125"
+                />
+              </div>
+              <div class="flex-1 min-w-0 py-0.5">
+                <p class="text-sm font-semibold truncate">${item.name}</p>
+                <div class="mt-0.5 flex items-center gap-1.5">
+                  <span class="text-xs text-muted">${item.categoryLabel}</span>
+                  ${item.tags.length > 0 ? `<span class="text-xs text-muted/40">&middot;</span><span class="text-xs text-muted truncate">${item.tags.slice(0, 3).join(", ")}</span>` : ""}
+                </div>
+                <p class="text-xs text-muted/70 mt-1.5 line-clamp-2 leading-relaxed">${desc}</p>
+              </div>
+            </a>
+          `
+        })
+        .join("")
+    }
+
+    const ac = new AbortController()
+    const sig = ac.signal
+
+    document
+      .querySelectorAll("[data-search-trigger]")
+      .forEach((btn: Element) => {
+        btn.addEventListener("click", open, { signal: sig })
+      })
+
+    closeBtn.addEventListener("click", close, { signal: sig })
+
+    document.addEventListener(
+      "keydown",
+      (e: KeyboardEvent) => {
+        if (e.key === "Escape" && isOpen()) {
+          close()
+        }
+        if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+          e.preventDefault()
+          if (isOpen()) {
+            close()
+          } else {
+            open()
+          }
+        }
+      },
+      { signal: sig },
+    )
+
+    input.addEventListener("input", () => renderResults(input.value), {
+      signal: sig,
+    })
+
+    wrapper.querySelectorAll(".search-tag-btn").forEach((btn: Element) => {
+      btn.addEventListener(
+        "click",
+        () => {
+          const query = (btn as HTMLElement).dataset.query ?? ""
+          input.value = query
+          input.dispatchEvent(new Event("input"))
+          input.focus()
+        },
+        { signal: sig },
+      )
+    })
+
+    ;(window as unknown as Record<string, unknown>).__searchCleanup = () =>
+      ac.abort()
+  }
+
+  function cleanup(): void {
+    const prev = (window as unknown as Record<string, unknown>)
+      .__searchCleanup as (() => void) | undefined
+    if (prev) prev()
+  }
+
+  cleanup()
+  initSearch()
+
+  document.addEventListener("astro:after-swap", () => {
+    cleanup()
+    initSearch()
+  })
+</script>
+
+<style>
+  .search-bar {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .search-panel {
+    transition: opacity 0.3s ease;
+  }
+
+  #search-input::-webkit-search-cancel-button,
+  #search-input::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+</style>

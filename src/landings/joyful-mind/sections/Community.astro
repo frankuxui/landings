@@ -1,0 +1,65 @@
+---
+import Photo from "../components/Photo.astro"
+import Sparkles from "../components/Sparkles.astro"
+import {
+  conversationImage,
+  familyImage,
+  heroMainImage,
+  hugImage,
+  outdoorGatheringImage,
+} from "../data/images"
+---
+
+<section
+  class="relative overflow-hidden bg-inverted px-4 py-section text-inverted-foreground sm:px-6"
+>
+  <Sparkles class="text-inverted-foreground opacity-70" />
+  <div class="relative mx-auto max-w-landing">
+    <p
+      class="text-sm font-medium tracking-wide text-inverted-foreground/55 uppercase"
+    >
+      Community collage
+    </p>
+    <h2
+      class="mt-4 max-w-heading text-headline-2 leading-tight font-semibold tracking-tight text-balance"
+    >
+      Connection is not a concept. It is a collage.
+    </h2>
+
+    <div
+      data-community
+      class="relative mx-auto mt-14 aspect-square max-w-3xl sm:aspect-4/3"
+    >
+      <Photo
+        image={heroMainImage}
+        ratio="16 / 10"
+        class="absolute top-0 left-0 w-3/5"
+        imageClass="rounded-2xl"
+      />
+      <Photo
+        image={familyImage}
+        ratio="4 / 3"
+        class="absolute top-1/4 right-0 w-2/5"
+        imageClass="rounded-2xl"
+      />
+      <Photo
+        image={hugImage}
+        ratio="1 / 1"
+        class="absolute top-1/2 left-1/4 w-1/3"
+        imageClass="rounded-2xl"
+      />
+      <Photo
+        image={conversationImage}
+        ratio="4 / 3"
+        class="absolute right-0 bottom-0 w-1/2"
+        imageClass="rounded-2xl"
+      />
+      <Photo
+        image={outdoorGatheringImage}
+        ratio="4 / 3"
+        class="absolute bottom-0 left-0 w-2/5"
+        imageClass="rounded-2xl"
+      />
+    </div>
+  </div>
+</section>

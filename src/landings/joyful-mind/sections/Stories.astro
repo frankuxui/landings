@@ -1,0 +1,85 @@
+---
+import { ArrowLeft, ArrowRight } from "@lucide/astro"
+import Photo from "../components/Photo.astro"
+import { stories } from "../data/content"
+import type { JoyStory } from "../types"
+---
+
+<section
+  id="stories"
+  class="relative z-10 bg-inverted-surface px-4 py-section text-inverted-foreground sm:px-6"
+>
+  <div class="mx-auto max-w-landing">
+    <div
+      class="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end"
+    >
+      <div>
+        <p
+          class="text-sm font-medium tracking-wide text-inverted-foreground/55 uppercase"
+        >
+          Stories of joy
+        </p>
+        <h2
+          class="mt-4 max-w-heading text-headline-2 leading-tight font-semibold tracking-tight text-balance"
+        >
+          Tiny celebrations, told like they mattered.
+        </h2>
+      </div>
+      <div class="flex gap-2">
+        <button
+          type="button"
+          data-stories-prev
+          aria-label="Previous story"
+          class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-full border-0 bg-inverted-foreground/10 text-inverted-foreground transition hover:bg-inverted-foreground/20 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring active:scale-95"
+        >
+          <ArrowLeft aria-hidden="true" width="18" height="18" />
+        </button>
+        <button
+          type="button"
+          data-stories-next
+          aria-label="Next story"
+          class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-full border-0 bg-inverted-foreground/10 text-inverted-foreground transition hover:bg-inverted-foreground/20 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring active:scale-95"
+        >
+          <ArrowRight aria-hidden="true" width="18" height="18" />
+        </button>
+      </div>
+    </div>
+
+    <div class="swiper stories-swiper overflow-hidden">
+      <div class="swiper-wrapper">
+        {
+          stories.map((story: JoyStory) => (
+            <article class="swiper-slide grid gap-8 md:grid-cols-[1.05fr_0.95fr] md:items-center">
+              <Photo
+                image={story.image}
+                ratio="4 / 3"
+                imageClass="rounded-2xl"
+              />
+              <div class="flex flex-col gap-8">
+                <blockquote class="text-headline-3 leading-snug font-semibold tracking-tight text-balance">
+                  “{story.quote}”
+                </blockquote>
+                <div>
+                  <p class="text-sm font-semibold">{story.name}</p>
+                  <p class="mt-1 text-sm text-inverted-foreground/50">
+                    {story.context}
+                  </p>
+                  <p class="mt-4 max-w-copy leading-relaxed text-inverted-foreground/70">
+                    {story.story}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+      <div class="mt-10 grid grid-cols-4 gap-2" data-stories-progress>
+        {
+          stories.map(() => (
+            <span class="h-1 rounded-full bg-inverted-foreground/20" />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

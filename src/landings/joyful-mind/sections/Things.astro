@@ -1,0 +1,40 @@
+---
+const actions = [
+  "Open a window before opening an app.",
+  "Send the voice note instead of polishing the sentence.",
+  "Walk around the block with no tracking.",
+  "Play the song that changes your posture.",
+  "Put one real pause between meetings.",
+  "Tell someone the tiny good thing while it is still warm.",
+] as const
+---
+
+<section
+  class="rounded-t-4xl bg-background-alt px-4 py-section text-foreground palette-surface-light sm:px-6"
+>
+  <div class="mx-auto grid max-w-landing gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+    <div class="lg:sticky lg:top-28 lg:self-start">
+      <p class="text-sm font-medium tracking-wide text-muted uppercase">
+        A short list
+      </p>
+      <h2
+        class="mt-4 max-w-heading text-headline-2 leading-tight font-semibold tracking-tight text-balance"
+      >
+        Small things that can help.
+      </h2>
+    </div>
+
+    <ol class="grid gap-x-10 gap-y-8 sm:grid-cols-2">
+      {
+        actions.map((action: (typeof actions)[number], index: number) => (
+          <li class="flex gap-4">
+            <span class="font-mono text-xs text-muted">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <p class="text-base leading-relaxed">{action}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

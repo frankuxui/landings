@@ -1,0 +1,122 @@
+---
+import { tabs } from "../data/content"
+import type { FeelGoodTab } from "../types"
+---
+
+<section
+  id="science"
+  class="-mt-8 rounded-t-4xl bg-background-alt px-4 py-section text-foreground palette-surface-light sm:px-6"
+>
+  <div class="mx-auto grid max-w-landing gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+    <div class="lg:sticky lg:top-28 lg:self-start">
+      <p class="text-sm font-medium tracking-wide text-muted uppercase">
+        The science of feeling good
+      </p>
+      <h2
+        class="mt-4 max-w-heading text-headline-2 leading-tight font-semibold tracking-tight text-balance"
+      >
+        Simple inputs. Real emotional texture.
+      </h2>
+      <p class="mt-5 max-w-copy leading-relaxed text-muted">
+        Not miracle claims — just gentle, practical ways people help their
+        nervous system feel less alone in the day.
+      </p>
+    </div>
+
+    <div data-tabs class="rounded-3xl bg-surface p-4 sm:p-6">
+      <div
+        class="relative flex flex-wrap gap-1.5"
+        role="tablist"
+        aria-label="Feeling good themes"
+      >
+        <span
+          data-tab-indicator
+          class="absolute top-0 left-0 h-10 rounded-full bg-inverted"></span>
+        {
+          tabs.map((tab: FeelGoodTab, index: number) => (
+            <button
+              type="button"
+              data-tab-button={tab.id}
+              role="tab"
+              aria-selected={index === 0 ? "true" : "false"}
+              class="relative z-10 min-h-10 cursor-pointer rounded-full border-0 bg-transparent px-4 py-2 text-sm font-medium text-muted transition data-[active=true]:font-semibold data-[active=true]:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+              data-active={index === 0 ? "true" : "false"}
+            >
+              {tab.label}
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="mt-8 grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center">
+        <div
+          class="relative aspect-4/3 overflow-hidden rounded-2xl bg-placeholder"
+        >
+          {
+            tabs.map((tab: FeelGoodTab, index: number) => (
+              <div
+                data-tab-panel={tab.id}
+                class:list={[
+                  "absolute inset-0",
+                  index !== 0 && "pointer-events-none opacity-0",
+                ]}
+              >
+                <img
+                  src={tab.image.src}
+                  alt={tab.image.alt}
+                  title={`Photo by ${tab.image.author} on Unsplash`}
+                  width={tab.image.width}
+                  height={tab.image.height}
+                  loading="lazy"
+                  decoding="async"
+                  class="photo-tone h-full w-full object-cover"
+                />
+              </div>
+            ))
+          }
+        </div>
+        <div class="relative min-h-72">
+          {
+            tabs.map((tab: FeelGoodTab, index: number) => (
+              <article
+                data-tab-copy={tab.id}
+                class:list={[
+                  "absolute inset-0 flex flex-col justify-center",
+                  index !== 0 && "pointer-events-none opacity-0",
+                ]}
+              >
+                <p class="font-mono text-xs tracking-wide text-muted">
+                  {tab.cue}
+                </p>
+                <h3 class="mt-3 text-headline-3 leading-tight font-semibold tracking-tight">
+                  {tab.title}
+                </h3>
+                <p class="mt-4 leading-relaxed text-muted">{tab.copy}</p>
+                <p class="mt-5 text-xs text-muted">
+                  Photo by{" "}
+                  <a
+                    href={tab.image.authorUrl}
+                    target="_blank"
+                    rel="noopener"
+                    class="underline underline-offset-3 hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+                  >
+                    {tab.image.author}
+                  </a>{" "}
+                  on{" "}
+                  <a
+                    href={tab.image.unsplashUrl}
+                    target="_blank"
+                    rel="noopener"
+                    class="underline underline-offset-3 hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+                  >
+                    Unsplash
+                  </a>
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

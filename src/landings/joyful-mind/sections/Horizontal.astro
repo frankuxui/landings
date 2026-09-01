@@ -1,0 +1,60 @@
+---
+import Photo from "../components/Photo.astro"
+import { horizontalScenes } from "../data/content"
+import type { HorizontalScene } from "../types"
+---
+
+<section
+  class="overflow-hidden bg-background py-section text-foreground"
+  data-horizontal-section
+>
+  <div class="px-4 sm:px-6">
+    <div class="mx-auto mb-12 max-w-landing lg:mb-16">
+      <p class="text-sm font-medium tracking-wide text-muted uppercase">
+        Horizontal happiness
+      </p>
+      <h2
+        class="mt-4 max-w-heading text-headline-2 leading-tight font-semibold tracking-tight text-balance"
+      >
+        Five ways the day can open.
+      </h2>
+    </div>
+  </div>
+
+  <div data-horizontal-track class="flex w-max gap-6 px-4 sm:px-6">
+    {
+      horizontalScenes.map((scene: HorizontalScene) => (
+        <article
+          data-horizontal-panel
+          class="grid h-[72vh] w-[82vw] max-w-2xl shrink-0 grid-rows-[1fr_auto] gap-5"
+        >
+          <Photo
+            image={scene.image}
+            ratio="4 / 3"
+            class="flex min-h-0 flex-col"
+            imageClass="min-h-0 flex-1 rounded-3xl [&>img]:scale-105"
+          />
+          <div class="flex items-baseline justify-between gap-8">
+            <div>
+              <p
+                data-parallax="meta"
+                class="font-mono text-xs tracking-wide text-muted"
+              >
+                {scene.number} — {scene.label}
+              </p>
+              <h3
+                data-parallax="title"
+                class="mt-2 text-xl font-semibold tracking-tight sm:text-2xl"
+              >
+                {scene.title}
+              </h3>
+            </div>
+            <p class="hidden max-w-xs text-sm leading-relaxed text-muted sm:block">
+              {scene.copy}
+            </p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>

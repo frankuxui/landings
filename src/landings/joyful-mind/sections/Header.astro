@@ -1,0 +1,102 @@
+---
+import { Menu, Moon, Sun, X } from "@lucide/astro"
+import { navItems } from "../data/content"
+---
+
+<header
+  class="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6"
+>
+  <nav
+    data-site-nav
+    aria-label="Primary navigation"
+    class="pointer-events-auto mx-auto flex max-w-landing items-center justify-between gap-3 rounded-full bg-inverted px-4 py-3 text-inverted-foreground shadow-lg transition-[width,padding,background-color,backdrop-filter] duration-500 ease-landing nav:px-6"
+  >
+    <a
+      href="#top"
+      class="text-sm font-bold tracking-normal text-inverted-foreground no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+    >
+      Joyful Mind
+    </a>
+
+    <div class="hidden items-center gap-1 nav:flex">
+      {
+        navItems.map((item: (typeof navItems)[number]) => (
+          <a
+            href={item.href}
+            class="rounded-full px-4 py-2 text-xs font-bold tracking-wide text-inverted-foreground/75 uppercase no-underline transition hover:bg-inverted-foreground/10 hover:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        data-theme-toggle
+        aria-label="Toggle theme"
+        class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-full border-0 bg-inverted-foreground text-inverted transition hover:scale-105 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring active:scale-95 motion-reduce:transition-none"
+      >
+        <Sun aria-hidden="true" width="18" height="18" class="dark:hidden" />
+        <Moon
+          aria-hidden="true"
+          width="18"
+          height="18"
+          class="hidden dark:block"
+        />
+      </button>
+      <a
+        href="#moment"
+        class="hidden min-h-11 items-center rounded-full bg-(--color-primary) px-5 py-3 text-xs font-bold tracking-wide text-(--color-light) uppercase no-underline transition hover:scale-105 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring active:scale-95 motion-reduce:transition-none sm:inline-flex"
+      >
+        Start
+      </a>
+      <button
+        type="button"
+        data-menu-toggle
+        aria-label="Open menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        class="inline-flex size-11 min-h-11 cursor-pointer items-center justify-center rounded-full border-0 bg-inverted-foreground text-inverted transition hover:scale-105 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring active:scale-95 motion-reduce:transition-none nav:hidden"
+      >
+        <Menu data-menu-icon-open aria-hidden="true" width="19" height="19" />
+        <X
+          data-menu-icon-close
+          aria-hidden="true"
+          width="19"
+          height="19"
+          class="hidden"
+        />
+      </button>
+    </div>
+  </nav>
+
+  <div
+    id="mobile-menu"
+    data-mobile-menu
+    aria-hidden="true"
+    class="pointer-events-auto fixed inset-3 top-20 z-40 flex translate-y-4 flex-col justify-between rounded-4xl bg-inverted p-6 text-inverted-foreground opacity-0 shadow-lg [clip-path:inset(0_0_100%_0_round_2rem)] nav:hidden"
+  >
+    <div class="grid gap-3 pt-4">
+      {
+        navItems.map((item: (typeof navItems)[number]) => (
+          <a
+            href={item.href}
+            data-menu-link
+            class="rounded-3xl px-2 py-3 text-3xl font-bold tracking-tight text-inverted-foreground no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </div>
+    <a
+      href="#moment"
+      data-menu-link
+      class="inline-flex min-h-12 items-center justify-center rounded-full bg-(--color-primary) px-6 py-4 text-sm font-bold tracking-wide text-(--color-light) uppercase no-underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+    >
+      Start with one small thing
+    </a>
+  </div>
+</header>

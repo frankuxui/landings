@@ -1,0 +1,39 @@
+---
+const stats = [
+  ["01", "Social spark a day"],
+  ["08", "Tiny habits, no pressure"],
+  ["04", "Slow breaths to reset"],
+  ["99", "Reasons to laugh badly"],
+] as const
+---
+
+<section
+  class="relative z-10 -mt-16 rounded-t-4xl bg-background px-4 py-section text-foreground sm:px-6"
+>
+  <div class="mx-auto max-w-3xl text-center">
+    <p class="text-sm font-medium tracking-wide text-muted uppercase">
+      Joy is not extra
+    </p>
+    <h2
+      class="mx-auto mt-6 max-w-heading text-headline-2 leading-tight font-semibold tracking-tight text-balance"
+    >
+      Emotional care is also the ordinary permission to laugh, move, rest, and
+      enjoy a small pocket of life without earning it first.
+    </h2>
+  </div>
+
+  <dl
+    class="mx-auto mt-16 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-10 text-center sm:grid-cols-4 lg:mt-20"
+  >
+    {
+      stats.map((stat: (typeof stats)[number]) => (
+        <div>
+          <dt class="text-figure leading-none font-semibold tracking-tight">
+            {stat[0]}
+          </dt>
+          <dd class="mx-auto mt-2 max-w-48 text-sm text-muted">{stat[1]}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>

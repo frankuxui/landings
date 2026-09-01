@@ -1,0 +1,78 @@
+---
+import { allImages } from "../data/images"
+import type { UnsplashImage } from "../types"
+---
+
+<footer class="bg-inverted px-4 py-12 text-inverted-foreground sm:px-6">
+  <div class="mx-auto grid max-w-landing gap-10 lg:grid-cols-[1fr_1.4fr]">
+    <div>
+      <p class="text-xl font-semibold tracking-tight">Joyful Mind</p>
+      <p class="mt-4 max-w-copy text-sm text-inverted-foreground/70">
+        A design demo about emotional care through everyday joy, connection,
+        movement, rest, and laughter.
+      </p>
+    </div>
+    <div class="grid gap-8 footer:grid-cols-2">
+      <div>
+        <h2 class="text-sm font-semibold tracking-wide uppercase">
+          Keep close
+        </h2>
+        <nav aria-label="Footer navigation" class="mt-4 grid gap-2">
+          <a
+            href="#habits"
+            class="text-inverted-foreground/70 underline-offset-4 hover:text-inverted-foreground hover:underline"
+            >Habits</a
+          >
+          <a
+            href="#stories"
+            class="text-inverted-foreground/70 underline-offset-4 hover:text-inverted-foreground hover:underline"
+            >Stories</a
+          >
+          <a
+            href="#mood"
+            class="text-inverted-foreground/70 underline-offset-4 hover:text-inverted-foreground hover:underline"
+            >Mood</a
+          >
+          <a
+            href="#moment"
+            class="text-inverted-foreground/70 underline-offset-4 hover:text-inverted-foreground hover:underline"
+            >Take a moment</a
+          >
+        </nav>
+      </div>
+      <div>
+        <h2 class="text-sm font-semibold tracking-wide uppercase">
+          Photo credits
+        </h2>
+        <ul
+          class="mt-4 grid max-h-64 gap-2 overflow-auto pr-2 text-xs text-inverted-foreground/65"
+        >
+          {
+            allImages.map((image: UnsplashImage) => (
+              <li>
+                Photo by{" "}
+                <a
+                  href={image.authorUrl}
+                  target="_blank"
+                  rel="noopener"
+                  class="underline underline-offset-3 hover:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+                >
+                  {image.author}
+                </a>{" "}
+                on{" "}
+                <a
+                  href={image.unsplashUrl}
+                  target="_blank"
+                  rel="noopener"
+                  class="underline underline-offset-3 hover:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring"
+                >
+                  Unsplash
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

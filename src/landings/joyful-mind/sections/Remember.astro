@@ -1,0 +1,89 @@
+---
+import { reminders } from "../data/content"
+import type { Reminder } from "../types"
+---
+
+<section
+  id="remember"
+  data-remember
+  class="bg-background px-4 py-section text-foreground sm:px-6"
+>
+  <div class="mx-auto max-w-landing">
+    <div class="max-w-2xl">
+      <p class="text-sm font-medium tracking-wide text-muted uppercase">
+        Keep these close
+      </p>
+      <h2
+        class="mt-4 max-w-heading text-headline-2 leading-tight font-semibold tracking-tight text-balance"
+      >
+        Six things worth remembering.
+      </h2>
+      <p class="mt-5 max-w-copy leading-relaxed text-muted">
+        Short enough to hold in a hard moment, with the reason they help right
+        next to them.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
+      <div
+        class="grid grid-cols-2 gap-3 self-start sm:grid-cols-3 lg:grid-cols-2"
+        aria-label="Reminders"
+      >
+        {
+          reminders.map((reminder: Reminder, index: number) => (
+            <button
+              type="button"
+              data-remember-tab={index}
+              aria-pressed={index === 0 ? "true" : "false"}
+              data-active={index === 0 ? "true" : "false"}
+              class="group flex cursor-pointer flex-col items-start gap-3 rounded-2xl border border-transparent bg-surface-strong p-5 text-left transition-all duration-200 ease-landing hover:bg-control data-[active=true]:border-foreground/10 data-[active=true]:bg-inverted data-[active=true]:text-inverted-foreground focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ring sm:p-6"
+            >
+              <span class="flex items-center gap-2">
+                <span class="font-mono text-2xl leading-none font-bold text-muted/30 transition group-data-[active=true]:text-inverted-foreground/25">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </span>
+              <span class="mt-auto text-xs font-semibold tracking-wide uppercase transition group-data-[active=true]:text-inverted-foreground/60">
+                {reminder.tag}
+              </span>
+              <span class="line-clamp-2 text-sm leading-snug font-medium text-foreground transition group-data-[active=true]:text-inverted-foreground">
+                {reminder.line}
+              </span>
+            </button>
+          ))
+        }
+      </div>
+
+      <div
+        class="relative grid self-start rounded-3xl bg-surface-strong p-8 sm:p-12"
+      >
+        {
+          reminders.map((reminder: Reminder, index: number) => (
+            <article
+              data-remember-panel={index}
+              class:list={[
+                "col-start-1 row-start-1 flex flex-col gap-6 transition-[opacity,transform] duration-300 ease-landing motion-reduce:transition-none",
+                index !== 0 && "pointer-events-none translate-y-3 opacity-0",
+              ]}
+            >
+              <div class="flex items-center gap-3">
+                <span class="font-mono text-4xl font-bold text-muted/20">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span class="rounded-full bg-inverted px-3 py-1 text-xs font-semibold tracking-wide text-inverted-foreground uppercase">
+                  {reminder.tag}
+                </span>
+              </div>
+              <p class="text-headline-2 leading-tight font-semibold tracking-tight text-balance">
+                {reminder.line}
+              </p>
+              <p class="max-w-copy leading-relaxed text-muted">
+                {reminder.detail}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
